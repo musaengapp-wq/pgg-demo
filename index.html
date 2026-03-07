@@ -415,6 +415,27 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 .sup-doc .sup-doc-icon { font-size: 18px; margin-bottom: 4px; }
 .sup-doc.done { border-color: #86efac; background: #f0fdf4; }
 .sup-doc.pending { border-color: #fde68a; background: #fffbeb; }
+.sup-doc:hover { transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,.1); transition: all .15s; }
+.sup-modal-overlay { position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px; }
+.sup-modal { background:#fff;border-radius:12px;max-width:540px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2); }
+.sup-modal-header { padding:16px 20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center; }
+.sup-modal-header h3 { margin:0;font-size:15px;color:#1e293b; }
+.sup-modal-close { background:none;border:none;font-size:20px;cursor:pointer;color:#94a3b8;padding:0 4px; }
+.sup-modal-close:hover { color:#1e293b; }
+.sup-modal-body { padding:20px; }
+.sup-modal-body .form-row { display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px; }
+.sup-modal-body .form-row.full { grid-template-columns:1fr; }
+.sup-modal-body label { font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;display:block; }
+.sup-modal-body input,.sup-modal-body select,.sup-modal-body textarea { width:100%;padding:8px 10px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px;font-family:inherit;box-sizing:border-box; }
+.sup-modal-body textarea { min-height:70px;resize:vertical; }
+.sup-modal-footer { padding:12px 20px;border-top:1px solid #e2e8f0;display:flex;gap:8px;justify-content:flex-end; }
+.sup-modal-footer button { padding:8px 18px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;border:none; }
+.sup-modal-footer .btn-save { background:#0284c7;color:#fff; }
+.sup-modal-footer .btn-save:hover { background:#0369a1; }
+.sup-modal-footer .btn-cancel { background:#f1f5f9;color:#475569;border:1px solid #e2e8f0; }
+.sup-modal-footer .btn-cancel:hover { background:#e2e8f0; }
+.sup-modal-footer .btn-danger { background:#dc2626;color:#fff; }
+.sup-modal-footer .btn-danger:hover { background:#b91c1c; }
 .sup-contact-chart { display: flex; gap: 6px; align-items: flex-end; height: 50px; }
 .sup-contact-chart .sup-bar { flex: 1; border-radius: 3px 3px 0 0; min-height: 4px; position: relative; }
 .sup-contact-chart .sup-bar-label { font-size: 9px; color: #94a3b8; text-align: center; margin-top: 4px; }
@@ -2160,11 +2181,11 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 
     <!-- Action Buttons -->
     <div class="sup-actions" id="sup-actions">
-      <button class="primary" onclick="showToast('Contact event form opened')">Log Contact Event</button>
-      <button class="warn" onclick="showToast('Incident form opened')">Log Incident</button>
-      <button class="danger" onclick="showToast('Cause for Concern form opened')">Log Cause for Concern</button>
-      <button onclick="showToast('Personal Details form opened')">Personal Details Form</button>
-      <button class="danger" onclick="showToast('Leavers notification initiated')">Leavers Notification</button>
+      <button class="primary" onclick="supLogContactEvent()">Log Contact Event</button>
+      <button class="warn" onclick="supLogIncident()">Log Incident</button>
+      <button class="danger" onclick="supLogConcern()">Log Cause for Concern</button>
+      <button onclick="supShowPersonalDetails()">Personal Details Form</button>
+      <button class="danger" onclick="supShowLeaversForm()">Leavers Notification</button>
     </div>
 
     <!-- Documents Section -->
@@ -4272,7 +4293,7 @@ function loadSUProfile(key) {
 
   // Documents
   document.getElementById('sup-docs').innerHTML = s.docs.map(function(d) {
-    return '<div class="sup-doc '+(d.done?'done':'pending')+'"><div class="sup-doc-icon">'+(d.done?'&#9989;':'&#9203;')+'</div>'+d.name+'</div>';
+    return '<div class="sup-doc '+(d.done?'done':'pending')+'" style="cursor:pointer" onclick="showDocDetail(\''+d.name.replace(/'/g,"\\'")+'\','+d.done+',\''+s.name.replace(/'/g,"\\'")+'\')"><div class="sup-doc-icon">'+(d.done?'&#9989;':'&#9203;')+'</div>'+d.name+'</div>';
   }).join('');
 
   // Contact chart
@@ -4357,6 +4378,285 @@ function switchSUPTab(tab, el) {
   el.classList.add('active');
   document.querySelectorAll('#p-su-profile .sup-tab-content').forEach(function(c) { c.classList.remove('active'); });
   document.getElementById('sup-tab-'+tab).classList.add('active');
+}
+
+// ===== SU PROFILE ACTION BUTTONS =====
+function getCurrentSUProfile() {
+  var key = document.getElementById('sup-select').value;
+  return supData[key] || null;
+}
+
+function findServiceUserByName(name) {
+  if (!name) return null;
+  // Try exact match first
+  var su = SERVICE_USERS.find(function(s) { return s.name === name; });
+  if (su) return su;
+  // Try partial match (e.g. 'Craig Linney' -> look for last name match)
+  var parts = name.split(' ');
+  var lastName = parts[parts.length - 1];
+  su = SERVICE_USERS.find(function(s) { return s.name.indexOf(lastName) !== -1; });
+  return su || null;
+}
+
+function supLogContactEvent() {
+  var s = getCurrentSUProfile();
+  if (!s) { showToast('No service user selected'); return; }
+  nav('new-note');
+  populateSUDropdown();
+  setTimeout(function() {
+    var sel = document.getElementById('note-su');
+    var su = findServiceUserByName(s.name);
+    if (su && sel) {
+      sel.value = su.id;
+    }
+    showToast('Contact note form ready for ' + s.name);
+  }, 100);
+}
+
+function supLogIncident() {
+  var s = getCurrentSUProfile();
+  if (!s) { showToast('No service user selected'); return; }
+  nav('incidents');
+  switchIncTab('new');
+  setTimeout(function() {
+    var sel = document.getElementById('inc-su');
+    var su = findServiceUserByName(s.name);
+    if (su && sel) {
+      sel.value = su.id;
+    }
+    showToast('Incident form ready for ' + s.name);
+  }, 100);
+}
+
+function supLogConcern() {
+  var s = getCurrentSUProfile();
+  if (!s) { showToast('No service user selected'); return; }
+  nav('concerns');
+  switchCfcTab('new');
+  setTimeout(function() {
+    var sel = document.getElementById('cfc-su');
+    var su = findServiceUserByName(s.name);
+    if (su && sel) {
+      sel.value = su.id;
+    }
+    showToast('Concern form ready for ' + s.name);
+  }, 100);
+}
+
+function closeSUPModal() {
+  var overlay = document.getElementById('sup-modal-overlay');
+  if (overlay) overlay.remove();
+}
+
+function openSUPModal(title, bodyHtml, footerHtml) {
+  closeSUPModal();
+  var overlay = document.createElement('div');
+  overlay.id = 'sup-modal-overlay';
+  overlay.className = 'sup-modal-overlay';
+  overlay.onclick = function(e) { if (e.target === overlay) closeSUPModal(); };
+  overlay.innerHTML =
+    '<div class="sup-modal">' +
+      '<div class="sup-modal-header"><h3>' + title + '</h3><button class="sup-modal-close" onclick="closeSUPModal()">&times;</button></div>' +
+      '<div class="sup-modal-body">' + bodyHtml + '</div>' +
+      (footerHtml ? '<div class="sup-modal-footer">' + footerHtml + '</div>' : '') +
+    '</div>';
+  document.body.appendChild(overlay);
+}
+
+function supShowPersonalDetails() {
+  var s = getCurrentSUProfile();
+  if (!s) { showToast('No service user selected'); return; }
+  var nameParts = s.name.split(' ');
+  var firstName = nameParts[0] || '';
+  var lastName = nameParts.slice(1).join(' ') || '';
+  var body =
+    '<div class="form-row">' +
+      '<div><label>First Name</label><input type="text" id="pd-first" value="' + firstName + '"></div>' +
+      '<div><label>Last Name</label><input type="text" id="pd-last" value="' + lastName + '"></div>' +
+    '</div>' +
+    '<div class="form-row">' +
+      '<div><label>Date of Birth</label><input type="text" id="pd-dob" value="' + s.dob + '"></div>' +
+      '<div><label>Gender</label><select id="pd-gender"><option' + (s.gender==='Male'?' selected':'') + '>Male</option><option' + (s.gender==='Female'?' selected':'') + '>Female</option><option' + (s.gender==='Non-binary'?' selected':'') + '>Non-binary</option><option' + (s.gender==='Prefer not to say'?' selected':'') + '>Prefer not to say</option></select></div>' +
+    '</div>' +
+    '<div class="form-row">' +
+      '<div><label>Service User ID</label><input type="text" id="pd-id" value="' + s.id + '" readonly style="background:#f1f5f9"></div>' +
+      '<div><label>Age</label><input type="text" id="pd-age" value="' + s.age + '" readonly style="background:#f1f5f9"></div>' +
+    '</div>' +
+    '<div class="form-row full">' +
+      '<div><label>Address</label><input type="text" id="pd-address" value="' + s.address + '"></div>' +
+    '</div>' +
+    '<div class="form-row">' +
+      '<div><label>Benefits</label><input type="text" id="pd-benefits" value="' + s.benefits + '"></div>' +
+      '<div><label>Mental Health</label><input type="text" id="pd-mh" value="' + s.mh + '"></div>' +
+    '</div>' +
+    '<div class="form-row">' +
+      '<div><label>Assigned SAO</label><input type="text" id="pd-sao" value="' + s.sao + '"></div>' +
+      '<div><label>Sign Up Date</label><input type="text" id="pd-signup" value="' + s.signUp + '"></div>' +
+    '</div>' +
+    '<div class="form-row">' +
+      '<div><label>Risk Level</label><select id="pd-risk"><option' + (s.riskLevel==='HIGH'?' selected':'') + '>HIGH</option><option' + (s.riskLevel==='MEDIUM'?' selected':'') + '>MEDIUM</option><option' + (s.riskLevel==='LOW'?' selected':'') + '>LOW</option></select></div>' +
+      '<div><label>NRPF Status</label><select id="pd-nrpf"><option value="false"' + (!s.nrpf?' selected':'') + '>No</option><option value="true"' + (s.nrpf?' selected':'') + '>Yes</option></select></div>' +
+    '</div>' +
+    '<div class="form-row full">' +
+      '<div><label>Emergency Contact</label><input type="text" id="pd-emergency" placeholder="Name, relationship, phone number"></div>' +
+    '</div>' +
+    '<div class="form-row full">' +
+      '<div><label>Additional Notes</label><textarea id="pd-notes" placeholder="Any additional personal details or notes..."></textarea></div>' +
+    '</div>';
+  var footer =
+    '<button class="btn-cancel" onclick="closeSUPModal()">Cancel</button>' +
+    '<button class="btn-save" onclick="savePersonalDetails()">Save Changes</button>';
+  openSUPModal('Personal Details — ' + s.name, body, footer);
+}
+
+function savePersonalDetails() {
+  var s = getCurrentSUProfile();
+  if (!s) return;
+  var key = document.getElementById('sup-select').value;
+  supData[key].name = document.getElementById('pd-first').value + ' ' + document.getElementById('pd-last').value;
+  supData[key].dob = document.getElementById('pd-dob').value;
+  supData[key].gender = document.getElementById('pd-gender').value;
+  supData[key].address = document.getElementById('pd-address').value;
+  supData[key].benefits = document.getElementById('pd-benefits').value;
+  supData[key].mh = document.getElementById('pd-mh').value;
+  supData[key].sao = document.getElementById('pd-sao').value;
+  supData[key].riskLevel = document.getElementById('pd-risk').value;
+  supData[key].riskCls = supData[key].riskLevel === 'HIGH' ? 'rd' : supData[key].riskLevel === 'MEDIUM' ? 'am' : 'gn';
+  supData[key].nrpf = document.getElementById('pd-nrpf').value === 'true';
+  closeSUPModal();
+  loadSUProfile(key);
+  showToast('Personal details updated for ' + supData[key].name);
+}
+
+function supShowLeaversForm() {
+  var s = getCurrentSUProfile();
+  if (!s) { showToast('No service user selected'); return; }
+  var today = new Date().toISOString().split('T')[0];
+  var body =
+    '<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px;margin-bottom:16px;font-size:12px;color:#991b1b">' +
+      '<strong>Warning:</strong> This will initiate the leavers process for <strong>' + s.name + '</strong> (' + s.id + '). This action should only be completed by authorised staff.' +
+    '</div>' +
+    '<div class="form-row">' +
+      '<div><label>Service User</label><input type="text" value="' + s.name + ' (' + s.id + ')" readonly style="background:#f1f5f9"></div>' +
+      '<div><label>Leave Date</label><input type="date" id="lv-date" value="' + today + '"></div>' +
+    '</div>' +
+    '<div class="form-row">' +
+      '<div><label>Reason for Leaving</label><select id="lv-reason">' +
+        '<option value="">Select reason...</option>' +
+        '<option>Planned move-on</option>' +
+        '<option>Eviction — licence breach</option>' +
+        '<option>Eviction — rent arrears</option>' +
+        '<option>Abandoned property</option>' +
+        '<option>Transferred to another service</option>' +
+        '<option>Hospitalisation</option>' +
+        '<option>Imprisonment</option>' +
+        '<option>Deceased</option>' +
+        '<option>Other</option>' +
+      '</select></div>' +
+      '<div><label>Destination</label><select id="lv-dest">' +
+        '<option value="">Select destination...</option>' +
+        '<option>Independent tenancy</option>' +
+        '<option>Another supported housing provider</option>' +
+        '<option>Local authority housing</option>' +
+        '<option>Friends/family</option>' +
+        '<option>Rough sleeping</option>' +
+        '<option>Prison/detention</option>' +
+        '<option>Hospital</option>' +
+        '<option>Unknown</option>' +
+      '</select></div>' +
+    '</div>' +
+    '<div class="form-row full">' +
+      '<div><label>Leavers Note</label><textarea id="lv-notes" placeholder="Include any relevant details: forwarding address, outstanding issues, handover notes, items left in property..."></textarea></div>' +
+    '</div>' +
+    '<div class="form-row">' +
+      '<div><label>Notification Sent To</label><input type="text" id="lv-notify" placeholder="e.g. Team Leader, Housing Benefit, Referrer"></div>' +
+      '<div><label>Completed By</label><input type="text" id="lv-staff" value="' + (getStaffName() || '') + '" readonly style="background:#f1f5f9"></div>' +
+    '</div>';
+  var footer =
+    '<button class="btn-cancel" onclick="closeSUPModal()">Cancel</button>' +
+    '<button class="btn-danger" onclick="submitLeaversNotification()">Submit Leavers Notification</button>';
+  openSUPModal('Leavers Notification — ' + s.name, body, footer);
+}
+
+function submitLeaversNotification() {
+  var s = getCurrentSUProfile();
+  if (!s) return;
+  var reason = document.getElementById('lv-reason').value;
+  var date = document.getElementById('lv-date').value;
+  if (!reason) { showToast('Please select a reason for leaving'); return; }
+  if (!date) { showToast('Please select a leave date'); return; }
+  var key = document.getElementById('sup-select').value;
+  supData[key].statusBadge = 'rd';
+  supData[key].statusText = 'LEAVER';
+  closeSUPModal();
+  loadSUProfile(key);
+  showToast('Leavers notification submitted for ' + s.name + ' — ' + reason);
+}
+
+function showDocDetail(docName, done, suName) {
+  var title = docName + ' — ' + suName;
+  var body = '';
+  if (done) {
+    var completedDate = randomPastDate();
+    body =
+      '<div style="text-align:center;padding:20px 0">' +
+        '<div style="font-size:48px;margin-bottom:12px">&#9989;</div>' +
+        '<div style="font-size:16px;font-weight:700;color:#059669;margin-bottom:8px">Completed</div>' +
+        '<div style="font-size:13px;color:#475569">Completed on <strong>' + completedDate + '</strong></div>' +
+        '<div style="font-size:11px;color:#94a3b8;margin-top:8px">Document verified and on file</div>' +
+      '</div>' +
+      '<div style="border-top:1px solid #e2e8f0;padding-top:14px;margin-top:10px">' +
+        '<div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Document History</div>' +
+        '<div style="font-size:11px;color:#475569;line-height:1.8">' +
+          '<div>Uploaded by staff on ' + completedDate + '</div>' +
+          '<div>Verified by team leader</div>' +
+        '</div>' +
+      '</div>';
+    var footer = '<button class="btn-cancel" onclick="closeSUPModal()">Close</button>';
+  } else {
+    var dueDate = randomFutureDate();
+    body =
+      '<div style="text-align:center;padding:20px 0">' +
+        '<div style="font-size:48px;margin-bottom:12px">&#9203;</div>' +
+        '<div style="font-size:16px;font-weight:700;color:#d97706;margin-bottom:8px">Pending</div>' +
+        '<div style="font-size:13px;color:#475569">Due by <strong>' + dueDate + '</strong></div>' +
+        '<div style="font-size:11px;color:#94a3b8;margin-top:8px">This document has not yet been completed</div>' +
+      '</div>' +
+      '<div style="border-top:1px solid #e2e8f0;padding-top:14px;margin-top:10px">' +
+        '<div class="form-row full"><div><label>Upload / Mark Complete</label><textarea id="doc-complete-notes" placeholder="Add any notes about this document..."></textarea></div></div>' +
+      '</div>';
+    var footer =
+      '<button class="btn-cancel" onclick="closeSUPModal()">Close</button>' +
+      '<button class="btn-save" onclick="markDocComplete(\'' + docName.replace(/'/g, "\\'") + '\')">Mark as Complete</button>';
+  }
+  openSUPModal(title, body, footer);
+}
+
+function markDocComplete(docName) {
+  var key = document.getElementById('sup-select').value;
+  var s = supData[key];
+  if (!s) return;
+  for (var i = 0; i < s.docs.length; i++) {
+    if (s.docs[i].name === docName) {
+      s.docs[i].done = true;
+      break;
+    }
+  }
+  closeSUPModal();
+  loadSUProfile(key);
+  showToast(docName + ' marked as complete');
+}
+
+function randomPastDate() {
+  var d = new Date();
+  d.setDate(d.getDate() - Math.floor(Math.random() * 120 + 30));
+  return d.toLocaleDateString('en-GB', { day:'2-digit', month:'2-digit', year:'numeric' });
+}
+
+function randomFutureDate() {
+  var d = new Date();
+  d.setDate(d.getDate() + Math.floor(Math.random() * 30 + 7));
+  return d.toLocaleDateString('en-GB', { day:'2-digit', month:'2-digit', year:'numeric' });
 }
 
 function filterSUSelect(q) {
