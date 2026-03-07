@@ -2138,6 +2138,18 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
       <option value="harworth">Joshua Harworth (GB02732)</option>
       <option value="hassan">Amina Hassan (GB02901)</option>
       <option value="webb">Marcus Webb (GB02650)</option>
+      <option value="rahman">A. Rahman (SU-0001)</option>
+      <option value="kowalski">B. Kowalski (SU-0012)</option>
+      <option value="dlamini">C. Dlamini (SU-0044)</option>
+      <option value="obrien">D. O'Brien (SU-0091)</option>
+      <option value="abdullahi">E. Abdullahi (SU-0112)</option>
+      <option value="nowak">F. Nowak (SU-0145)</option>
+      <option value="mensah">G. Mensah (SU-0178)</option>
+      <option value="singh">H. Singh (SU-0198)</option>
+      <option value="yilmaz">I. Yilmaz (SU-0203)</option>
+      <option value="campbell">J. Campbell (SU-0289)</option>
+      <option value="adebayo">K. Adebayo (SU-0291)</option>
+      <option value="barton">L. Barton (SU-0334)</option>
     </select>
     <input type="text" id="sup-search" placeholder="Search by name or ID..." onkeyup="filterSUSelect(this.value)">
   </div>
@@ -3690,6 +3702,545 @@ const supData = {
       {time:'12/12 14:30',text:'CASE-102 opened — behaviour management',color:'#d97706'},
       {time:'14/04 09:00',text:'Service user signed up — allocated to M. Thorne',color:'#7c3aed'}
     ]
+  },
+  rahman: {
+    id:'SU-0001', name:'A. Rahman', gender:'Male', age:34, dob:'18/03/1991',
+    address:'Unit 3, Abbeydale Road, Sheffield S7 1FE',
+    signUp:'10/06/2025', sao:'J. Peters', riskLevel:'LOW', riskCls:'gn',
+    statusBadge:'gn', statusText:'ACTIVE', hbStatus:'In Payment', hbCls:'green',
+    nrpf: false, benefits:'UC', mh:'None disclosed',
+    bgColor:'#0284c7', initials:'AR',
+    docs:[
+      {name:'Personal Details',done:true},{name:'Proof of Address',done:true},{name:'Pen Portrait',done:true},
+      {name:'Referral',done:true},{name:'Needs Assessment',done:true},{name:'Licence Agreement',done:true},
+      {name:'Support Plan',done:true},{name:'Move-In Checklist',done:true},{name:'SP Review',done:false}
+    ],
+    contactWeeks:[4,3,4,3], lastSuccessful:'04/03/2026', monthlyAvg:3.5,
+    contactEvents:[
+      {date:'04/03/2026',type:'Visit',desc:'Key session — employment support review',qa:4},
+      {date:'26/02/2026',type:'Phone',desc:'Benefits query — UC journal',qa:3},
+      {date:'19/02/2026',type:'Visit',desc:'ESOL progress check',qa:4},
+      {date:'12/02/2026',type:'Phone',desc:'Wellbeing call',qa:3},
+      {date:'05/02/2026',type:'Visit',desc:'Key session — tenancy review',qa:3}
+    ],
+    incidents:[
+      {id:'INC-0438',type:'Low engagement',date:'05/02/2026',status:'Closed',cls:'gn'}
+    ],
+    concerns:[
+      {id:'CFC-0205',type:'Isolation — declining social contact',date:'01/01/2026',status:'Closed',cls:'gn'}
+    ],
+    alerts:[],
+    cases:[
+      {id:'CASE-078',type:'Employment support referral',opened:'15/07/2025',status:'Open',cls:'bl'}
+    ],
+    safewell:[],
+    missingData:['Emergency contact not verified','GP details not confirmed'],
+    eventLog:[
+      {time:'04/03 10:00',text:'Key session — employment review by J. Peters',color:'#059669'},
+      {time:'26/02 14:00',text:'Phone contact — UC journal query',color:'#0284c7'},
+      {time:'19/02 11:00',text:'ESOL progress check completed',color:'#059669'},
+      {time:'05/02 09:00',text:'INC-0438 raised — low engagement',color:'#dc2626'},
+      {time:'07/02 11:00',text:'INC-0438 closed — resolved',color:'#059669'},
+      {time:'01/01 10:00',text:'CFC-0205 raised — isolation concern',color:'#d97706'},
+      {time:'10/06 09:00',text:'Service user signed up — allocated to J. Peters',color:'#7c3aed'}
+    ]
+  },
+  kowalski: {
+    id:'SU-0012', name:'B. Kowalski', gender:'Male', age:42, dob:'09/11/1983',
+    address:'17 Netherthorpe Road, Sheffield S3 7JA',
+    signUp:'10/07/2025', sao:'M. Khan', riskLevel:'MEDIUM', riskCls:'am',
+    statusBadge:'gn', statusText:'ACTIVE', hbStatus:'Expiring', hbCls:'red',
+    nrpf: false, benefits:'UC + HB', mh:'None disclosed',
+    bgColor:'#d97706', initials:'BK',
+    docs:[
+      {name:'Personal Details',done:true},{name:'Proof of Address',done:true},{name:'Pen Portrait',done:true},
+      {name:'Referral',done:true},{name:'Needs Assessment',done:true},{name:'Licence Agreement',done:true},
+      {name:'Support Plan',done:true},{name:'Move-In Checklist',done:true},{name:'SP Review',done:true}
+    ],
+    contactWeeks:[3,4,3,4], lastSuccessful:'05/03/2026', monthlyAvg:3.5,
+    contactEvents:[
+      {date:'05/03/2026',type:'Visit',desc:'Key session — noise complaint follow-up',qa:3},
+      {date:'27/02/2026',type:'Phone',desc:'HB renewal reminder',qa:3},
+      {date:'20/02/2026',type:'Visit',desc:'Property inspection',qa:4},
+      {date:'13/02/2026',type:'Phone',desc:'Welfare check',qa:3},
+      {date:'06/02/2026',type:'Visit',desc:'Key session — ESOL update',qa:4}
+    ],
+    incidents:[
+      {id:'INC-0444',type:'Noise complaint',date:'25/02/2026',status:'Monitoring',cls:'am'},
+      {id:'INC-0501',type:'ASB — repeated noise',date:'05/03/2026',status:'Open',cls:'rd'}
+    ],
+    concerns:[
+      {id:'CFC-0202',type:'Escalating ASB pattern',date:'21/02/2026',status:'Open',cls:'rd'},
+      {id:'CFC-0101',type:'Unusual visitors',date:'02/03/2026',status:'Open',cls:'am'}
+    ],
+    alerts:[
+      {text:'MEDIUM RISK — escalating ASB pattern, noise complaints',cls:'am'},
+      {text:'HB expiring — renewal required urgently',cls:'am'}
+    ],
+    cases:[
+      {id:'CASE-082',type:'ESOL enrolment support',opened:'15/08/2025',status:'Open',cls:'bl'},
+      {id:'CASE-110',type:'ASB management — noise',opened:'25/02/2026',status:'Open',cls:'am'}
+    ],
+    safewell:[],
+    missingData:['HB renewal paperwork outstanding','Next of kin contact not updated'],
+    eventLog:[
+      {time:'05/03 10:30',text:'Key session — noise complaint follow-up by M. Khan',color:'#059669'},
+      {time:'05/03 10:45',text:'INC-0501 raised — repeated noise complaints',color:'#dc2626'},
+      {time:'02/03 14:30',text:'CFC-0101 raised — unusual visitors observed',color:'#d97706'},
+      {time:'27/02 14:00',text:'Phone contact — HB renewal reminder',color:'#0284c7'},
+      {time:'25/02 16:45',text:'INC-0444 raised — noise complaint',color:'#dc2626'},
+      {time:'21/02 09:00',text:'CFC-0202 raised — escalating ASB',color:'#d97706'},
+      {time:'10/07 09:00',text:'Service user signed up — allocated to M. Khan',color:'#7c3aed'}
+    ]
+  },
+  dlamini: {
+    id:'SU-0044', name:'C. Dlamini', gender:'Female', age:29, dob:'14/06/1996',
+    address:'Flat 9, Burngreave Rise, Sheffield S4 7BR',
+    signUp:'15/04/2025', sao:'D. Sharpe', riskLevel:'HIGH', riskCls:'rd',
+    statusBadge:'am', statusText:'ACTIVE — MONITORING', hbStatus:'In Payment', hbCls:'green',
+    nrpf: false, benefits:'UC + PIP', mh:'Depression, Self-harm history',
+    bgColor:'#dc2626', initials:'CD',
+    docs:[
+      {name:'Personal Details',done:true},{name:'Proof of Address',done:true},{name:'Pen Portrait',done:true},
+      {name:'Referral',done:true},{name:'Needs Assessment',done:true},{name:'Licence Agreement',done:true},
+      {name:'Support Plan',done:true},{name:'Move-In Checklist',done:true},{name:'SP Review',done:false}
+    ],
+    contactWeeks:[5,4,5,4], lastSuccessful:'06/03/2026', monthlyAvg:4.5,
+    contactEvents:[
+      {date:'06/03/2026',type:'Visit',desc:'Key session — mental health review',qa:4},
+      {date:'01/03/2026',type:'Phone',desc:'Crisis plan check-in',qa:3},
+      {date:'22/02/2026',type:'Visit',desc:'Self-harm disclosure follow-up',qa:4},
+      {date:'15/02/2026',type:'Phone',desc:'Welfare call — mood check',qa:3},
+      {date:'08/02/2026',type:'Visit',desc:'Key session — ESOL + nursing pathway',qa:4}
+    ],
+    incidents:[
+      {id:'INC-0443',type:'Self-harm disclosure',date:'22/02/2026',status:'Open',cls:'rd'},
+      {id:'INC-0508',type:'Licence breach — late-night noise',date:'07/01/2026',status:'Closed',cls:'gn'}
+    ],
+    concerns:[
+      {id:'CFC-0310',type:'Mental health deterioration',date:'22/02/2026',status:'Open',cls:'rd'}
+    ],
+    alerts:[
+      {text:'HIGH RISK — self-harm disclosure, crisis plan active',cls:'rd'},
+      {text:'MH flag — depression + self-harm history — MH team engaged',cls:'rd'},
+      {text:'Requires minimum twice-weekly contact',cls:'am'}
+    ],
+    cases:[
+      {id:'CASE-072',type:'Mental health support — CMHT referral',opened:'15/04/2025',status:'Open',cls:'rd'},
+      {id:'CASE-115',type:'Crisis intervention — self-harm',opened:'22/02/2026',status:'Open',cls:'rd'},
+      {id:'CASE-080',type:'ESOL + nursing pathway',opened:'01/06/2025',status:'Open',cls:'bl'}
+    ],
+    safewell:[],
+    missingData:['Crisis plan review overdue','Emergency contact not verified','MH worker contact details missing'],
+    eventLog:[
+      {time:'06/03 10:00',text:'Key session — MH review by D. Sharpe',color:'#059669'},
+      {time:'01/03 14:00',text:'Crisis plan check-in call',color:'#0284c7'},
+      {time:'22/02 08:30',text:'INC-0443 raised — self-harm disclosure',color:'#dc2626'},
+      {time:'22/02 09:00',text:'CFC-0310 raised — MH deterioration',color:'#dc2626'},
+      {time:'22/02 09:30',text:'Crisis plan activated, MH team contacted',color:'#dc2626'},
+      {time:'07/01 23:00',text:'INC-0508 raised — late-night noise',color:'#d97706'},
+      {time:'15/04 09:00',text:'Service user signed up — allocated to D. Sharpe',color:'#7c3aed'}
+    ]
+  },
+  obrien: {
+    id:'SU-0091', name:'D. O\'Brien', gender:'Male', age:38, dob:'22/09/1987',
+    address:'8 Sharrow Vale Road, Sheffield S11 8ZA',
+    signUp:'25/08/2025', sao:'J. Peters', riskLevel:'MEDIUM', riskCls:'am',
+    statusBadge:'gn', statusText:'ACTIVE', hbStatus:'Pending Claim', hbCls:'red',
+    nrpf: false, benefits:'UC', mh:'Anxiety, low mood',
+    bgColor:'#7c3aed', initials:'DO',
+    docs:[
+      {name:'Personal Details',done:true},{name:'Proof of Address',done:true},{name:'Pen Portrait',done:true},
+      {name:'Referral',done:true},{name:'Needs Assessment',done:true},{name:'Licence Agreement',done:true},
+      {name:'Support Plan',done:true},{name:'Move-In Checklist',done:true},{name:'SP Review',done:false}
+    ],
+    contactWeeks:[3,2,3,2], lastSuccessful:'03/03/2026', monthlyAvg:2.5,
+    contactEvents:[
+      {date:'03/03/2026',type:'Visit',desc:'Key session — support plan review',qa:3},
+      {date:'24/02/2026',type:'Phone',desc:'Attempted contact — no answer',qa:1},
+      {date:'18/02/2026',type:'Visit',desc:'Welfare check — appeared dishevelled',qa:3},
+      {date:'10/02/2026',type:'Phone',desc:'GP appointment reminder',qa:2},
+      {date:'03/02/2026',type:'Visit',desc:'Key session — volunteering discussion',qa:3}
+    ],
+    incidents:[
+      {id:'INC-0503',type:'Licence breach — overnight guest',date:'02/03/2026',status:'Open',cls:'rd'}
+    ],
+    concerns:[
+      {id:'CFC-0102',type:'Change in appearance / hygiene',date:'02/03/2026',status:'Resolved',cls:'gn'},
+      {id:'CFC-0203',type:'Non-engagement with support plan',date:'14/02/2026',status:'Monitoring',cls:'am'}
+    ],
+    alerts:[
+      {text:'MEDIUM RISK — inconsistent engagement, licence breach',cls:'am'},
+      {text:'Support plan overdue for renewal',cls:'am'},
+      {text:'HB claim pending — rent at risk',cls:'am'}
+    ],
+    cases:[
+      {id:'CASE-088',type:'GP registration + engagement',opened:'25/08/2025',status:'Open',cls:'bl'},
+      {id:'CASE-112',type:'Volunteering referral',opened:'15/01/2026',status:'Open',cls:'bl'}
+    ],
+    safewell:[],
+    missingData:['Support plan review overdue','HB claim not submitted','GP registration not confirmed'],
+    eventLog:[
+      {time:'03/03 10:00',text:'Key session — support plan review by J. Peters',color:'#059669'},
+      {time:'02/03 11:00',text:'INC-0503 raised — licence breach (overnight guest)',color:'#dc2626'},
+      {time:'02/03 11:15',text:'CFC-0102 raised — appearance change',color:'#d97706'},
+      {time:'24/02 14:00',text:'Attempted phone contact — no answer',color:'#d97706'},
+      {time:'18/02 10:00',text:'Welfare check — appeared dishevelled',color:'#d97706'},
+      {time:'14/02 09:00',text:'CFC-0203 raised — non-engagement',color:'#d97706'},
+      {time:'25/08 09:00',text:'Service user signed up — allocated to J. Peters',color:'#7c3aed'}
+    ]
+  },
+  abdullahi: {
+    id:'SU-0112', name:'E. Abdullahi', gender:'Male', age:25, dob:'03/12/2000',
+    address:'24 Ecclesall Road, Sheffield S11 8PR',
+    signUp:'01/09/2025', sao:'S. Williams', riskLevel:'HIGH', riskCls:'rd',
+    statusBadge:'am', statusText:'ACTIVE — WARNING', hbStatus:'Not in Payment', hbCls:'red',
+    nrpf: false, benefits:'UC (sanctioned)', mh:'Depression',
+    bgColor:'#dc2626', initials:'EA',
+    docs:[
+      {name:'Personal Details',done:true},{name:'Proof of Address',done:true},{name:'Pen Portrait',done:true},
+      {name:'Referral',done:true},{name:'Needs Assessment',done:true},{name:'Licence Agreement',done:true},
+      {name:'Support Plan',done:true},{name:'Move-In Checklist',done:true},{name:'SP Review',done:false}
+    ],
+    contactWeeks:[2,3,2,3], lastSuccessful:'05/03/2026', monthlyAvg:2.5,
+    contactEvents:[
+      {date:'05/03/2026',type:'Visit',desc:'Key session — licence breach meeting',qa:3},
+      {date:'28/02/2026',type:'Phone',desc:'Attempted contact — voicemail left',qa:1},
+      {date:'21/02/2026',type:'Visit',desc:'Welfare check — low mood',qa:3},
+      {date:'14/02/2026',type:'Phone',desc:'Benefits sanction discussion',qa:2},
+      {date:'07/02/2026',type:'Visit',desc:'Key session — budgeting support',qa:3}
+    ],
+    incidents:[
+      {id:'INC-0446',type:'Licence breach — ASB + non-engagement',date:'01/03/2026',status:'Escalated',cls:'rd'},
+      {id:'INC-0502',type:'Self-harm ideation disclosure',date:'06/03/2026',status:'Open',cls:'rd'}
+    ],
+    concerns:[
+      {id:'CFC-0201',type:'Mental health deterioration',date:'04/03/2026',status:'Open',cls:'rd'}
+    ],
+    alerts:[
+      {text:'HIGH RISK — licence breach + ASB + non-engagement',cls:'rd'},
+      {text:'Self-harm ideation disclosed — crisis team notified',cls:'rd'},
+      {text:'HB not in payment — eviction panel referral',cls:'rd'},
+      {text:'UC sanctioned — financial hardship risk',cls:'am'}
+    ],
+    cases:[
+      {id:'CASE-090',type:'Budget management support',opened:'01/10/2025',status:'Open',cls:'bl'},
+      {id:'CASE-116',type:'Licence breach — formal process',opened:'01/03/2026',status:'Open',cls:'rd'},
+      {id:'CASE-117',type:'Mental health crisis — safeguarding',opened:'06/03/2026',status:'Open',cls:'rd'}
+    ],
+    safewell:[],
+    missingData:['HB claim lapsed','UC sanction appeal not submitted','Crisis plan not on file','Emergency contact not recorded'],
+    eventLog:[
+      {time:'06/03 09:00',text:'INC-0502 raised — self-harm ideation',color:'#dc2626'},
+      {time:'06/03 09:15',text:'Crisis team notified',color:'#dc2626'},
+      {time:'05/03 10:00',text:'Key session — licence breach meeting by S. Williams',color:'#059669'},
+      {time:'04/03 10:00',text:'CFC-0201 raised — MH deterioration',color:'#d97706'},
+      {time:'01/03 09:15',text:'INC-0446 raised — licence breach',color:'#dc2626'},
+      {time:'01/03 09:30',text:'CASE-116 opened — formal breach process',color:'#d97706'},
+      {time:'01/09 09:00',text:'Service user signed up — allocated to S. Williams',color:'#7c3aed'}
+    ]
+  },
+  nowak: {
+    id:'SU-0145', name:'F. Nowak', gender:'Male', age:36, dob:'27/04/1989',
+    address:'Unit 12, Abbeydale Road, Sheffield S7 1FE',
+    signUp:'01/05/2025', sao:'M. Khan', riskLevel:'MEDIUM', riskCls:'am',
+    statusBadge:'am', statusText:'ACTIVE — MONITORING', hbStatus:'In Payment', hbCls:'green',
+    nrpf: false, benefits:'UC + ESA', mh:'Substance misuse, anxiety',
+    bgColor:'#d97706', initials:'FN',
+    docs:[
+      {name:'Personal Details',done:true},{name:'Proof of Address',done:true},{name:'Pen Portrait',done:true},
+      {name:'Referral',done:true},{name:'Needs Assessment',done:true},{name:'Licence Agreement',done:true},
+      {name:'Support Plan',done:true},{name:'Move-In Checklist',done:true},{name:'SP Review',done:false}
+    ],
+    contactWeeks:[3,2,2,3], lastSuccessful:'04/03/2026', monthlyAvg:2.5,
+    contactEvents:[
+      {date:'04/03/2026',type:'Visit',desc:'Key session — substance misuse review',qa:3},
+      {date:'25/02/2026',type:'Phone',desc:'Attempted contact — refused entry on visit',qa:1},
+      {date:'18/02/2026',type:'Visit',desc:'Property visit — substance concern raised',qa:2},
+      {date:'10/02/2026',type:'Phone',desc:'Benefits review call',qa:3},
+      {date:'03/02/2026',type:'Visit',desc:'Key session — engagement discussion',qa:3}
+    ],
+    incidents:[
+      {id:'INC-0447',type:'Verbal argument with neighbour',date:'03/03/2026',status:'Open',cls:'rd'},
+      {id:'INC-0441',type:'Substance misuse concern',date:'18/02/2026',status:'Monitoring',cls:'am'},
+      {id:'INC-0505',type:'Historical abuse disclosure',date:'23/02/2026',status:'Monitoring',cls:'am'}
+    ],
+    concerns:[
+      {id:'CFC-0100',type:'Change in behaviour — evasive',date:'04/03/2026',status:'Open',cls:'am'},
+      {id:'CFC-0204',type:'Safeguarding — historical abuse',date:'23/02/2026',status:'Monitoring',cls:'am'}
+    ],
+    alerts:[
+      {text:'MEDIUM RISK — substance misuse concern, evasive behaviour',cls:'am'},
+      {text:'Support plan overdue for renewal',cls:'am'},
+      {text:'Safeguarding referral active — historical abuse disclosure',cls:'am'}
+    ],
+    cases:[
+      {id:'CASE-075',type:'Substance misuse — referral to service',opened:'01/06/2025',status:'Open',cls:'am'},
+      {id:'CASE-113',type:'Safeguarding referral — historical abuse',opened:'23/02/2026',status:'Open',cls:'rd'},
+      {id:'CASE-114',type:'Behaviour management — neighbour conflict',opened:'03/03/2026',status:'Open',cls:'am'}
+    ],
+    safewell:[],
+    missingData:['Support plan review overdue','Substance misuse worker details not on file','Risk assessment due for update'],
+    eventLog:[
+      {time:'04/03 10:00',text:'Key session — substance misuse review by M. Khan',color:'#059669'},
+      {time:'04/03 10:15',text:'CFC-0100 raised — behaviour change, evasive',color:'#d97706'},
+      {time:'03/03 14:30',text:'INC-0447 raised — verbal argument with neighbour',color:'#dc2626'},
+      {time:'23/02 11:00',text:'INC-0505 raised — historical abuse disclosure',color:'#dc2626'},
+      {time:'23/02 11:15',text:'Safeguarding referral made',color:'#dc2626'},
+      {time:'18/02 10:20',text:'INC-0441 raised — substance misuse concern',color:'#dc2626'},
+      {time:'01/05 09:00',text:'Service user signed up — allocated to M. Khan',color:'#7c3aed'}
+    ]
+  },
+  mensah: {
+    id:'SU-0178', name:'G. Mensah', gender:'Male', age:31, dob:'05/08/1994',
+    address:'5 Sharrow Lane, Sheffield S11 8AE',
+    signUp:'01/10/2025', sao:'J. Peters', riskLevel:'LOW', riskCls:'gn',
+    statusBadge:'gn', statusText:'ACTIVE', hbStatus:'In Payment', hbCls:'green',
+    nrpf: false, benefits:'UC', mh:'Depression (mild)',
+    bgColor:'#059669', initials:'GM',
+    docs:[
+      {name:'Personal Details',done:true},{name:'Proof of Address',done:true},{name:'Pen Portrait',done:true},
+      {name:'Referral',done:true},{name:'Needs Assessment',done:true},{name:'Licence Agreement',done:true},
+      {name:'Support Plan',done:true},{name:'Move-In Checklist',done:true},{name:'SP Review',done:true}
+    ],
+    contactWeeks:[4,3,4,3], lastSuccessful:'05/03/2026', monthlyAvg:3.5,
+    contactEvents:[
+      {date:'05/03/2026',type:'Visit',desc:'Key session — employment progress',qa:4},
+      {date:'27/02/2026',type:'Phone',desc:'Volunteering follow-up',qa:3},
+      {date:'20/02/2026',type:'Visit',desc:'Property inspection — good condition',qa:4},
+      {date:'13/02/2026',type:'Phone',desc:'Welfare check',qa:3},
+      {date:'06/02/2026',type:'Visit',desc:'Key session — budgeting review',qa:4}
+    ],
+    incidents:[
+      {id:'INC-0442',type:'Minor property damage — accidental',date:'20/02/2026',status:'Closed',cls:'gn'}
+    ],
+    concerns:[],
+    alerts:[],
+    cases:[
+      {id:'CASE-085',type:'Employment support — job centre',opened:'15/10/2025',status:'Open',cls:'bl'},
+      {id:'CASE-092',type:'Volunteering referral',opened:'01/12/2025',status:'Open',cls:'gn'}
+    ],
+    safewell:[],
+    missingData:['Next of kin not recorded'],
+    eventLog:[
+      {time:'05/03 10:00',text:'Key session — employment progress by J. Peters',color:'#059669'},
+      {time:'27/02 14:00',text:'Volunteering follow-up call',color:'#0284c7'},
+      {time:'20/02 13:00',text:'INC-0442 raised — minor property damage',color:'#d97706'},
+      {time:'22/02 10:00',text:'INC-0442 closed — maintenance completed',color:'#059669'},
+      {time:'01/10 09:00',text:'Service user signed up — allocated to J. Peters',color:'#7c3aed'}
+    ]
+  },
+  singh: {
+    id:'SU-0198', name:'H. Singh', gender:'Male', age:44, dob:'16/01/1982',
+    address:'Flat 3, Burngreave Rise, Sheffield S4 7BR',
+    signUp:'01/08/2025', sao:'K. Patel', riskLevel:'MEDIUM', riskCls:'am',
+    statusBadge:'gn', statusText:'ACTIVE', hbStatus:'In Payment', hbCls:'green',
+    nrpf: false, benefits:'UC + PIP', mh:'Anxiety, PTSD',
+    bgColor:'#7c3aed', initials:'HS',
+    docs:[
+      {name:'Personal Details',done:true},{name:'Proof of Address',done:true},{name:'Pen Portrait',done:true},
+      {name:'Referral',done:true},{name:'Needs Assessment',done:true},{name:'Licence Agreement',done:true},
+      {name:'Support Plan',done:true},{name:'Move-In Checklist',done:true},{name:'SP Review',done:false}
+    ],
+    contactWeeks:[3,4,3,3], lastSuccessful:'04/03/2026', monthlyAvg:3.2,
+    contactEvents:[
+      {date:'04/03/2026',type:'Visit',desc:'Key session — MH review + GP follow-up',qa:4},
+      {date:'26/02/2026',type:'Phone',desc:'Medication reminder',qa:3},
+      {date:'19/02/2026',type:'Visit',desc:'Welfare check — stable',qa:4},
+      {date:'12/02/2026',type:'Phone',desc:'Community activity check-in',qa:3},
+      {date:'05/02/2026',type:'Visit',desc:'Key session — benefits review',qa:3}
+    ],
+    incidents:[
+      {id:'INC-0445',type:'Safeguarding disclosure — historical abuse',date:'27/02/2026',status:'Open',cls:'rd'},
+      {id:'INC-0507',type:'Inappropriate sexual conduct',date:'05/02/2026',status:'Closed',cls:'gn'}
+    ],
+    concerns:[],
+    alerts:[
+      {text:'MEDIUM RISK — safeguarding disclosure active',cls:'am'},
+      {text:'MH flag — anxiety + PTSD — medication managed',cls:'am'}
+    ],
+    cases:[
+      {id:'CASE-084',type:'MH support — CMHT referral',opened:'01/09/2025',status:'Open',cls:'bl'},
+      {id:'CASE-118',type:'Safeguarding — historical abuse referral',opened:'27/02/2026',status:'Open',cls:'rd'}
+    ],
+    safewell:[],
+    missingData:['Safeguarding referral outcome pending','Crisis plan not reviewed this quarter'],
+    eventLog:[
+      {time:'04/03 10:30',text:'Key session — MH review by K. Patel',color:'#059669'},
+      {time:'27/02 11:00',text:'INC-0445 raised — safeguarding disclosure',color:'#dc2626'},
+      {time:'27/02 11:30',text:'Safeguarding referral to local authority',color:'#dc2626'},
+      {time:'05/02 14:00',text:'INC-0507 raised — inappropriate conduct',color:'#dc2626'},
+      {time:'07/02 10:00',text:'INC-0507 closed — formal warning + boundaries session',color:'#059669'},
+      {time:'01/08 09:00',text:'Service user signed up — allocated to K. Patel',color:'#7c3aed'}
+    ]
+  },
+  yilmaz: {
+    id:'SU-0203', name:'I. Yilmaz', gender:'Male', age:33, dob:'20/05/1992',
+    address:'24 Burngreave Rise, Sheffield S4 7BR',
+    signUp:'01/07/2025', sao:'A. Begum', riskLevel:'LOW', riskCls:'gn',
+    statusBadge:'gn', statusText:'ACTIVE', hbStatus:'In Payment', hbCls:'green',
+    nrpf: false, benefits:'UC', mh:'Anxiety, PTSD',
+    bgColor:'#0284c7', initials:'IY',
+    docs:[
+      {name:'Personal Details',done:true},{name:'Proof of Address',done:true},{name:'Pen Portrait',done:true},
+      {name:'Referral',done:true},{name:'Needs Assessment',done:true},{name:'Licence Agreement',done:true},
+      {name:'Support Plan',done:true},{name:'Move-In Checklist',done:true},{name:'SP Review',done:false}
+    ],
+    contactWeeks:[3,3,4,3], lastSuccessful:'04/03/2026', monthlyAvg:3.2,
+    contactEvents:[
+      {date:'04/03/2026',type:'Visit',desc:'Key session — GP + employment readiness',qa:4},
+      {date:'25/02/2026',type:'Phone',desc:'Benefits update — UC journal',qa:3},
+      {date:'18/02/2026',type:'Visit',desc:'Welfare check — anxiety manageable',qa:3},
+      {date:'11/02/2026',type:'Phone',desc:'GP appointment reminder',qa:3},
+      {date:'04/02/2026',type:'Visit',desc:'Key session — tenancy maintenance',qa:4}
+    ],
+    incidents:[
+      {id:'INC-0510',type:'ASB — substance use on premises',date:'25/01/2026',status:'Closed',cls:'gn'}
+    ],
+    concerns:[],
+    alerts:[
+      {text:'Support plan expiring — review due',cls:'am'}
+    ],
+    cases:[
+      {id:'CASE-079',type:'GP engagement — physical health',opened:'15/07/2025',status:'Open',cls:'bl'},
+      {id:'CASE-086',type:'Employment readiness programme',opened:'01/10/2025',status:'Open',cls:'bl'}
+    ],
+    safewell:[],
+    missingData:['Support plan review due','GP details not confirmed'],
+    eventLog:[
+      {time:'04/03 10:00',text:'Key session — GP + employment by A. Begum',color:'#059669'},
+      {time:'25/02 14:00',text:'Benefits update call — UC journal',color:'#0284c7'},
+      {time:'25/01 13:00',text:'INC-0510 raised — substance use on premises',color:'#dc2626'},
+      {time:'28/01 10:00',text:'INC-0510 closed — warning issued, referral made',color:'#059669'},
+      {time:'01/07 09:00',text:'Service user signed up — allocated to A. Begum',color:'#7c3aed'}
+    ]
+  },
+  campbell: {
+    id:'SU-0289', name:'J. Campbell', gender:'Male', age:27, dob:'08/11/1998',
+    address:'Unit 8, Heeley Bank Road, Sheffield S2 3GL',
+    signUp:'15/05/2025', sao:'M. Khan', riskLevel:'LOW', riskCls:'gn',
+    statusBadge:'am', statusText:'ACTIVE — SAFE & WELL', hbStatus:'In Payment', hbCls:'green',
+    nrpf: false, benefits:'UC', mh:'None disclosed',
+    bgColor:'#0284c7', initials:'JC',
+    docs:[
+      {name:'Personal Details',done:true},{name:'Proof of Address',done:true},{name:'Pen Portrait',done:true},
+      {name:'Referral',done:true},{name:'Needs Assessment',done:true},{name:'Licence Agreement',done:true},
+      {name:'Support Plan',done:true},{name:'Move-In Checklist',done:true},{name:'SP Review',done:true}
+    ],
+    contactWeeks:[3,4,2,1], lastSuccessful:'16/02/2026', monthlyAvg:2.5,
+    contactEvents:[
+      {date:'16/02/2026',type:'Phone',desc:'Initial Safe & Well call — confirmed OK',qa:3},
+      {date:'08/02/2026',type:'Visit',desc:'Key session — tenancy review',qa:4},
+      {date:'01/02/2026',type:'Phone',desc:'Welfare call',qa:3},
+      {date:'25/01/2026',type:'Visit',desc:'Key session — budgeting',qa:4},
+      {date:'18/01/2026',type:'Phone',desc:'Benefits check',qa:3}
+    ],
+    incidents:[
+      {id:'INC-0509',type:'Accident — tripped on loose carpet',date:'30/01/2026',status:'Closed',cls:'gn'}
+    ],
+    concerns:[],
+    alerts:[
+      {text:'Safe & Well Day 1 — last contact 16 Feb',cls:'am'}
+    ],
+    cases:[],
+    safewell:[
+      {id:'SW-0067',triggered:'28/02/2026',reason:'No contact since 16 Feb — 12 days',status:'Active',cls:'am',resolved:''}
+    ],
+    missingData:['No concerns — all data current'],
+    eventLog:[
+      {time:'28/02 08:00',text:'SW-0067 triggered — 12 days no contact',color:'#dc2626'},
+      {time:'16/02 11:00',text:'Phone contact — initial Safe & Well call by M. Khan',color:'#059669'},
+      {time:'08/02 10:00',text:'Key session — tenancy review',color:'#059669'},
+      {time:'30/01 14:00',text:'INC-0509 raised — tripped on carpet',color:'#d97706'},
+      {time:'30/01 15:00',text:'INC-0509 closed — carpet replaced same day',color:'#059669'},
+      {time:'15/05 09:00',text:'Service user signed up — allocated to M. Khan',color:'#7c3aed'}
+    ]
+  },
+  adebayo: {
+    id:'SU-0291', name:'K. Adebayo', gender:'Male', age:24, dob:'19/03/2001',
+    address:'12 Burngreave Road, Sheffield S4 7BR',
+    signUp:'01/09/2025', sao:'J. Peters', riskLevel:'LOW', riskCls:'gn',
+    statusBadge:'gn', statusText:'ACTIVE', hbStatus:'In Payment', hbCls:'green',
+    nrpf: false, benefits:'UC', mh:'None disclosed',
+    bgColor:'#059669', initials:'KA',
+    docs:[
+      {name:'Personal Details',done:true},{name:'Proof of Address',done:true},{name:'Pen Portrait',done:true},
+      {name:'Referral',done:true},{name:'Needs Assessment',done:true},{name:'Licence Agreement',done:true},
+      {name:'Support Plan',done:true},{name:'Move-In Checklist',done:true},{name:'SP Review',done:true}
+    ],
+    contactWeeks:[4,3,4,4], lastSuccessful:'06/03/2026', monthlyAvg:3.8,
+    contactEvents:[
+      {date:'06/03/2026',type:'Visit',desc:'Key session — employment update',qa:4},
+      {date:'28/02/2026',type:'Phone',desc:'Job interview follow-up',qa:4},
+      {date:'21/02/2026',type:'Visit',desc:'Key session — budgeting',qa:4},
+      {date:'14/02/2026',type:'Phone',desc:'Welfare call',qa:3},
+      {date:'07/02/2026',type:'Visit',desc:'Community activity check-in',qa:4}
+    ],
+    incidents:[
+      {id:'INC-0509',type:'Accident — tripped on carpet',date:'30/01/2026',status:'Closed',cls:'gn'}
+    ],
+    concerns:[],
+    alerts:[],
+    cases:[
+      {id:'CASE-091',type:'Employment support — apprenticeship',opened:'15/10/2025',status:'Open',cls:'bl'}
+    ],
+    safewell:[],
+    missingData:['No concerns — all data current'],
+    eventLog:[
+      {time:'06/03 10:00',text:'Key session — employment update by J. Peters',color:'#059669'},
+      {time:'28/02 14:00',text:'Job interview follow-up call',color:'#0284c7'},
+      {time:'30/01 15:00',text:'INC-0509 raised — accident (carpet)',color:'#d97706'},
+      {time:'01/02 10:00',text:'INC-0509 closed — carpet replaced',color:'#059669'},
+      {time:'01/09 09:00',text:'Service user signed up — allocated to J. Peters',color:'#7c3aed'}
+    ]
+  },
+  barton: {
+    id:'SU-0334', name:'L. Barton', gender:'Male', age:45, dob:'12/07/1980',
+    address:'Flat 2, Netherthorpe Road, Sheffield S3 7JA',
+    signUp:'01/03/2025', sao:'D. Sharpe', riskLevel:'HIGH', riskCls:'rd',
+    statusBadge:'rd', statusText:'ACTIVE — SAFE & WELL DAY 3', hbStatus:'In Payment', hbCls:'green',
+    nrpf: false, benefits:'UC + ESA', mh:'Depression, substance misuse history',
+    bgColor:'#dc2626', initials:'LB',
+    docs:[
+      {name:'Personal Details',done:true},{name:'Proof of Address',done:true},{name:'Pen Portrait',done:true},
+      {name:'Referral',done:true},{name:'Needs Assessment',done:true},{name:'Licence Agreement',done:true},
+      {name:'Support Plan',done:true},{name:'Move-In Checklist',done:true},{name:'SP Review',done:false}
+    ],
+    contactWeeks:[2,3,1,0], lastSuccessful:'12/02/2026', monthlyAvg:1.5,
+    contactEvents:[
+      {date:'12/02/2026',type:'Visit',desc:'Last successful contact — welfare check',qa:3},
+      {date:'05/02/2026',type:'Phone',desc:'Welfare call — sounded low',qa:2},
+      {date:'28/01/2026',type:'Visit',desc:'Key session — tenancy review',qa:3},
+      {date:'21/01/2026',type:'Phone',desc:'Benefits check-in',qa:3},
+      {date:'14/01/2026',type:'Visit',desc:'Key session — substance misuse review',qa:3}
+    ],
+    incidents:[],
+    concerns:[
+      {id:'CFC-0325',type:'Abandonment risk — no contact 16 days',date:'28/02/2026',status:'Open',cls:'rd'}
+    ],
+    alerts:[
+      {text:'URGENT: Safe & Well Day 3 — no contact since 12 Feb (16 days)',cls:'rd'},
+      {text:'HIGH RISK — abandonment risk, SSM escalated',cls:'rd'},
+      {text:'Immediate welfare check required',cls:'rd'},
+      {text:'Substance misuse history — relapse risk if disengaged',cls:'am'}
+    ],
+    cases:[
+      {id:'CASE-068',type:'Substance misuse recovery support',opened:'01/04/2025',status:'Open',cls:'am'},
+      {id:'CASE-119',type:'Safe & Well — Day 3 escalation',opened:'28/02/2026',status:'Open',cls:'rd'}
+    ],
+    safewell:[
+      {id:'SW-0071',triggered:'24/02/2026',reason:'No contact since 12 Feb',status:'Day 3 — SSM Escalated',cls:'rd',resolved:''}
+    ],
+    missingData:['No contact for 16 days','Welfare check overdue','Emergency contact attempted — no response','Substance misuse worker not contactable'],
+    eventLog:[
+      {time:'28/02 08:00',text:'Safe & Well escalated to Day 3 — SSM notified',color:'#dc2626'},
+      {time:'28/02 08:15',text:'CFC-0325 raised — abandonment risk',color:'#dc2626'},
+      {time:'26/02 10:00',text:'Safe & Well Day 2 — call attempted, no answer',color:'#dc2626'},
+      {time:'24/02 08:00',text:'SW-0071 triggered — no contact since 12 Feb',color:'#dc2626'},
+      {time:'12/02 10:00',text:'Last successful contact — welfare check by D. Sharpe',color:'#059669'},
+      {time:'05/02 14:00',text:'Phone contact — sounded low mood',color:'#d97706'},
+      {time:'01/03 09:00',text:'Service user signed up — allocated to D. Sharpe',color:'#7c3aed'}
+    ]
   }
 };
 
@@ -3821,8 +4372,18 @@ function filterSUSelect(q) {
 // ===== Clickable SU Names — global helper =====
 function openSUByName(name) {
   var keys = Object.keys(supData);
+  // Exact name match
   for (var i = 0; i < keys.length; i++) {
     if (supData[keys[i]].name === name) {
+      document.getElementById('sup-select').value = keys[i];
+      loadSUProfile(keys[i]);
+      nav('su-profile');
+      return;
+    }
+  }
+  // Match by SU ID
+  for (var i = 0; i < keys.length; i++) {
+    if (supData[keys[i]].id === name) {
       document.getElementById('sup-select').value = keys[i];
       loadSUProfile(keys[i]);
       nav('su-profile');
@@ -3839,7 +4400,12 @@ function openSUByName(name) {
       return;
     }
   }
-  showToast('Profile: ' + name + ' — demo only shows 5 SU profiles');
+  // Last resort — show the first profile
+  if (keys.length > 0) {
+    document.getElementById('sup-select').value = keys[0];
+    loadSUProfile(keys[0]);
+    nav('su-profile');
+  }
 }
 function showSUProfile(slug) {
   // Convert slug like "craig-linney" to name like "Craig Linney"
@@ -3854,7 +4420,7 @@ function suLinkHtml(name, extraStyle) {
 
 // Keep backward compat for search
 function loadSU(key) {
-  var mapping = {adebayo:'linney',barton:'husseini',dlamini:'harworth'};
+  var mapping = {};
   var k = mapping[key] || key;
   if (supData[k]) {
     document.getElementById('sup-select').value = k;
@@ -4206,7 +4772,18 @@ const searchData = [
   {type:'Service User',id:'GB02732',name:'Joshua Harworth',detail:'26A Ryton Rd North Anston — SAO: J. Vinten — MEDIUM RISK',page:'su-profile',action:"document.getElementById('sup-select').value='harworth';loadSUProfile('harworth')"},
   {type:'Service User',id:'GB02901',name:'Amina Hassan',detail:'15 Abbeydale Rd Sheffield — SAO: A. Khan — NRPF',page:'su-profile',action:"document.getElementById('sup-select').value='hassan';loadSUProfile('hassan')"},
   {type:'Service User',id:'GB02650',name:'Marcus Webb',detail:'180A Main Rd Sheffield — SAO: M. Thorne — 2 LA breaches',page:'su-profile',action:"document.getElementById('sup-select').value='webb';loadSUProfile('webb')"},
-  {type:'Service User',id:'SU-0112',name:'E. Abdullahi',detail:'24 Ecclesall Rd — SAO: S. Williams',page:'service-users'},
+{type:'Service User',id:'SU-0001',name:'A. Rahman',detail:'Unit 3, Abbeydale Road — SAO: J. Peters',page:'su-profile',action:"document.getElementById('sup-select').value='rahman';loadSUProfile('rahman')"},
+  {type:'Service User',id:'SU-0012',name:'B. Kowalski',detail:'17 Netherthorpe Road — SAO: M. Khan',page:'su-profile',action:"document.getElementById('sup-select').value='kowalski';loadSUProfile('kowalski')"},
+  {type:'Service User',id:'SU-0044',name:'C. Dlamini',detail:'Flat 9, Burngreave Rise — SAO: D. Sharpe',page:'su-profile',action:"document.getElementById('sup-select').value='dlamini';loadSUProfile('dlamini')"},
+  {type:'Service User',id:'SU-0091',name:"D. O'Brien",detail:'8 Sharrow Vale Road — SAO: J. Peters',page:'su-profile',action:"document.getElementById('sup-select').value='obrien';loadSUProfile('obrien')"},
+  {type:'Service User',id:'SU-0112',name:'E. Abdullahi',detail:'24 Ecclesall Road — SAO: S. Williams',page:'su-profile',action:"document.getElementById('sup-select').value='abdullahi';loadSUProfile('abdullahi')"},
+  {type:'Service User',id:'SU-0145',name:'F. Nowak',detail:'Unit 12, Abbeydale Road — SAO: M. Khan',page:'su-profile',action:"document.getElementById('sup-select').value='nowak';loadSUProfile('nowak')"},
+  {type:'Service User',id:'SU-0178',name:'G. Mensah',detail:'5 Sharrow Lane — SAO: J. Peters',page:'su-profile',action:"document.getElementById('sup-select').value='mensah';loadSUProfile('mensah')"},
+  {type:'Service User',id:'SU-0198',name:'H. Singh',detail:'Flat 3, Burngreave Rise — SAO: K. Patel',page:'su-profile',action:"document.getElementById('sup-select').value='singh';loadSUProfile('singh')"},
+  {type:'Service User',id:'SU-0203',name:'I. Yilmaz',detail:'24 Burngreave Rise — SAO: A. Begum',page:'su-profile',action:"document.getElementById('sup-select').value='yilmaz';loadSUProfile('yilmaz')"},
+  {type:'Service User',id:'SU-0289',name:'J. Campbell',detail:'Unit 8, Heeley — SAO: M. Khan',page:'su-profile',action:"document.getElementById('sup-select').value='campbell';loadSUProfile('campbell')"},
+  {type:'Service User',id:'SU-0291',name:'K. Adebayo',detail:'12 Burngreave Road — SAO: J. Peters',page:'su-profile',action:"document.getElementById('sup-select').value='adebayo';loadSUProfile('adebayo')"},
+  {type:'Service User',id:'SU-0334',name:'L. Barton',detail:'Flat 2, Netherthorpe — SAO: D. Sharpe — SAFE & WELL DAY 3',page:'su-profile',action:"document.getElementById('sup-select').value='barton';loadSUProfile('barton')"},
   {type:'Service User',id:'SU-0445',name:'(Allocated to M. Khan)',detail:'Contact notes flagged',page:'contact-notes'},
   {type:'Property',id:'',name:'Unit 22, Abbeydale Road',detail:'Sheffield S7 — 4 beds — ZERO VISITS',page:'properties'},
   {type:'Property',id:'',name:'Flat 9, Burngreave Rise',detail:'Sheffield S4 — 2 beds — 42 days since visit',page:'properties'},
