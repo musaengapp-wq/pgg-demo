@@ -316,6 +316,8 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
   .form-select, .form-input, .form-textarea { font-size: 16px; min-height: 44px; }
   .nav-item { padding: 12px 16px; font-size: 14px; }
   .sc .val { font-size: 22px; }
+  .sidebar-overlay { display: none; }
+  .sidebar-overlay.open { display: block; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 99; -webkit-tap-highlight-color: transparent; }
 }
 /* ===== SW Dashboard ===== */
 .sw-header { display: flex; gap: 16px; align-items: center; background: #fff; border-radius: 8px; padding: 16px 20px; border: 1px solid #e2e8f0; margin-bottom: 14px; flex-wrap: wrap; }
@@ -460,6 +462,30 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
   .sup-actions { flex-direction: column; }
   .sup-actions button { width: 100%; min-height: 44px; }
 }
+/* Breadcrumbs */
+.breadcrumbs { display: none; align-items: center; gap: 6px; font-size: 11px; color: #94a3b8; margin-bottom: 12px; }
+.breadcrumbs.visible { display: flex; }
+.breadcrumbs a { color: #0284c7; text-decoration: none; cursor: pointer; font-weight: 600; }
+.breadcrumbs a:hover { text-decoration: underline; }
+.breadcrumbs .sep { color: #cbd5e1; }
+/* Clickable stat boxes */
+.sc[data-nav] { cursor: pointer; transition: all .15s; }
+.sc[data-nav]:hover { border-color: #0284c7; box-shadow: 0 2px 8px rgba(2,132,199,.12); transform: translateY(-1px); }
+/* Clickable table rows */
+table.clickable-rows tbody tr { cursor: pointer; transition: background .1s; }
+table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
+/* Search dropdown */
+.search-dropdown { position: absolute; top: 100%; right: 0; width: 380px; max-height: 400px; overflow-y: auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.12); z-index: 200; display: none; }
+.search-dropdown.open { display: block; }
+.search-dropdown .sr-item { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: background .1s; }
+.search-dropdown .sr-item:hover { background: #f0f9ff; }
+.search-dropdown .sr-item:last-child { border-bottom: none; }
+.search-dropdown .sr-type { font-size: 9px; font-weight: 700; color: #0284c7; text-transform: uppercase; letter-spacing: 1px; }
+.search-dropdown .sr-name { font-weight: 700; font-size: 12px; color: #1e293b; margin-top: 2px; }
+.search-dropdown .sr-detail { font-size: 10px; color: #64748b; margin-top: 1px; }
+.search-dropdown .sr-empty { padding: 20px; text-align: center; color: #94a3b8; font-size: 12px; }
+/* Sidebar logo tagline */
+.sidebar-logo .tagline { font-size: 9px; color: #94a3b8; margin-top: 4px; letter-spacing: 0.5px; font-weight: 500; }
 </style>
 </head>
 <body>
@@ -516,8 +542,9 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
   </div>
 </div>
 
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="document.querySelector('.sidebar').classList.remove('open');this.classList.remove('open')"></div>
 <div class="sidebar">
-  <div class="sidebar-logo"><h1>PILLAR</h1><div class="sub">Governance Group</div></div>
+  <div class="sidebar-logo"><h1>PILLAR</h1><div class="sub">Governance Group</div><div class="tagline">Compliance Infrastructure-as-a-Service</div></div>
   <div class="sidebar-nav">
     <div class="nav-section">Overview</div>
     <div class="nav-item active" data-page="dashboard"><span class="icon">&#9632;</span> Dashboard</div>
@@ -575,12 +602,12 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 <div class="main">
   <div class="topbar">
     <div class="topbar-left">
-      <span class="hamburger" onclick="document.querySelector('.sidebar').classList.toggle('open')">&#9776;</span>
+      <span class="hamburger" onclick="document.querySelector('.sidebar').classList.toggle('open');document.getElementById('sidebar-overlay').classList.toggle('open')">&#9776;</span>
       <h2 id="page-title">Compliance Dashboard</h2>
       <span class="loc">Sheffield</span>
     </div>
     <div class="topbar-right">
-      <input id="global-search" type="text" placeholder="Search SUs, properties, incidents..." style="padding:6px 12px;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;width:220px;background:#f8fafc;color:#334155" onkeyup="doSearch(event)">
+      <div style="position:relative"><input id="global-search" type="text" placeholder="Search SUs, properties, incidents..." style="padding:6px 12px;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;width:220px;background:#f8fafc;color:#334155" oninput="doLiveSearch()" onkeyup="doSearch(event)" onfocus="doLiveSearch()" onblur="setTimeout(function(){document.getElementById('search-dropdown').classList.remove('open')},200)"><div class="search-dropdown" id="search-dropdown"></div></div>
       <div class="notif" onclick="nav('notifications')">&#128276;<span class="dot"></span></div>
       <div style="text-align:right"><div class="uname">Admin</div><div class="urole">System Administrator</div></div>
       <div class="avatar">P</div>
@@ -588,17 +615,18 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
   </div>
   <div class="demo-banner" id="demo-banner">DEMO ENVIRONMENT — Sample Data — <a href="#" onclick="resetDemoData();return false" style="color:#92400e;text-decoration:underline">Reset Demo Data</a></div>
 
+  <div class="breadcrumbs" id="breadcrumbs"></div>
   <div class="content">
 
 <!-- ===== DASHBOARD ===== -->
 <div class="page active" id="p-dashboard">
   <div class="stats-row" id="dash-l1-stats">
-    <div class="sc"><div class="lb">Total Notes</div><div class="val blue" id="dash-total">0</div><div class="d">All contact notes</div></div>
-    <div class="sc"><div class="lb">Notes This Week</div><div class="val blue" id="dash-week">0</div><div class="d" id="dash-week-d"></div></div>
-    <div class="sc"><div class="lb">Avg AI Score</div><div class="val green" id="dash-avg-score">--</div><div class="d">Out of 4.0</div></div>
-    <div class="sc"><div class="lb">Service Users</div><div class="val blue">634</div><div class="d green">+12 this month</div></div>
-    <div class="sc"><div class="lb">No Note >7 Days</div><div class="val red" id="dash-red-sus">0</div><div class="d red">Flagged RED</div></div>
-    <div class="sc"><div class="lb">Cause for Concern</div><div class="val red" id="dash-flags">0</div><div class="d red">Flagged by AI</div></div>
+    <div class="sc" data-nav="contact-notes" onclick="nav('contact-notes')"><div class="lb">Total Notes</div><div class="val blue" id="dash-total">0</div><div class="d">All contact notes</div></div>
+    <div class="sc" data-nav="contact-notes" onclick="nav('contact-notes')"><div class="lb">Notes This Week</div><div class="val blue" id="dash-week">0</div><div class="d" id="dash-week-d"></div></div>
+    <div class="sc" data-nav="ai-qa" onclick="nav('ai-qa')"><div class="lb">Avg AI Score</div><div class="val green" id="dash-avg-score">--</div><div class="d">Out of 4.0</div></div>
+    <div class="sc" data-nav="service-users" onclick="nav('service-users')"><div class="lb">Service Users</div><div class="val blue">634</div><div class="d green">+12 this month</div></div>
+    <div class="sc" data-nav="safe-well" onclick="nav('safe-well')"><div class="lb">No Note >7 Days</div><div class="val red" id="dash-red-sus">0</div><div class="d red">Flagged RED</div></div>
+    <div class="sc" data-nav="concerns" onclick="nav('concerns')"><div class="lb">Cause for Concern</div><div class="val red" id="dash-flags">0</div><div class="d red">Flagged by AI</div></div>
   </div>
   <div class="g23">
     <div>
@@ -672,10 +700,10 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 <!-- ===== SERVICE USERS ===== -->
 <div class="page" id="p-service-users">
   <div class="stats-row">
-    <div class="sc"><div class="lb">Total Active</div><div class="val blue">634</div><div class="d green">+12 this month</div></div>
+    <div class="sc" data-nav="service-users" onclick="nav('service-users')"><div class="lb">Total Active</div><div class="val blue">634</div><div class="d green">+12 this month</div></div>
     <div class="sc"><div class="lb">Sheffield</div><div class="val" style="color:#1e293b">478</div><div class="d">75% of total</div></div>
-    <div class="sc"><div class="lb">New This Month</div><div class="val green">12</div><div class="d green">+3 vs last month</div></div>
-    <div class="sc"><div class="lb">Eviction Risk</div><div class="val red">8</div><div class="d red">Needs review</div></div>
+    <div class="sc" data-nav="allocation" onclick="nav('allocation')"><div class="lb">New This Month</div><div class="val green">12</div><div class="d green">+3 vs last month</div></div>
+    <div class="sc" data-nav="eviction-risk" onclick="nav('eviction-risk')"><div class="lb">Eviction Risk</div><div class="val red">8</div><div class="d red">Needs review</div></div>
   </div>
   <div class="card">
     <h3>Service User Register</h3>
@@ -784,11 +812,11 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 <div class="page" id="p-support-plans">
   <!-- Overview Stats -->
   <div class="stats-row" id="sp-stats">
-    <div class="sc"><div class="lb">Total Active Plans</div><div class="val blue" id="sp-total">8</div></div>
-    <div class="sc"><div class="lb">Current</div><div class="val green" id="sp-current">3</div></div>
-    <div class="sc"><div class="lb">Expiring (30 days)</div><div class="val amber" id="sp-expiring">2</div></div>
-    <div class="sc"><div class="lb">Overdue Reviews</div><div class="val red" id="sp-overdue">2</div></div>
-    <div class="sc"><div class="lb">Awaiting Verification</div><div class="val purple" id="sp-awaiting">1</div></div>
+    <div class="sc" data-nav="support-plans" onclick="nav('support-plans')"><div class="lb">Total Active Plans</div><div class="val blue" id="sp-total">8</div></div>
+    <div class="sc" data-nav="support-plans" onclick="nav('support-plans')"><div class="lb">Current</div><div class="val green" id="sp-current">3</div></div>
+    <div class="sc" data-nav="support-plans" onclick="nav('support-plans')"><div class="lb">Expiring (30 days)</div><div class="val amber" id="sp-expiring">2</div></div>
+    <div class="sc" data-nav="support-plans" onclick="nav('support-plans')"><div class="lb">Overdue Reviews</div><div class="val red" id="sp-overdue">2</div></div>
+    <div class="sc" data-nav="support-plans" onclick="nav('support-plans')"><div class="lb">Awaiting Verification</div><div class="val purple" id="sp-awaiting">1</div></div>
   </div>
 
   <!-- Tabs -->
@@ -873,10 +901,10 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 <!-- ===== SAFE & WELL ===== -->
 <div class="page" id="p-safe-well">
   <div class="stats-row">
-    <div class="sc"><div class="lb">Active Procedures</div><div class="val red">4</div></div>
-    <div class="sc"><div class="lb">Day 3 (Critical)</div><div class="val red">1</div></div>
-    <div class="sc"><div class="lb">Day 2</div><div class="val amber">1</div></div>
-    <div class="sc"><div class="lb">Day 1</div><div class="val blue">2</div></div>
+    <div class="sc" data-nav="safe-well" onclick="nav('safe-well')"><div class="lb">Active Procedures</div><div class="val red">4</div></div>
+    <div class="sc" data-nav="safe-well" onclick="nav('safe-well')"><div class="lb">Day 3 (Critical)</div><div class="val red">1</div></div>
+    <div class="sc" data-nav="safe-well" onclick="nav('safe-well')"><div class="lb">Day 2</div><div class="val amber">1</div></div>
+    <div class="sc" data-nav="safe-well" onclick="nav('safe-well')"><div class="lb">Day 1</div><div class="val blue">2</div></div>
     <div class="sc"><div class="lb">Resolved This Month</div><div class="val green">11</div></div>
   </div>
   <div class="card">
@@ -896,11 +924,11 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 <!-- ===== INCIDENTS ===== -->
 <div class="page" id="p-incidents">
   <div class="stats-row">
-    <div class="sc"><div class="lb">Total Incidents</div><div class="val blue" id="inc-total">0</div></div>
-    <div class="sc"><div class="lb">Level 1 (Green)</div><div class="val green" id="inc-green">0</div></div>
-    <div class="sc"><div class="lb">Level 2 (Amber)</div><div class="val amber" id="inc-amber">0</div></div>
-    <div class="sc"><div class="lb">Level 3 (Red)</div><div class="val red" id="inc-red">0</div></div>
-    <div class="sc"><div class="lb">Open</div><div class="val purple" id="inc-open">0</div></div>
+    <div class="sc" data-nav="incidents" onclick="nav('incidents')"><div class="lb">Total Incidents</div><div class="val blue" id="inc-total">0</div></div>
+    <div class="sc" data-nav="incidents" onclick="filterIncidents('1',this)"><div class="lb">Level 1 (Green)</div><div class="val green" id="inc-green">0</div></div>
+    <div class="sc" data-nav="incidents" onclick="filterIncidents('2',this)"><div class="lb">Level 2 (Amber)</div><div class="val amber" id="inc-amber">0</div></div>
+    <div class="sc" data-nav="incidents" onclick="filterIncidents('3',this)"><div class="lb">Level 3 (Red)</div><div class="val red" id="inc-red">0</div></div>
+    <div class="sc" data-nav="incidents" onclick="filterIncidents('open',this)"><div class="lb">Open</div><div class="val purple" id="inc-open">0</div></div>
   </div>
 
   <div class="tabs" id="inc-tabs">
@@ -1003,8 +1031,8 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
     <div class="card">
       <h3>Post-Incident Reviews</h3>
       <table><thead><tr><th>PIR</th><th>Incident</th><th>Date</th><th>Lead</th><th>Lessons</th><th>Status</th></tr></thead><tbody>
-        <tr><td>PIR-003</td><td>INC-435 — Deceased SU</td><td>15 Feb</td><td>Asara</td><td>3 actions identified</td><td><span class="b bl">In Progress</span></td></tr>
-        <tr><td>PIR-002</td><td>INC-421 — Deceased SU</td><td>28 Jan</td><td>Asara</td><td>Policy update triggered</td><td><span class="b gn">Complete</span></td></tr>
+        <tr><td>PIR-003</td><td>INC-435 — Deceased SU</td><td>15 Feb</td><td>A. Sherazi</td><td>3 actions identified</td><td><span class="b bl">In Progress</span></td></tr>
+        <tr><td>PIR-002</td><td>INC-421 — Deceased SU</td><td>28 Jan</td><td>A. Sherazi</td><td>Policy update triggered</td><td><span class="b gn">Complete</span></td></tr>
         <tr><td>PIR-001</td><td>INC-398 — Serious assault</td><td>10 Jan</td><td>T. Richardson</td><td>Training gap identified</td><td><span class="b gn">Complete</span></td></tr>
       </tbody></table>
       <div class="info-box">New procedure created after 2 deaths. AI produces initial case review, but deep human analysis is essential. Lessons learned feed back into training and policy updates.</div>
@@ -1098,7 +1126,7 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
       <table><thead><tr><th>Policy</th><th>Version</th><th>Activated</th><th>Review Due</th><th>Staff Ack</th><th>Status</th><th>Your Action</th></tr></thead>
       <tbody id="pol-table-body"></tbody></table>
     </div>
-    <div class="note">Upload new policy &rarr; auto-email to all staff &rarr; acknowledgement tracking &rarr; 1yr auto-review date set. Written by Asara.</div>
+    <div class="note">Upload new policy &rarr; auto-email to all staff &rarr; acknowledgement tracking &rarr; 1yr auto-review date set. Written by Pillar Governance Team.</div>
   </div>
 </div>
 
@@ -1726,7 +1754,7 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
   <div class="card">
     <h3>Compliance Meeting Report — 26 February 2026</h3>
     <div style="font-size:12px;color:#334155;line-height:1.8">
-      <p><strong>Attendees:</strong> Asara (Chair), Ari, T. Richardson, P. Okonkwo, L. Hussain, C. Barnes</p>
+      <p><strong>Attendees:</strong> A. Sherazi (Chair), T. Richardson, P. Okonkwo, L. Hussain, C. Barnes</p>
       <div style="margin:14px 0;border-top:1px solid #e2e8f0;padding-top:14px">
         <strong>1. QA Performance</strong>
         <ul style="margin:6px 0 12px 20px;color:#475569">
@@ -2462,7 +2490,7 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
         <div id="qa-processing" style="text-align:center;padding:30px 0;display:none">
           <div style="font-size:28px">&#129302;</div>
           <div style="font-size:12px;color:#0284c7;font-weight:700;margin-top:8px">Processing...</div>
-          <div style="font-size:10px;color:#64748b;margin-top:4px">Analysing against Asara's quality standards</div>
+          <div style="font-size:10px;color:#64748b;margin-top:4px">Analysing against Pillar's quality standards</div>
           <div class="pb" style="margin-top:12px;height:4px"><div class="f bl" id="qa-progress" style="width:0%;transition:width 1.5s ease"></div></div>
         </div>
 
@@ -2509,7 +2537,7 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
           </div>
           <div style="display:flex;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #f1f5f9">
             <div style="width:24px;height:24px;background:#e0f2fe;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#0284c7;flex-shrink:0">2</div>
-            <div><strong>AI scores quality</strong> against Asara's standards: person-centred language, specificity, outcome recording, support plan alignment.</div>
+            <div><strong>AI scores quality</strong> against Pillar's standards: person-centred language, specificity, outcome recording, support plan alignment.</div>
           </div>
           <div style="display:flex;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #f1f5f9">
             <div style="width:24px;height:24px;background:#e0f2fe;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#0284c7;flex-shrink:0">3</div>
@@ -3274,7 +3302,7 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
     <table>
       <thead><tr><th>User</th><th>Email</th><th>Role</th><th>Team</th><th>Status</th><th>Last Login</th></tr></thead>
       <tbody>
-        <tr><td style="font-weight:600">Asara Sherazi</td><td>asara@pillargovernance.co.uk</td><td><span class="b pu">Admin</span></td><td>Management</td><td><span class="b gn">Active</span></td><td>07 Mar 2026</td></tr>
+        <tr><td style="font-weight:600">A. Sherazi</td><td>a.sherazi@pillargovernance.co.uk</td><td><span class="b pu">Admin</span></td><td>Management</td><td><span class="b gn">Active</span></td><td>07 Mar 2026</td></tr>
         <tr><td style="font-weight:600">Ari Sherazi</td><td>ari@pillargovernance.co.uk</td><td><span class="b pu">Admin</span></td><td>Management</td><td><span class="b gn">Active</span></td><td>07 Mar 2026</td></tr>
         <tr><td style="font-weight:600">T. Richardson</td><td>t.richardson@pillargovernance.co.uk</td><td><span class="b bl">Compliance</span></td><td>Sheffield</td><td><span class="b gn">Active</span></td><td>06 Mar 2026</td></tr>
         <tr><td style="font-weight:600">Megan Thorne</td><td>m.thorne@pillargovernance.co.uk</td><td><span class="b am">Team Leader</span></td><td>Sheffield Central</td><td><span class="b gn">Active</span></td><td>07 Mar 2026</td></tr>
@@ -3294,6 +3322,17 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 </div>
 
   <footer>Pillar OS &mdash; Compliance Infrastructure by Pillar Governance Group</footer>
+</div>
+
+<!-- Bottom Nav (Mobile) -->
+<div class="bottom-nav" id="bottom-nav">
+  <div class="bottom-nav-inner">
+    <div class="bottom-nav-item active" onclick="nav('dashboard')"><span class="bn-icon">&#9632;</span>Home</div>
+    <div class="bottom-nav-item" onclick="nav('service-users')"><span class="bn-icon">&#9823;</span>SUs</div>
+    <div class="bottom-nav-item" onclick="nav('new-note')"><span class="bn-icon">&#10010;</span>Note</div>
+    <div class="bottom-nav-item" onclick="nav('notifications')"><span class="bn-icon">&#128276;</span>Alerts</div>
+    <div class="bottom-nav-item" onclick="nav('cn-hub')"><span class="bn-icon">&#128221;</span>Notes</div>
+  </div>
 </div>
 
 <script>
@@ -3320,7 +3359,10 @@ const titles = {
   'staff-performance':'Staff Performance',
   'demo-compare':'Live Demo'
 };
-function nav(page) {
+var navHistory = [];
+function nav(page, opts) {
+  var prevPage = document.querySelector('.page.active');
+  var prevId = prevPage ? prevPage.id.replace('p-','') : '';
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   const el = document.getElementById('p-'+page);
@@ -3329,6 +3371,30 @@ function nav(page) {
   if (ni) ni.classList.add('active');
   document.getElementById('page-title').textContent = titles[page] || 'Dashboard';
   document.querySelector('.sidebar').classList.remove('open');
+  var overlay = document.getElementById('sidebar-overlay');
+  if (overlay) overlay.classList.remove('open');
+  // Breadcrumbs for SU Profile
+  var bc = document.getElementById('breadcrumbs');
+  if (page === 'su-profile' && prevId && prevId !== 'su-profile') {
+    navHistory.push({page: prevId, title: titles[prevId] || prevId});
+    var crumbs = '<a onclick="nav(\'dashboard\')">Dashboard</a><span class="sep">/</span>';
+    if (prevId !== 'dashboard') crumbs += '<a onclick="nav(\''+prevId+'\')">'+(titles[prevId]||prevId)+'</a><span class="sep">/</span>';
+    crumbs += '<span style="color:#1e293b;font-weight:600">Service User Profile</span>';
+    bc.innerHTML = crumbs;
+    bc.classList.add('visible');
+    bc.style.padding = '0 24px';
+    bc.style.paddingTop = '12px';
+  } else if (page !== 'su-profile') {
+    bc.classList.remove('visible');
+    if (page === 'dashboard') navHistory = [];
+  }
+  // Bottom nav active state
+  document.querySelectorAll('.bottom-nav-item').forEach(function(b){ b.classList.remove('active'); });
+  var bnMap = {'dashboard':0,'service-users':1,'new-note':2,'notifications':3,'cn-hub':4};
+  if (typeof bnMap[page] !== 'undefined') {
+    var items = document.querySelectorAll('.bottom-nav-item');
+    if (items[bnMap[page]]) items[bnMap[page]].classList.add('active');
+  }
   if (page === 'contact-notes') renderNotesList();
   if (page === 'dashboard') updateDashboard();
   if (page === 'new-note') prefillNoteForm();
@@ -3348,6 +3414,7 @@ function nav(page) {
   if (page === 'sao-compliance') renderSAOCompliance();
   if (page === 'insights') renderInsights();
   if (page === 'doc-management') renderDocManagement();
+  window.scrollTo(0,0);
 }
 document.querySelectorAll('.nav-item[data-page]').forEach(item => {
   item.addEventListener('click', () => nav(item.dataset.page));
@@ -5100,6 +5167,7 @@ const searchData = [
 
 function doSearch(e) {
   if (e.key !== 'Enter') return;
+  document.getElementById('search-dropdown').classList.remove('open');
   const q = document.getElementById('global-search').value.trim().toLowerCase();
   if (!q) return;
   const results = searchData.filter(d => (d.name+' '+d.id+' '+d.detail+' '+d.type).toLowerCase().includes(q));
@@ -5115,6 +5183,43 @@ function doSearch(e) {
         '<div style="font-size:10px;color:#64748b;margin-top:3px">'+r.detail+'</div></div>').join('');
   }
   nav('search');
+}
+
+function doLiveSearch() {
+  var q = document.getElementById('global-search').value.trim().toLowerCase();
+  var dd = document.getElementById('search-dropdown');
+  if (!q || q.length < 2) { dd.classList.remove('open'); filterVisibleTables(''); return; }
+  var results = searchData.filter(function(d) {
+    return (d.name+' '+d.id+' '+d.detail+' '+d.type).toLowerCase().indexOf(q) !== -1;
+  }).slice(0, 8);
+  if (results.length === 0) {
+    dd.innerHTML = '<div class="sr-empty">No results for "'+q+'"</div>';
+  } else {
+    dd.innerHTML = results.map(function(r) {
+      return '<div class="sr-item" onmousedown="nav(\''+r.page+'\');'+(r.action ? r.action.replace(/'/g,"\\'") : '')+';document.getElementById(\'search-dropdown\').classList.remove(\'open\');document.getElementById(\'global-search\').value=\'\'">' +
+        '<div class="sr-type">'+r.type+(r.id ? ' — '+r.id : '')+'</div>' +
+        '<div class="sr-name">'+r.name+'</div>' +
+        '<div class="sr-detail">'+r.detail+'</div></div>';
+    }).join('');
+  }
+  dd.classList.add('open');
+
+  // Also filter visible tables on current page
+  filterVisibleTables(q);
+}
+
+function filterVisibleTables(q) {
+  var activePage = document.querySelector('.page.active');
+  if (!activePage) return;
+  var tables = activePage.querySelectorAll('table tbody');
+  tables.forEach(function(tbody) {
+    var rows = tbody.querySelectorAll('tr');
+    rows.forEach(function(row) {
+      if (!q) { row.style.display = ''; return; }
+      var text = row.textContent.toLowerCase();
+      row.style.display = text.indexOf(q) !== -1 ? '' : 'none';
+    });
+  });
 }
 
 // ===== SERVICE USER DATA =====
@@ -5613,7 +5718,7 @@ async function analyzeNoteWithAI(noteId) {
   const overlay = document.getElementById('qa-overlay');
   const body = document.getElementById('qa-modal-body');
   overlay.style.display = 'flex';
-  body.innerHTML = '<div class="qa-loading"><div class="spinner"></div><div style="font-size:13px;font-weight:700;color:#0284c7">Analysing note...</div><div style="font-size:10px;color:#64748b;margin-top:4px">AI is reviewing against Asara\'s quality standards</div></div>';
+  body.innerHTML = '<div class="qa-loading"><div class="spinner"></div><div style="font-size:13px;font-weight:700;color:#0284c7">Analysing note...</div><div style="font-size:10px;color:#64748b;margin-top:4px">AI is reviewing against Pillar\'s quality standards</div></div>';
 
   try {
     const result = await callClaudeAPI(note.content, note.suName, note.suId, note.type, note.areas);
@@ -6853,8 +6958,8 @@ function getPolicyContent() {
   if (content) return content;
   content = {
     'Lone Working Policy': {
-      purpose: 'To ensure the safety and wellbeing of all Asara staff who are required to work alone, whether in service user accommodation, during home visits, or in the community. This policy establishes clear protocols to minimise risk and ensure that lone workers can summon help if needed.',
-      scope: 'This policy applies to all Asara employees, agency workers, and volunteers who carry out duties without direct supervision or the presence of colleagues. This includes but is not limited to: support workers conducting one-to-one sessions in service user properties, staff carrying out welfare checks, night staff working alone in supported accommodation, and any employee travelling between sites.',
+      purpose: 'To ensure the safety and wellbeing of all Pillar staff who are required to work alone, whether in service user accommodation, during home visits, or in the community. This policy establishes clear protocols to minimise risk and ensure that lone workers can summon help if needed.',
+      scope: 'This policy applies to all Pillar employees, agency workers, and volunteers who carry out duties without direct supervision or the presence of colleagues. This includes but is not limited to: support workers conducting one-to-one sessions in service user properties, staff carrying out welfare checks, night staff working alone in supported accommodation, and any employee travelling between sites.',
       procedures: [
         'Before commencing lone working, the staff member must complete a dynamic risk assessment using the Pillar system, identifying potential hazards at the location.',
         'All lone working sessions must be logged in the Pillar Mileage & Lone Working Tracker, including check-in time, location, and expected duration.',
@@ -6869,8 +6974,8 @@ function getPolicyContent() {
       reviewDate: '01 September 2026'
     },
     'Anti-Social Behaviour (ASB) Policy': {
-      purpose: 'To set out Asara\'s approach to preventing, identifying, and responding to anti-social behaviour by or affecting service users in supported accommodation. This policy ensures that ASB is dealt with proportionately while supporting service users to address underlying causes of their behaviour.',
-      scope: 'This policy applies to all Asara supported accommodation services and covers ASB committed by service users, their visitors, or any person within or in the vicinity of Asara-managed properties. ASB includes but is not limited to: noise nuisance, verbal abuse or threats, damage to property, substance misuse in communal areas, intimidation, and harassment.',
+      purpose: 'To set out Pillar\'s approach to preventing, identifying, and responding to anti-social behaviour by or affecting service users in supported accommodation. This policy ensures that ASB is dealt with proportionately while supporting service users to address underlying causes of their behaviour.',
+      scope: 'This policy applies to all Pillar supported accommodation services and covers ASB committed by service users, their visitors, or any person within or in the vicinity of Pillar-managed properties. ASB includes but is not limited to: noise nuisance, verbal abuse or threats, damage to property, substance misuse in communal areas, intimidation, and harassment.',
       procedures: [
         'All reports of ASB must be logged in Pillar within 24 hours of the incident occurring, including date, time, location, persons involved, and a factual description of the behaviour.',
         'On receipt of an ASB report, the allocated keyworker must arrange a face-to-face meeting with the service user within 48 hours to discuss the behaviour and agree an action plan.',
@@ -6886,7 +6991,7 @@ function getPolicyContent() {
     },
     'Death of a Service User Policy': {
       purpose: 'To provide clear guidance for all staff on the immediate actions, notifications, and support processes that must be followed in the event of a service user death, whether expected or unexpected. This policy ensures dignity, compliance with legal requirements, and proper support for staff and other service users affected.',
-      scope: 'This policy applies to all Asara staff and covers any death of a current service user, whether it occurs on Asara premises, in hospital, or elsewhere. It also covers situations where a former service user (within 28 days of leaving the service) is reported deceased.',
+      scope: 'This policy applies to all Pillar staff and covers any death of a current service user, whether it occurs on Pillar premises, in hospital, or elsewhere. It also covers situations where a former service user (within 28 days of leaving the service) is reported deceased.',
       procedures: [
         'If a staff member discovers a service user who is unresponsive, call 999 immediately and commence first aid/CPR unless death is clearly established. Do not move the body or disturb the scene.',
         'Contact the on-call manager immediately, regardless of time of day. The on-call manager must attend the scene within 1 hour.',
@@ -6903,8 +7008,8 @@ function getPolicyContent() {
       reviewDate: '01 June 2026'
     },
     'Identifying & Reporting Risks & Incidents Policy': {
-      purpose: 'To establish a consistent, transparent, and effective framework for identifying, reporting, and managing risks and incidents across all Asara services. This policy ensures that incidents are recorded promptly, investigated thoroughly, and that lessons are learned to prevent recurrence.',
-      scope: 'This policy applies to all Asara employees, agency staff, and volunteers. It covers all incidents, near misses, and identified risks within Asara services, including but not limited to: injuries to staff or service users, medication errors, safeguarding concerns, property damage, security breaches, aggressive or violent behaviour, self-harm, substance misuse incidents, missing persons, and complaints.',
+      purpose: 'To establish a consistent, transparent, and effective framework for identifying, reporting, and managing risks and incidents across all Pillar services. This policy ensures that incidents are recorded promptly, investigated thoroughly, and that lessons are learned to prevent recurrence.',
+      scope: 'This policy applies to all Pillar employees, agency staff, and volunteers. It covers all incidents, near misses, and identified risks within Pillar services, including but not limited to: injuries to staff or service users, medication errors, safeguarding concerns, property damage, security breaches, aggressive or violent behaviour, self-harm, substance misuse incidents, missing persons, and complaints.',
       procedures: [
         'All incidents must be reported via the Pillar Incident Reporting system within 4 hours of occurrence or discovery. The report must include: date, time, location, persons involved, description of the incident, immediate actions taken, and any witnesses.',
         'Incidents are auto-categorised by the Pillar AI as: Low (no injury/minimal impact), Medium (minor injury/moderate impact), High (serious injury/significant impact), or Critical (life-threatening/death/major safeguarding). Staff should review and confirm or adjust the AI categorisation.',
@@ -6914,19 +7019,19 @@ function getPolicyContent() {
         'High and Critical incidents require a formal investigation, to be completed within 10 working days. The investigation must identify root causes, contributing factors, and produce actionable recommendations.',
         'All incident data is reviewed monthly at the management team meeting. Trends, patterns, and hotspots must be identified and addressed through service improvement plans.',
         'Regulatory notifications (CQC, local authority, police) must be made as required by law and contractual obligations. The Director is responsible for ensuring these are completed.',
-        'Staff must never be penalised for reporting incidents in good faith. Asara operates a Just Culture approach — the focus is on learning, not blame.',
+        'Staff must never be penalised for reporting incidents in good faith. Pillar operates a Just Culture approach — the focus is on learning, not blame.',
         'All staff must complete incident reporting training at induction and attend annual refresher training.'
       ],
       responsibilities: '<strong>All Staff:</strong> Report all incidents and near misses promptly and accurately. Take immediate action to ensure safety. Cooperate with investigations.<br><strong>Keyworkers:</strong> Ensure service user-related incidents are reflected in support plans and risk assessments within 48 hours.<br><strong>Service Managers:</strong> Review all incidents within 24 hours, lead formal investigations for High/Critical incidents, implement recommendations, and report trends to senior management.<br><strong>Senior Management:</strong> Oversee the incident management framework, ensure regulatory notifications are made, review monthly trend data, and allocate resources for service improvements.<br><strong>Director:</strong> Report to the Board quarterly on incident trends and improvement actions. Ensure this policy is reviewed annually.',
       reviewDate: '15 August 2026'
     },
     'Staff Supervision Policy': {
-      purpose: 'To ensure that all Asara staff receive regular, structured, and supportive supervision that promotes professional development, ensures accountability, and maintains high-quality service delivery. Supervision is a core component of Asara\'s commitment to staff wellbeing and effective governance.',
-      scope: 'This policy applies to all Asara employees, including permanent staff, fixed-term staff, and those on probation. Agency workers and volunteers should receive a proportionate level of oversight as agreed with their line manager. Supervision encompasses one-to-one sessions, group supervision, and reflective practice.',
+      purpose: 'To ensure that all Pillar staff receive regular, structured, and supportive supervision that promotes professional development, ensures accountability, and maintains high-quality service delivery. Supervision is a core component of Pillar\'s commitment to staff wellbeing and effective governance.',
+      scope: 'This policy applies to all Pillar employees, including permanent staff, fixed-term staff, and those on probation. Agency workers and volunteers should receive a proportionate level of oversight as agreed with their line manager. Supervision encompasses one-to-one sessions, group supervision, and reflective practice.',
       procedures: [
         'All staff must receive formal one-to-one supervision at least once every 4 weeks. Staff on probation or performance improvement plans must receive supervision fortnightly.',
         'Supervision sessions must be scheduled in advance, with a minimum of 1 hour allocated. Sessions should not be cancelled except in exceptional circumstances — if cancelled, they must be rescheduled within 5 working days.',
-        'Each session must follow the Asara Supervision Agenda Template, covering: (a) Wellbeing check-in, (b) Caseload review, (c) Review of previous actions, (d) Performance and development, (e) Any concerns or complaints, (f) Actions and next steps.',
+        'Each session must follow the Pillar Supervision Agenda Template, covering: (a) Wellbeing check-in, (b) Caseload review, (c) Review of previous actions, (d) Performance and development, (e) Any concerns or complaints, (f) Actions and next steps.',
         'The supervisor must prepare by reviewing the staff member\'s caseload data, recent incident reports, AI QA scores, and any concerns or compliments received since the last session.',
         'Supervision notes must be recorded in the Pillar system within 48 hours. Both the supervisor and supervisee must sign off the record. The supervisee has the right to add their own comments or clarifications.',
         'Where performance concerns are identified, the supervisor must create a clear, measurable action plan with specific targets and timescales. Persistent concerns must be escalated to the service manager within 2 supervision cycles.',
@@ -6959,7 +7064,7 @@ function showPolicyModal(policyName) {
       '<div class="policy-meta-item"><span class="policy-meta-label">Review Due</span><span class="policy-meta-val">' + policyMeta.reviewDue + '</span></div>' +
       '<div class="policy-meta-item"><span class="policy-meta-label">Staff Ack</span><span class="policy-meta-val">' + policyMeta.ack + '%</span></div>' : '') +
       '</div>' +
-      '<div class="policy-section"><p style="color:#64748b;font-style:italic">Full policy content is being prepared by the Asara governance team. Please contact your line manager for the current version of this document.</p></div>';
+      '<div class="policy-section"><p style="color:#64748b;font-style:italic">Full policy content is being prepared by the Pillar governance team. Please contact your line manager for the current version of this document.</p></div>';
     document.getElementById('policy-overlay').style.display = 'flex';
     return;
   }
@@ -6970,7 +7075,7 @@ function showPolicyModal(policyName) {
     '<div class="policy-meta-item"><span class="policy-meta-label">Review Due</span><span class="policy-meta-val">' + policyData.reviewDate + '</span></div>' +
     '<div class="policy-meta-item"><span class="policy-meta-label">Staff Ack</span><span class="policy-meta-val">' + policyMeta.ack + '%</span></div>' +
     '<div class="policy-meta-item"><span class="policy-meta-label">Status</span><span class="policy-meta-val">' + policyMeta.status + '</span></div>' : '') +
-    '<div class="policy-meta-item"><span class="policy-meta-label">Author</span><span class="policy-meta-val">Asara Governance Team</span></div>' +
+    '<div class="policy-meta-item"><span class="policy-meta-label">Author</span><span class="policy-meta-val">Pillar Governance Team</span></div>' +
     '</div>';
 
   const procedureHtml = policyData.procedures.map((step, i) => '<li>' + step + '</li>').join('');
