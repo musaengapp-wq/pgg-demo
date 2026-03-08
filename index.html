@@ -1490,6 +1490,80 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   </div>
 </div>
 
+<!-- ===== SU PROFILE INCIDENT FORM (form only) ===== -->
+<div class="page" id="p-su-incident-form">
+  <div class="card">
+    <h3>Log Incident <span id="su-inc-form-su-label" style="font-size:12px;color:#64748b"></span></h3>
+    <form id="su-incident-form" onsubmit="return saveSUIncident(event)">
+      <div class="g2">
+        <div>
+          <div class="form-group">
+            <label class="form-label">Date</label>
+            <input class="form-input" type="datetime-local" id="su-inc-date" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Service User</label>
+            <select class="form-select" id="su-inc-su" required></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Staff Involved</label>
+            <input class="form-input" type="text" id="su-inc-staff" placeholder="e.g. J. Peters, M. Khan" required>
+          </div>
+        </div>
+        <div>
+          <div class="form-group">
+            <label class="form-label">Category</label>
+            <select class="form-select" id="su-inc-category" required onchange="autoAssignLevelSU()">
+              <option value="">Select category...</option>
+              <optgroup label="Level 1 — Green (Low-Moderate)">
+                <option value="verbal-argument">Verbal argument</option>
+                <option value="minor-damage">Minor property damage</option>
+                <option value="one-off-breach">One-off licence breach</option>
+                <option value="noise-complaint">Noise complaint</option>
+                <option value="low-engagement">Low engagement / missed appointment</option>
+              </optgroup>
+              <optgroup label="Level 2 — Amber (Significant/Escalating)">
+                <option value="repeated-asb">Repeated ASB</option>
+                <option value="threatening-behaviour">Threatening behaviour</option>
+                <option value="disclosure">Disclosure (safeguarding)</option>
+                <option value="substance-misuse-concern">Substance misuse concern</option>
+                <option value="property-damage-significant">Significant property damage</option>
+                <option value="abandonment-risk">Abandonment risk</option>
+              </optgroup>
+              <optgroup label="Level 3 — Red (Critical)">
+                <option value="death">Death of service user</option>
+                <option value="self-harm">Self-harm / suicide attempt</option>
+                <option value="serious-violence">Serious violence / assault</option>
+                <option value="emergency-services">Emergency services called</option>
+                <option value="missing-person">Missing person</option>
+                <option value="fire">Fire at property</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Auto-Assigned Level</label>
+            <div id="su-inc-level-display" style="padding:8px 12px;border-radius:6px;font-size:12px;font-weight:700;background:#f1f5f9;color:#64748b">Select a category above</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">SSM Validation</label>
+            <div id="su-inc-ssm-question" style="font-size:11px;color:#475569;padding:6px 0">Select a category to see the validation question</div>
+            <select class="form-select" id="su-inc-ssm-answer" style="display:none">
+              <option value="">Answer required...</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="form-textarea" id="su-inc-description" placeholder="Describe the incident in detail..." required></textarea>
+      </div>
+      <button type="submit" class="btn-primary" style="width:100%">Log Incident</button>
+    </form>
+  </div>
+</div>
+
 <!-- ===== CAUSE FOR CONCERN ===== -->
 <div class="page" id="p-concerns">
   <div class="stats-row">
@@ -5335,14 +5409,20 @@ function supLogContactEvent() {
 function supLogIncident() {
   var s = getCurrentSUProfile();
   if (!s) { showToast('No service user selected'); return; }
-  nav('incidents');
-  switchIncTab('new');
+  nav('su-incident-form');
   setTimeout(function() {
-    var sel = document.getElementById('inc-su');
-    var su = findServiceUserByName(s.name);
-    if (su && sel) {
-      sel.value = su.id;
+    var dt = document.getElementById('su-inc-date');
+    if (dt && !dt.value) { var now = new Date(); now.setMinutes(now.getMinutes() - now.getTimezoneOffset()); dt.value = now.toISOString().slice(0, 16); }
+    var sel = document.getElementById('su-inc-su');
+    if (sel) {
+      sel.innerHTML = '<option value="">Select service user...</option>' + SERVICE_USERS.map(function(su) { return '<option value="'+su.id+'">'+su.id+' — '+su.name+'</option>'; }).join('');
+      var su = findServiceUserByName(s.name);
+      if (su) sel.value = su.id;
     }
+    var staffInput = document.getElementById('su-inc-staff');
+    if (staffInput && !staffInput.value) staffInput.value = getStaffName();
+    var label = document.getElementById('su-inc-form-su-label');
+    if (label) label.textContent = '— ' + s.name;
     showToast('Incident form ready for ' + s.name);
   }, 100);
 }
@@ -7212,6 +7292,119 @@ function loadDemoIncidents() {
   return demoIncidents;
 }
 
+// ===== SU PROFILE INCIDENT FORM =====
+function autoAssignLevelSU() {
+  const cat = document.getElementById('su-inc-category').value;
+  const disp = document.getElementById('su-inc-level-display');
+  const qEl = document.getElementById('su-inc-ssm-question');
+  const aEl = document.getElementById('su-inc-ssm-answer');
+  if (!cat) { disp.textContent = 'Select a category above'; disp.style.background = '#f1f5f9'; disp.style.color = '#64748b'; aEl.style.display = 'none'; qEl.textContent = 'Select a category to see the validation question'; return; }
+  const level = INCIDENT_LEVELS[cat];
+  const lc = LEVEL_COLORS[level];
+  disp.textContent = LEVEL_LABELS[level];
+  disp.style.background = lc.bg; disp.style.color = lc.color;
+  qEl.textContent = SSM_QUESTIONS[level];
+  aEl.style.display = 'block';
+}
+
+function saveSUIncident(e) {
+  e.preventDefault();
+  const cat = document.getElementById('su-inc-category').value;
+  if (!cat) { showToast('Please select a category'); return false; }
+  const suId = document.getElementById('su-inc-su').value;
+  const su = SERVICE_USERS.find(function(s) { return s.id === suId; });
+  const incidents = getIncidents();
+  const incNum = 450 + incidents.length;
+  incidents.unshift({
+    id: 'INC-' + incNum,
+    date: document.getElementById('su-inc-date').value,
+    suId: suId, suName: su ? su.name : suId,
+    staff: document.getElementById('su-inc-staff').value,
+    category: cat, categoryLabel: CATEGORY_LABELS[cat] || cat,
+    level: INCIDENT_LEVELS[cat],
+    description: document.getElementById('su-inc-description').value.trim(),
+    ssmAnswer: document.getElementById('su-inc-ssm-answer').value,
+    status: 'open',
+    createdAt: new Date().toISOString(),
+    notes: []
+  });
+  saveIncidents(incidents);
+  document.getElementById('su-incident-form').reset();
+  showToast('Incident INC-' + incNum + ' logged — view on Incidents & Risk dashboard');
+  nav('risk-dashboard');
+  return false;
+}
+
+function showIncidentDetail(incId) {
+  // Search in both localStorage and demo data
+  var inc = null;
+  var incidents = getIncidents();
+  inc = incidents.find(function(i) { return i.id === incId; });
+  if (!inc) {
+    // Check demo data stored on the risk dashboard render
+    if (window._riskDemoIncidents) {
+      inc = window._riskDemoIncidents.find(function(i) { return i.id === incId; });
+      if (inc) {
+        // Normalize demo format to match display
+        var modal = document.createElement('div');
+        modal.id = 'incident-detail-modal';
+        modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+        modal.onclick = function(ev) { if (ev.target === modal) modal.remove(); };
+        var sevColors = {1:'#059669',2:'#d97706',3:'#dc2626'};
+        var sevBg = {1:'#dcfce7',2:'#fef3c7',3:'#fee2e2'};
+        var sevText = {1:'#166534',2:'#92400e',3:'#991b1b'};
+        var sevLabel = {1:'Level 1 — GREEN',2:'Level 2 — AMBER',3:'Level 3 — RED'};
+        var dateStr = inc.date instanceof Date ? inc.date.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) : inc.date;
+        modal.innerHTML = '<div style="background:#fff;border-radius:12px;max-width:600px;width:100%;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3)">' +
+          '<div style="padding:20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center">' +
+            '<div><h3 style="margin:0;font-size:16px">'+inc.id+' — '+inc.type+'</h3><div style="font-size:12px;color:#64748b;margin-top:4px">'+inc.su+' ('+inc.suId+')</div></div>' +
+            '<span style="background:'+sevBg[inc.severity]+';color:'+sevText[inc.severity]+';padding:4px 12px;border-radius:10px;font-size:11px;font-weight:700">'+sevLabel[inc.severity]+'</span>' +
+          '</div>' +
+          '<div style="padding:20px">' +
+            '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">' +
+              '<div><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600">Date</div><div style="font-size:13px;color:#1e293b;margin-top:2px">'+dateStr+'</div></div>' +
+              '<div><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600">Assigned To</div><div style="font-size:13px;color:#1e293b;margin-top:2px">'+inc.assigned+'</div></div>' +
+              '<div><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600">Status</div><div style="font-size:13px;color:#1e293b;margin-top:2px;text-transform:capitalize">'+inc.status+'</div></div>' +
+              '<div><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600">Severity</div><div style="font-size:13px;margin-top:2px;color:'+sevColors[inc.severity]+';font-weight:700">'+sevLabel[inc.severity]+'</div></div>' +
+            '</div>' +
+            '<div style="margin-bottom:16px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Description</div><div style="font-size:13px;color:#334155;line-height:1.6;background:#f8fafc;padding:12px;border-radius:8px;border:1px solid #e2e8f0">'+inc.detail+'</div></div>' +
+          '</div>' +
+          '<div style="padding:16px 20px;border-top:1px solid #e2e8f0;text-align:right"><button class="btn-primary" onclick="this.closest(\'#incident-detail-modal\').remove()" style="padding:8px 20px">Close</button></div>' +
+        '</div>';
+        document.body.appendChild(modal);
+        return;
+      }
+    }
+    showToast('Incident not found');
+    return;
+  }
+  // Show localStorage incident detail
+  var lc = LEVEL_COLORS[inc.level] || LEVEL_COLORS[1];
+  var modal = document.createElement('div');
+  modal.id = 'incident-detail-modal';
+  modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+  modal.onclick = function(ev) { if (ev.target === modal) modal.remove(); };
+  var dateStr = new Date(inc.date).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  modal.innerHTML = '<div style="background:#fff;border-radius:12px;max-width:600px;width:100%;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3)">' +
+    '<div style="padding:20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center">' +
+      '<div><h3 style="margin:0;font-size:16px">'+inc.id+' — '+(inc.categoryLabel||inc.category)+'</h3><div style="font-size:12px;color:#64748b;margin-top:4px">'+(inc.suName||inc.suId)+' ('+inc.suId+')</div></div>' +
+      '<span style="background:'+lc.bg+';color:'+lc.color+';padding:4px 12px;border-radius:10px;font-size:11px;font-weight:700">'+LEVEL_LABELS[inc.level]+'</span>' +
+    '</div>' +
+    '<div style="padding:20px">' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">' +
+        '<div><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600">Date</div><div style="font-size:13px;color:#1e293b;margin-top:2px">'+dateStr+'</div></div>' +
+        '<div><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600">Staff Involved</div><div style="font-size:13px;color:#1e293b;margin-top:2px">'+inc.staff+'</div></div>' +
+        '<div><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600">Status</div><div style="font-size:13px;color:#1e293b;margin-top:2px;text-transform:capitalize">'+inc.status+'</div></div>' +
+        '<div><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600">Severity</div><div style="font-size:13px;margin-top:2px;color:'+lc.color+';font-weight:700">'+LEVEL_LABELS[inc.level]+'</div></div>' +
+      '</div>' +
+      '<div style="margin-bottom:16px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Description</div><div style="font-size:13px;color:#334155;line-height:1.6;background:#f8fafc;padding:12px;border-radius:8px;border:1px solid #e2e8f0">'+inc.description+'</div></div>' +
+      (inc.ssmAnswer ? '<div><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">SSM Validation</div><div style="font-size:13px;color:#334155">'+inc.ssmAnswer+'</div></div>' : '') +
+    '</div>' +
+    '<div style="padding:16px 20px;border-top:1px solid #e2e8f0;text-align:right"><button class="btn-primary" onclick="this.closest(\'#incident-detail-modal\').remove()" style="padding:8px 20px">Close</button></div>' +
+  '</div>';
+  document.body.appendChild(modal);
+}
+
 // ===== CAUSE FOR CONCERN SYSTEM =====
 function getConcerns() { try { return JSON.parse(localStorage.getItem('pgg_concerns') || '[]'); } catch(e) { return []; } }
 function saveConcerns(c) { localStorage.setItem('pgg_concerns', JSON.stringify(c)); }
@@ -8962,14 +9155,29 @@ function renderRiskDashboard() {
     { id:'CFC-205', su:'A. Rahman', suId:'SU-0001', concern:'Isolation — declining social contact', date:daysAgo(30), loggedBy:'J. Peters', status:'closed', monitorDays:0 }
   ];
 
-  // Render incident cards
+  // Store demo incidents for detail lookups
+  window._riskDemoIncidents = incidents;
+
+  // Merge localStorage incidents into kanban
+  var lsIncidents = getIncidents();
+  var lsCards = lsIncidents.map(function(li) {
+    return {
+      id: li.id, su: li.suName || li.suId, suId: li.suId,
+      type: li.categoryLabel || li.category,
+      date: new Date(li.date), severity: li.level,
+      assigned: li.staff, status: li.status === 'escalated' ? 'open' : li.status,
+      detail: li.description
+    };
+  });
+  var allIncidents = lsCards.concat(incidents);
+
+  // Render incident cards — clickable
   function incCard(inc) {
     const sevColors = {1:'#059669',2:'#d97706',3:'#dc2626'};
     const sevBg = {1:'#dcfce7',2:'#fef3c7',3:'#fee2e2'};
     const sevText = {1:'#166534',2:'#92400e',3:'#991b1b'};
     const dOpen = daysBetween(inc.date, today);
-    const typeIcons = {'ASB':'!','Self-harm':'!!','Licence Breach':'LB','Accident':'A','Disclosures':'D','Inappropriate Sexual Conduct':'ISC','Deceased':'X'};
-    return '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px;margin-bottom:8px;border-left:4px solid '+sevColors[inc.severity]+'">' +
+    return '<div onclick="showIncidentDetail(\''+inc.id+'\')" style="cursor:pointer;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px;margin-bottom:8px;border-left:4px solid '+sevColors[inc.severity]+';transition:box-shadow 0.15s" onmouseover="this.style.boxShadow=\'0 2px 8px rgba(0,0,0,0.1)\'" onmouseout="this.style.boxShadow=\'none\'">' +
       '<div style="display:flex;justify-content:space-between;align-items:flex-start">' +
         '<div>'+suLinkHtml(inc.su, 'font-size:12px')+'<div style="font-size:10px;color:#64748b;margin-top:2px">'+inc.id+' — '+inc.type+'</div></div>' +
         '<span style="background:'+sevBg[inc.severity]+';color:'+sevText[inc.severity]+';padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700">Level '+inc.severity+'</span>' +
@@ -8983,13 +9191,16 @@ function renderRiskDashboard() {
     '</div>';
   }
 
-  const openInc = incidents.filter(i=>i.status==='open');
-  const monInc = incidents.filter(i=>i.status==='monitoring');
-  const closedInc = incidents.filter(i=>i.status==='closed');
+  const openInc = allIncidents.filter(i=>i.status==='open');
+  const monInc = allIncidents.filter(i=>i.status==='monitoring');
+  const closedInc = allIncidents.filter(i=>i.status==='closed');
 
   document.getElementById('risk-inc-open').innerHTML = openInc.map(incCard).join('');
   document.getElementById('risk-inc-monitoring').innerHTML = monInc.map(incCard).join('');
   document.getElementById('risk-inc-closed').innerHTML = closedInc.map(incCard).join('');
+
+  // Update open incidents count dynamically
+  document.getElementById('risk-open-inc').textContent = openInc.length;
 
   // Incidents by month chart
   const monthData = [
