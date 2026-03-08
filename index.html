@@ -784,6 +784,56 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   .qa-actions { flex-direction: column; }
   .qa-actions button { width: 100%; }
 }
+
+/* ===== SW FLOW PAGES ===== */
+.sw-flow-page { max-width: 600px; margin: 0 auto; padding: 12px; }
+.sw-flow-card { background: #fff; border-radius: 16px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 16px; }
+.sw-flow-btn { display: block; width: 100%; min-height: 52px; border: none; border-radius: 12px; background: #1a6b3c; color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.15s, transform 0.1s; text-align: center; padding: 12px 16px; }
+.sw-flow-btn:active { transform: scale(0.97); }
+.sw-flow-btn:hover { background: #145a30; }
+.sw-flow-btn.danger { background: #dc2626; }
+.sw-flow-btn.danger:hover { background: #b91c1c; }
+.sw-flow-btn.secondary { background: #fff; color: #334155; border: 2px solid #cbd5e1; }
+.sw-flow-btn.secondary:hover { background: #f1f5f9; }
+.sw-flow-btn.secondary.active, .sw-flow-btn.active { background: #1a6b3c; color: #fff; border-color: #1a6b3c; }
+.sw-flow-select, .sw-flow-input, .sw-flow-textarea { display: block; width: 100%; min-height: 48px; border: 2px solid #e2e8f0; border-radius: 10px; padding: 12px 14px; font-size: 14px; font-family: inherit; background: #fff; color: #1e293b; box-sizing: border-box; transition: border-color 0.15s; }
+.sw-flow-select:focus, .sw-flow-input:focus, .sw-flow-textarea:focus { outline: none; border-color: #1a6b3c; }
+.sw-flow-textarea { min-height: 100px; resize: vertical; }
+.sw-flow-checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.sw-flow-checkbox { display: flex; align-items: center; gap: 10px; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 500; color: #334155; transition: border-color 0.15s, background 0.15s; min-height: 48px; }
+.sw-flow-checkbox:has(input:checked) { border-color: #1a6b3c; background: #f0fdf4; }
+.sw-flow-checkbox input[type="checkbox"] { width: 20px; height: 20px; accent-color: #1a6b3c; }
+.sw-flow-label { display: block; font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; margin-top: 16px; }
+.sw-flow-section { padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid #f1f5f9; }
+.sw-checkin-timer { font-size: 48px; font-weight: 900; text-align: center; color: #1a6b3c; font-variant-numeric: tabular-nums; letter-spacing: 2px; padding: 16px 0; }
+.sw-checkin-status { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; background: #f0fdf4; border-radius: 10px; font-size: 14px; color: #166534; }
+.sw-checkin-status .pulse { width: 12px; height: 12px; border-radius: 50%; background: #22c55e; animation: swPulse 1.5s infinite; }
+@keyframes swPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.3); } }
+.sw-severity-grid { display: flex; gap: 8px; }
+.sw-severity-btn { flex: 1; min-height: 48px; border: 2px solid #e2e8f0; border-radius: 10px; background: #fff; font-size: 16px; font-weight: 800; cursor: pointer; transition: all 0.15s; color: #64748b; }
+.sw-severity-btn:nth-child(1).active { background: #059669; color: #fff; border-color: #059669; }
+.sw-severity-btn:nth-child(2).active { background: #84cc16; color: #fff; border-color: #84cc16; }
+.sw-severity-btn:nth-child(3).active { background: #d97706; color: #fff; border-color: #d97706; }
+.sw-severity-btn:nth-child(4).active { background: #ea580c; color: #fff; border-color: #ea580c; }
+.sw-severity-btn:nth-child(5).active { background: #dc2626; color: #fff; border-color: #dc2626; }
+.sw-handover-card { padding: 14px; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 10px; background: #fff; }
+.sw-handover-card.flagged { border-left: 4px solid #dc2626; background: #fef2f2; }
+.sw-recent-note { padding: 14px; border: 1px solid #f1f5f9; border-radius: 10px; margin-bottom: 8px; background: #fafbfc; }
+.sw-flow-tabs { display: flex; gap: 4px; background: #f1f5f9; border-radius: 10px; padding: 4px; margin-bottom: 16px; }
+.sw-flow-tab { flex: 1; text-align: center; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 700; color: #64748b; cursor: pointer; transition: all 0.15s; border: none; background: transparent; }
+.sw-flow-tab.active { background: #fff; color: #1a6b3c; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.sw-alert-banner { padding: 12px; border-radius: 8px; font-weight: 700; text-align: center; margin: 12px 0; }
+.sw-alert-banner.amber { background: #fef3c7; border: 1px solid #f59e0b; color: #92400e; }
+.sw-alert-banner.red { background: #fef2f2; border: 1px solid #ef4444; color: #991b1b; }
+.sw-mileage-box { text-align: center; padding: 16px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0; }
+.sw-flow-btn-group { display: flex; gap: 8px; }
+.sw-flow-btn-group .sw-flow-btn { flex: 1; display: flex; align-items: center; justify-content: center; }
+@media (max-width: 480px) {
+  .sw-flow-checkbox-grid { grid-template-columns: 1fr; }
+  .sw-flow-btn-group { flex-direction: column; }
+  .sw-severity-grid { gap: 4px; }
+  .sw-severity-btn { min-height: 44px; font-size: 14px; }
+}
 </style>
 </head>
 <body>
@@ -3626,6 +3676,206 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   <div id="sw-home-content"></div>
 </div>
 
+<!-- ===== SW CONTACT NOTE ===== -->
+<div class="page" id="p-sw-contact-note">
+  <div class="sw-flow-page">
+    <div class="sw-flow-card">
+      <h3 style="margin:0 0 16px;font-size:16px;color:#1e293b">&#10010; Log Contact Note</h3>
+      <div class="sw-flow-section">
+        <label class="sw-flow-label">Service User</label>
+        <select class="sw-flow-select" id="sw-cn-su"><option value="">Select service user...</option></select>
+      </div>
+      <div class="sw-flow-section">
+        <label class="sw-flow-label">Note Type</label>
+        <select class="sw-flow-select" id="sw-cn-type">
+          <option value="">Select type...</option>
+          <option value="Face-to-face">Face-to-face</option>
+          <option value="Phone Call">Phone Call</option>
+          <option value="Text/WhatsApp">Text/WhatsApp</option>
+          <option value="Office">Office</option>
+          <option value="Welfare Check">Welfare Check</option>
+          <option value="Medication">Medication</option>
+          <option value="Incident">Incident</option>
+        </select>
+      </div>
+      <div class="sw-flow-section">
+        <label class="sw-flow-label">Areas Covered</label>
+        <div class="sw-flow-checkbox-grid" id="sw-cn-areas">
+          <label class="sw-flow-checkbox"><input type="checkbox" value="Housing"> Housing</label>
+          <label class="sw-flow-checkbox"><input type="checkbox" value="Mental Health"> Mental Health</label>
+          <label class="sw-flow-checkbox"><input type="checkbox" value="Physical Health"> Physical Health</label>
+          <label class="sw-flow-checkbox"><input type="checkbox" value="Substance Misuse"> Substance Misuse</label>
+          <label class="sw-flow-checkbox"><input type="checkbox" value="Education/Employment"> Education/Employment</label>
+          <label class="sw-flow-checkbox"><input type="checkbox" value="Finance/Benefits"> Finance/Benefits</label>
+          <label class="sw-flow-checkbox"><input type="checkbox" value="Social/Relationships"> Social/Relationships</label>
+          <label class="sw-flow-checkbox"><input type="checkbox" value="Safety"> Safety</label>
+          <label class="sw-flow-checkbox"><input type="checkbox" value="Independent Living Skills"> Independent Living Skills</label>
+          <label class="sw-flow-checkbox"><input type="checkbox" value="Medication"> Medication</label>
+        </div>
+      </div>
+      <div class="sw-flow-section">
+        <label class="sw-flow-label">Note Content</label>
+        <textarea class="sw-flow-textarea" id="sw-cn-content" placeholder="Describe the interaction..." oninput="updateSWCNCharCount()" style="min-height:120px"></textarea>
+        <div id="sw-cn-charcount" style="text-align:right;font-size:10px;color:#94a3b8;margin-top:4px">0 chars (min 20)</div>
+      </div>
+      <button class="sw-flow-btn" onclick="submitSWContactNote()">Submit Contact Note</button>
+    </div>
+    <div class="sw-flow-card">
+      <h3 style="margin:0 0 12px;font-size:13px;color:#64748b;text-transform:uppercase;letter-spacing:1px">Recent Notes</h3>
+      <div class="sw-flow-tabs">
+        <button class="sw-flow-tab active" onclick="switchSWCNTab('today', this)">Today</button>
+        <button class="sw-flow-tab" onclick="switchSWCNTab('week', this)">This Week</button>
+      </div>
+      <div id="sw-cn-recent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SW LONE WORKING ===== -->
+<div class="page" id="p-sw-lone-working">
+  <div class="sw-flow-page">
+    <div class="sw-flow-card">
+      <h3 style="margin:0 0 16px;font-size:16px;color:#1e293b">&#128205; Lone Working Check-In</h3>
+      <div id="sw-lw-status"></div>
+    </div>
+    <div class="sw-flow-card">
+      <h3 style="margin:0 0 12px;font-size:13px;color:#64748b;text-transform:uppercase;letter-spacing:1px">Today's Visits</h3>
+      <div id="sw-lw-history"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SW WELFARE CHECK ===== -->
+<div class="page" id="p-sw-welfare-check">
+  <div class="sw-flow-page">
+    <div class="sw-flow-card">
+      <h3 style="margin:0 0 16px;font-size:16px;color:#1e293b">&#9829; Welfare Check</h3>
+      <div class="sw-flow-section">
+        <label class="sw-flow-label">Service User</label>
+        <select class="sw-flow-select" id="sw-wc-su"><option value="">Select service user...</option></select>
+      </div>
+      <div class="sw-flow-section">
+        <label class="sw-flow-label">Was SU Seen?</label>
+        <div class="sw-flow-btn-group" id="sw-wc-seen">
+          <button class="sw-flow-btn secondary" data-val="Yes" onclick="setSWWCSeen('Yes')">Yes</button>
+          <button class="sw-flow-btn secondary" data-val="No" onclick="setSWWCSeen('No')">No</button>
+          <button class="sw-flow-btn secondary" data-val="No Access" onclick="setSWWCSeen('No Access')">No Access</button>
+        </div>
+      </div>
+      <div class="sw-flow-section">
+        <label class="sw-flow-label">Condition</label>
+        <div class="sw-flow-btn-group" id="sw-wc-condition">
+          <button class="sw-flow-btn secondary" data-val="Good" onclick="setSWWCCondition('Good')">Good</button>
+          <button class="sw-flow-btn secondary" data-val="Concern" onclick="setSWWCCondition('Concern')">Concern</button>
+          <button class="sw-flow-btn secondary" data-val="Urgent" onclick="setSWWCCondition('Urgent')">Urgent</button>
+        </div>
+      </div>
+      <div class="sw-flow-section">
+        <label class="sw-flow-label">Brief Note</label>
+        <textarea class="sw-flow-textarea" id="sw-wc-note" placeholder="Any observations or concerns..."></textarea>
+      </div>
+      <button class="sw-flow-btn" onclick="submitSWWelfareCheck()">Submit Welfare Check</button>
+    </div>
+    <div class="sw-flow-card">
+      <h3 style="margin:0 0 12px;font-size:13px;color:#64748b;text-transform:uppercase;letter-spacing:1px">Recent Welfare Checks</h3>
+      <div id="sw-wc-recent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SW INCIDENT REPORT ===== -->
+<div class="page" id="p-sw-incident-report">
+  <div class="sw-flow-page">
+    <div class="sw-flow-card">
+      <h3 style="margin:0 0 16px;font-size:16px;color:#1e293b">&#9888; Report Incident</h3>
+      <div class="sw-flow-section">
+        <label class="sw-flow-label">Service User</label>
+        <select class="sw-flow-select" id="sw-ir-su"><option value="">Select service user...</option></select>
+      </div>
+      <div class="sw-flow-section">
+        <label class="sw-flow-label">Category</label>
+        <select class="sw-flow-select" id="sw-ir-category">
+          <option value="">Select category...</option>
+          <option value="ASB">ASB</option>
+          <option value="Licence Breach">Licence Breach</option>
+          <option value="Disclosure">Disclosure</option>
+          <option value="Self-harm">Self-harm</option>
+          <option value="Substance Misuse">Substance Misuse</option>
+          <option value="Violence/Aggression">Violence/Aggression</option>
+          <option value="Property Damage">Property Damage</option>
+          <option value="Missing Person">Missing Person</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="sw-flow-section">
+        <label class="sw-flow-label">Severity (1 = Low, 5 = Critical)</label>
+        <div class="sw-severity-grid" id="sw-ir-severity">
+          <button class="sw-severity-btn" onclick="setSWIRSeverity(1)">1</button>
+          <button class="sw-severity-btn" onclick="setSWIRSeverity(2)">2</button>
+          <button class="sw-severity-btn" onclick="setSWIRSeverity(3)">3</button>
+          <button class="sw-severity-btn" onclick="setSWIRSeverity(4)">4</button>
+          <button class="sw-severity-btn" onclick="setSWIRSeverity(5)">5</button>
+        </div>
+      </div>
+      <div class="sw-flow-section">
+        <label class="sw-flow-label">Description</label>
+        <textarea class="sw-flow-textarea" id="sw-ir-desc" placeholder="Describe what happened..." style="min-height:120px"></textarea>
+      </div>
+      <div class="sw-flow-section">
+        <label class="sw-flow-label">Any Injuries?</label>
+        <div class="sw-flow-btn-group" id="sw-ir-injuries">
+          <button class="sw-flow-btn secondary" data-val="Yes" onclick="setSWIRToggle('injuries','Yes')">Yes</button>
+          <button class="sw-flow-btn secondary" data-val="No" onclick="setSWIRToggle('injuries','No')">No</button>
+        </div>
+      </div>
+      <div class="sw-flow-section">
+        <label class="sw-flow-label">Emergency Services Called?</label>
+        <div class="sw-flow-btn-group" id="sw-ir-emergency">
+          <button class="sw-flow-btn secondary" data-val="Yes" onclick="setSWIRToggle('emergency','Yes')">Yes</button>
+          <button class="sw-flow-btn secondary" data-val="No" onclick="setSWIRToggle('emergency','No')">No</button>
+        </div>
+      </div>
+      <button class="sw-flow-btn" onclick="submitSWIncident()">Submit Incident Report</button>
+    </div>
+    <div class="sw-flow-card">
+      <h3 style="margin:0 0 12px;font-size:13px;color:#64748b;text-transform:uppercase;letter-spacing:1px">My Submitted Incidents</h3>
+      <div id="sw-ir-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SW HANDOVER ===== -->
+<div class="page" id="p-sw-handover">
+  <div class="sw-flow-page">
+    <div class="sw-flow-card">
+      <h3 style="margin:0 0 16px;font-size:16px;color:#1e293b">&#128221; Shift Handover</h3>
+      <div class="sw-flow-tabs">
+        <button class="sw-flow-tab active" onclick="switchSWHandoverTab('add', this)">Add Note</button>
+        <button class="sw-flow-tab" onclick="switchSWHandoverTab('previous', this)">Previous Shift</button>
+      </div>
+      <div id="sw-ho-add-panel">
+        <div class="sw-flow-section">
+          <label class="sw-flow-label">Service User</label>
+          <select class="sw-flow-select" id="sw-ho-su"><option value="">Select service user...</option></select>
+        </div>
+        <div class="sw-flow-section">
+          <label class="sw-flow-label">Priority</label>
+          <button class="sw-flow-btn secondary" id="sw-ho-flag-btn" onclick="toggleSWHandoverFlag()" style="max-width:200px">Flag as Priority</button>
+        </div>
+        <div class="sw-flow-section">
+          <label class="sw-flow-label">Handover Note</label>
+          <textarea class="sw-flow-textarea" id="sw-ho-note" placeholder="What does the next shift need to know..."></textarea>
+        </div>
+        <button class="sw-flow-btn" onclick="submitSWHandover()">Submit Handover Note</button>
+      </div>
+      <div id="sw-ho-prev-panel" style="display:none"></div>
+    </div>
+    <div class="sw-flow-card">
+      <div id="sw-ho-current"></div>
+    </div>
+  </div>
+</div>
+
   <footer>Pillar OS &mdash; Compliance Infrastructure by Pillar Governance Group</footer>
 </div>
 
@@ -3663,7 +3913,12 @@ const titles = {
   'access-control':'Access Control',
   'staff-performance':'Staff Performance',
   'demo-compare':'Live Demo',
-  'sw-home':'My Dashboard'
+  'sw-home':'My Dashboard',
+  'sw-contact-note':'Log Contact Note',
+  'sw-lone-working':'Lone Working',
+  'sw-welfare-check':'Welfare Check',
+  'sw-incident-report':'Report Incident',
+  'sw-handover':'Shift Handover'
 };
 var navHistory = [];
 function nav(page, opts) {
@@ -3697,7 +3952,7 @@ function nav(page, opts) {
   // Bottom nav active state
   document.querySelectorAll('.bottom-nav-item').forEach(function(b){ b.classList.remove('active'); });
   var isSW = localStorage.getItem('pgg_user_role') === 'sw';
-  var bnMap = isSW ? {'sw-home':0,'service-users':1,'new-note':2,'notifications':3,'cn-hub':4} : {'dashboard':0,'service-users':1,'new-note':2,'notifications':3,'cn-hub':4};
+  var bnMap = isSW ? {'sw-home':0,'sw-contact-note':1,'sw-lone-working':2,'sw-welfare-check':3,'notifications':4} : {'dashboard':0,'service-users':1,'new-note':2,'notifications':3,'cn-hub':4};
   if (typeof bnMap[page] !== 'undefined') {
     var items = document.querySelectorAll('.bottom-nav-item');
     if (items[bnMap[page]]) items[bnMap[page]].classList.add('active');
@@ -3722,6 +3977,11 @@ function nav(page, opts) {
   if (page === 'insights') renderInsights();
   if (page === 'doc-management') renderDocManagement();
   if (page === 'sw-home') renderSWHome();
+  if (page === 'sw-contact-note') renderSWContactNote();
+  if (page === 'sw-lone-working') renderSWLoneWorking();
+  if (page === 'sw-welfare-check') renderSWWelfareCheck();
+  if (page === 'sw-incident-report') renderSWIncidentReport();
+  if (page === 'sw-handover') renderSWHandover();
   window.scrollTo(0,0);
 }
 document.querySelectorAll('.nav-item[data-page]').forEach(item => {
@@ -5621,13 +5881,16 @@ function enterSWMode() {
       '<div class="nav-section">My Work</div>' +
       '<div class="nav-item active" data-page="sw-home"><span class="icon">&#9632;</span> Home</div>' +
       '<div class="nav-item" data-page="service-users"><span class="icon">&#9823;</span> My SUs</div>' +
-      '<div class="nav-item" data-page="new-note"><span class="icon">&#10010;</span> Log Note</div>' +
+      '<div class="nav-item" data-page="sw-contact-note"><span class="icon">&#10010;</span> Log Note</div>' +
+      '<div class="nav-item" data-page="sw-welfare-check"><span class="icon">&#9829;</span> Welfare Check</div>' +
+      '<div class="nav-item" data-page="sw-lone-working"><span class="icon">&#128205;</span> Check In/Out</div>' +
+      '<div class="nav-item" data-page="sw-incident-report"><span class="icon">&#9888;</span> Report Incident</div>' +
+      '<div class="nav-item" data-page="sw-handover"><span class="icon">&#128221;</span> Handover</div>' +
       '<div class="nav-item" data-page="notifications"><span class="icon">&#128276;</span> Alerts <span class="badge">7</span></div>' +
       '<div class="nav-section">More</div>' +
-      '<div class="nav-item" data-page="contact-notes"><span class="icon">&#9997;</span> Contact Notes</div>' +
+      '<div class="nav-item" data-page="contact-notes"><span class="icon">&#9997;</span> My Notes</div>' +
       '<div class="nav-item" data-page="support-plans"><span class="icon">&#9776;</span> Support Plans</div>' +
       '<div class="nav-item" data-page="safe-well"><span class="icon">&#9888;</span> Safe & Well</div>' +
-      '<div class="nav-item" data-page="lone-working"><span class="icon">&#128205;</span> Lone Working</div>' +
       '<div class="nav-item" data-page="training"><span class="icon">&#9734;</span> Training</div>';
     // Re-bind click handlers
     sidebarNav.querySelectorAll('.nav-item[data-page]').forEach(function(item) {
@@ -5640,10 +5903,10 @@ function enterSWMode() {
   if (bnInner) {
     bnInner.innerHTML =
       '<div class="bottom-nav-item active" onclick="nav(\'sw-home\')"><span class="bn-icon">&#9632;</span>Home</div>' +
-      '<div class="bottom-nav-item" onclick="nav(\'service-users\')"><span class="bn-icon">&#9823;</span>My SUs</div>' +
-      '<div class="bottom-nav-item" onclick="nav(\'new-note\')"><span class="bn-icon">&#10010;</span>Note</div>' +
-      '<div class="bottom-nav-item" onclick="nav(\'notifications\')"><span class="bn-icon">&#128276;</span>Alerts</div>' +
-      '<div class="bottom-nav-item" onclick="nav(\'contact-notes\')"><span class="bn-icon">&#128221;</span>Notes</div>';
+      '<div class="bottom-nav-item" onclick="nav(\'sw-contact-note\')"><span class="bn-icon">&#10010;</span>Note</div>' +
+      '<div class="bottom-nav-item" onclick="nav(\'sw-lone-working\')"><span class="bn-icon">&#128205;</span>Check In</div>' +
+      '<div class="bottom-nav-item" onclick="nav(\'sw-welfare-check\')"><span class="bn-icon">&#9829;</span>Welfare</div>' +
+      '<div class="bottom-nav-item" onclick="nav(\'notifications\')"><span class="bn-icon">&#128276;</span>Alerts</div>';
   }
 }
 
@@ -9820,6 +10083,519 @@ function swQuickNote(e) {
   }
   showToast('Note submitted successfully');
   document.getElementById('sw-qn-content').value = '';
+}
+
+// ===== SW CONTACT NOTE =====
+let swContactNotes = [];
+let swCNTab = 'today';
+
+function renderSWContactNote() {
+  const idx = parseInt(localStorage.getItem('pgg_sw_index') || '0');
+  const w = swStaff[idx];
+  const suSel = document.getElementById('sw-cn-su');
+  if (suSel) {
+    suSel.innerHTML = '<option value="">Select service user...</option>' +
+      w.serviceUsers.map(su => '<option value="'+su.id+'" data-name="'+su.name+'">'+su.id+' — '+su.name+'</option>').join('');
+  }
+  renderSWCNRecent();
+}
+
+function submitSWContactNote() {
+  const suSel = document.getElementById('sw-cn-su');
+  const suId = suSel.value;
+  const suName = suSel.options[suSel.selectedIndex]?.dataset?.name || '';
+  const type = document.getElementById('sw-cn-type').value;
+  const content = document.getElementById('sw-cn-content').value.trim();
+  const areas = Array.from(document.querySelectorAll('#sw-cn-areas input:checked')).map(cb => cb.value);
+  if (!suId || !type || !content) { showToast('Please fill in all required fields'); return; }
+  if (content.length < 20) { showToast('Note must be at least 20 characters'); return; }
+  swContactNotes.unshift({
+    suId, suName, type, areas, content,
+    timestamp: new Date(),
+    worker: localStorage.getItem('pgg_staff_name') || 'Support Worker'
+  });
+  showToast('Contact note logged for ' + suName);
+  document.getElementById('sw-cn-content').value = '';
+  document.getElementById('sw-cn-type').value = '';
+  suSel.value = '';
+  document.querySelectorAll('#sw-cn-areas input:checked').forEach(cb => cb.checked = false);
+  renderSWCNRecent();
+  updateSWCNCharCount();
+}
+
+function renderSWCNRecent() {
+  const el = document.getElementById('sw-cn-recent');
+  if (!el) return;
+  const now = new Date();
+  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const weekStart = new Date(todayStart); weekStart.setDate(weekStart.getDate() - 7);
+  let notes = swCNTab === 'today'
+    ? swContactNotes.filter(n => n.timestamp >= todayStart)
+    : swContactNotes.filter(n => n.timestamp >= weekStart);
+  if (notes.length === 0) {
+    el.innerHTML = '<div style="padding:20px;text-align:center;color:#94a3b8;font-size:12px">No notes ' + (swCNTab === 'today' ? 'today' : 'this week') + ' yet</div>';
+    return;
+  }
+  el.innerHTML = notes.map(n => {
+    const time = n.timestamp.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
+    const date = n.timestamp.toLocaleDateString('en-GB', {day:'numeric',month:'short'});
+    return '<div class="sw-recent-note">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center">' +
+        '<strong>' + n.suName + '</strong>' +
+        '<span style="font-size:10px;color:#94a3b8">' + date + ' ' + time + '</span>' +
+      '</div>' +
+      '<div style="margin-top:4px"><span class="b bl">' + n.type + '</span> ' +
+        n.areas.map(a => '<span class="b gy" style="font-size:9px">' + a + '</span>').join(' ') +
+      '</div>' +
+      '<div style="margin-top:6px;font-size:11px;color:#475569">' + n.content.substring(0,120) + (n.content.length > 120 ? '...' : '') + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function switchSWCNTab(tab, el) {
+  swCNTab = tab;
+  el.parentElement.querySelectorAll('.sw-flow-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderSWCNRecent();
+}
+
+function updateSWCNCharCount() {
+  const ta = document.getElementById('sw-cn-content');
+  const cc = document.getElementById('sw-cn-charcount');
+  if (ta && cc) {
+    const len = ta.value.length;
+    cc.textContent = len + ' chars' + (len < 20 ? ' (min 20)' : '');
+    cc.style.color = len > 0 && len < 20 ? '#dc2626' : '#94a3b8';
+  }
+}
+
+// ===== SW LONE WORKING =====
+let swLWState = { checkedIn: false, suId: '', suName: '', address: '', checkInTime: null, timerId: null };
+let swLWHistory = [];
+
+function renderSWLoneWorking() {
+  updateSWLWDisplay();
+  renderSWLWHistory();
+}
+
+function swLWSelectSU() {
+  const sel = document.getElementById('sw-lw-su');
+  const opt = sel.options[sel.selectedIndex];
+  const addr = document.getElementById('sw-lw-address');
+  if (opt && opt.dataset.prop) {
+    addr.textContent = opt.dataset.prop;
+    addr.style.display = 'block';
+  } else {
+    addr.style.display = 'none';
+  }
+}
+
+function swLWCheckIn() {
+  const sel = document.getElementById('sw-lw-su');
+  if (!sel.value) { showToast('Please select a service user'); return; }
+  const opt = sel.options[sel.selectedIndex];
+  swLWState.checkedIn = true;
+  swLWState.suId = sel.value;
+  swLWState.suName = opt.dataset.name;
+  swLWState.address = opt.dataset.prop;
+  swLWState.checkInTime = new Date();
+  updateSWLWDisplay();
+  showToast('Checked in — visiting ' + swLWState.suName);
+  swLWState.timerId = setInterval(updateSWLWTimer, 1000);
+}
+
+function swLWCheckOut() {
+  const duration = Math.round((new Date() - swLWState.checkInTime) / 60000);
+  const mileage = (Math.random() * 8 + 1).toFixed(1);
+  swLWHistory.unshift({
+    suName: swLWState.suName,
+    address: swLWState.address,
+    checkIn: swLWState.checkInTime,
+    checkOut: new Date(),
+    duration: duration,
+    mileage: mileage
+  });
+  showToast('Checked out — ' + duration + ' min visit, ' + mileage + ' miles');
+  clearInterval(swLWState.timerId);
+  swLWState = { checkedIn: false, suId: '', suName: '', address: '', checkInTime: null, timerId: null };
+  updateSWLWDisplay();
+  renderSWLWHistory();
+}
+
+function updateSWLWDisplay() {
+  const statusEl = document.getElementById('sw-lw-status');
+  if (!statusEl) return;
+  if (swLWState.checkedIn) {
+    const time = swLWState.checkInTime.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
+    statusEl.innerHTML =
+      '<div class="sw-checkin-status">' +
+        '<div class="pulse"></div> <strong>CHECKED IN</strong> at ' + time +
+      '</div>' +
+      '<div class="sw-checkin-timer" id="sw-lw-timer-display">00:00</div>' +
+      '<div style="text-align:center;margin:16px 0">' +
+        '<div style="font-size:14px;font-weight:700;color:#1e293b">' + swLWState.suName + '</div>' +
+        '<div style="font-size:12px;color:#64748b;margin-top:4px">' + swLWState.address + '</div>' +
+      '</div>' +
+      '<div id="sw-lw-alert"></div>' +
+      '<button class="sw-flow-btn danger" onclick="swLWCheckOut()">CHECK OUT</button>' +
+      '<div class="sw-mileage-box" id="sw-lw-mileage" style="margin-top:16px">' +
+        '<div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px">Est. Mileage</div>' +
+        '<div style="font-size:20px;font-weight:800;color:#1a6b3c;margin-top:4px">' + (Math.random()*8+1).toFixed(1) + ' mi</div>' +
+      '</div>';
+    updateSWLWTimer();
+  } else {
+    const idx = parseInt(localStorage.getItem('pgg_sw_index') || '0');
+    const w = swStaff[idx];
+    statusEl.innerHTML =
+      '<div style="text-align:center;padding:20px 0">' +
+        '<div style="font-size:40px;margin-bottom:12px">&#128205;</div>' +
+        '<div style="font-size:14px;font-weight:700;color:#1e293b;margin-bottom:4px">Ready to Check In</div>' +
+        '<div style="font-size:11px;color:#64748b">Select a service user and check in when you arrive</div>' +
+      '</div>' +
+      '<div class="sw-flow-section">' +
+        '<label class="sw-flow-label">Service User</label>' +
+        '<select class="sw-flow-select" id="sw-lw-su" onchange="swLWSelectSU()">' +
+          '<option value="">Select service user...</option>' +
+          w.serviceUsers.map(su => '<option value="'+su.id+'" data-name="'+su.name+'" data-prop="'+su.prop+'">'+su.id+' — '+su.name+'</option>').join('') +
+        '</select>' +
+        '<div class="sw-flow-label" id="sw-lw-address" style="display:none;margin-top:8px;padding:10px;background:#f0fdf4;border-radius:8px;border:1px solid #86efac;color:#166534;font-weight:600"></div>' +
+      '</div>' +
+      '<button class="sw-flow-btn" onclick="swLWCheckIn()" style="margin-top:16px">CHECK IN</button>';
+  }
+}
+
+function updateSWLWTimer() {
+  if (!swLWState.checkedIn) return;
+  const elapsed = Math.floor((new Date() - swLWState.checkInTime) / 1000);
+  const hrs = Math.floor(elapsed / 3600);
+  const mins = Math.floor((elapsed % 3600) / 60);
+  const secs = elapsed % 60;
+  const display = (hrs > 0 ? hrs + ':' : '') + String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0');
+  const timerEl = document.getElementById('sw-lw-timer-display');
+  if (timerEl) timerEl.textContent = display;
+  if (elapsed > 4 * 3600) {
+    const alertEl = document.getElementById('sw-lw-alert');
+    if (alertEl && !alertEl.innerHTML) {
+      alertEl.innerHTML = '<div class="sw-alert-banner amber">Extended visit — welfare check triggered</div>';
+    }
+  }
+}
+
+function renderSWLWHistory() {
+  const el = document.getElementById('sw-lw-history');
+  if (!el) return;
+  if (swLWHistory.length === 0) {
+    el.innerHTML = '<div style="padding:16px;text-align:center;color:#94a3b8;font-size:12px">No visits logged today</div>';
+    return;
+  }
+  el.innerHTML = swLWHistory.map(v => {
+    const inTime = v.checkIn.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    const outTime = v.checkOut.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    return '<div class="sw-recent-note">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center">' +
+        '<strong>' + v.suName + '</strong>' +
+        '<span class="b gn">' + v.duration + ' min</span>' +
+      '</div>' +
+      '<div style="font-size:11px;color:#64748b;margin-top:4px">' + v.address + '</div>' +
+      '<div style="font-size:10px;color:#94a3b8;margin-top:4px">' + inTime + ' → ' + outTime + ' · ' + v.mileage + ' miles</div>' +
+    '</div>';
+  }).join('');
+}
+
+// ===== SW WELFARE CHECK =====
+let swWelfareChecks = [];
+let swWCSeen = '';
+let swWCCondition = '';
+
+function renderSWWelfareCheck() {
+  const idx = parseInt(localStorage.getItem('pgg_sw_index') || '0');
+  const w = swStaff[idx];
+  const suSel = document.getElementById('sw-wc-su');
+  if (suSel) {
+    suSel.innerHTML = '<option value="">Select service user...</option>' +
+      w.serviceUsers.map(su => '<option value="'+su.id+'" data-name="'+su.name+'">'+su.id+' — '+su.name+'</option>').join('');
+  }
+  swWCSeen = '';
+  swWCCondition = '';
+  updateSWWCButtons();
+  renderSWWCRecent();
+}
+
+function setSWWCSeen(val) {
+  swWCSeen = val;
+  updateSWWCButtons();
+}
+
+function setSWWCCondition(val) {
+  swWCCondition = val;
+  updateSWWCButtons();
+}
+
+function updateSWWCButtons() {
+  document.querySelectorAll('#sw-wc-seen .sw-flow-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.val === swWCSeen);
+  });
+  document.querySelectorAll('#sw-wc-condition .sw-flow-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.val === swWCCondition);
+  });
+}
+
+function submitSWWelfareCheck() {
+  const suSel = document.getElementById('sw-wc-su');
+  const suId = suSel.value;
+  const suName = suSel.options[suSel.selectedIndex]?.dataset?.name || '';
+  const note = document.getElementById('sw-wc-note').value.trim();
+  if (!suId || !swWCSeen || !swWCCondition) { showToast('Please complete all fields'); return; }
+  swWelfareChecks.unshift({
+    suId, suName, seen: swWCSeen, condition: swWCCondition, note,
+    timestamp: new Date(),
+    worker: localStorage.getItem('pgg_staff_name') || 'Support Worker'
+  });
+  swContactNotes.unshift({
+    suId, suName, type: 'Welfare Check',
+    areas: ['Safety'],
+    content: 'Welfare check: SU ' + (swWCSeen === 'Yes' ? 'seen' : swWCSeen === 'No' ? 'not seen' : 'no access') + '. Condition: ' + swWCCondition + '. ' + note,
+    timestamp: new Date(),
+    worker: localStorage.getItem('pgg_staff_name') || 'Support Worker'
+  });
+  showToast('Welfare check logged for ' + suName);
+  suSel.value = '';
+  document.getElementById('sw-wc-note').value = '';
+  swWCSeen = '';
+  swWCCondition = '';
+  updateSWWCButtons();
+  renderSWWCRecent();
+}
+
+function renderSWWCRecent() {
+  const el = document.getElementById('sw-wc-recent');
+  if (!el) return;
+  if (swWelfareChecks.length === 0) {
+    el.innerHTML = '<div style="padding:16px;text-align:center;color:#94a3b8;font-size:12px">No welfare checks logged yet</div>';
+    return;
+  }
+  el.innerHTML = swWelfareChecks.map(wc => {
+    const time = wc.timestamp.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    const date = wc.timestamp.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+    const condCls = wc.condition === 'Good' ? 'gn' : wc.condition === 'Concern' ? 'am' : 'rd';
+    const seenCls = wc.seen === 'Yes' ? 'gn' : 'rd';
+    return '<div class="sw-recent-note">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center">' +
+        '<strong>' + wc.suName + '</strong>' +
+        '<span style="font-size:10px;color:#94a3b8">' + date + ' ' + time + '</span>' +
+      '</div>' +
+      '<div style="margin-top:6px">' +
+        '<span class="b ' + seenCls + '">Seen: ' + wc.seen + '</span> ' +
+        '<span class="b ' + condCls + '">' + wc.condition + '</span>' +
+      '</div>' +
+      (wc.note ? '<div style="margin-top:6px;font-size:11px;color:#475569">' + wc.note + '</div>' : '') +
+    '</div>';
+  }).join('');
+}
+
+// ===== SW INCIDENT REPORT =====
+let swIncidents = [];
+let swIRSeverity = 0;
+let swIRInjuries = '';
+let swIREmergency = '';
+
+function renderSWIncidentReport() {
+  const idx = parseInt(localStorage.getItem('pgg_sw_index') || '0');
+  const w = swStaff[idx];
+  const suSel = document.getElementById('sw-ir-su');
+  if (suSel) {
+    suSel.innerHTML = '<option value="">Select service user...</option>' +
+      w.serviceUsers.map(su => '<option value="'+su.id+'" data-name="'+su.name+'">'+su.id+' — '+su.name+'</option>').join('');
+  }
+  swIRSeverity = 0;
+  swIRInjuries = '';
+  swIREmergency = '';
+  updateSWIRButtons();
+  document.querySelectorAll('#sw-ir-severity .sw-severity-btn').forEach(btn => btn.classList.remove('active'));
+  renderSWIRList();
+}
+
+function setSWIRSeverity(val) {
+  swIRSeverity = val;
+  document.querySelectorAll('#sw-ir-severity .sw-severity-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', (i+1) === val);
+  });
+}
+
+function setSWIRToggle(field, val) {
+  if (field === 'injuries') swIRInjuries = val;
+  else swIREmergency = val;
+  updateSWIRButtons();
+}
+
+function updateSWIRButtons() {
+  document.querySelectorAll('#sw-ir-injuries .sw-flow-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.val === swIRInjuries);
+  });
+  document.querySelectorAll('#sw-ir-emergency .sw-flow-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.val === swIREmergency);
+  });
+}
+
+function submitSWIncident() {
+  const suSel = document.getElementById('sw-ir-su');
+  const suId = suSel.value;
+  const suName = suSel.options[suSel.selectedIndex]?.dataset?.name || '';
+  const category = document.getElementById('sw-ir-category').value;
+  const desc = document.getElementById('sw-ir-desc').value.trim();
+  if (!suId || !category || !swIRSeverity || !desc || !swIRInjuries || !swIREmergency) {
+    showToast('Please complete all fields');
+    return;
+  }
+  const ref = 'INC-' + String(Math.floor(Math.random()*9000)+1000);
+  swIncidents.unshift({
+    ref, suId, suName, category, severity: swIRSeverity, description: desc,
+    injuries: swIRInjuries, emergency: swIREmergency,
+    status: 'Pending Review',
+    timestamp: new Date(),
+    worker: localStorage.getItem('pgg_staff_name') || 'Support Worker'
+  });
+  showToast('Incident logged — your Team Leader has been notified');
+  suSel.value = '';
+  document.getElementById('sw-ir-category').value = '';
+  document.getElementById('sw-ir-desc').value = '';
+  swIRSeverity = 0;
+  swIRInjuries = '';
+  swIREmergency = '';
+  updateSWIRButtons();
+  document.querySelectorAll('#sw-ir-severity .sw-severity-btn').forEach(btn => btn.classList.remove('active'));
+  renderSWIRList();
+}
+
+function renderSWIRList() {
+  const el = document.getElementById('sw-ir-list');
+  if (!el) return;
+  if (swIncidents.length === 0) {
+    el.innerHTML = '<div style="padding:16px;text-align:center;color:#94a3b8;font-size:12px">No incidents submitted</div>';
+    return;
+  }
+  el.innerHTML = swIncidents.map(inc => {
+    const time = inc.timestamp.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    const date = inc.timestamp.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+    const sevColors = ['','#059669','#84cc16','#d97706','#ea580c','#dc2626'];
+    return '<div class="sw-recent-note">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center">' +
+        '<strong>' + inc.ref + ' — ' + inc.suName + '</strong>' +
+        '<span class="b am">' + inc.status + '</span>' +
+      '</div>' +
+      '<div style="margin-top:6px">' +
+        '<span class="b gy">' + inc.category + '</span> ' +
+        '<span style="display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;background:' + sevColors[inc.severity] + '20;color:' + sevColors[inc.severity] + '">Severity ' + inc.severity + '</span>' +
+      '</div>' +
+      '<div style="margin-top:6px;font-size:11px;color:#475569">' + inc.description.substring(0,100) + (inc.description.length > 100 ? '...' : '') + '</div>' +
+      '<div style="margin-top:4px;font-size:10px;color:#94a3b8">' + date + ' ' + time + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+// ===== SW HANDOVER =====
+let swHandoverNotes = [];
+let swHandoverTab = 'add';
+let swHandoverFlagged = false;
+
+const swPreviousHandover = [
+  { suName: 'K. Adebayo', note: 'Spoke to mental health team about referral. They will call back Monday. SU aware.', flagged: true, worker: 'Arouba Khan', time: '17:30' },
+  { suName: 'S. Hassan', note: 'Rent payment confirmed for this month. No issues.', flagged: false, worker: 'Arouba Khan', time: '16:45' },
+  { suName: 'L. Briggs', note: 'SU requested meeting with Job Centre advisor. Booked for Tuesday 10am.', flagged: false, worker: 'Jack Vinten', time: '16:20' },
+  { suName: 'R. Okonkwo', note: 'URGENT: SU disclosed argument with neighbour. Possible ASB. Needs follow-up ASAP.', flagged: true, worker: 'Jack Vinten', time: '15:50' },
+  { suName: 'F. Yilmaz', note: 'Medication reminder given. SU confirmed appointment with GP Thursday.', flagged: false, worker: 'Arouba Khan', time: '15:15' },
+];
+
+function renderSWHandover() {
+  const idx = parseInt(localStorage.getItem('pgg_sw_index') || '0');
+  const w = swStaff[idx];
+  const suSel = document.getElementById('sw-ho-su');
+  if (suSel) {
+    suSel.innerHTML = '<option value="">Select service user...</option>' +
+      w.serviceUsers.map(su => '<option value="'+su.id+'" data-name="'+su.name+'">'+su.id+' — '+su.name+'</option>').join('');
+  }
+  swHandoverFlagged = false;
+  const flagBtn = document.getElementById('sw-ho-flag-btn');
+  if (flagBtn) { flagBtn.classList.remove('active'); flagBtn.textContent = 'Flag as Priority'; }
+  updateSWHandoverDisplay();
+}
+
+function switchSWHandoverTab(tab, el) {
+  swHandoverTab = tab;
+  el.parentElement.querySelectorAll('.sw-flow-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  updateSWHandoverDisplay();
+}
+
+function toggleSWHandoverFlag() {
+  swHandoverFlagged = !swHandoverFlagged;
+  const btn = document.getElementById('sw-ho-flag-btn');
+  if (btn) {
+    btn.classList.toggle('active', swHandoverFlagged);
+    btn.textContent = swHandoverFlagged ? 'Flagged' : 'Flag as Priority';
+  }
+}
+
+function submitSWHandover() {
+  const suSel = document.getElementById('sw-ho-su');
+  const suId = suSel.value;
+  const suName = suSel.options[suSel.selectedIndex]?.dataset?.name || '';
+  const note = document.getElementById('sw-ho-note').value.trim();
+  if (!suId || !note) { showToast('Please select SU and enter a note'); return; }
+  swHandoverNotes.unshift({
+    suId, suName, note, flagged: swHandoverFlagged,
+    timestamp: new Date(),
+    worker: localStorage.getItem('pgg_staff_name') || 'Support Worker'
+  });
+  showToast('Handover note added for ' + suName);
+  suSel.value = '';
+  document.getElementById('sw-ho-note').value = '';
+  swHandoverFlagged = false;
+  const flagBtn = document.getElementById('sw-ho-flag-btn');
+  if (flagBtn) { flagBtn.classList.remove('active'); flagBtn.textContent = 'Flag as Priority'; }
+  updateSWHandoverDisplay();
+}
+
+function updateSWHandoverDisplay() {
+  const addPanel = document.getElementById('sw-ho-add-panel');
+  const prevPanel = document.getElementById('sw-ho-prev-panel');
+  if (!addPanel || !prevPanel) return;
+  if (swHandoverTab === 'add') {
+    addPanel.style.display = 'block';
+    prevPanel.style.display = 'none';
+  } else {
+    addPanel.style.display = 'none';
+    prevPanel.style.display = 'block';
+  }
+  prevPanel.innerHTML = swPreviousHandover.map(h =>
+    '<div class="sw-handover-card' + (h.flagged ? ' flagged' : '') + '">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center">' +
+        '<strong>' + h.suName + '</strong>' +
+        (h.flagged ? '<span class="b rd">Flagged</span>' : '') +
+      '</div>' +
+      '<div style="margin-top:6px;font-size:12px;color:#334155">' + h.note + '</div>' +
+      '<div style="margin-top:6px;font-size:10px;color:#94a3b8">' + h.worker + ' · ' + h.time + '</div>' +
+    '</div>'
+  ).join('');
+  const currentEl = document.getElementById('sw-ho-current');
+  if (currentEl) {
+    if (swHandoverNotes.length === 0) {
+      currentEl.innerHTML = '<div style="padding:16px;text-align:center;color:#94a3b8;font-size:12px">No handover notes yet this shift</div>';
+    } else {
+      currentEl.innerHTML = '<h3 style="font-size:10px;letter-spacing:2px;color:#94a3b8;text-transform:uppercase;margin:0 0 10px;font-weight:700">My Handover Notes</h3>' +
+        swHandoverNotes.map(h => {
+          const time = h.timestamp.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+          return '<div class="sw-handover-card' + (h.flagged ? ' flagged' : '') + '">' +
+            '<div style="display:flex;justify-content:space-between;align-items:center">' +
+              '<strong>' + h.suName + '</strong>' +
+              (h.flagged ? '<span class="b rd">Flagged</span>' : '<span class="b gn">Normal</span>') +
+            '</div>' +
+            '<div style="margin-top:6px;font-size:12px;color:#334155">' + h.note + '</div>' +
+            '<div style="margin-top:6px;font-size:10px;color:#94a3b8">' + time + '</div>' +
+          '</div>';
+        }).join('');
+    }
+  }
 }
 </script>
 </body>
