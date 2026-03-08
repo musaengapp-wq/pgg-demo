@@ -1183,7 +1183,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   </div>
   <div class="card">
     <h3>Contact Notes <span class="ct" id="cn-count"></span></h3>
-    <div id="cn-list" style="font-size:12px;color:#94a3b8;text-align:center;padding:20px">No contact notes yet. <a href="#" onclick="nav('new-note');return false" style="color:#1a6b3c;font-weight:600">Create your first note</a></div>
+    <div id="cn-list" style="font-size:12px;color:#94a3b8;text-align:center;padding:20px">No contact notes yet. <a href="#" onclick="nav('cn-hub');return false" style="color:#1a6b3c;font-weight:600">Create your first note</a></div>
   </div>
 </div>
 
@@ -4171,7 +4171,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
 <script>
 const titles = {
   'dashboard':'Compliance Dashboard','notifications':'Notifications','service-users':'All Service Users',
-  'new-note':'New Contact Note','contact-notes':'Contact Notes','support-plans':'Support Plans','safe-well':'Safe & Well Procedures',
+  'contact-notes':'Contact Notes','support-plans':'Support Plans','safe-well':'Safe & Well Procedures',
   'incidents':'Incident Management','concerns':'Cause for Concern','policies':'Policies & Procedures','ai-qa':'AI QA Reports',
   'ai-check':'AI Check (Live Demo)','compliance-dash':'Compliance Dashboards','staff':'Staff & Caseloads',
   'properties-voids':'Properties & Voids',
@@ -4239,7 +4239,7 @@ function nav(page, opts) {
   }
   if (page === 'contact-notes') renderNotesList();
   if (page === 'dashboard') updateDashboard();
-  if (page === 'new-note') prefillNoteForm();
+  if (page === 'cn-hub') prefillNoteForm();
   if (page === 'ai-qa') updateAIQAPage();
   if (page === 'incidents') { renderIncidentsDashboard(); renderIncidentsList(); }
   if (page === 'concerns') { renderConcernsDashboard(); renderConcernsList(); }
@@ -5320,7 +5320,7 @@ function findServiceUserByName(name) {
 function supLogContactEvent() {
   var s = getCurrentSUProfile();
   if (!s) { showToast('No service user selected'); return; }
-  nav('new-note');
+  nav('cn-hub');
   populateSUDropdown();
   setTimeout(function() {
     var sel = document.getElementById('note-su');
@@ -6642,7 +6642,7 @@ function renderNotesList() {
 
   const list = document.getElementById('cn-list');
   if (total === 0) {
-    list.innerHTML = '<div style="text-align:center;padding:20px;color:#94a3b8;font-size:12px">No contact notes yet. <a href="#" onclick="nav(\'new-note\');return false" style="color:#1a6b3c;font-weight:600">Create your first note</a></div>';
+    list.innerHTML = '<div style="text-align:center;padding:20px;color:#94a3b8;font-size:12px">No contact notes yet. <a href="#" onclick="nav(\'cn-hub\');return false" style="color:#1a6b3c;font-weight:600">Create your first note</a></div>';
     return;
   }
   list.innerHTML = notes.map(n => {
@@ -11048,7 +11048,7 @@ function renderSWHome() {
       '</div>' +
       '<span class="sw-rag ' + ragCls + '">' + ragLabel + '</span>' +
       '<div class="sw-su-actions">' +
-        '<button onclick="nav(\'new-note\')">Log Note</button>' +
+        '<button onclick="nav(\'cn-hub\')">Log Note</button>' +
         '<button onclick="document.getElementById(\'sup-select\').value=\'' + su.id + '\';nav(\'su-profile\')">View Profile</button>' +
       '</div>' +
     '</div>';
