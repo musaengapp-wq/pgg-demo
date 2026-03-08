@@ -966,11 +966,11 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="nav-item" data-page="new-note"><span class="icon">&#10010;</span> New Contact Note</div>
     <div class="nav-item" data-page="contact-notes"><span class="icon">&#9997;</span> Contact Notes</div>
     <div class="nav-item" data-page="cn-hub"><span class="icon">&#128221;</span> Contact Notes <span class="badge info">79.6k</span></div>
-    <div class="nav-item" data-page="support-plans"><span class="icon">&#9776;</span> Support Plans <span class="badge warn">4</span></div>
     <div class="nav-item" data-page="safe-well"><span class="icon">&#9888;</span> Safe & Well <span class="badge">4</span></div>
     <div class="nav-item" data-page="eight-week"><span class="icon">&#9881;</span> 8-Week Guide</div>
     <div class="nav-item" data-page="allocation"><span class="icon">&#10132;</span> New Referral / Allocation</div>
     <div class="nav-section">Compliance</div>
+    <div class="nav-item" data-page="support-docs"><span class="icon">📋</span> Support Documentation <span class="badge warn" id="nav-qa-pending-badge">3</span></div>
     <div class="nav-item" data-page="risk-dashboard"><span class="icon">&#9888;</span> Incidents & Risk <span class="badge">3</span></div>
     <div class="nav-item" data-page="policies"><span class="icon">&#9745;</span> Policies & Procedures</div>
     <div class="nav-item" data-page="staff-performance"><span class="icon">&#9784;</span> Staff Performance</div>
@@ -1038,7 +1038,8 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="sc" data-nav="contact-notes" onclick="nav('contact-notes')"><div class="lb">Notes This Week</div><div class="val blue" id="dash-week">0</div><div class="d" id="dash-week-d"></div></div>
     <div class="sc" data-nav="ai-qa" onclick="nav('ai-qa')"><div class="lb">Avg AI Score</div><div class="val green" id="dash-avg-score">N/A</div><div class="d">Out of 4.0</div></div>
     <div class="sc" data-nav="service-users" onclick="nav('service-users')"><div class="lb">Service Users</div><div class="val blue">634</div><div class="d green">+12 this month</div></div>
-    <div class="sc" data-nav="safe-well" onclick="nav('safe-well')"><div class="lb">No Note >7 Days</div><div class="val red" id="dash-red-sus">0</div><div class="d red">Flagged RED</div></div>
+    <div class="sc" onclick="showNoNote7DaysList()" style="cursor:pointer"><div class="lb">No Note >7 Days</div><div class="val red" id="dash-red-sus">0</div><div class="d red">Compliance Flag</div></div>
+    <div class="sc" data-nav="risk-dashboard" onclick="nav('risk-dashboard')" style="cursor:pointer;border-left:3px solid #dc2626"><div class="lb">Open Incidents</div><div class="val red" id="dash-open-incidents">3</div><div class="d red">Requires action</div></div>
     <div class="sc" data-nav="concerns" onclick="nav('concerns')"><div class="lb">Cause for Concern</div><div class="val red" id="dash-flags">0</div><div class="d red">Flagged by AI</div></div>
   </div>
   <div class="g23">
@@ -1102,7 +1103,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <h3>Notifications <span class="ct">(7 unread)</span></h3>
     <div class="tl" onclick="nav('sw-dashboard');showToast('Safe & Well: SU-0334 — Day 3 escalation')"><div class="dot" style="background:#dc2626"></div><div><div class="tt">URGENT: SU-0334 Safe & Well — Day 3, no contact since 12 Feb</div><div class="mt">Auto-escalated to SSM. Immediate action required. — 1 hour ago</div></div></div>
     <div class="tl" onclick="nav('incidents');showToast('Viewing INC-446')"><div class="dot" style="background:#dc2626"></div><div><div class="tt">INC-446 escalated to HIGH — Licence breach at 24 Ecclesall Rd</div><div class="mt">D. Sharpe assigned. Compliance team notified. — 2 hours ago</div></div></div>
-    <div class="tl" onclick="nav('support-plans');showToast('Showing overdue support plans')"><div class="dot" style="background:#d97706"></div><div><div class="tt">2 support plans OVERDUE for renewal (SU-0091, SU-0145)</div><div class="mt">Expired 28 Feb. SAOs notified. — 3 hours ago</div></div></div>
+    <div class="tl" onclick="nav('support-docs');showToast('Showing overdue support plans')"><div class="dot" style="background:#d97706"></div><div><div class="tt">2 support plans OVERDUE for renewal (SU-0091, SU-0145)</div><div class="mt">Expired 28 Feb. SAOs notified. — 3 hours ago</div></div></div>
     <div class="tl" onclick="nav('policies');showToast('Viewing Abandonment Policy')"><div class="dot" style="background:#d97706"></div><div><div class="tt">Abandonment Policy v3.1 — 11% staff not acknowledged</div><div class="mt">3 staff have not opened the policy email. — 5 hours ago</div></div></div>
     <div class="tl" onclick="nav('incidents');showToast('Viewing PIR-003')"><div class="dot" style="background:#1a6b3c"></div><div><div class="tt">PIR-003 update: 2 of 3 actions completed</div><div class="mt">Remaining action: update safeguarding training module. Due 15 Mar. — 6 hours ago</div></div></div>
     <div class="tl" onclick="nav('cn-hub');showToast('Opening Contact Notes QA report')"><div class="dot" style="background:#059669"></div><div><div class="tt">Weekly QA report ready for review — Sheffield</div><div class="mt">1,247 notes, 84% compliance. 3 SAOs flagged for coaching. — yesterday</div></div></div>
@@ -1321,6 +1322,77 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       </div>
     </div>
   </div>
+</div>
+
+<!-- ===== SUPPORT DOCUMENTATION ===== -->
+<div class="page" id="p-support-docs">
+  <div class="stats-row" id="sd-stats">
+    <div class="sc" style="border-left:3px solid #d97706"><div class="lb">Pending QA Review</div><div class="val amber" id="sd-pending-qa">3</div></div>
+    <div class="sc"><div class="lb">Activated</div><div class="val green" id="sd-activated">18</div></div>
+    <div class="sc"><div class="lb">Draft</div><div class="val blue" id="sd-draft">2</div></div>
+    <div class="sc"><div class="lb">Returned for Revision</div><div class="val red" id="sd-returned">1</div></div>
+  </div>
+
+  <div class="tabs" id="sd-tabs">
+    <div class="tab active" onclick="switchSDTab('support-plans',this)">Support Plans</div>
+    <div class="tab" onclick="switchSDTab('risk-assessments',this)">Risk Assessments</div>
+    <div class="tab" onclick="switchSDTab('moving-in',this)">Moving In Checklists</div>
+    <div class="tab" onclick="switchSDTab('personal-traits',this)">Personal Traits</div>
+  </div>
+
+  <!-- Support Plans Tab -->
+  <div id="sd-tab-support-plans">
+    <div class="card">
+      <h3>Support Plans <span class="ct" id="sd-sp-count">(8)</span></h3>
+      <div class="si" style="max-height:none">
+        <table>
+          <thead><tr><th>SU Name</th><th>SU ID</th><th>SAO</th><th>Plan Start</th><th>Review Due</th><th>Status</th><th>QA Status</th><th>Actions</th></tr></thead>
+          <tbody id="sd-sp-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Risk Assessments Tab -->
+  <div id="sd-tab-risk-assessments" style="display:none">
+    <div class="card">
+      <h3>Risk Assessments <span class="ct" id="sd-ra-count">(12)</span></h3>
+      <div class="si" style="max-height:none">
+        <table>
+          <thead><tr><th>SU Name</th><th>SU ID</th><th>Assessment Date</th><th>Assessed By</th><th>Risk Level</th><th>QA Status</th><th>Actions</th></tr></thead>
+          <tbody id="sd-ra-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Moving In Checklists Tab -->
+  <div id="sd-tab-moving-in" style="display:none">
+    <div class="card">
+      <h3>Moving In Checklists <span class="ct" id="sd-mi-count">(10)</span></h3>
+      <div class="si" style="max-height:none">
+        <table>
+          <thead><tr><th>SU Name</th><th>SU ID</th><th>Date Completed</th><th>Verified By</th><th>QA Status</th><th>Actions</th></tr></thead>
+          <tbody id="sd-mi-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Personal Traits Tab -->
+  <div id="sd-tab-personal-traits" style="display:none">
+    <div class="card">
+      <h3>Personal Traits <span class="ct" id="sd-pt-count">(9)</span></h3>
+      <div class="si" style="max-height:none">
+        <table>
+          <thead><tr><th>SU Name</th><th>SU ID</th><th>Last Updated</th><th>Verified By</th><th>QA Status</th><th>Actions</th></tr></thead>
+          <tbody id="sd-pt-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="note"><strong>QA Gate:</strong> All support documentation follows a 3-stage workflow: <strong>Draft → Pending QA → Activated</strong>. Documents in 'Pending QA' require manager review before activation. Managers can approve & activate or return for revision.</div>
 </div>
 
 <!-- ===== SAFE & WELL ===== -->
@@ -3981,7 +4053,7 @@ const titles = {
   'ai-check':'AI Check (Live Demo)','compliance-dash':'Compliance Dashboards','staff':'Staff & Caseloads',
   'properties-voids':'Properties & Voids',
   'training':'Training','housing-benefit':'Housing Benefit Tracking','eviction-risk':'Eviction Risk Assessment',
-  'mental-health':'Mental Health Team','su-profile':'Service User Profile','eight-week':'8-Week Guide Generator','support-plans':'Support Plans',
+  'mental-health':'Mental Health Team','su-profile':'Service User Profile','eight-week':'8-Week Guide Generator','support-plans':'Support Plans','support-docs':'Support Documentation',
   'allocation':'New Referral / Allocation','search':'Search Results',
   'lone-working':'Lone Working — Staff Safety Monitoring','weekly-qa':'Weekly QA Report','compliance-meeting':'Compliance Meeting Report','incident-analysis':'Incident Analysis',
   'sw-dashboard':'Support Worker Dashboard',
@@ -4054,6 +4126,7 @@ function nav(page, opts) {
   if (page === 'risk-dashboard') renderRiskDashboard();
   if (page === 'su-profile') loadSUProfile(document.getElementById('sup-select').value);
   if (page === 'support-plans') renderSPList();
+  if (page === 'support-docs') renderSupportDocs();
   if (page === 'cn-hub') renderCNHub();
   if (page === 'su-journey') renderSUJourney();
   if (page === 'sao-compliance') renderSAOCompliance();
@@ -5447,6 +5520,219 @@ function loadSU(key) {
   }
 }
 
+// ===== Support Documentation Dashboard =====
+var sdDocuments = {
+  supportPlans: [
+    {suName:'Craig Linney',suId:'GB01880',sao:'A. Ahmed',planStart:'2025-09-15',reviewDue:'2026-03-15',qaStatus:'Activated',verifiedBy:'T. Richardson'},
+    {suName:'J. Campbell',suId:'SU-0289',sao:'M. Khan',planStart:'2025-11-01',reviewDue:'2026-05-01',qaStatus:'Activated',verifiedBy:'T. Richardson'},
+    {suName:'D. Okonkwo',suId:'SU-0091',sao:'J. Vinten',planStart:'2025-06-10',reviewDue:'2026-02-28',qaStatus:'Pending QA',verifiedBy:''},
+    {suName:'F. Nowak',suId:'SU-0189',sao:'M. Khan',planStart:'2025-10-20',reviewDue:'2026-04-20',qaStatus:'Activated',verifiedBy:'P. Okonkwo'},
+    {suName:'R. Begum',suId:'SU-0145',sao:'C. Vincent',planStart:'2025-05-01',reviewDue:'2026-02-28',qaStatus:'Pending QA',verifiedBy:''},
+    {suName:'G. Mensah',suId:'SU-0178',sao:'A. Khan',planStart:'2025-12-01',reviewDue:'2026-06-01',qaStatus:'Activated',verifiedBy:'T. Richardson'},
+    {suName:'H. Singh',suId:'SU-0198',sao:'M. Thorne',planStart:'2026-01-10',reviewDue:'2026-07-10',qaStatus:'Draft',verifiedBy:''},
+    {suName:'T. Brooks',suId:'SU-0412',sao:'D. Sharpe',planStart:'2026-02-01',reviewDue:'2026-08-01',qaStatus:'Activated',verifiedBy:'P. Okonkwo'}
+  ],
+  riskAssessments: [
+    {suName:'Craig Linney',suId:'GB01880',date:'2026-02-15',assessedBy:'A. Ahmed',riskLevel:'Low',qaStatus:'Activated'},
+    {suName:'J. Campbell',suId:'SU-0289',date:'2026-01-20',assessedBy:'M. Khan',riskLevel:'Medium',qaStatus:'Activated'},
+    {suName:'D. Okonkwo',suId:'SU-0091',date:'2026-02-28',assessedBy:'J. Vinten',riskLevel:'High',qaStatus:'Pending QA'},
+    {suName:'F. Nowak',suId:'SU-0189',date:'2026-02-10',assessedBy:'M. Khan',riskLevel:'Medium',qaStatus:'Activated'},
+    {suName:'R. Begum',suId:'SU-0145',date:'2026-01-15',assessedBy:'C. Vincent',riskLevel:'High',qaStatus:'Activated'},
+    {suName:'G. Mensah',suId:'SU-0178',date:'2026-03-01',assessedBy:'A. Khan',riskLevel:'Medium',qaStatus:'Draft'},
+    {suName:'H. Singh',suId:'SU-0198',date:'2026-02-22',assessedBy:'M. Thorne',riskLevel:'Low',qaStatus:'Activated'},
+    {suName:'T. Brooks',suId:'SU-0412',date:'2026-01-05',assessedBy:'D. Sharpe',riskLevel:'High',qaStatus:'Activated'},
+    {suName:'A. Patel',suId:'SU-0603',date:'2026-02-18',assessedBy:'A. Begum',riskLevel:'Low',qaStatus:'Activated'},
+    {suName:'K. Williams',suId:'SU-0334',date:'2026-03-03',assessedBy:'J. Peters',riskLevel:'High',qaStatus:'Returned'},
+    {suName:'M. Osei',suId:'SU-0256',date:'2026-02-25',assessedBy:'M. Khan',riskLevel:'Medium',qaStatus:'Activated'},
+    {suName:'S. Ali',suId:'SU-0401',date:'2026-01-30',assessedBy:'C. Vincent',riskLevel:'Low',qaStatus:'Activated'}
+  ],
+  movingIn: [
+    {suName:'Craig Linney',suId:'GB01880',dateCompleted:'2025-09-16',verifiedBy:'T. Richardson',qaStatus:'Activated'},
+    {suName:'J. Campbell',suId:'SU-0289',dateCompleted:'2025-11-02',verifiedBy:'T. Richardson',qaStatus:'Activated'},
+    {suName:'D. Okonkwo',suId:'SU-0091',dateCompleted:'2025-06-11',verifiedBy:'P. Okonkwo',qaStatus:'Activated'},
+    {suName:'F. Nowak',suId:'SU-0189',dateCompleted:'2025-10-21',verifiedBy:'P. Okonkwo',qaStatus:'Activated'},
+    {suName:'R. Begum',suId:'SU-0145',dateCompleted:'2025-05-02',verifiedBy:'T. Richardson',qaStatus:'Activated'},
+    {suName:'G. Mensah',suId:'SU-0178',dateCompleted:'2025-12-02',verifiedBy:'T. Richardson',qaStatus:'Activated'},
+    {suName:'H. Singh',suId:'SU-0198',dateCompleted:'2026-01-11',verifiedBy:'',qaStatus:'Pending QA'},
+    {suName:'T. Brooks',suId:'SU-0412',dateCompleted:'2026-02-02',verifiedBy:'P. Okonkwo',qaStatus:'Activated'},
+    {suName:'A. Patel',suId:'SU-0603',dateCompleted:'2026-02-17',verifiedBy:'',qaStatus:'Draft'},
+    {suName:'K. Williams',suId:'SU-0334',dateCompleted:'2026-01-08',verifiedBy:'T. Richardson',qaStatus:'Activated'}
+  ],
+  personalTraits: [
+    {suName:'Craig Linney',suId:'GB01880',lastUpdated:'2026-02-20',verifiedBy:'A. Ahmed',qaStatus:'Activated'},
+    {suName:'J. Campbell',suId:'SU-0289',lastUpdated:'2026-01-25',verifiedBy:'M. Khan',qaStatus:'Activated'},
+    {suName:'D. Okonkwo',suId:'SU-0091',lastUpdated:'2026-02-28',verifiedBy:'',qaStatus:'Pending QA'},
+    {suName:'F. Nowak',suId:'SU-0189',lastUpdated:'2026-02-12',verifiedBy:'M. Khan',qaStatus:'Activated'},
+    {suName:'R. Begum',suId:'SU-0145',lastUpdated:'2026-01-18',verifiedBy:'C. Vincent',qaStatus:'Activated'},
+    {suName:'G. Mensah',suId:'SU-0178',lastUpdated:'2026-03-02',verifiedBy:'',qaStatus:'Draft'},
+    {suName:'H. Singh',suId:'SU-0198',lastUpdated:'2026-02-24',verifiedBy:'M. Thorne',qaStatus:'Activated'},
+    {suName:'T. Brooks',suId:'SU-0412',lastUpdated:'2026-01-10',verifiedBy:'D. Sharpe',qaStatus:'Activated'},
+    {suName:'A. Patel',suId:'SU-0603',lastUpdated:'2026-02-19',verifiedBy:'A. Begum',qaStatus:'Activated'}
+  ]
+};
+
+function switchSDTab(tab, el) {
+  document.querySelectorAll('#sd-tabs .tab').forEach(function(t){ t.classList.remove('active'); });
+  if (el) el.classList.add('active');
+  ['support-plans','risk-assessments','moving-in','personal-traits'].forEach(function(t){
+    var panel = document.getElementById('sd-tab-'+t);
+    if (panel) panel.style.display = t === tab ? '' : 'none';
+  });
+}
+
+function qaStatusBadge(status) {
+  if (status === 'Activated') return '<span class="b gn">Activated</span>';
+  if (status === 'Pending QA') return '<span class="b am" style="background:#fef3c7;color:#92400e;font-weight:700">⏳ Pending QA</span>';
+  if (status === 'Draft') return '<span class="b bl">Draft</span>';
+  if (status === 'Returned') return '<span class="b rd">Returned</span>';
+  return '<span class="b">'+status+'</span>';
+}
+
+function qaActions(status, docType, idx) {
+  if (status === 'Pending QA') {
+    return '<button onclick="qaApprove(\''+docType+'\','+idx+')" style="padding:4px 10px;background:#1a6b3c;color:#fff;border:none;border-radius:4px;font-size:10px;font-weight:700;cursor:pointer;margin-right:4px">Approve & Activate</button>' +
+           '<button onclick="qaReturn(\''+docType+'\','+idx+')" style="padding:4px 10px;background:#dc2626;color:#fff;border:none;border-radius:4px;font-size:10px;font-weight:700;cursor:pointer">Return</button>';
+  }
+  if (status === 'Draft') return '<span style="color:#94a3b8;font-size:10px">Awaiting submission</span>';
+  if (status === 'Returned') return '<span style="color:#dc2626;font-size:10px;font-weight:600">Needs revision</span>';
+  return '<span style="color:#059669;font-size:10px">✓ Complete</span>';
+}
+
+function riskBadge(level) {
+  if (level === 'High') return '<span class="b rd">High</span>';
+  if (level === 'Medium') return '<span class="b am">Medium</span>';
+  return '<span class="b gn">Low</span>';
+}
+
+function renderSupportDocs() {
+  // Count pending QA across all doc types
+  var pendingCount = 0;
+  var activatedCount = 0;
+  var draftCount = 0;
+  var returnedCount = 0;
+  ['supportPlans','riskAssessments','movingIn','personalTraits'].forEach(function(key){
+    sdDocuments[key].forEach(function(d){
+      if (d.qaStatus === 'Pending QA') pendingCount++;
+      else if (d.qaStatus === 'Activated') activatedCount++;
+      else if (d.qaStatus === 'Draft') draftCount++;
+      else if (d.qaStatus === 'Returned') returnedCount++;
+    });
+  });
+  document.getElementById('sd-pending-qa').textContent = pendingCount;
+  document.getElementById('sd-activated').textContent = activatedCount;
+  document.getElementById('sd-draft').textContent = draftCount;
+  document.getElementById('sd-returned').textContent = returnedCount;
+  // Update nav badge
+  var navBadge = document.getElementById('nav-qa-pending-badge');
+  if (navBadge) navBadge.textContent = pendingCount;
+
+  // Support Plans tab
+  var spBody = document.getElementById('sd-sp-body');
+  if (spBody) {
+    spBody.innerHTML = sdDocuments.supportPlans.map(function(sp, i){
+      return '<tr'+(sp.qaStatus==='Pending QA'?' style="background:#fefce8"':'')+'>'+
+        '<td><span class="su-link" onclick="openSUByName(\''+sp.suName.replace(/'/g,"\\'")+'\')">' + sp.suName + '</span></td>'+
+        '<td>' + sp.suId + '</td><td>' + sp.sao + '</td>'+
+        '<td>' + sp.planStart + '</td><td>' + sp.reviewDue + '</td>'+
+        '<td>' + (new Date(sp.reviewDue) < new Date() ? '<span class="b rd">Overdue</span>' : '<span class="b gn">Current</span>') + '</td>'+
+        '<td>' + qaStatusBadge(sp.qaStatus) + '</td>'+
+        '<td>' + qaActions(sp.qaStatus, 'supportPlans', i) + '</td></tr>';
+    }).join('');
+    document.getElementById('sd-sp-count').textContent = '(' + sdDocuments.supportPlans.length + ')';
+  }
+
+  // Risk Assessments tab
+  var raBody = document.getElementById('sd-ra-body');
+  if (raBody) {
+    raBody.innerHTML = sdDocuments.riskAssessments.map(function(ra, i){
+      return '<tr'+(ra.qaStatus==='Pending QA'?' style="background:#fefce8"':'')+'>'+
+        '<td><span class="su-link" onclick="openSUByName(\''+ra.suName.replace(/'/g,"\\'")+'\')">' + ra.suName + '</span></td>'+
+        '<td>' + ra.suId + '</td><td>' + ra.date + '</td>'+
+        '<td>' + ra.assessedBy + '</td>'+
+        '<td>' + riskBadge(ra.riskLevel) + '</td>'+
+        '<td>' + qaStatusBadge(ra.qaStatus) + '</td>'+
+        '<td>' + qaActions(ra.qaStatus, 'riskAssessments', i) + '</td></tr>';
+    }).join('');
+    document.getElementById('sd-ra-count').textContent = '(' + sdDocuments.riskAssessments.length + ')';
+  }
+
+  // Moving In Checklists tab
+  var miBody = document.getElementById('sd-mi-body');
+  if (miBody) {
+    miBody.innerHTML = sdDocuments.movingIn.map(function(mi, i){
+      return '<tr'+(mi.qaStatus==='Pending QA'?' style="background:#fefce8"':'')+'>'+
+        '<td><span class="su-link" onclick="openSUByName(\''+mi.suName.replace(/'/g,"\\'")+'\')">' + mi.suName + '</span></td>'+
+        '<td>' + mi.suId + '</td><td>' + mi.dateCompleted + '</td>'+
+        '<td>' + (mi.verifiedBy || '<span style="color:#94a3b8">—</span>') + '</td>'+
+        '<td>' + qaStatusBadge(mi.qaStatus) + '</td>'+
+        '<td>' + qaActions(mi.qaStatus, 'movingIn', i) + '</td></tr>';
+    }).join('');
+    document.getElementById('sd-mi-count').textContent = '(' + sdDocuments.movingIn.length + ')';
+  }
+
+  // Personal Traits tab
+  var ptBody = document.getElementById('sd-pt-body');
+  if (ptBody) {
+    ptBody.innerHTML = sdDocuments.personalTraits.map(function(pt, i){
+      return '<tr'+(pt.qaStatus==='Pending QA'?' style="background:#fefce8"':'')+'>'+
+        '<td><span class="su-link" onclick="openSUByName(\''+pt.suName.replace(/'/g,"\\'")+'\')">' + pt.suName + '</span></td>'+
+        '<td>' + pt.suId + '</td><td>' + pt.lastUpdated + '</td>'+
+        '<td>' + (pt.verifiedBy || '<span style="color:#94a3b8">—</span>') + '</td>'+
+        '<td>' + qaStatusBadge(pt.qaStatus) + '</td>'+
+        '<td>' + qaActions(pt.qaStatus, 'personalTraits', i) + '</td></tr>';
+    }).join('');
+    document.getElementById('sd-pt-count').textContent = '(' + sdDocuments.personalTraits.length + ')';
+  }
+}
+
+function qaApprove(docType, idx) {
+  sdDocuments[docType][idx].qaStatus = 'Activated';
+  sdDocuments[docType][idx].verifiedBy = 'Admin';
+  renderSupportDocs();
+  showToast('Document approved & activated');
+}
+
+function qaReturn(docType, idx) {
+  sdDocuments[docType][idx].qaStatus = 'Returned';
+  renderSupportDocs();
+  showToast('Document returned for revision');
+}
+
+// ===== No Note >7 Days List (compliance flag, separate from Safe & Well) =====
+function showNoNote7DaysList() {
+  var notes = JSON.parse(localStorage.getItem('pgg_notes') || '[]');
+  var now = new Date();
+  var flagged = [];
+  SERVICE_USERS.forEach(function(su){
+    var suNotes = notes.filter(function(n){ return n.suId === su.id; });
+    var daysSince = 999;
+    if (suNotes.length > 0) {
+      var latest = Math.max.apply(null, suNotes.map(function(n){ return new Date(n.datetime || n.createdAt).getTime(); }));
+      daysSince = Math.round((now.getTime() - latest) / 86400000);
+    }
+    if (daysSince > 7) {
+      flagged.push({name: su.name || su.id, id: su.id, days: daysSince, sao: su.sao || '—'});
+    }
+  });
+  flagged.sort(function(a,b){ return b.days - a.days; });
+  var html = '<div style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:center;justify-content:center" onclick="if(event.target===this)this.remove()">' +
+    '<div style="background:#fff;border-radius:12px;padding:24px;max-width:600px;width:90%;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)">' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">' +
+    '<h3 style="margin:0;color:#1e293b;font-size:16px">No Contact Note >7 Days <span style="background:#fef2f2;color:#dc2626;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700;margin-left:8px">'+flagged.length+' SUs</span></h3>' +
+    '<span onclick="this.closest(\'div[style*=position\\:fixed]\').remove()" style="cursor:pointer;font-size:18px;color:#94a3b8">&times;</span></div>' +
+    '<div style="font-size:10px;color:#64748b;margin-bottom:12px">Compliance flag — SUs with no contact note recorded in 7+ days. This is separate from Safe & Well safeguarding procedures.</div>' +
+    '<table style="width:100%;font-size:11px"><thead><tr><th style="text-align:left;padding:6px 8px;border-bottom:2px solid #e2e8f0">SU</th><th style="text-align:left;padding:6px 8px;border-bottom:2px solid #e2e8f0">ID</th><th style="text-align:left;padding:6px 8px;border-bottom:2px solid #e2e8f0">SAO</th><th style="text-align:left;padding:6px 8px;border-bottom:2px solid #e2e8f0">Days Since</th></tr></thead><tbody>';
+  flagged.forEach(function(f){
+    html += '<tr><td style="padding:6px 8px;border-bottom:1px solid #f1f5f9"><span class="su-link" onclick="this.closest(\'div[style*=position\\:fixed]\').remove();openSUByName(\''+f.name.replace(/'/g,"\\'")+'\')">' + f.name + '</span></td>' +
+      '<td style="padding:6px 8px;border-bottom:1px solid #f1f5f9">' + f.id + '</td>' +
+      '<td style="padding:6px 8px;border-bottom:1px solid #f1f5f9">' + f.sao + '</td>' +
+      '<td style="padding:6px 8px;border-bottom:1px solid #f1f5f9;color:#dc2626;font-weight:700">' + f.days + ' days</td></tr>';
+  });
+  if (flagged.length === 0) html += '<tr><td colspan="4" style="padding:16px;text-align:center;color:#94a3b8">No SUs flagged — all contact notes are current</td></tr>';
+  html += '</tbody></table></div></div>';
+  document.body.insertAdjacentHTML('beforeend', html);
+}
+
 // ===== Support Plans v2 =====
 const spData = [
   {
@@ -5993,7 +6279,7 @@ function enterSWMode() {
       '<div class="nav-item" data-page="notifications"><span class="icon">&#128276;</span> Alerts <span class="badge">7</span></div>' +
       '<div class="nav-section">More</div>' +
       '<div class="nav-item" data-page="contact-notes"><span class="icon">&#9997;</span> My Notes</div>' +
-      '<div class="nav-item" data-page="support-plans"><span class="icon">&#9776;</span> Support Plans</div>' +
+      '<div class="nav-item" data-page="support-docs"><span class="icon">📋</span> Support Documentation</div>' +
       '<div class="nav-item" data-page="safe-well"><span class="icon">&#9888;</span> Safe & Well</div>' +
       '<div class="nav-item" data-page="training"><span class="icon">&#9734;</span> Training</div>';
     // Re-bind click handlers
@@ -6033,13 +6319,12 @@ function enterAdminMode() {
         '<div class="nav-item" data-page="new-note"><span class="icon">&#10010;</span> New Contact Note</div>' +
         '<div class="nav-item" data-page="contact-notes"><span class="icon">&#9997;</span> Contact Notes</div>' +
         '<div class="nav-item" data-page="cn-hub"><span class="icon">&#128221;</span> Contact Notes <span class="badge info">79.6k</span></div>' +
-        '<div class="nav-item" data-page="support-plans"><span class="icon">&#9776;</span> Support Plans <span class="badge warn">4</span></div>' +
         '<div class="nav-item" data-page="safe-well"><span class="icon">&#9888;</span> Safe & Well <span class="badge">4</span></div>' +
         '<div class="nav-item" data-page="eight-week"><span class="icon">&#9881;</span> 8-Week Guide</div>' +
         '<div class="nav-item" data-page="allocation"><span class="icon">&#10132;</span> New Referral / Allocation</div>' +
         '<div class="nav-section">Compliance</div>' +
+        '<div class="nav-item" data-page="support-docs"><span class="icon">📋</span> Support Documentation <span class="badge warn" id="nav-qa-pending-badge">3</span></div>' +
         '<div class="nav-item" data-page="risk-dashboard"><span class="icon">&#9888;</span> Incidents & Risk <span class="badge">3</span></div>' +
-
         '<div class="nav-item" data-page="policies"><span class="icon">&#9745;</span> Policies & Procedures</div>' +
         '<div class="nav-item" data-page="staff-performance"><span class="icon">&#9784;</span> Staff Performance</div>' +
         '<div class="nav-item" data-page="demo-compare"><span class="icon">&#9878;</span> Live Demo</div>' +
@@ -6291,6 +6576,10 @@ function updateDashboard() {
   });
   document.getElementById('dash-red-sus').textContent = red7;
   document.getElementById('dash-amber-sus').textContent = amber3;
+
+  // Open incidents count (from risk dashboard data)
+  var openInc = document.getElementById('dash-open-incidents');
+  if (openInc) openInc.textContent = 3;
 }
 
 // ===== AI QA SYSTEM (LAYER 2) =====
