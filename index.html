@@ -891,6 +891,25 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   .sw-severity-grid { gap: 4px; }
   .sw-severity-btn { min-height: 44px; font-size: 14px; }
 }
+/* Check-in/out status */
+.checkin-status { padding: 14px; border-radius: 10px; text-align: center; font-weight: 700; font-size: 13px; margin-bottom: 12px; }
+.checkin-status.checked-in { background: #dcfce7; border: 2px solid #059669; color: #166534; }
+.checkin-status.not-checked-in { background: #f8fafc; border: 2px solid #e2e8f0; color: #64748b; }
+.checkin-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 10px; border: none; font-size: 14px; font-weight: 700; cursor: pointer; transition: all .15s; }
+.checkin-btn.in { background: #1a6b3c; color: #fff; } .checkin-btn.in:hover { background: #15803d; }
+.checkin-btn.out { background: #dc2626; color: #fff; } .checkin-btn.out:hover { background: #b91c1c; }
+/* Compliance alert card */
+.compliance-alert { background: #fef2f2; border: 1px solid #fca5a5; border-radius: 8px; padding: 12px; margin-bottom: 10px; }
+.compliance-alert.resolved { background: #f0fdf4; border-color: #86efac; }
+.compliance-alert .ca-staff { font-weight: 700; color: #1e293b; font-size: 12px; }
+.compliance-alert .ca-issue { font-size: 11px; color: #991b1b; margin-top: 2px; }
+.compliance-alert.resolved .ca-issue { color: #166534; }
+/* Meeting row expand */
+.meeting-row-detail { display: none; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px; margin: 4px 0 8px; font-size: 11px; color: #475569; line-height: 1.6; }
+.meeting-row-detail.open { display: block; }
+/* Mileage table */
+.mileage-form-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 80px 1fr; gap: 8px; align-items: end; }
+@media (max-width: 600px) { .mileage-form-grid { grid-template-columns: 1fr 1fr; } }
 </style>
 </head>
 <body>
@@ -3132,6 +3151,18 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     </div>
 
     <div>
+      <!-- Check-in / Check-out -->
+      <div class="card">
+        <h3>Check In / Check Out</h3>
+        <div id="sw-checkin-status"></div>
+        <div id="sw-checkin-btns" style="display:flex;gap:10px;justify-content:center;margin-top:10px"></div>
+      </div>
+      <!-- Mileage Log -->
+      <div class="card">
+        <h3>Log Mileage</h3>
+        <div id="sw-mileage-form"></div>
+        <div id="sw-mileage-table" style="margin-top:12px"></div>
+      </div>
       <!-- To-Do List -->
       <div class="card">
         <h3>My To-Do List <span class="ct" id="sw-todo-count"></span></h3>
@@ -3482,6 +3513,17 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
           <div id="tl-checkin-form" style="margin-top:12px"></div>
         </div>
       </div>
+    </div>
+    <!-- Compliance Alerts -->
+    <div class="card">
+      <h3>Compliance Alerts <span id="tl-compliance-badge" class="badge alert" style="font-size:9px"></span></h3>
+      <div id="tl-compliance-alerts"></div>
+    </div>
+    <!-- Team Meetings & Huddles -->
+    <div class="card">
+      <h3>Team Meetings &amp; Huddles</h3>
+      <div id="tl-meeting-form" style="margin-bottom:14px"></div>
+      <div id="tl-meetings-table"></div>
     </div>
   </div>
 
@@ -8533,6 +8575,11 @@ const swStaff = [
       { id: 'SU-0259', name: 'M. Patel', prop: 'Flat 3, Woodseats', flags: ['Plan Expiring'] },
       { id: 'SU-0278', name: 'C. Dlamini', prop: 'Flat 9, Meersbrook', flags: ['Plan Expiring'] },
       { id: 'SU-0291', name: 'I. Kowalski', prop: 'Unit 11, Hillsborough', flags: ['Plan Expiring'] },
+    ],
+    checkedIn: null,
+    mileage: [
+      { date: '2026-03-06', from: 'Office', to: 'Abbeydale Rd', miles: 3.2, purpose: 'SU visits' },
+      { date: '2026-03-05', from: 'Abbeydale Rd', to: 'Broomhall', miles: 2.1, purpose: 'Supervision meeting' },
     ]
   },
   {
@@ -8567,6 +8614,12 @@ const swStaff = [
       { id: 'SU-0461', name: 'D. O\'Brien', prop: 'Flat 7, Walkley', flags: ['No Phone'] },
       { id: 'SU-0479', name: 'L. Barker', prop: 'Unit 3, Crookes', flags: ['Plan Expiring'] },
       { id: 'SU-0495', name: 'M. Iqbal', prop: 'Flat 13, Woodseats', flags: [] },
+    ],
+    checkedIn: '09:15',
+    mileage: [
+      { date: '2026-03-07', from: 'Home', to: 'Abbeydale Rd', miles: 5.4, purpose: 'Commute to SU visits' },
+      { date: '2026-03-06', from: 'Sharrow', to: 'Burngreave', miles: 4.8, purpose: 'SU welfare check' },
+      { date: '2026-03-05', from: 'Office', to: 'Darnall', miles: 3.1, purpose: 'Support plan review' },
     ]
   },
   {
@@ -8599,6 +8652,11 @@ const swStaff = [
       { id: 'SU-0628', name: 'N. Begum', prop: 'Unit 4, Crookes', flags: ['S&W'] },
       { id: 'SU-0645', name: 'R. Fitzgerald', prop: 'Flat 8, Woodseats', flags: [] },
       { id: 'SU-0661', name: 'K. Jallow', prop: 'Unit 7, Meersbrook', flags: [] },
+    ],
+    checkedIn: null,
+    mileage: [
+      { date: '2026-03-06', from: 'Home', to: 'Sharrow', miles: 6.2, purpose: 'SU visits — A. Osei, V. Koval' },
+      { date: '2026-03-05', from: 'Sharrow', to: 'Crookes', miles: 3.5, purpose: 'Welfare visit' },
     ]
   }
 ];
@@ -8694,6 +8752,42 @@ function renderSWDashboard() {
     '</div>'
   ).join('');
 
+  // Check-in / Check-out
+  const ciStatus = document.getElementById('sw-checkin-status');
+  const ciBtns = document.getElementById('sw-checkin-btns');
+  if (w.checkedIn) {
+    ciStatus.className = 'checkin-status checked-in';
+    ciStatus.innerHTML = '<span style="font-size:16px">&#9989;</span> Currently checked in since <strong>' + w.checkedIn + '</strong>';
+    ciBtns.innerHTML = '<button class="checkin-btn out" onclick="staffCheckOut()">&#128308; Check Out</button>';
+  } else {
+    ciStatus.className = 'checkin-status not-checked-in';
+    ciStatus.innerHTML = '<span style="font-size:16px">&#9898;</span> Not checked in';
+    ciBtns.innerHTML = '<button class="checkin-btn in" onclick="staffCheckIn()">&#128994; Check In</button>';
+  }
+
+  // Mileage form
+  document.getElementById('sw-mileage-form').innerHTML =
+    '<div class="mileage-form-grid">' +
+      '<div><label class="form-label">Date</label><input id="sw-ml-date" type="date" class="form-input"></div>' +
+      '<div><label class="form-label">From</label><input id="sw-ml-from" class="form-input" placeholder="Start location"></div>' +
+      '<div><label class="form-label">To</label><input id="sw-ml-to" class="form-input" placeholder="End location"></div>' +
+      '<div><label class="form-label">Miles</label><input id="sw-ml-miles" type="number" step="0.1" class="form-input" placeholder="0.0"></div>' +
+      '<div><label class="form-label">Purpose</label><input id="sw-ml-purpose" class="form-input" placeholder="Reason for travel"></div>' +
+    '</div>' +
+    '<button class="btn-primary" style="margin-top:8px" onclick="logMileage()">Log Mileage</button>';
+
+  // Mileage table
+  const mileage = w.mileage || [];
+  const totalMiles = mileage.reduce((s, m) => s + m.miles, 0);
+  document.getElementById('sw-mileage-table').innerHTML = mileage.length === 0
+    ? '<div style="text-align:center;padding:12px;color:#94a3b8;font-size:11px">No mileage entries yet</div>'
+    : '<table><thead><tr><th>Date</th><th>From</th><th>To</th><th>Miles</th><th>Purpose</th></tr></thead><tbody>' +
+      mileage.map(m =>
+        '<tr><td>' + m.date + '</td><td>' + m.from + '</td><td>' + m.to + '</td><td style="font-weight:700">' + m.miles.toFixed(1) + '</td><td>' + m.purpose + '</td></tr>'
+      ).join('') +
+      '</tbody></table>' +
+      '<div style="text-align:right;font-size:11px;font-weight:700;color:#1a6b3c;margin-top:6px">Total: ' + totalMiles.toFixed(1) + ' miles</div>';
+
   // Close expand panels
   document.querySelectorAll('.sw-expand-panel').forEach(p => p.classList.remove('open'));
 }
@@ -8753,6 +8847,39 @@ function completeSWTodo(i) {
     w.completed.unshift({ type: t.type, su: t.su, done: new Date().toISOString().slice(0, 10) });
     renderSWTodoList(w);
   }
+}
+
+function staffCheckIn() {
+  const idx = parseInt(document.getElementById('sw-select').value);
+  const w = swStaff[idx];
+  const now = new Date();
+  w.checkedIn = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+  renderSWDashboard();
+  showToast('Checked in at ' + w.checkedIn);
+}
+
+function staffCheckOut() {
+  const idx = parseInt(document.getElementById('sw-select').value);
+  const w = swStaff[idx];
+  const time = w.checkedIn;
+  w.checkedIn = null;
+  renderSWDashboard();
+  showToast('Checked out (was in since ' + time + ')');
+}
+
+function logMileage() {
+  const idx = parseInt(document.getElementById('sw-select').value);
+  const w = swStaff[idx];
+  const date = document.getElementById('sw-ml-date').value;
+  const from = document.getElementById('sw-ml-from').value;
+  const to = document.getElementById('sw-ml-to').value;
+  const miles = parseFloat(document.getElementById('sw-ml-miles').value);
+  const purpose = document.getElementById('sw-ml-purpose').value;
+  if (!date || !from.trim() || !to.trim() || !miles || !purpose.trim()) { showToast('Please fill in all mileage fields'); return; }
+  if (!w.mileage) w.mileage = [];
+  w.mileage.unshift({ date: date, from: from, to: to, miles: miles, purpose: purpose });
+  renderSWDashboard();
+  showToast('Mileage logged: ' + miles.toFixed(1) + ' miles');
 }
 
 function toggleSWExpand(section, key) {
@@ -9562,9 +9689,19 @@ const tlData = [
     ],
     weeklyQA: [2.61, 2.70, 2.78, 2.83],
     checkins: [
-      { sao: 'Arouba Khan', date: '06 Mar', mood: 'Good', notes: 'Caseload manageable. Requested training on MICL process.' },
-      { sao: 'Jack Vinten', date: '05 Mar', mood: 'Good', notes: 'Positive week. Two SUs making strong progress.' },
-      { sao: 'Tom Ellis', date: '04 Mar', mood: 'Struggling', notes: 'Feeling overwhelmed. Discussed workload redistribution.' },
+      { sao: 'Arouba Khan', date: '06 Mar', mood: 'Good', notes: 'Caseload manageable. Requested training on MICL process.', actions: 'Booked MICL training for next week', nextSteps: 'Attend training session', reviewDate: '13 Mar' },
+      { sao: 'Jack Vinten', date: '05 Mar', mood: 'Good', notes: 'Positive week. Two SUs making strong progress.', actions: 'Continue current approach', nextSteps: 'Review SU progress at 1-to-1', reviewDate: '12 Mar' },
+      { sao: 'Tom Ellis', date: '04 Mar', mood: 'Struggling', notes: 'Feeling overwhelmed. Discussed workload redistribution.', actions: 'Redistribute 2 SUs to Arouba temporarily', nextSteps: 'Check in mid-week on caseload', reviewDate: '10 Mar' },
+    ],
+    meetings: [
+      { date: '06 Mar', type: 'Daily Huddle', attendees: 'Arouba, Jack, Priya, Tom', notes: 'Discussed weekly priorities. Tom flagged caseload concern.', actions: 'Redistribute 2 SUs from Tom', nextSteps: 'Monitor Tom workload', reviewDate: '10 Mar' },
+      { date: '03 Mar', type: 'Weekly Meeting', attendees: 'Arouba, Jack, Priya, Tom', notes: 'Reviewed compliance stats. QA scores improving across team.', actions: 'All staff to complete MICL backlog by Friday', nextSteps: 'Review MICL completion at next meeting', reviewDate: '10 Mar' },
+      { date: '28 Feb', type: '1-to-1', attendees: 'Tom Ellis', notes: 'Performance review. Tom struggling with time management.', actions: 'Created structured daily plan. Assigned mentor (Jack).', nextSteps: 'Follow-up 1-to-1 in one week', reviewDate: '07 Mar' },
+    ],
+    complianceAlerts: [
+      { staff: 'Tom Ellis', issue: '3 overdue contact notes (>48hrs)', responses: [{ date: '06 Mar', notes: 'Discussed with Tom. Workload issue — not avoidance.', perSU: 'Re R. Barton: Tom confirmed contact made but not logged. Re S. Khan: visit scheduled for tomorrow.', actions: 'Tom to complete all 3 notes by end of day', nextSteps: 'Check completion tomorrow AM', reviewDate: '07 Mar' }] },
+      { staff: 'Arouba Khan', issue: 'Missing phone number for 2 SUs', responses: [] },
+      { staff: 'Priya Sharma', issue: 'MICL completion 5 days overdue for D. Kamara', responses: [] },
     ]
   },
   {
@@ -9585,8 +9722,14 @@ const tlData = [
     ],
     weeklyQA: [2.82, 2.88, 2.93, 2.96],
     checkins: [
-      { sao: 'Liam Carter', date: '06 Mar', mood: 'Good', notes: 'Strong week. Completed all scheduled visits.' },
-      { sao: 'Fatima Noor', date: '06 Mar', mood: 'Good', notes: 'Enjoying the role. Wants to shadow a TL session.' },
+      { sao: 'Liam Carter', date: '06 Mar', mood: 'Good', notes: 'Strong week. Completed all scheduled visits.', actions: 'None required', nextSteps: 'Continue current pace', reviewDate: '13 Mar' },
+      { sao: 'Fatima Noor', date: '06 Mar', mood: 'Good', notes: 'Enjoying the role. Wants to shadow a TL session.', actions: 'Arrange TL shadow session', nextSteps: 'Schedule for next week', reviewDate: '13 Mar' },
+    ],
+    meetings: [
+      { date: '06 Mar', type: 'Daily Huddle', attendees: 'Liam, Fatima, Dan', notes: 'Dan behind on support plan renewals. Liam offered to help.', actions: 'Liam to assist Dan with 1 plan renewal', nextSteps: 'Check Dan progress Thursday', reviewDate: '09 Mar' },
+    ],
+    complianceAlerts: [
+      { staff: 'Dan Whiteley', issue: '2 support plans expiring this week — not yet renewed', responses: [] },
     ]
   },
   {
@@ -9605,9 +9748,15 @@ const tlData = [
     ],
     weeklyQA: [3.01, 3.08, 3.14, 3.19],
     checkins: [
-      { sao: 'Sophie Holt', date: '06 Mar', mood: 'Great', notes: 'Excellent progress with caseload. SU feedback very positive.' },
-      { sao: 'Rashid Amin', date: '05 Mar', mood: 'Good', notes: 'Completed all MICLs ahead of schedule.' },
-      { sao: 'Jordan Price', date: '05 Mar', mood: 'Good', notes: 'Settled into role well. No concerns.' },
+      { sao: 'Sophie Holt', date: '06 Mar', mood: 'Great', notes: 'Excellent progress with caseload. SU feedback very positive.', actions: 'Nominate for staff recognition', nextSteps: 'Submit recognition form', reviewDate: '13 Mar' },
+      { sao: 'Rashid Amin', date: '05 Mar', mood: 'Good', notes: 'Completed all MICLs ahead of schedule.', actions: 'None — all on track', nextSteps: 'Continue monitoring', reviewDate: '12 Mar' },
+      { sao: 'Jordan Price', date: '05 Mar', mood: 'Good', notes: 'Settled into role well. No concerns.', actions: 'None required', nextSteps: 'Standard check-in next week', reviewDate: '12 Mar' },
+    ],
+    meetings: [
+      { date: '05 Mar', type: 'Weekly Meeting', attendees: 'Sophie, Rashid, Jordan', notes: 'All staff on track. Discussed upcoming training day.', actions: 'All to confirm training attendance', nextSteps: 'Collate confirmations by Friday', reviewDate: '07 Mar' },
+    ],
+    complianceAlerts: [
+      { staff: 'Rashid Amin', issue: 'Missed 2 scheduled contacts for A. Grigoryan', responses: [{ date: '06 Mar', notes: 'SU was uncontactable — phone off. Rashid attempted 3 times.', perSU: 'Re A. Grigoryan: welfare check arranged for Monday via housing officer.', actions: 'Welfare visit booked Mon 10 Mar', nextSteps: 'Confirm visit completed', reviewDate: '10 Mar' }] },
     ]
   }
 ];
@@ -9640,7 +9789,7 @@ function renderTLDashboard() {
   const redCount = tl.saos.filter(a => a.status === 'red').length;
   document.getElementById('tl-stats').innerHTML =
     '<div class="sc"><div class="lb">Team QA Average</div><div class="val ' + (tl.qaAvg >= 3 ? 'green' : tl.qaAvg >= 2.5 ? 'amber' : 'red') + '">' + tl.qaAvg.toFixed(2) + '</div><div class="d">Out of 4.00</div></div>' +
-    '<div class="sc"><div class="lb">Contacts This Week</div><div class="val blue">' + totalContacts + '</div><div class="d">Across all staff</div></div>' +
+    '<div class="sc" style="cursor:pointer" onclick="nav(\'sao-compliance\')"><div class="lb">Contacts This Week</div><div class="val blue">' + totalContacts + '</div><div class="d" style="color:#1a6b3c;text-decoration:underline">View compliance report &rarr;</div></div>' +
     '<div class="sc"><div class="lb">Pending Verifications</div><div class="val amber">' + tl.verifyQueue.length + '</div><div class="d">Notes awaiting sign-off</div></div>' +
     '<div class="sc"><div class="lb">Escalations</div><div class="val red">' + tl.escalations.length + '</div><div class="d">Requiring TL action</div></div>' +
     '<div class="sc"><div class="lb">Staff At Risk</div><div class="val ' + (redCount > 0 ? 'red' : 'green') + '">' + redCount + '</div><div class="d">' + (redCount > 0 ? 'Needs support' : 'All performing') + '</div></div>';
@@ -9738,6 +9887,9 @@ function renderTLDashboard() {
           '<span style="font-size:10px;font-weight:700;color:' + moodColor + '">' + c.mood + '</span>' +
           '<span style="font-size:11px;color:#475569">' + c.notes + '</span>' +
         '</div>' +
+        (c.actions ? '<div style="margin-top:6px;font-size:10px;color:#475569"><strong style="color:#1a6b3c">Actions:</strong> ' + c.actions + '</div>' : '') +
+        (c.nextSteps ? '<div style="font-size:10px;color:#475569"><strong style="color:#1a6b3c">Next Steps:</strong> ' + c.nextSteps + '</div>' : '') +
+        (c.reviewDate ? '<div style="font-size:10px;color:#94a3b8"><strong>Review:</strong> ' + c.reviewDate + '</div>' : '') +
       '</div>';
     }).join('');
 
@@ -9751,9 +9903,82 @@ function renderTLDashboard() {
         '</select></div>' +
         '<div><label class="form-label">Mood</label><select id="tl-ci-mood" class="form-select" style="width:120px"><option>Great</option><option>Good</option><option>OK</option><option>Struggling</option></select></div>' +
         '<div style="flex:1;min-width:200px"><label class="form-label">Notes</label><input id="tl-ci-notes" class="form-input" placeholder="Brief notes..."></div>' +
+      '</div>' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;margin-top:8px">' +
+        '<div style="flex:1;min-width:180px"><label class="form-label">Actions Taken <span style="color:#dc2626">*</span></label><input id="tl-ci-actions" class="form-input" placeholder="What actions were agreed?"></div>' +
+        '<div style="flex:1;min-width:180px"><label class="form-label">Next Steps <span style="color:#dc2626">*</span></label><input id="tl-ci-nextsteps" class="form-input" placeholder="What happens next?"></div>' +
+        '<div><label class="form-label">Review Date <span style="color:#dc2626">*</span></label><input id="tl-ci-review" type="date" class="form-input" style="width:140px"></div>' +
         '<button class="btn-primary" onclick="logTLCheckin()">Log</button>' +
       '</div>' +
     '</div>';
+
+  // Compliance Alerts
+  const alerts = tl.complianceAlerts || [];
+  document.getElementById('tl-compliance-badge').textContent = alerts.filter(a => a.responses.length === 0).length;
+  document.getElementById('tl-compliance-alerts').innerHTML = alerts.length === 0
+    ? '<div style="text-align:center;padding:20px;color:#059669;font-size:12px;font-weight:600">No compliance alerts</div>'
+    : alerts.map((a, ai) => {
+      const hasResponse = a.responses.length > 0;
+      return '<div class="compliance-alert' + (hasResponse ? ' resolved' : '') + '">' +
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start">' +
+          '<div>' +
+            '<div class="ca-staff">' + a.staff + '</div>' +
+            '<div class="ca-issue">' + a.issue + '</div>' +
+          '</div>' +
+          (!hasResponse ? '<button class="btn-primary" style="font-size:10px;padding:4px 10px" onclick="openComplianceResponse(' + idx + ',' + ai + ')">Log Response</button>' : '<span class="b gn">Responded</span>') +
+        '</div>' +
+        a.responses.map(r =>
+          '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:6px;padding:8px;margin-top:8px;font-size:11px">' +
+            '<div style="color:#94a3b8;font-size:9px;margin-bottom:4px">' + r.date + '</div>' +
+            '<div style="color:#475569">' + r.notes + '</div>' +
+            (r.perSU ? '<div style="color:#475569;margin-top:4px;font-style:italic">' + r.perSU + '</div>' : '') +
+            '<div style="margin-top:4px"><strong style="color:#1a6b3c;font-size:10px">Actions:</strong> <span style="font-size:10px;color:#475569">' + r.actions + '</span></div>' +
+            '<div><strong style="color:#1a6b3c;font-size:10px">Next Steps:</strong> <span style="font-size:10px;color:#475569">' + r.nextSteps + '</span></div>' +
+            '<div style="font-size:10px;color:#94a3b8"><strong>Review:</strong> ' + r.reviewDate + '</div>' +
+          '</div>'
+        ).join('') +
+        '<div id="tl-cr-form-' + ai + '" style="display:none;margin-top:8px"></div>' +
+      '</div>';
+    }).join('');
+
+  // Meetings
+  const meetings = tl.meetings || [];
+  document.getElementById('tl-meeting-form').innerHTML =
+    '<div style="border:1px solid #e2e8f0;border-radius:8px;padding:12px;background:#f8fafc">' +
+      '<div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Log New Meeting</div>' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end">' +
+        '<div><label class="form-label">Date</label><input id="tl-mt-date" type="date" class="form-input" style="width:130px"></div>' +
+        '<div><label class="form-label">Type</label><select id="tl-mt-type" class="form-select" style="width:150px"><option>Daily Huddle</option><option>Weekly Meeting</option><option>1-to-1</option><option>Ad-Hoc</option></select></div>' +
+        '<div style="flex:1;min-width:150px"><label class="form-label">Attendees</label><input id="tl-mt-attendees" class="form-input" placeholder="Names..."></div>' +
+      '</div>' +
+      '<div style="margin-top:8px"><label class="form-label">Notes / Discussion</label><textarea id="tl-mt-notes" class="form-input" rows="2" style="width:100%;resize:vertical" placeholder="Key discussion points..."></textarea></div>' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;margin-top:8px">' +
+        '<div style="flex:1;min-width:180px"><label class="form-label">Actions Agreed</label><input id="tl-mt-actions" class="form-input" placeholder="Actions from meeting..."></div>' +
+        '<div style="flex:1;min-width:180px"><label class="form-label">Next Steps</label><input id="tl-mt-nextsteps" class="form-input" placeholder="Follow-up items..."></div>' +
+        '<div><label class="form-label">Review Date</label><input id="tl-mt-review" type="date" class="form-input" style="width:130px"></div>' +
+        '<button class="btn-primary" onclick="logTLMeeting()">Log Meeting</button>' +
+      '</div>' +
+    '</div>';
+
+  document.getElementById('tl-meetings-table').innerHTML = meetings.length === 0
+    ? '<div style="text-align:center;padding:20px;color:#94a3b8;font-size:12px">No meetings recorded yet</div>'
+    : '<table><thead><tr><th>Date</th><th>Type</th><th>Attendees</th><th>Actions</th><th></th></tr></thead><tbody>' +
+      meetings.map((m, mi) =>
+        '<tr style="cursor:pointer" onclick="toggleMeetingDetail(' + idx + ',' + mi + ')">' +
+          '<td>' + m.date + '</td>' +
+          '<td><span class="b bl">' + m.type + '</span></td>' +
+          '<td>' + m.attendees + '</td>' +
+          '<td style="font-size:11px;color:#475569;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + m.actions + '</td>' +
+          '<td style="font-size:10px;color:#1a6b3c;font-weight:600">Details &darr;</td>' +
+        '</tr>' +
+        '<tr><td colspan="5" style="padding:0"><div class="meeting-row-detail" id="tl-mt-detail-' + mi + '">' +
+          '<div><strong>Notes:</strong> ' + m.notes + '</div>' +
+          '<div style="margin-top:4px"><strong style="color:#1a6b3c">Actions:</strong> ' + m.actions + '</div>' +
+          '<div><strong style="color:#1a6b3c">Next Steps:</strong> ' + m.nextSteps + '</div>' +
+          '<div><strong>Review Date:</strong> ' + m.reviewDate + '</div>' +
+        '</div></td></tr>'
+      ).join('') +
+      '</tbody></table>';
 }
 
 function tlVerify(tlIdx, noteIdx, approved) {
@@ -9776,18 +10001,82 @@ function logTLCheckin() {
   const sao = document.getElementById('tl-ci-sao').value;
   const mood = document.getElementById('tl-ci-mood').value;
   const notes = document.getElementById('tl-ci-notes').value;
-  if (!notes.trim()) return;
+  const actions = document.getElementById('tl-ci-actions').value;
+  const nextSteps = document.getElementById('tl-ci-nextsteps').value;
+  const reviewDate = document.getElementById('tl-ci-review').value;
+  if (!notes.trim()) { showToast('Please enter notes'); return; }
+  if (!actions.trim()) { showToast('Please enter actions taken'); return; }
+  if (!nextSteps.trim()) { showToast('Please enter next steps'); return; }
+  if (!reviewDate) { showToast('Please set a review date'); return; }
   const existing = tl.checkins.findIndex(c => c.sao === sao);
   if (existing >= 0) tl.checkins.splice(existing, 1);
-  tl.checkins.unshift({ sao: sao, date: '07 Mar', mood: mood, notes: notes });
+  const rd = new Date(reviewDate);
+  const rdStr = rd.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+  tl.checkins.unshift({ sao: sao, date: '08 Mar', mood: mood, notes: notes, actions: actions, nextSteps: nextSteps, reviewDate: rdStr });
   renderTLDashboard();
-  const toast = document.querySelector('.toast');
-  if (toast) {
-    toast.textContent = 'Check-in logged for ' + sao;
-    toast.style.background = '#059669';
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2500);
-  }
+  showToast('Check-in logged for ' + sao);
+}
+
+function logTLMeeting() {
+  const idx = parseInt(document.getElementById('tl-select').value);
+  const tl = tlData[idx];
+  const date = document.getElementById('tl-mt-date').value;
+  const type = document.getElementById('tl-mt-type').value;
+  const attendees = document.getElementById('tl-mt-attendees').value;
+  const notes = document.getElementById('tl-mt-notes').value;
+  const actions = document.getElementById('tl-mt-actions').value;
+  const nextSteps = document.getElementById('tl-mt-nextsteps').value;
+  const reviewDate = document.getElementById('tl-mt-review').value;
+  if (!date || !attendees.trim() || !notes.trim()) { showToast('Please fill in date, attendees, and notes'); return; }
+  const d = new Date(date);
+  const dStr = d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+  const rStr = reviewDate ? new Date(reviewDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }) : '';
+  if (!tl.meetings) tl.meetings = [];
+  tl.meetings.unshift({ date: dStr, type: type, attendees: attendees, notes: notes, actions: actions || '—', nextSteps: nextSteps || '—', reviewDate: rStr || '—' });
+  renderTLDashboard();
+  showToast('Meeting logged: ' + type);
+}
+
+function toggleMeetingDetail(tlIdx, mtIdx) {
+  const el = document.getElementById('tl-mt-detail-' + mtIdx);
+  if (el) el.classList.toggle('open');
+}
+
+function openComplianceResponse(tlIdx, alertIdx) {
+  const formEl = document.getElementById('tl-cr-form-' + alertIdx);
+  if (!formEl) return;
+  if (formEl.style.display === 'block') { formEl.style.display = 'none'; return; }
+  const tl = tlData[tlIdx];
+  const alert = tl.complianceAlerts[alertIdx];
+  formEl.style.display = 'block';
+  formEl.innerHTML =
+    '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:6px;padding:10px">' +
+      '<div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Log Response</div>' +
+      '<div style="font-size:11px;color:#64748b;margin-bottom:6px"><strong>Staff:</strong> ' + alert.staff + ' &middot; <strong>Issue:</strong> ' + alert.issue + '</div>' +
+      '<div style="margin-bottom:6px"><label class="form-label">Discussion Notes</label><textarea id="tl-cr-notes-' + alertIdx + '" class="form-input" rows="2" style="width:100%;resize:vertical" placeholder="What was discussed?"></textarea></div>' +
+      '<div style="margin-bottom:6px"><label class="form-label">Per-SU Breakdown (optional)</label><textarea id="tl-cr-persu-' + alertIdx + '" class="form-input" rows="2" style="width:100%;resize:vertical" placeholder="e.g. Re Muhammad: she said XYZ..."></textarea></div>' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end">' +
+        '<div style="flex:1;min-width:150px"><label class="form-label">Actions Agreed</label><input id="tl-cr-actions-' + alertIdx + '" class="form-input" placeholder="Actions..."></div>' +
+        '<div style="flex:1;min-width:150px"><label class="form-label">Next Steps</label><input id="tl-cr-next-' + alertIdx + '" class="form-input" placeholder="Next steps..."></div>' +
+        '<div><label class="form-label">Review Date</label><input id="tl-cr-review-' + alertIdx + '" type="date" class="form-input" style="width:130px"></div>' +
+        '<button class="btn-primary" onclick="submitComplianceResponse(' + tlIdx + ',' + alertIdx + ')">Submit</button>' +
+      '</div>' +
+    '</div>';
+}
+
+function submitComplianceResponse(tlIdx, alertIdx) {
+  const tl = tlData[tlIdx];
+  const alert = tl.complianceAlerts[alertIdx];
+  const notes = document.getElementById('tl-cr-notes-' + alertIdx).value;
+  const perSU = document.getElementById('tl-cr-persu-' + alertIdx).value;
+  const actions = document.getElementById('tl-cr-actions-' + alertIdx).value;
+  const next = document.getElementById('tl-cr-next-' + alertIdx).value;
+  const review = document.getElementById('tl-cr-review-' + alertIdx).value;
+  if (!notes.trim() || !actions.trim()) { showToast('Please fill in discussion notes and actions'); return; }
+  const rStr = review ? new Date(review).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }) : '—';
+  alert.responses.push({ date: '08 Mar', notes: notes, perSU: perSU, actions: actions, nextSteps: next || '—', reviewDate: rStr });
+  renderTLDashboard();
+  showToast('Response logged for ' + alert.staff);
 }
 
 // ===== SU JOURNEY =====
