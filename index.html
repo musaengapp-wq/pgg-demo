@@ -717,8 +717,8 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
       <span class="mobile-search-toggle" style="display:none" onclick="var s=document.getElementById('global-search');s.classList.toggle('mobile-expanded');if(s.classList.contains('mobile-expanded')){s.focus();}">&#128269;</span>
       <div style="position:relative"><input id="global-search" type="text" placeholder="Search SUs, properties, incidents..." style="padding:6px 12px;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;width:220px;background:#f8fafc;color:#334155" oninput="doLiveSearch()" onkeyup="doSearch(event)" onfocus="doLiveSearch()" onblur="setTimeout(function(){document.getElementById('search-dropdown').classList.remove('open');if(window.innerWidth<=768){document.getElementById('global-search').classList.remove('mobile-expanded')}},200)"><div class="search-dropdown" id="search-dropdown"></div></div>
       <div class="notif" onclick="nav('notifications')">&#128276;<span class="dot"></span></div>
-      <div style="text-align:right"><div class="uname">Admin</div><div class="urole">System Administrator</div></div>
       <div class="avatar">P</div>
+      <div style="text-align:left"><div class="uname">Admin</div><div class="urole">System Administrator</div></div>
     </div>
   </div>
   <div class="demo-banner" id="demo-banner">DEMO ENVIRONMENT — Sample Data — <a href="#" onclick="resetDemoData();return false" style="color:#92400e;text-decoration:underline">Reset Demo Data</a></div>
