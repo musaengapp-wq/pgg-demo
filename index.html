@@ -986,7 +986,6 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="nav-item" data-page="notifications"><span class="icon">&#9679;</span> Notifications <span class="badge">7</span></div>
     <div class="nav-section">Service Users</div>
     <div class="nav-item" data-page="service-users"><span class="icon">&#9823;</span> All Service Users <span class="badge info">634</span></div>
-    <div class="nav-item" data-page="new-note"><span class="icon">&#10010;</span> New Contact Note</div>
     <div class="nav-item" data-page="cn-hub"><span class="icon">&#128221;</span> Contact Notes <span class="badge info">79.6k</span></div>
     <div class="nav-item" data-page="eight-week"><span class="icon">&#9881;</span> 8-Week Guide</div>
     <div class="nav-item" data-page="allocation"><span class="icon">&#10132;</span> New Referral / Allocation</div>
@@ -1011,6 +1010,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="nav-section">Frontline</div>
     <div class="nav-item" data-page="sw-dashboard"><span class="icon">&#9998;</span> SW Dashboard</div>
     <div class="nav-item" data-page="tl-dashboard"><span class="icon">&#9733;</span> TL Dashboard <span class="badge warn">5</span></div>
+    <div class="nav-item" data-page="sm-dashboard"><span class="icon">&#9670;</span> Service Manager</div>
     <div class="nav-section">Operations</div>
     <div class="nav-item" data-page="lone-working"><span class="icon">&#128205;</span> Lone Working <span class="badge">1</span></div>
     <div class="nav-item" data-page="properties-voids"><span class="icon">&#9750;</span> Properties & Voids <span class="badge warn">3</span></div>
@@ -1061,6 +1061,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="sc" onclick="showNoNote7DaysList()" style="cursor:pointer"><div class="lb">No Note >7 Days</div><div class="val red" id="dash-red-sus">0</div><div class="d red">Compliance Flag</div></div>
     <div class="sc" data-nav="risk-dashboard" onclick="nav('risk-dashboard')" style="cursor:pointer;border-left:3px solid #dc2626"><div class="lb">Open Incidents</div><div class="val red" id="dash-open-incidents">3</div><div class="d red">Requires action</div></div>
     <div class="sc" data-nav="concerns" onclick="nav('concerns')"><div class="lb">Cause for Concern</div><div class="val red" id="dash-flags">0</div><div class="d red">Flagged by AI</div></div>
+    <div class="sc" style="cursor:pointer;border-left:3px solid #d97706" onclick="nav('safe-well')"><div class="lb">Safe & Well</div><div class="val amber">2</div><div class="d amber">Active procedures &rarr;</div></div>
   </div>
   <div class="g23">
     <div>
@@ -1169,74 +1170,6 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
         <tr><td>SU-0601</td><td><span class="su-link" onclick="openSUByName('X. Kaur')">X. Kaur</span></td><td>31 Burngreave Rise</td><td>A. Begum</td><td>L. Hussain</td><td><span class="b gn">Current</span></td><td>7 Mar</td><td><span class="b gn">Active</span></td></tr>
       </tbody></table>
     </div>
-  </div>
-</div>
-
-<!-- ===== NEW CONTACT NOTE ===== -->
-<div class="page" id="p-new-note">
-  <div class="card">
-    <h3>New Contact Note</h3>
-    <form id="note-form" onsubmit="return saveNote(event)">
-      <div class="g2">
-        <div>
-          <div class="form-group">
-            <label class="form-label">Service User</label>
-            <select class="form-select" id="note-su" required></select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Date & Time</label>
-            <input class="form-input" type="datetime-local" id="note-datetime" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Note Type</label>
-            <select class="form-select" id="note-type" required>
-              <option value="">Select type...</option>
-              <option>Welfare check</option>
-              <option>Support session</option>
-              <option>Phone contact</option>
-              <option>Key session</option>
-              <option>Incident follow-up</option>
-              <option>Crisis support</option>
-              <option>Move-in check</option>
-              <option>Property visit</option>
-            </select>
-          </div>
-        </div>
-        <div>
-          <div class="form-group">
-            <label class="form-label">Support Areas Covered</label>
-            <div class="checkbox-grid" id="support-areas">
-              <label class="checkbox-item"><input type="checkbox" value="Housing"> Housing</label>
-              <label class="checkbox-item"><input type="checkbox" value="Benefits/UC"> Benefits/UC</label>
-              <label class="checkbox-item"><input type="checkbox" value="Mental Health"> Mental Health</label>
-              <label class="checkbox-item"><input type="checkbox" value="Physical Health"> Physical Health</label>
-              <label class="checkbox-item"><input type="checkbox" value="Substance Misuse"> Substance Misuse</label>
-              <label class="checkbox-item"><input type="checkbox" value="Education/Employment"> Education/Employment</label>
-              <label class="checkbox-item"><input type="checkbox" value="Social/Community"> Social/Community</label>
-              <label class="checkbox-item"><input type="checkbox" value="Budgeting"> Budgeting</label>
-              <label class="checkbox-item"><input type="checkbox" value="Tenancy Management"> Tenancy Management</label>
-              <label class="checkbox-item"><input type="checkbox" value="Safety/Safeguarding"> Safety/Safeguarding</label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Note Content</label>
-        <textarea class="form-textarea" id="note-content" placeholder="Describe the contact in detail (minimum 50 characters)..." oninput="updateCharCount()" required></textarea>
-        <div class="char-count" id="char-count">0 / 50 min</div>
-      </div>
-      <div class="form-group">
-        <div class="toggle-row">
-          <label class="toggle-switch"><input type="checkbox" id="note-followup" onchange="document.getElementById('followup-details-group').style.display=this.checked?'block':'none'"><span class="toggle-slider"></span></label>
-          <span style="font-size:12px;color:#475569;font-weight:600">Follow-up required?</span>
-        </div>
-      </div>
-      <div class="form-group" id="followup-details-group" style="display:none">
-        <label class="form-label">Follow-up Details</label>
-        <textarea class="form-textarea" id="note-followup-details" placeholder="What follow-up is needed and by when?" style="min-height:60px"></textarea>
-      </div>
-      <button type="submit" class="btn-primary" style="width:100%">Save Contact Note</button>
-    </form>
   </div>
 </div>
 
@@ -1697,6 +1630,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="sc" style="border-left:3px solid #d97706"><div class="lb">Support Plans Awaiting Activation</div><div class="val amber">4</div><div class="d amber">Requires follow-up</div></div>
     <div class="sc" style="border-left:3px solid #d97706"><div class="lb">Risk Assessments Awaiting Activation</div><div class="val amber">2</div><div class="d amber">Pending review</div></div>
     <div class="sc" style="border-left:3px solid #dc2626;cursor:pointer" onclick="nav('risk-dashboard')"><div class="lb">Open Incidents</div><div class="val red">3</div><div class="d red">Click to view &rarr;</div></div>
+    <div class="sc" style="border-left:3px solid #d97706;cursor:pointer" onclick="nav('safe-well')"><div class="lb">Active Safe & Well</div><div class="val amber">2</div><div class="d amber">Click to view &rarr;</div></div>
   </div>
   <div class="g2">
     <div class="card">
@@ -3516,6 +3450,18 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
         </div>
       </div>
     </div>
+    <div class="g2">
+      <div class="card">
+        <h3>Check In / Check Out</h3>
+        <div id="tl-checkin-status"></div>
+        <div id="tl-checkin-btns" style="display:flex;gap:10px;justify-content:center;margin-top:10px"></div>
+      </div>
+      <div class="card">
+        <h3>Log Mileage</h3>
+        <div id="tl-mileage-form"></div>
+        <div id="tl-mileage-table" style="margin-top:12px"></div>
+      </div>
+    </div>
     <!-- Compliance Alerts -->
     <div class="card">
       <h3>Compliance Alerts <span id="tl-compliance-badge" class="badge alert" style="font-size:9px"></span></h3>
@@ -3530,6 +3476,35 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   </div>
 
   </div>
+
+<!-- ===== SERVICE MANAGER DASHBOARD ===== -->
+<div class="page" id="p-sm-dashboard">
+  <div id="sm-header" style="margin-bottom:18px"></div>
+  <div class="stats-row" id="sm-stats"></div>
+  <div class="g2">
+    <div>
+      <div class="card">
+        <h3>Team Overview</h3>
+        <div id="sm-team-overview"></div>
+      </div>
+      <div class="card">
+        <h3>Open Incidents</h3>
+        <div id="sm-open-incidents"></div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Compliance Score</h3>
+        <div id="sm-compliance-score"></div>
+      </div>
+      <div class="card">
+        <h3>Staff Performance</h3>
+        <div id="sm-staff-performance"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- SU Journey Page -->
 <div class="page" id="p-su-journey">
 
@@ -4188,7 +4163,6 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   <div class="bottom-nav-inner">
     <div class="bottom-nav-item active" onclick="nav('dashboard')"><span class="bn-icon">&#9632;</span>Home</div>
     <div class="bottom-nav-item" onclick="nav('service-users')"><span class="bn-icon">&#9823;</span>SUs</div>
-    <div class="bottom-nav-item" onclick="nav('new-note')"><span class="bn-icon">&#10010;</span>Note</div>
     <div class="bottom-nav-item" onclick="nav('notifications')"><span class="bn-icon">&#128276;</span>Alerts</div>
     <div class="bottom-nav-item" onclick="nav('cn-hub')"><span class="bn-icon">&#128221;</span>Notes</div>
   </div>
@@ -4223,7 +4197,8 @@ const titles = {
   'sw-lone-working':'Lone Working',
   'sw-welfare-check':'Welfare Check',
   'sw-incident-report':'Report Incident',
-  'sw-handover':'Shift Handover'
+  'sw-handover':'Shift Handover',
+  'sm-dashboard':'Service Manager Dashboard'
 };
 var navHistory = [];
 function nav(page, opts) {
@@ -4257,7 +4232,7 @@ function nav(page, opts) {
   // Bottom nav active state
   document.querySelectorAll('.bottom-nav-item').forEach(function(b){ b.classList.remove('active'); });
   var isSW = localStorage.getItem('pgg_user_role') === 'sw';
-  var bnMap = isSW ? {'sw-home':0,'sw-contact-note':1,'sw-lone-working':2,'sw-welfare-check':3,'notifications':4} : {'dashboard':0,'service-users':1,'new-note':2,'notifications':3,'cn-hub':4};
+  var bnMap = isSW ? {'sw-home':0,'sw-contact-note':1,'sw-lone-working':2,'sw-welfare-check':3,'notifications':4} : {'dashboard':0,'service-users':1,'notifications':2,'cn-hub':3};
   if (typeof bnMap[page] !== 'undefined') {
     var items = document.querySelectorAll('.bottom-nav-item');
     if (items[bnMap[page]]) items[bnMap[page]].classList.add('active');
@@ -4273,6 +4248,7 @@ function nav(page, opts) {
   if (page === 'policies') renderPoliciesTable();
   if (page === 'sw-dashboard') renderSWDashboard();
   if (page === 'tl-dashboard') renderTLDashboard();
+  if (page === 'sm-dashboard') renderSMDashboard();
   if (page === 'risk-dashboard') renderRiskDashboard();
   if (page === 'su-profile') loadSUProfile(document.getElementById('sup-select').value);
   if (page === 'support-plans') renderSPList();
@@ -6467,7 +6443,6 @@ function enterAdminMode() {
         '<div class="nav-item" data-page="notifications"><span class="icon">&#9679;</span> Notifications <span class="badge">7</span></div>' +
         '<div class="nav-section">Service Users</div>' +
         '<div class="nav-item" data-page="service-users"><span class="icon">&#9823;</span> All Service Users <span class="badge info">634</span></div>' +
-        '<div class="nav-item" data-page="new-note"><span class="icon">&#10010;</span> New Contact Note</div>' +
         '<div class="nav-item" data-page="cn-hub"><span class="icon">&#128221;</span> Contact Notes <span class="badge info">79.6k</span></div>' +
         '<div class="nav-item" data-page="eight-week"><span class="icon">&#9881;</span> 8-Week Guide</div>' +
         '<div class="nav-item" data-page="allocation"><span class="icon">&#10132;</span> New Referral / Allocation</div>' +
@@ -6492,6 +6467,7 @@ function enterAdminMode() {
         '<div class="nav-section">Frontline</div>' +
         '<div class="nav-item" data-page="sw-dashboard"><span class="icon">&#9998;</span> SW Dashboard</div>' +
         '<div class="nav-item" data-page="tl-dashboard"><span class="icon">&#9733;</span> TL Dashboard <span class="badge warn">5</span></div>' +
+        '<div class="nav-item" data-page="sm-dashboard"><span class="icon">&#9670;</span> Service Manager</div>' +
         '<div class="nav-section">Operations</div>' +
         '<div class="nav-item" data-page="lone-working"><span class="icon">&#128205;</span> Lone Working <span class="badge">1</span></div>' +
         '<div class="nav-item" data-page="properties-voids"><span class="icon">&#9750;</span> Properties & Voids <span class="badge warn">3</span></div>' +
@@ -6516,7 +6492,6 @@ function enterAdminMode() {
     bnInner.innerHTML =
       '<div class="bottom-nav-item active" onclick="nav(\'dashboard\')"><span class="bn-icon">&#9632;</span>Home</div>' +
       '<div class="bottom-nav-item" onclick="nav(\'service-users\')"><span class="bn-icon">&#9823;</span>SUs</div>' +
-      '<div class="bottom-nav-item" onclick="nav(\'new-note\')"><span class="bn-icon">&#10010;</span>Note</div>' +
       '<div class="bottom-nav-item" onclick="nav(\'notifications\')"><span class="bn-icon">&#128276;</span>Alerts</div>' +
       '<div class="bottom-nav-item" onclick="nav(\'cn-hub\')"><span class="bn-icon">&#128221;</span>Notes</div>';
   }
@@ -10126,6 +10101,64 @@ function submitComplianceResponse(tlIdx, alertIdx) {
   alert.responses.push({ date: '08 Mar', notes: notes, perSU: perSU, actions: actions, nextSteps: next || '—', reviewDate: rStr });
   renderTLDashboard();
   showToast('Response logged for ' + alert.staff);
+}
+
+// ===== SERVICE MANAGER DASHBOARD =====
+function renderSMDashboard() {
+  // Header
+  document.getElementById('sm-header').innerHTML =
+    '<div style="display:flex;align-items:center;gap:16px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;box-shadow:0 1px 3px rgba(0,0,0,.04)">' +
+      '<div style="width:48px;height:48px;border-radius:50%;background:#7c3aed;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:#fff">RA</div>' +
+      '<div style="flex:1">' +
+        '<div style="font-size:18px;font-weight:800;color:#1e293b">Rachel Adams</div>' +
+        '<div style="font-size:12px;color:#64748b;margin-top:2px">Service Manager &middot; Sheffield Region</div>' +
+      '</div>' +
+    '</div>';
+
+  // Stats row
+  document.getElementById('sm-stats').innerHTML =
+    '<div class="sc"><div class="lb">Team Leaders</div><div class="val blue">4</div><div class="d">Across region</div></div>' +
+    '<div class="sc"><div class="lb">Total Support Staff</div><div class="val blue">12</div><div class="d">Active</div></div>' +
+    '<div class="sc"><div class="lb">Service Users</div><div class="val blue">634</div><div class="d green">+12 this month</div></div>' +
+    '<div class="sc" style="cursor:pointer" onclick="nav(\'risk-dashboard\')"><div class="lb">Open Incidents</div><div class="val red">3</div><div class="d red">Requires action</div></div>' +
+    '<div class="sc" style="cursor:pointer" onclick="nav(\'safe-well\')"><div class="lb">Active Safe & Well</div><div class="val amber">2</div><div class="d amber">View &rarr;</div></div>' +
+    '<div class="sc"><div class="lb">Compliance Rate</div><div class="val green">84%</div><div class="d green">Regional avg</div></div>';
+
+  // Team overview
+  document.getElementById('sm-team-overview').innerHTML =
+    '<table><thead><tr><th>Team Leader</th><th>Support Staff</th><th>Avg Caseload</th><th>Total SUs</th><th>QA Avg</th><th>Status</th></tr></thead><tbody>' +
+    '<tr onclick="nav(\'tl-dashboard\')" style="cursor:pointer"><td style="font-weight:700">Megan Thorne</td><td>3</td><td>14</td><td>42</td><td style="color:#059669;font-weight:700">3.42</td><td><span class="b gn">Green</span></td></tr>' +
+    '<tr onclick="nav(\'tl-dashboard\')" style="cursor:pointer"><td style="font-weight:700">Keelie Hill</td><td>3</td><td>13</td><td>39</td><td style="color:#059669;font-weight:700">3.18</td><td><span class="b gn">Green</span></td></tr>' +
+    '<tr onclick="nav(\'tl-dashboard\')" style="cursor:pointer"><td style="font-weight:700">Emily Warner</td><td>3</td><td>12</td><td>36</td><td style="color:#d97706;font-weight:700">2.85</td><td><span class="b am">Amber</span></td></tr>' +
+    '<tr onclick="nav(\'tl-dashboard\')" style="cursor:pointer"><td style="font-weight:700">P. Okonkwo</td><td>3</td><td>15</td><td>45</td><td style="color:#059669;font-weight:700">3.31</td><td><span class="b gn">Green</span></td></tr>' +
+    '</tbody></table>';
+
+  // Open incidents
+  document.getElementById('sm-open-incidents').innerHTML =
+    '<table><thead><tr><th>ID</th><th>Type</th><th>Service User</th><th>Staff</th><th>Date</th><th>Severity</th><th>Status</th></tr></thead><tbody>' +
+    '<tr><td>INC-041</td><td>Safeguarding</td><td>D. Kowalski</td><td>A. Ahmed</td><td>06 Mar</td><td><span class="b rd">High</span></td><td><span class="b rd">Open</span></td></tr>' +
+    '<tr><td>INC-039</td><td>ASB</td><td>J. O\'Brien</td><td>C. Vincent</td><td>04 Mar</td><td><span class="b am">Medium</span></td><td><span class="b rd">Open</span></td></tr>' +
+    '<tr><td>INC-037</td><td>Self-Harm</td><td>P. Kaur</td><td>J. Vinten</td><td>02 Mar</td><td><span class="b rd">High</span></td><td><span class="b rd">Open</span></td></tr>' +
+    '</tbody></table>';
+
+  // Compliance score
+  document.getElementById('sm-compliance-score').innerHTML =
+    '<div style="text-align:center;margin:20px 0"><div class="qc hi" style="width:90px;height:90px;font-size:26px">84%</div><div style="font-size:12px;color:#64748b;margin-top:8px">Regional Compliance</div></div>' +
+    '<table><thead><tr><th>Area</th><th>Score</th><th>Trend</th></tr></thead><tbody>' +
+    '<tr><td>Contact Notes QA</td><td><span class="b gn">86%</span></td><td class="green">&#9650;</td></tr>' +
+    '<tr><td>Support Plans Current</td><td><span class="b gn">82%</span></td><td style="color:#64748b">&#9644;</td></tr>' +
+    '<tr><td>Property Visits</td><td><span class="b am">74%</span></td><td class="red">&#9660;</td></tr>' +
+    '<tr><td>Policy Acknowledgement</td><td><span class="b gn">91%</span></td><td class="green">&#9650;</td></tr>' +
+    '</tbody></table>';
+
+  // Staff performance
+  document.getElementById('sm-staff-performance').innerHTML =
+    '<table><thead><tr><th>Staff</th><th>Role</th><th>QA Avg</th><th>Contacts/Wk</th><th>Status</th></tr></thead><tbody>' +
+    '<tr><td style="font-weight:600">A. Ahmed</td><td>Support Staff</td><td style="color:#059669;font-weight:700">3.55</td><td>9</td><td><span class="b gn">Green</span></td></tr>' +
+    '<tr><td style="font-weight:600">C. Vincent</td><td>Support Staff</td><td style="color:#059669;font-weight:700">3.20</td><td>8</td><td><span class="b gn">Green</span></td></tr>' +
+    '<tr><td style="font-weight:600">J. Vinten</td><td>Support Staff</td><td style="color:#d97706;font-weight:700">2.65</td><td>6</td><td><span class="b am">Amber</span></td></tr>' +
+    '<tr><td style="font-weight:600">R. Amin</td><td>Support Staff</td><td style="color:#dc2626;font-weight:700">2.10</td><td>4</td><td><span class="b rd">Red</span></td></tr>' +
+    '</tbody></table>';
 }
 
 // ===== SU JOURNEY =====
