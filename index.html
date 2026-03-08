@@ -3364,6 +3364,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   <div class="cn-panel" id="cnh-recent">
     <div class="card">
       <h3>Recent Contact Notes</h3>
+      <p style="margin:0 0 10px;font-size:11px;color:#94a3b8">💡 Click on a staff name to view the full note. Click a service user name to access their profile.</p>
       <div class="cn-filter-bar">
         <select id="cnh-filter-sao" onchange="renderCNHubList()"><option value="">All SAOs</option></select>
         <select id="cnh-filter-su" onchange="renderCNHubList()"><option value="">All Service Users</option></select>
@@ -3391,7 +3392,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="card">
       <h3>Beacon &mdash; AI Quality Assurance Review</h3>
       <div style="font-size:12px;color:#475569;margin-bottom:16px;line-height:1.6">
-        The Beacon reviews every submitted contact note for quality, completeness, and person-centred language. Based on the PGG Airtable system with <strong>79,601 contact sheet receipt automations</strong>. Each note receives a QA score (1-4) and AI-suggested improvements.
+        Beacon reviews every submitted contact note for quality, completeness, and person-centred language. Each note receives a QA score (1-4) and AI-suggested improvements based on your setting's compliance requirements.
       </div>
       <div class="cn-filter-bar" style="margin-bottom:14px">
         <select id="cnh-aud-filter" onchange="renderBeaconQueue()">
@@ -9204,8 +9205,7 @@ function renderCNHubList() {
       '<td>'+dateStr+'</td><td>'+suLinkHtml(n.suName)+'</td><td>'+n.sao+'</td><td>'+n.type+'</td>' +
       '<td>'+n.duration+' min</td><td>'+qaDot+'</td><td style="text-align:center">'+verifiedIcon+'</td>' +
       '<td>' +
-        (!n.verified && !n.sentBack ? '<button class="cn-verify-btn" onclick="event.stopPropagation();verifyCNNote(\''+n.id+'\')">&#10003; Verify</button> ' : '') +
-        (!n.sentBack && !n.verified ? '<button class="cn-sendback-btn" onclick="event.stopPropagation();sendBackCNNote(\''+n.id+'\')">Send Back</button>' : '') +
+        (!n.sentBack ? '<button class="cn-sendback-btn" onclick="event.stopPropagation();sendBackCNNote(\''+n.id+'\')">Send Back</button>' : '') +
       '</td></tr>' +
       '<tr id="cn-expand-'+n.id+'"><td colspan="8"><div class="cn-expand">' +
         '<div style="margin-bottom:8px"><strong>Contact Note:</strong></div>' +
