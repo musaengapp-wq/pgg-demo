@@ -22,6 +22,10 @@ body { background: #f1f5f9; color: #1e293b; font-family: -apple-system, BlinkMac
 .nav-item .badge.alert { background: #ef4444; }
 .nav-item .badge.warn { background: #f59e0b; color: #1e293b; }
 .nav-item .badge.info { background: #1a6b3c; color: #fff; }
+.nav-section-toggle { cursor: pointer; user-select: none; }
+.nav-section-toggle:hover { color: #1a6b3c; }
+.nav-section-body { overflow: hidden; transition: max-height .25s ease; }
+.nav-section-body.collapsed { max-height: 0 !important; }
 .sidebar-links { padding: 8px 10px; border-top: 1px solid #e2e8f0; }
 .sidebar-link { display: block; padding: 8px 12px; margin-bottom: 4px; background: #f0fdf4; border: 1px solid #86efac; border-radius: 6px; text-align: center; text-decoration: none; font-size: 11px; font-weight: 700; color: #1a6b3c; transition: background .15s; }
 .sidebar-link:hover { background: #dcfce7; }
@@ -990,14 +994,21 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="nav-section">Compliance</div>
     <div class="nav-item" data-page="support-docs"><span class="icon">📋</span> Support Documentation <span class="badge warn" id="nav-qa-pending-badge">3</span></div>
     <div class="nav-item" data-page="risk-dashboard"><span class="icon">&#9888;</span> Incidents & Risk <span class="badge">3</span></div>
+    <div class="nav-item" data-page="eviction-risk"><span class="icon">&#9888;</span> Eviction Risk <span class="badge">8</span></div>
+    <div class="nav-item" data-page="doc-management"><span class="icon">&#128196;</span> Document Management</div>
     <div class="nav-item" data-page="policies"><span class="icon">&#9745;</span> Policies & Procedures</div>
     <div class="nav-item" data-page="staff-performance"><span class="icon">&#9784;</span> Staff Performance</div>
     <div class="nav-item" data-page="demo-compare"><span class="icon">&#9878;</span> Live Demo</div>
     <div class="nav-item" data-page="ai-qa"><span class="icon">&#9733;</span> AI QA Reports</div>
     <div class="nav-item" data-page="ai-check"><span class="icon">&#9889;</span> AI Check (Live Demo)</div>
-    <div class="nav-item" onclick="showAPIKeyModal()" style="cursor:pointer"><span class="icon">&#9881;</span> AI Settings</div>
+    <div class="nav-section nav-section-toggle" onclick="toggleNavSection(this)">Analytics & Reports <span style="float:right;font-size:11px">&#9660;</span></div>
+    <div class="nav-section-body">
     <div class="nav-item" data-page="compliance-dash"><span class="icon">&#9783;</span> Compliance Dashboards</div>
     <div class="nav-item" data-page="sao-compliance"><span class="icon">&#9745;</span> Staff Compliance</div>
+    <div class="nav-item" data-page="incident-analysis"><span class="icon">&#9783;</span> Incident Analysis</div>
+    <div class="nav-item" data-page="insights"><span class="icon">&#128202;</span> Insights & Analytics</div>
+    <div class="nav-item" data-page="reports-qa"><span class="icon">&#9783;</span> Reports & QA</div>
+    </div>
     <div class="nav-section">Frontline</div>
     <div class="nav-item" data-page="sw-dashboard"><span class="icon">&#9998;</span> SW Dashboard</div>
     <div class="nav-item" data-page="tl-dashboard"><span class="icon">&#9733;</span> TL Dashboard <span class="badge warn">5</span></div>
@@ -1007,17 +1018,9 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="nav-item" data-page="staff"><span class="icon">&#9784;</span> Staff & Caseloads</div>
     <div class="nav-item" data-page="training"><span class="icon">&#9734;</span> Training</div>
     <div class="nav-item" data-page="housing-benefit"><span class="icon">&#8364;</span> Housing Benefit</div>
-    <div class="nav-item" data-page="eviction-risk"><span class="icon">&#9888;</span> Eviction Risk <span class="badge">8</span></div>
-    <div class="nav-item" data-page="mental-health"><span class="icon">&#9829;</span> Mental Health Team</div>
+    <div class="nav-item" data-page="meetings"><span class="icon">&#128197;</span> Meetings</div>
     <div class="nav-section">Housing</div>
     <div class="nav-item" data-page="su-journey"><span class="icon">&#127968;</span> SU Journey <span class="badge info">8</span></div>
-    <div class="nav-item" data-page="doc-management"><span class="icon">&#128196;</span> Document Management</div>
-    <div class="nav-section">Reports</div>
-    <div class="nav-item" data-page="reports-qa"><span class="icon">&#9783;</span> Reports & QA</div>
-    <div class="nav-item" data-page="weekly-qa"><span class="icon">&#9783;</span> Weekly QA</div>
-    <div class="nav-item" data-page="compliance-meeting"><span class="icon">&#9783;</span> Compliance Meeting</div>
-    <div class="nav-item" data-page="incident-analysis"><span class="icon">&#9783;</span> Incident Analysis</div>
-    <div class="nav-item" data-page="insights"><span class="icon">&#128202;</span> Insights</div>
     <div class="nav-section">Settings</div>
     <div class="nav-item" data-page="access-control"><span class="icon">&#128274;</span> Access Control</div>
   </div>
@@ -1650,9 +1653,9 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   <div class="stats-row">
     <div class="sc"><div class="lb">Notes This Month</div><div class="val green">15,178</div></div>
     <div class="sc"><div class="lb">Avg Score</div><div class="val green">79.3%</div></div>
-    <div class="sc"><div class="lb">Reframes Accepted</div><div class="val green">11,284</div></div>
-    <div class="sc"><div class="lb">Manual Review</div><div class="val amber">2,418</div></div>
-    <div class="sc"><div class="lb">AI Refused</div><div class="val red">76</div></div>
+    <div class="sc" style="cursor:pointer" onclick="showQAFilteredNotes('accepted')"><div class="lb">Reframes Accepted</div><div class="val green">11,284</div></div>
+    <div class="sc" style="cursor:pointer" onclick="showQAFilteredNotes('review')"><div class="lb">Manual Review</div><div class="val amber">2,418</div></div>
+    <div class="sc" style="cursor:pointer" onclick="showQAFilteredNotes('refused')" title="Our AI processes all care content without restrictions"><div class="lb">AI Refused</div><div class="val green">0</div><div class="d green" style="font-size:9px">AI processes all content</div></div>
   </div>
   <div class="g2">
     <div class="card">
@@ -2258,7 +2261,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       <div class="sc"><div class="lb">Approved</div><div class="val green">2,914</div></div>
       <div class="sc"><div class="lb">Needs Review</div><div class="val amber">612</div></div>
       <div class="sc"><div class="lb">Rejected</div><div class="val red">298</div></div>
-      <div class="sc"><div class="lb">AI Refused</div><div class="val red">18</div></div>
+      <div class="sc" title="Our AI processes all care content without restrictions"><div class="lb">AI Refused</div><div class="val green">0</div><div class="d green" style="font-size:9px">AI processes all content</div></div>
     </div>
     <h3 style="margin-top:14px">Weekly Trend (12 weeks)</h3>
     <div class="bar-chart" style="height:80px;padding:10px 0">
@@ -2288,7 +2291,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
         <ul style="margin:6px 0 12px 20px;color:#475569">
           <li>Sheffield at 84% (up 2%)</li>
           <li>S. Williams and D. Sharpe flagged — coaching sessions scheduled</li>
-          <li>AI "Would Rather Not" cases (18 this month) — discussed manual review process</li>
+          <li>AI refusals now at 0 — our AI processes all care content without restrictions</li>
         </ul>
         <strong>2. Support Plans</strong>
         <ul style="margin:6px 0 12px 20px;color:#475569">
@@ -2999,7 +3002,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
             <button onclick="loadExample('good')" style="padding:6px 12px;border:1px solid #dcfce7;background:#f0fdf4;color:#166534;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer">Good Note (92%)</button>
             <button onclick="loadExample('medium')" style="padding:6px 12px;border:1px solid #fef3c7;background:#fffbeb;color:#92400e;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer">Needs Work (68%)</button>
             <button onclick="loadExample('poor')" style="padding:6px 12px;border:1px solid #fee2e2;background:#fef2f2;color:#991b1b;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer">Poor Note (41%)</button>
-            <button onclick="loadExample('refused')" style="padding:6px 12px;border:1px solid #e2e8f0;background:#f8fafc;color:#475569;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer">AI Refused</button>
+            <button onclick="loadExample('refused')" style="padding:6px 12px;border:1px solid #e2e8f0;background:#f8fafc;color:#475569;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer">Sensitive Content</button>
           </div>
         </div>
 
@@ -3866,7 +3869,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     </div>
     <div class="si" style="max-height:none">
       <table>
-        <thead><tr><th>SU Name</th><th>SU ID</th><th>Document Type</th><th>Status</th><th>Upload Date</th><th>Expiry Date</th><th>Support Staff</th></tr></thead>
+        <thead><tr><th>SU Name</th><th>SU ID</th><th>Document Type</th><th>Status</th><th>Upload Date</th><th>Expiry Date</th><th>Support Staff</th><th>Actions</th></tr></thead>
         <tbody id="doc-table-body"></tbody>
       </table>
     </div>
@@ -3916,6 +3919,54 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
 
   <div class="info-box" style="margin-top:14px">
     <strong>GDPR Compliance Note:</strong> All user access is logged with timestamps, IP addresses, and actions performed. Data access requests (SARs) can be generated from Settings. Personal data is encrypted at rest and in transit. Data retention follows ICO guidance — inactive records are flagged for review after 12 months. Role changes require Admin approval and are audit-logged. Two-factor authentication is enforced for all Admin and Compliance roles.
+  </div>
+</div>
+
+<!-- ===== MEETINGS ===== -->
+<div class="page" id="p-meetings">
+  <div class="stats-row">
+    <div class="sc"><div class="lb">Total Meetings</div><div class="val blue" id="mtg-total">0</div></div>
+    <div class="sc"><div class="lb">This Week</div><div class="val green" id="mtg-week">0</div></div>
+    <div class="sc"><div class="lb">Outstanding Actions</div><div class="val amber" id="mtg-actions">0</div></div>
+  </div>
+  <div class="card">
+    <h3>Meeting Records</h3>
+    <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+      <select class="form-select" style="width:200px" id="mtg-filter-type" onchange="renderMeetings()">
+        <option value="">All Meeting Types</option>
+        <option value="Daily Huddle">Daily Huddle</option>
+        <option value="Weekly Team">Weekly Team</option>
+        <option value="1-to-1">1-to-1</option>
+        <option value="Management">Management</option>
+        <option value="Compliance Review">Compliance Review</option>
+      </select>
+      <input type="date" class="form-input" style="width:150px" id="mtg-filter-from" onchange="renderMeetings()" placeholder="From">
+      <input type="date" class="form-input" style="width:150px" id="mtg-filter-to" onchange="renderMeetings()" placeholder="To">
+    </div>
+    <div class="si" style="max-height:none">
+      <table>
+        <thead><tr><th>Type</th><th>Date</th><th>Attendees</th><th>Chair / Led By</th><th>Actions</th><th>Review Date</th><th></th></tr></thead>
+        <tbody id="mtg-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card" id="mtg-form-card">
+    <h3>Log a New Meeting</h3>
+    <div class="g2">
+      <div class="form-group"><label class="form-label">Meeting Type</label>
+        <select class="form-select" id="mtg-new-type"><option>Daily Huddle</option><option>Weekly Team</option><option>1-to-1</option><option>Management</option><option>Compliance Review</option></select></div>
+      <div class="form-group"><label class="form-label">Date</label><input type="date" class="form-input" id="mtg-new-date"></div>
+    </div>
+    <div class="g2">
+      <div class="form-group"><label class="form-label">Attendees</label><input type="text" class="form-input" id="mtg-new-attendees" placeholder="e.g. A. Sherazi, T. Richardson"></div>
+      <div class="form-group"><label class="form-label">Chair / Led By</label><input type="text" class="form-input" id="mtg-new-chair" placeholder="e.g. A. Sherazi"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Minutes / Notes</label><textarea class="form-textarea" id="mtg-new-notes" placeholder="Meeting minutes..."></textarea></div>
+    <div class="g2">
+      <div class="form-group"><label class="form-label">Actions / Next Steps</label><textarea class="form-textarea" id="mtg-new-actions" style="min-height:60px" placeholder="Action items..."></textarea></div>
+      <div class="form-group"><label class="form-label">Review Date</label><input type="date" class="form-input" id="mtg-new-review"></div>
+    </div>
+    <button class="btn-primary" onclick="saveMeeting()">Save Meeting Record</button>
   </div>
 </div>
 
@@ -4165,6 +4216,7 @@ const titles = {
   'insights':'Insights & Analytics',
   'doc-management':'Document Management',
   'access-control':'Access Control',
+  'meetings':'Meetings',
   'staff-performance':'Staff Performance',
   'demo-compare':'Live Demo',
   'sw-home':'My Dashboard',
@@ -4231,6 +4283,7 @@ function nav(page, opts) {
   if (page === 'sao-compliance') renderSAOCompliance();
   if (page === 'insights') renderInsights();
   if (page === 'doc-management') renderDocManagement();
+  if (page === 'meetings') renderMeetings();
   if (page === 'sw-home') renderSWHome();
   if (page === 'sw-contact-note') renderSWContactNote();
   if (page === 'sw-lone-working') renderSWLoneWorking();
@@ -4279,14 +4332,14 @@ const examples = {
   },
   refused: {
     note: "Visited C. Dlamini at Flat 9. She was very distressed and disclosed that she has been having thoughts of self-harm over the past week. She showed me marks on her arms. I stayed with her for an hour and we talked through her crisis plan. Contacted the mental health team who will visit tomorrow.",
-    score: 0, label: 'AI Refused', cls: '', color: '#64748b',
-    feedback: '<strong style="color:#dc2626">AI Would Rather Not.</strong> The note contains references to self-harm and suicide ideation. AI\'s safety filters prevent it from reframing this content. This is a known limitation — not a bug.<br><br><strong>This note requires manual QA review by the compliance team.</strong> The content itself appears thorough: person-centred, specific, clear safeguarding response, crisis plan referenced, MH team contacted. A compliance officer should review and score manually.',
+    score: 88, label: 'Processed', cls: 'hi', color: '#059669',
+    feedback: '<strong style="color:#059669">AI Processed Successfully.</strong> Our AI processes all care content without restrictions, including sensitive safeguarding disclosures. This note is thorough: person-centred, specific, clear safeguarding response, crisis plan referenced, MH team contacted. Strong documentation of a sensitive situation.',
     breakdown: [
-      ['Person-centred language', 'N/A', 'gy'], ['Specificity & detail', 'N/A', 'gy'], ['Outcome recording', 'N/A', 'gy'],
-      ['Support plan alignment', 'N/A', 'gy'], ['Next steps documented', 'N/A', 'gy']
+      ['Person-centred language', 90, 'gn'], ['Specificity & detail', 88, 'gn'], ['Outcome recording', 85, 'gn'],
+      ['Support plan alignment', 90, 'gn'], ['Next steps documented', 88, 'gn']
     ],
-    reframe: null,
-    refused: true
+    reframe: "Attended a scheduled visit with C. Dlamini at Flat 9, Burngreave Rise at [time]. C. presented as visibly distressed and disclosed experiencing thoughts of self-harm over the past week, showing marks on her arms. In line with the safeguarding protocol and her existing crisis plan, I remained with C. for approximately one hour to provide immediate emotional support and work through her crisis plan together. The mental health team was contacted and a visit has been arranged for the following day. Safeguarding procedures followed as per policy. C.\'s crisis plan remains in place and up to date. Next steps: Mental health team visit [date], follow-up contact [specific date].",
+    refused: false
   }
 };
 
@@ -6424,14 +6477,21 @@ function enterAdminMode() {
         '<div class="nav-section">Compliance</div>' +
         '<div class="nav-item" data-page="support-docs"><span class="icon">📋</span> Support Documentation <span class="badge warn" id="nav-qa-pending-badge">3</span></div>' +
         '<div class="nav-item" data-page="risk-dashboard"><span class="icon">&#9888;</span> Incidents & Risk <span class="badge">3</span></div>' +
+        '<div class="nav-item" data-page="eviction-risk"><span class="icon">&#9888;</span> Eviction Risk <span class="badge">8</span></div>' +
+        '<div class="nav-item" data-page="doc-management"><span class="icon">&#128196;</span> Document Management</div>' +
         '<div class="nav-item" data-page="policies"><span class="icon">&#9745;</span> Policies & Procedures</div>' +
         '<div class="nav-item" data-page="staff-performance"><span class="icon">&#9784;</span> Staff Performance</div>' +
         '<div class="nav-item" data-page="demo-compare"><span class="icon">&#9878;</span> Live Demo</div>' +
         '<div class="nav-item" data-page="ai-qa"><span class="icon">&#9733;</span> AI QA Reports</div>' +
         '<div class="nav-item" data-page="ai-check"><span class="icon">&#9889;</span> AI Check (Live Demo)</div>' +
-        '<div class="nav-item" onclick="showAPIKeyModal()" style="cursor:pointer"><span class="icon">&#9881;</span> AI Settings</div>' +
+        '<div class="nav-section nav-section-toggle" onclick="toggleNavSection(this)">Analytics & Reports <span style="float:right;font-size:11px">&#9660;</span></div>' +
+        '<div class="nav-section-body">' +
         '<div class="nav-item" data-page="compliance-dash"><span class="icon">&#9783;</span> Compliance Dashboards</div>' +
         '<div class="nav-item" data-page="sao-compliance"><span class="icon">&#9745;</span> Staff Compliance</div>' +
+        '<div class="nav-item" data-page="incident-analysis"><span class="icon">&#9783;</span> Incident Analysis</div>' +
+        '<div class="nav-item" data-page="insights"><span class="icon">&#128202;</span> Insights & Analytics</div>' +
+        '<div class="nav-item" data-page="reports-qa"><span class="icon">&#9783;</span> Reports & QA</div>' +
+        '</div>' +
         '<div class="nav-section">Frontline</div>' +
         '<div class="nav-item" data-page="sw-dashboard"><span class="icon">&#9998;</span> SW Dashboard</div>' +
         '<div class="nav-item" data-page="tl-dashboard"><span class="icon">&#9733;</span> TL Dashboard <span class="badge warn">5</span></div>' +
@@ -6441,17 +6501,9 @@ function enterAdminMode() {
         '<div class="nav-item" data-page="staff"><span class="icon">&#9784;</span> Staff & Caseloads</div>' +
         '<div class="nav-item" data-page="training"><span class="icon">&#9734;</span> Training</div>' +
         '<div class="nav-item" data-page="housing-benefit"><span class="icon">&#8364;</span> Housing Benefit</div>' +
-        '<div class="nav-item" data-page="eviction-risk"><span class="icon">&#9888;</span> Eviction Risk <span class="badge">8</span></div>' +
-        '<div class="nav-item" data-page="mental-health"><span class="icon">&#9829;</span> Mental Health Team</div>' +
+        '<div class="nav-item" data-page="meetings"><span class="icon">&#128197;</span> Meetings</div>' +
         '<div class="nav-section">Housing</div>' +
         '<div class="nav-item" data-page="su-journey"><span class="icon">&#127968;</span> SU Journey <span class="badge info">8</span></div>' +
-        '<div class="nav-item" data-page="doc-management"><span class="icon">&#128196;</span> Document Management</div>' +
-        '<div class="nav-section">Reports</div>' +
-        '<div class="nav-item" data-page="reports-qa"><span class="icon">&#9783;</span> Reports & QA</div>' +
-        '<div class="nav-item" data-page="weekly-qa"><span class="icon">&#9783;</span> Weekly QA</div>' +
-        '<div class="nav-item" data-page="compliance-meeting"><span class="icon">&#9783;</span> Compliance Meeting</div>' +
-        '<div class="nav-item" data-page="incident-analysis"><span class="icon">&#9783;</span> Incident Analysis</div>' +
-        '<div class="nav-item" data-page="insights"><span class="icon">&#128202;</span> Insights</div>' +
         '<div class="nav-section">Settings</div>' +
         '<div class="nav-item" data-page="access-control"><span class="icon">&#128274;</span> Access Control</div>';
       // Re-bind click handlers
@@ -10703,6 +10755,8 @@ function renderDocManagement() {
       var expiryStyle = '';
       if (d.expiry && new Date(d.expiry) < new Date()) expiryStyle = 'color:#dc2626;font-weight:700';
 
+      var docIdx = su.docs.indexOf(d);
+      var suIdx = docData.indexOf(su);
       rows.push('<tr' + rowStyle + '>' +
         '<td>' + suLinkHtml(su.su) + '</td>' +
         '<td>' + su.suId + '</td>' +
@@ -10711,6 +10765,10 @@ function renderDocManagement() {
         '<td>' + uploadDate + '</td>' +
         '<td style="' + expiryStyle + '">' + expiryDate + '</td>' +
         '<td>' + su.sao + '</td>' +
+        '<td style="white-space:nowrap">' +
+          '<button onclick="reassignDoc('+suIdx+','+docIdx+')" style="padding:3px 8px;border:1px solid #e2e8f0;background:#f8fafc;color:#1a6b3c;border-radius:4px;font-size:10px;font-weight:600;cursor:pointer;margin-right:4px" title="Reassign to different SU">Reassign</button>' +
+          '<button onclick="deleteDoc('+suIdx+','+docIdx+')" style="padding:3px 8px;border:1px solid #fca5a5;background:#fef2f2;color:#dc2626;border-radius:4px;font-size:10px;font-weight:600;cursor:pointer" title="Delete document">Delete</button>' +
+        '</td>' +
       '</tr>');
     });
   });
@@ -10724,7 +10782,167 @@ function renderDocManagement() {
   rateEl.textContent = rate + '%';
   rateEl.style.color = rate >= 80 ? '#059669' : rate >= 60 ? '#d97706' : '#dc2626';
   document.getElementById('doc-count').textContent = '(' + rows.length + ')';
-  document.getElementById('doc-table-body').innerHTML = rows.length > 0 ? rows.join('') : '<tr><td colspan="7" style="text-align:center;color:#94a3b8;padding:20px">No documents match filters</td></tr>';
+  document.getElementById('doc-table-body').innerHTML = rows.length > 0 ? rows.join('') : '<tr><td colspan="8" style="text-align:center;color:#94a3b8;padding:20px">No documents match filters</td></tr>';
+}
+
+/* ===== NAV SECTION TOGGLE ===== */
+function toggleNavSection(el) {
+  var body = el.nextElementSibling;
+  if (!body || !body.classList.contains('nav-section-body')) return;
+  body.classList.toggle('collapsed');
+  var arrow = el.querySelector('span');
+  if (arrow) arrow.innerHTML = body.classList.contains('collapsed') ? '&#9654;' : '&#9660;';
+}
+
+/* ===== DOCUMENT DELETE & REASSIGN ===== */
+function deleteDoc(suIdx, docIdx) {
+  var su = docData[suIdx];
+  var doc = su.docs[docIdx];
+  if (confirm('Delete "' + doc.type + '" for ' + su.su + '? This cannot be undone.')) {
+    su.docs.splice(docIdx, 1);
+    renderDocManagement();
+    showToast('Document deleted');
+  }
+}
+function reassignDoc(suIdx, docIdx) {
+  var su = docData[suIdx];
+  var doc = su.docs[docIdx];
+  var opts = docData.map(function(s, i) { return i === suIdx ? '' : '<option value="' + i + '">' + s.su + ' (' + s.suId + ')</option>'; }).join('');
+  var overlay = document.createElement('div');
+  overlay.className = 'policy-overlay';
+  overlay.innerHTML = '<div class="policy-modal" style="width:400px"><div class="policy-modal-header"><h2>Reassign Document</h2><button class="policy-modal-close" onclick="this.closest(\'.policy-overlay\').remove()">&times;</button></div>' +
+    '<div class="policy-modal-body"><p style="font-size:12px;margin-bottom:12px">Reassign <strong>' + doc.type + '</strong> from <strong>' + su.su + '</strong> to:</p>' +
+    '<select class="form-select" id="reassign-target" style="margin-bottom:14px">' + opts + '</select>' +
+    '<button class="btn-primary" onclick="doReassign(' + suIdx + ',' + docIdx + ')">Reassign</button></div></div>';
+  document.body.appendChild(overlay);
+}
+function doReassign(suIdx, docIdx) {
+  var targetIdx = parseInt(document.getElementById('reassign-target').value);
+  var doc = docData[suIdx].docs[docIdx];
+  docData[targetIdx].docs.push(doc);
+  docData[suIdx].docs.splice(docIdx, 1);
+  document.querySelector('.policy-overlay').remove();
+  renderDocManagement();
+  showToast('Document reassigned to ' + docData[targetIdx].su);
+}
+
+/* ===== MEETINGS ===== */
+var meetingsData = [
+  {type:'Compliance Review',date:'2026-03-06',attendees:'A. Sherazi, T. Richardson, P. Okonkwo, L. Hussain, C. Barnes',chair:'A. Sherazi',notes:'Reviewed Q1 compliance metrics. Sheffield at 84%. Discussed coaching plans for underperforming staff. Support plan renewals on track.',actions:'1. L. Hussain to complete overdue plans by 10 Mar\n2. D. Sharpe coaching session scheduled 12 Mar',review:'2026-03-13',outstanding:2},
+  {type:'Weekly Team',date:'2026-03-05',attendees:'M. Thorne, A. Khan, J. Vinten, R. Osei, K. Patel',chair:'M. Thorne',notes:'Team update on caseload allocations. New referral for Burngreave property discussed. Safe & Well SU-0334 escalated.',actions:'1. A. Khan to follow up SU-0334 welfare check\n2. J. Vinten to complete property visit backlog',review:'2026-03-12',outstanding:2},
+  {type:'Daily Huddle',date:'2026-03-07',attendees:'M. Thorne, A. Khan, J. Vinten',chair:'M. Thorne',notes:'Morning check-in. A. Khan visiting 3 SUs today. J. Vinten completing HB paperwork. No urgent issues.',actions:'None',review:'',outstanding:0},
+  {type:'1-to-1',date:'2026-03-04',attendees:'M. Thorne, A. Khan',chair:'M. Thorne',notes:'Supervision session. Discussed A. Khan\'s caseload performance — QA scores improving. Agreed personal development goals for Q2.',actions:'1. A. Khan to complete safeguarding refresher by 20 Mar',review:'2026-04-01',outstanding:1},
+  {type:'Management',date:'2026-03-03',attendees:'A. Sherazi, M. Thorne, P. Okonkwo',chair:'A. Sherazi',notes:'Monthly management review. Budget on track. Discussed new trainee onboarding progress. Property void turnaround times need improvement.',actions:'1. P. Okonkwo to draft void turnaround improvement plan\n2. A. Sherazi to review trainee assessment',review:'2026-03-17',outstanding:2},
+  {type:'Daily Huddle',date:'2026-03-06',attendees:'P. Okonkwo, L. Hussain, T. Moore, S. Williams',chair:'P. Okonkwo',notes:'Afternoon handover. Two failed contacts flagged. S. Williams reminded about note quality expectations.',actions:'1. S. Williams to re-do contact note for SU-0198',review:'',outstanding:1},
+  {type:'Compliance Review',date:'2026-02-28',attendees:'A. Sherazi, T. Richardson, P. Okonkwo, C. Barnes',chair:'A. Sherazi',notes:'February compliance review. Incident trends improving. Policy acknowledgement at 89%. HB payment rate remains concern at 31%.',actions:'1. T. Richardson to chase outstanding policy acknowledgements\n2. C. Barnes to escalate HB non-payment SUs',review:'2026-03-06',outstanding:0},
+  {type:'Weekly Team',date:'2026-02-26',attendees:'P. Okonkwo, L. Hussain, T. Moore, D. Sharpe, S. Williams',chair:'P. Okonkwo',notes:'Weekly team meeting. Discussed incident at Ecclesall Rd (INC-446). D. Sharpe assigned as lead. Training schedule for March confirmed.',actions:'1. D. Sharpe to complete INC-446 investigation\n2. All staff to confirm March training dates',review:'2026-03-05',outstanding:1}
+];
+function getMeetings() { return meetingsData; }
+function renderMeetings() {
+  var meetings = getMeetings();
+  var typeF = document.getElementById('mtg-filter-type').value;
+  var fromF = document.getElementById('mtg-filter-from').value;
+  var toF = document.getElementById('mtg-filter-to').value;
+  var now = new Date();
+  var weekAgo = new Date(now); weekAgo.setDate(weekAgo.getDate() - 7);
+  var thisWeek = 0, totalActions = 0;
+  var filtered = [];
+  meetings.forEach(function(m) {
+    var md = new Date(m.date);
+    if (md >= weekAgo) thisWeek++;
+    totalActions += m.outstanding;
+    if (typeF && m.type !== typeF) return;
+    if (fromF && m.date < fromF) return;
+    if (toF && m.date > toF) return;
+    filtered.push(m);
+  });
+  document.getElementById('mtg-total').textContent = meetings.length;
+  document.getElementById('mtg-week').textContent = thisWeek;
+  document.getElementById('mtg-actions').textContent = totalActions;
+  var rows = filtered.map(function(m, i) {
+    var typeCls = m.type === 'Compliance Review' ? 'pu' : m.type === 'Management' ? 'bl' : m.type === '1-to-1' ? 'am' : 'gn';
+    var reviewDate = m.review ? new Date(m.review).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'2-digit'}) : '—';
+    var dateStr = new Date(m.date).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'2-digit'});
+    var actionCount = m.actions === 'None' ? 0 : m.actions.split('\n').length;
+    return '<tr onclick="toggleMeetingDetail(this)" style="cursor:pointer">' +
+      '<td><span class="b ' + typeCls + '">' + m.type + '</span></td>' +
+      '<td>' + dateStr + '</td>' +
+      '<td style="max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + m.attendees + '</td>' +
+      '<td style="font-weight:600">' + m.chair + '</td>' +
+      '<td>' + (m.outstanding > 0 ? '<span class="b am">' + m.outstanding + ' outstanding</span>' : '<span class="b gn">Complete</span>') + '</td>' +
+      '<td>' + reviewDate + '</td>' +
+      '<td style="font-size:11px;color:#94a3b8">&#9660;</td></tr>' +
+      '<tr class="mtg-detail" style="display:none"><td colspan="7" style="padding:12px 16px;background:#f8fafc;border-left:3px solid #1a6b3c">' +
+        '<div style="font-size:11px;color:#475569;line-height:1.7"><strong>Minutes:</strong> ' + m.notes + '</div>' +
+        '<div style="font-size:11px;color:#475569;margin-top:8px;line-height:1.7"><strong>Actions / Next Steps:</strong><br>' + m.actions.replace(/\n/g,'<br>') + '</div>' +
+      '</td></tr>';
+  }).join('');
+  document.getElementById('mtg-table-body').innerHTML = rows || '<tr><td colspan="7" style="text-align:center;color:#94a3b8;padding:20px">No meetings match filters</td></tr>';
+  // Set today's date as default for new meeting form
+  var dateInput = document.getElementById('mtg-new-date');
+  if (dateInput && !dateInput.value) dateInput.value = now.toISOString().split('T')[0];
+}
+function toggleMeetingDetail(row) {
+  var detail = row.nextElementSibling;
+  if (detail && detail.classList.contains('mtg-detail')) {
+    detail.style.display = detail.style.display === 'none' ? '' : 'none';
+  }
+}
+function saveMeeting() {
+  var type = document.getElementById('mtg-new-type').value;
+  var date = document.getElementById('mtg-new-date').value;
+  var attendees = document.getElementById('mtg-new-attendees').value;
+  var chair = document.getElementById('mtg-new-chair').value;
+  var notes = document.getElementById('mtg-new-notes').value;
+  var actions = document.getElementById('mtg-new-actions').value;
+  var review = document.getElementById('mtg-new-review').value;
+  if (!date || !attendees || !chair) { showToast('Please fill in date, attendees and chair'); return; }
+  var actionCount = actions.trim() ? actions.trim().split('\n').length : 0;
+  meetingsData.unshift({type:type,date:date,attendees:attendees,chair:chair,notes:notes||'No notes recorded',actions:actions||'None',review:review,outstanding:actionCount});
+  document.getElementById('mtg-new-attendees').value = '';
+  document.getElementById('mtg-new-chair').value = '';
+  document.getElementById('mtg-new-notes').value = '';
+  document.getElementById('mtg-new-actions').value = '';
+  document.getElementById('mtg-new-review').value = '';
+  renderMeetings();
+  showToast('Meeting record saved');
+}
+
+/* ===== QA FILTERED NOTES MODAL ===== */
+function showQAFilteredNotes(category) {
+  var title = category === 'accepted' ? 'Reframes Accepted' : category === 'review' ? 'Manual Review Required' : 'AI Refused';
+  var notes = [];
+  if (category === 'accepted') {
+    notes = [
+      {su:'A. Rahman',date:'07 Mar 2026',staff:'J. Peters',excerpt:'Property visit — discussed housing benefit claim progress and UC application status. SU engaged positively.'},
+      {su:'B. Kowalski',date:'07 Mar 2026',staff:'M. Khan',excerpt:'Phone call — welfare check completed. SU reports feeling stable, medication reviewed with GP.'},
+      {su:'C. Dlamini',date:'06 Mar 2026',staff:'D. Sharpe',excerpt:'Face-to-face — ESOL class enrolment confirmed. SU motivated to continue education pathway.'},
+      {su:'F. Nowak',date:'06 Mar 2026',staff:'M. Khan',excerpt:'Property visit — substance misuse support referral accepted. SU attending first session next week.'},
+      {su:'G. Mensah',date:'06 Mar 2026',staff:'J. Peters',excerpt:'Phone call — benefits review completed. UC payment confirmed, arrears plan discussed.'},
+      {su:'H. Singh',date:'05 Mar 2026',staff:'K. Patel',excerpt:'Face-to-face — mental health support session. SU engaging well with counselling services.'},
+      {su:'D. O\'Brien',date:'05 Mar 2026',staff:'J. Peters',excerpt:'Property visit — discussed tenancy management. SU maintaining property well.'},
+      {su:'E. Abdullahi',date:'05 Mar 2026',staff:'D. Sharpe',excerpt:'Phone call — follow-up on licence breach warning. SU acknowledged and committed to compliance.'}
+    ];
+  } else if (category === 'review') {
+    notes = [
+      {su:'E. Abdullahi',date:'07 Mar 2026',staff:'D. Sharpe',excerpt:'Contact note lacks specific outcomes. Vague language used — "spoke about stuff". Needs rewrite with SMART outcomes.'},
+      {su:'B. Kowalski',date:'06 Mar 2026',staff:'S. Williams',excerpt:'Missing risk assessment update after incident discussion. Safety plan not referenced.'},
+      {su:'Marcus Webb',date:'06 Mar 2026',staff:'S. Williams',excerpt:'Incomplete support plan review — key areas not addressed. Follow-up actions unclear.'},
+      {su:'A. Rahman',date:'05 Mar 2026',staff:'D. Sharpe',excerpt:'Note missing time of contact and method. Cannot verify visit took place.'},
+      {su:'G. Mensah',date:'05 Mar 2026',staff:'M. Khan',excerpt:'Declining note quality trend. Third consecutive note flagged for insufficient detail.'}
+    ];
+  } else {
+    notes = [];
+  }
+  var rows = notes.map(function(n) {
+    return '<tr><td style="font-weight:600">' + n.su + '</td><td>' + n.date + '</td><td>' + n.staff + '</td><td style="font-size:11px;color:#475569;max-width:300px">' + n.excerpt + '</td></tr>';
+  }).join('');
+  var emptyMsg = category === 'refused' ? '<tr><td colspan="4" style="text-align:center;padding:20px;color:#059669;font-weight:600">No AI refusals — our AI processes all care content without restrictions</td></tr>' : '';
+  var overlay = document.createElement('div');
+  overlay.className = 'policy-overlay';
+  overlay.innerHTML = '<div class="policy-modal" style="width:780px"><div class="policy-modal-header"><h2>' + title + '</h2><button class="policy-modal-close" onclick="this.closest(\'.policy-overlay\').remove()">&times;</button></div>' +
+    '<div class="policy-modal-body"><table><thead><tr><th>Service User</th><th>Date</th><th>Staff</th><th>Details</th></tr></thead><tbody>' + (rows || emptyMsg) + '</tbody></table></div></div>';
+  document.body.appendChild(overlay);
 }
 
 /* ===== SW HOME — PERSONAL DASHBOARD ===== */
