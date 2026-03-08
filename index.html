@@ -223,17 +223,17 @@ footer { text-align: center; padding: 20px 20px 16px; color: #64748b; font-size:
 .cn-filter-bar select, .cn-filter-bar input { padding: 6px 10px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 11px; background: #f8fafc; color: #334155; }
 .cn-expand { display: none; padding: 14px; background: #f8fafc; border-top: 1px solid #e2e8f0; margin-top: 8px; border-radius: 0 0 8px 8px; font-size: 12px; line-height: 1.7; color: #334155; }
 .cn-expand.open { display: block; }
-.auditron-panel { background: #f0fdf4; border: 2px solid #86efac; border-radius: 10px; padding: 20px; margin-top: 16px; }
-.auditron-panel.warn { background: #fef2f2; border-color: #fca5a5; }
-.auditron-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-.auditron-header .title { font-size: 14px; font-weight: 800; color: #1e293b; }
-.auditron-header .subtitle { font-size: 10px; color: #64748b; }
-.auditron-feedback { font-size: 12px; color: #475569; line-height: 1.7; margin-bottom: 14px; }
-.auditron-reframe { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin-bottom: 14px; }
-.auditron-reframe h4 { font-size: 10px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-.auditron-reframe .reframed-text { font-size: 12px; color: #334155; line-height: 1.7; }
-.auditron-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-.auditron-actions button { padding: 8px 16px; border: none; border-radius: 6px; font-size: 11px; font-weight: 700; cursor: pointer; }
+.beacon-panel { background: #f0fdf4; border: 2px solid #86efac; border-radius: 10px; padding: 20px; margin-top: 16px; }
+.beacon-panel.warn { background: #fef2f2; border-color: #fca5a5; }
+.beacon-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.beacon-header .title { font-size: 14px; font-weight: 800; color: #1e293b; }
+.beacon-header .subtitle { font-size: 10px; color: #64748b; }
+.beacon-feedback { font-size: 12px; color: #475569; line-height: 1.7; margin-bottom: 14px; }
+.beacon-reframe { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin-bottom: 14px; }
+.beacon-reframe h4 { font-size: 10px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.beacon-reframe .reframed-text { font-size: 12px; color: #334155; line-height: 1.7; }
+.beacon-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.beacon-actions button { padding: 8px 16px; border: none; border-radius: 6px; font-size: 11px; font-weight: 700; cursor: pointer; }
 .btn-accept-reframe { background: #059669; color: #fff; } .btn-accept-reframe:hover { background: #047857; }
 .btn-reject-reframe { background: #fee2e2; color: #991b1b; } .btn-reject-reframe:hover { background: #fecaca; }
 .btn-edit-reframe { background: #dcfce7; color: #166534; } .btn-edit-reframe:hover { background: #bbf7d0; }
@@ -738,11 +738,11 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   .role-card .rd2 { font-size: 10px; }
   .breadcrumbs { font-size: 12px; flex-wrap: wrap; }
   .activity-time { font-size: 10px; }
-  .auditron-panel { padding: 14px; }
-  .auditron-header .title { font-size: 13px; }
-  .auditron-feedback { font-size: 13px; }
-  .auditron-reframe .reframed-text { font-size: 13px; }
-  .auditron-actions button { min-height: 44px; font-size: 12px; }
+  .beacon-panel { padding: 14px; }
+  .beacon-header .title { font-size: 13px; }
+  .beacon-feedback { font-size: 13px; }
+  .beacon-reframe .reframed-text { font-size: 13px; }
+  .beacon-actions button { min-height: 44px; font-size: 12px; }
   .qa-score-badge { font-size: 13px; padding: 8px 14px; }
   .qa-section-title { font-size: 11px; }
   .qa-gap-item { font-size: 12px; }
@@ -779,8 +779,8 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   .stat-value { font-size: 18px; }
   .kanban-col { min-width: 230px; }
   .search-dropdown { width: calc(100vw - 12px); left: 6px; right: 6px; }
-  .auditron-actions { flex-direction: column; }
-  .auditron-actions button { width: 100%; }
+  .beacon-actions { flex-direction: column; }
+  .beacon-actions button { width: 100%; }
   .qa-actions { flex-direction: column; }
   .qa-actions button { width: 100%; }
 }
@@ -3116,7 +3116,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   <div class="cn-tabs">
     <div class="cn-tab active" onclick="switchCNTab('log')">Log New Note</div>
     <div class="cn-tab" onclick="switchCNTab('recent')">Recent Notes</div>
-    <div class="cn-tab" onclick="switchCNTab('auditron')">AI QA Review (Auditron)</div>
+    <div class="cn-tab" onclick="switchCNTab('beacon')">AI QA Review (Beacon)</div>
     <div class="cn-tab" onclick="switchCNTab('stats')">Stats</div>
   </div>
 
@@ -3185,7 +3185,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
               <label class="form-label">SAO Opt-in to AI QA</label>
               <div class="toggle-row">
                 <label class="toggle-switch"><input type="checkbox" id="cnh-ai-optin" checked><span class="toggle-slider"></span></label>
-                <span style="font-size:11px;color:#475569">Enable Auditron AI review after submission</span>
+                <span style="font-size:11px;color:#475569">Enable Beacon AI review after submission</span>
               </div>
             </div>
           </div>
@@ -3203,8 +3203,8 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       </form>
     </div>
 
-    <!-- Auditron Result (appears after submission) -->
-    <div id="cnh-auditron-result" style="display:none"></div>
+    <!-- Beacon Result (appears after submission) -->
+    <div id="cnh-beacon-result" style="display:none"></div>
   </div>
 
   <!-- TAB 2: RECENT NOTES -->
@@ -3233,21 +3233,21 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     </div>
   </div>
 
-  <!-- TAB 3: AI QA REVIEW (AUDITRON) -->
-  <div class="cn-panel" id="cnh-auditron">
+  <!-- TAB 3: AI QA REVIEW (BEACON) -->
+  <div class="cn-panel" id="cnh-beacon">
     <div class="card">
-      <h3>Auditron &mdash; AI Quality Assurance Review</h3>
+      <h3>Beacon &mdash; AI Quality Assurance Review</h3>
       <div style="font-size:12px;color:#475569;margin-bottom:16px;line-height:1.6">
-        The Auditron reviews every submitted contact note for quality, completeness, and person-centred language. Based on the PGG Airtable system with <strong>79,601 contact sheet receipt automations</strong>. Each note receives a QA score (1-4) and AI-suggested improvements.
+        The Beacon reviews every submitted contact note for quality, completeness, and person-centred language. Based on the PGG Airtable system with <strong>79,601 contact sheet receipt automations</strong>. Each note receives a QA score (1-4) and AI-suggested improvements.
       </div>
       <div class="cn-filter-bar" style="margin-bottom:14px">
-        <select id="cnh-aud-filter" onchange="renderAuditronQueue()">
+        <select id="cnh-aud-filter" onchange="renderBeaconQueue()">
           <option value="pending">Pending Review</option>
           <option value="all">All Notes</option>
           <option value="flagged">Flagged Notes</option>
         </select>
       </div>
-      <div id="cnh-auditron-queue"></div>
+      <div id="cnh-beacon-queue"></div>
     </div>
   </div>
 
@@ -8553,12 +8553,12 @@ function saveCNHubNotes(notes) { localStorage.setItem('pgg_cn_hub', JSON.stringi
 function switchCNTab(tab) {
   document.querySelectorAll('#p-cn-hub .cn-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('#p-cn-hub .cn-panel').forEach(p => p.classList.remove('active'));
-  const panels = {log:'cnh-log',recent:'cnh-recent',auditron:'cnh-auditron',stats:'cnh-stats'};
-  const tabs = {log:0,recent:1,auditron:2,stats:3};
+  const panels = {log:'cnh-log',recent:'cnh-recent',beacon:'cnh-beacon',stats:'cnh-stats'};
+  const tabs = {log:0,recent:1,beacon:2,stats:3};
   document.querySelectorAll('#p-cn-hub .cn-tab')[tabs[tab]].classList.add('active');
   document.getElementById(panels[tab]).classList.add('active');
   if (tab === 'recent') renderCNHubList();
-  if (tab === 'auditron') renderAuditronQueue();
+  if (tab === 'beacon') renderBeaconQueue();
   if (tab === 'stats') renderCNHubStats();
 }
 
@@ -8648,33 +8648,33 @@ function saveCNHubNote(e) {
   const notes = getCNHubNotes();
   notes.unshift(note);
   saveCNHubNotes(notes);
-  showToast('Contact note submitted' + (aiOptIn ? ' — Auditron review complete' : ''));
+  showToast('Contact note submitted' + (aiOptIn ? ' — Beacon review complete' : ''));
   document.getElementById('cn-hub-form').reset();
   const dt = document.getElementById('cnh-datetime');
   const now = new Date(); now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
   dt.value = now.toISOString().slice(0,16);
   updateCNHubStats();
-  // Show auditron result if opted in
-  if (aiOptIn) showAuditronResult(note);
+  // Show beacon result if opted in
+  if (aiOptIn) showBeaconResult(note);
   return false;
 }
 
-function showAuditronResult(note) {
-  const container = document.getElementById('cnh-auditron-result');
+function showBeaconResult(note) {
+  const container = document.getElementById('cnh-beacon-result');
   const scoreColors = {1:'#dc2626',2:'#f59e0b',3:'#86efac',4:'#059669'};
   const scoreBg = {1:'#fef2f2',2:'#fffbeb',3:'#f0fdf4',4:'#f0fdf4'};
   const warningHTML = note.qaWarning ?
     '<div class="cn-warning-banner"><span style="font-size:20px">&#9888;</span> <div><strong>AI Would Rather Not</strong> — This note mentions self-harm, suicide, or substance misuse. The AI cannot reframe clinical or crisis content. The original note will be preserved as-is for safeguarding purposes.</div></div>' : '';
   container.innerHTML =
-    '<div class="auditron-panel' + (note.qaWarning ? ' warn' : '') + '">' +
-      '<div class="auditron-header">' +
+    '<div class="beacon-panel' + (note.qaWarning ? ' warn' : '') + '">' +
+      '<div class="beacon-header">' +
         '<span class="qa-score-dot s' + note.qaScore + '">' + note.qaScore + '</span>' +
-        '<div><div class="title">Auditron QA Result: ' + note.qaLabel + '</div><div class="subtitle">AI Quality Assurance — Score ' + note.qaScore + '/4</div></div>' +
+        '<div><div class="title">Beacon QA Result: ' + note.qaLabel + '</div><div class="subtitle">AI Quality Assurance — Score ' + note.qaScore + '/4</div></div>' +
       '</div>' +
       warningHTML +
-      '<div class="auditron-feedback"><strong>AI Feedback:</strong> ' + (note.qaFeedback||'') + '</div>' +
-      (note.qaReframe && !note.qaWarning ? '<div class="auditron-reframe"><h4>AI Reframed Version</h4><div class="reframed-text">' + (note.qaReframe||'').replace(/\n/g,'<br>') + '</div></div>' +
-      '<div class="auditron-actions">' +
+      '<div class="beacon-feedback"><strong>AI Feedback:</strong> ' + (note.qaFeedback||'') + '</div>' +
+      (note.qaReframe && !note.qaWarning ? '<div class="beacon-reframe"><h4>AI Reframed Version</h4><div class="reframed-text">' + (note.qaReframe||'').replace(/\n/g,'<br>') + '</div></div>' +
+      '<div class="beacon-actions">' +
         '<button class="btn-accept-reframe" onclick="acceptReframe(\''+note.id+'\')">Accept Reframe</button>' +
         '<button class="btn-reject-reframe" onclick="rejectReframe(\''+note.id+'\')">Keep Original</button>' +
         '<button class="btn-edit-reframe" onclick="editReframe(\''+note.id+'\')">Edit</button>' +
@@ -8689,15 +8689,15 @@ function acceptReframe(noteId) {
   const note = notes.find(n => n.id === noteId);
   if (note) { note.content = note.qaReframe; saveCNHubNotes(notes); }
   showToast('Reframed version accepted');
-  document.getElementById('cnh-auditron-result').style.display = 'none';
+  document.getElementById('cnh-beacon-result').style.display = 'none';
 }
 function rejectReframe(noteId) {
   showToast('Original note kept');
-  document.getElementById('cnh-auditron-result').style.display = 'none';
+  document.getElementById('cnh-beacon-result').style.display = 'none';
 }
 function editReframe(noteId) {
   showToast('Edit mode — modify the reframed text and resubmit');
-  const reframedEl = document.querySelector('#cnh-auditron-result .reframed-text');
+  const reframedEl = document.querySelector('#cnh-beacon-result .reframed-text');
   if (reframedEl) { reframedEl.contentEditable = 'true'; reframedEl.style.border = '2px solid #1a6b3c'; reframedEl.style.padding = '10px'; reframedEl.focus(); }
 }
 
@@ -8767,13 +8767,13 @@ function sendBackCNNote(id) {
   updateCNHubStats();
 }
 
-function renderAuditronQueue() {
+function renderBeaconQueue() {
   const notes = getCNHubNotes();
   const filter = document.getElementById('cnh-aud-filter').value;
   let filtered = notes;
   if (filter === 'pending') filtered = notes.filter(n => !n.verified && n.aiOptIn);
   if (filter === 'flagged') filtered = notes.filter(n => n.qaWarning || n.qaScore <= 2);
-  const container = document.getElementById('cnh-auditron-queue');
+  const container = document.getElementById('cnh-beacon-queue');
   if (filtered.length === 0) {
     container.innerHTML = '<div style="text-align:center;padding:30px;color:#94a3b8">No notes in this queue</div>';
     return;
@@ -8782,8 +8782,8 @@ function renderAuditronQueue() {
     const dt = new Date(n.datetime);
     const dateStr = dt.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
     const scoreColors = {1:'#dc2626',2:'#f59e0b',3:'#86efac',4:'#059669'};
-    return '<div class="auditron-panel' + (n.qaWarning ? ' warn' : '') + '" style="margin-bottom:14px">' +
-      '<div class="auditron-header">' +
+    return '<div class="beacon-panel' + (n.qaWarning ? ' warn' : '') + '" style="margin-bottom:14px">' +
+      '<div class="beacon-header">' +
         (n.qaScore ? '<span class="qa-score-dot s'+n.qaScore+'">'+n.qaScore+'</span>' : '<span class="qa-score-dot" style="background:#94a3b8">?</span>') +
         '<div style="flex:1"><div class="title">' + suLinkHtml(n.suName) + ' — ' + n.type + '</div><div class="subtitle">' + dateStr + ' | SAO: ' + n.sao + ' | Duration: ' + n.duration + ' min</div></div>' +
         '<div style="display:flex;gap:4px">' +
@@ -8791,16 +8791,16 @@ function renderAuditronQueue() {
         '</div>' +
       '</div>' +
       (n.qaWarning ? '<div class="cn-warning-banner"><span style="font-size:18px">&#9888;</span> <strong>AI Would Rather Not</strong> — Note mentions suicide/self-harm/substance misuse. AI cannot reframe this content.</div>' : '') +
-      '<div class="auditron-feedback">' +
+      '<div class="beacon-feedback">' +
         '<div style="margin-bottom:8px"><strong>Original Note:</strong></div>' +
         '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:10px;margin-bottom:10px;font-size:11px;line-height:1.6">' + n.content.replace(/</g,'&lt;').substring(0,300) + (n.content.length > 300 ? '...' : '') + '</div>' +
         (n.qaFeedback ? '<div style="margin-bottom:8px"><strong>AI Feedback:</strong> ' + n.qaFeedback + '</div>' : '') +
       '</div>' +
-      (n.qaReframe && !n.qaWarning ? '<div class="auditron-reframe"><h4>AI Reframed Version</h4><div class="reframed-text">' + n.qaReframe.replace(/</g,'&lt;').replace(/\n/g,'<br>') + '</div></div>' : '') +
+      (n.qaReframe && !n.qaWarning ? '<div class="beacon-reframe"><h4>AI Reframed Version</h4><div class="reframed-text">' + n.qaReframe.replace(/</g,'&lt;').replace(/\n/g,'<br>') + '</div></div>' : '') +
       '<div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">' +
-        (!n.verified ? '<button class="cn-verify-btn" onclick="verifyCNNote(\''+n.id+'\');renderAuditronQueue()">&#10003; Verify</button>' : '') +
-        (!n.sentBack && !n.verified ? '<button class="cn-sendback-btn" onclick="sendBackCNNote(\''+n.id+'\');renderAuditronQueue()">Send Back for Clarification</button>' : '') +
-        (n.qaReframe && !n.qaWarning && !n.verified ? '<button class="btn-accept-reframe" style="padding:4px 12px;font-size:10px" onclick="acceptReframe(\''+n.id+'\');renderAuditronQueue()">Accept Reframe</button>' : '') +
+        (!n.verified ? '<button class="cn-verify-btn" onclick="verifyCNNote(\''+n.id+'\');renderBeaconQueue()">&#10003; Verify</button>' : '') +
+        (!n.sentBack && !n.verified ? '<button class="cn-sendback-btn" onclick="sendBackCNNote(\''+n.id+'\');renderBeaconQueue()">Send Back for Clarification</button>' : '') +
+        (n.qaReframe && !n.qaWarning && !n.verified ? '<button class="btn-accept-reframe" style="padding:4px 12px;font-size:10px" onclick="acceptReframe(\''+n.id+'\');renderBeaconQueue()">Accept Reframe</button>' : '') +
       '</div>' +
       '<div style="margin-top:8px;display:flex;align-items:center;gap:8px">' +
         '<span style="font-size:10px;color:#64748b">SAO AI QA opt-in:</span>' +
