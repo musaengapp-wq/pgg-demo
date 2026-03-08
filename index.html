@@ -6,23 +6,25 @@
 <title>Pillar Governance — Pillar OS — Compliance & Quality Assurance</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 body { background: #f1f5f9; color: #1e293b; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; }
 .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 230px; background: #fff; border-right: 1px solid #e2e8f0; display: flex; flex-direction: column; z-index: 10; box-shadow: 2px 0 8px rgba(0,0,0,.04); }
 .sidebar-logo { padding: 18px 16px; border-bottom: 1px solid #e2e8f0; }
-.sidebar-logo h1 { font-size: 15px; font-weight: 800; color: #0284c7; letter-spacing: 1.5px; }
+.sidebar-logo h1 { font-size: 15px; font-weight: 800; color: #1a6b3c; letter-spacing: 1.5px; }
 .sidebar-logo .sub { font-size: 10px; color: #64748b; margin-top: 3px; }
 .sidebar-nav { flex: 1; overflow-y: auto; padding: 10px 0; }
 .nav-section { padding: 8px 16px 4px; font-size: 9px; font-weight: 700; color: #94a3b8; letter-spacing: 2px; text-transform: uppercase; }
 .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 16px; cursor: pointer; transition: background .15s; font-size: 12.5px; color: #475569; }
 .nav-item:hover { background: #f1f5f9; color: #1e293b; }
-.nav-item.active { background: #0284c7; color: #fff; font-weight: 600; }
+.nav-item.active { background: #1a6b3c; color: #fff; font-weight: 600; }
 .nav-item .icon { width: 18px; text-align: center; font-size: 14px; }
-.nav-item .badge { margin-left: auto; background: #ef4444; color: #fff; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 10px; }
+.nav-item .badge { margin-left: auto; background: #1a6b3c; color: #fff; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 10px; }
+.nav-item .badge.alert { background: #ef4444; }
 .nav-item .badge.warn { background: #f59e0b; color: #1e293b; }
-.nav-item .badge.info { background: #0284c7; color: #fff; }
+.nav-item .badge.info { background: #1a6b3c; color: #fff; }
 .sidebar-links { padding: 8px 10px; border-top: 1px solid #e2e8f0; }
-.sidebar-link { display: block; padding: 8px 12px; margin-bottom: 4px; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 6px; text-align: center; text-decoration: none; font-size: 11px; font-weight: 700; color: #0284c7; transition: background .15s; }
-.sidebar-link:hover { background: #e0f2fe; }
+.sidebar-link { display: block; padding: 8px 12px; margin-bottom: 4px; background: #f0fdf4; border: 1px solid #86efac; border-radius: 6px; text-align: center; text-decoration: none; font-size: 11px; font-weight: 700; color: #1a6b3c; transition: background .15s; }
+.sidebar-link:hover { background: #dcfce7; }
 .sidebar-footer { padding: 10px 16px; border-top: 1px solid #e2e8f0; font-size: 10px; color: #94a3b8; }
 .main { margin-left: 230px; }
 .topbar { background: #fff; border-bottom: 1px solid #e2e8f0; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; }
@@ -32,23 +34,24 @@ body { background: #f1f5f9; color: #1e293b; font-family: -apple-system, BlinkMac
 .topbar-right { display: flex; align-items: center; gap: 14px; }
 .topbar-right .uname { color: #1e293b; font-weight: 600; font-size: 12px; }
 .topbar-right .urole { color: #64748b; font-size: 11px; }
-.avatar { width: 32px; height: 32px; border-radius: 50%; background: #0284c7; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; color: #fff; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: #1a6b3c; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; color: #fff; }
 .demo-banner { background: #fef3c7; padding: 6px 24px; font-size: 10px; color: #92400e; text-align: center; font-weight: 700; letter-spacing: 1px; }
 .content { padding: 20px 24px; }
 .page { display: none; } .page.active { display: block; }
 .pv-panel { display: none; } .pv-panel.active { display: block; }
 .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 20px; }
-.sc { background: #fff; border-radius: 8px; padding: 16px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.sc { background: #fff; border-radius: 8px; padding: 16px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,.04); transition: transform .2s ease, box-shadow .2s ease; cursor: default; }
+.sc:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
 .sc .lb { font-size: 9px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin-bottom: 6px; }
 .sc .val { font-size: 28px; font-weight: 800; }
 .sc .d { font-size: 10px; margin-top: 4px; }
-.blue { color: #0284c7; } .green { color: #059669; } .amber { color: #d97706; } .red { color: #dc2626; } .purple { color: #7c3aed; }
+.blue { color: #1a6b3c; } .green { color: #059669; } .amber { color: #d97706; } .red { color: #dc2626; } .purple { color: #7c3aed; }
 .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
 .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 18px; }
 .g23 { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; margin-bottom: 18px; }
 .card { background: #fff; border-radius: 8px; padding: 18px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,.04); margin-bottom: 14px; }
 .card h3 { font-size: 10px; letter-spacing: 2px; color: #94a3b8; text-transform: uppercase; margin-bottom: 14px; font-weight: 700; }
-.card h3 .ct { color: #0284c7; }
+.card h3 .ct { color: #1a6b3c; }
 table { width: 100%; border-collapse: collapse; font-size: 12px; }
 th { text-align: left; padding: 8px 10px; color: #94a3b8; font-size: 9px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #e2e8f0; font-weight: 600; }
 td { padding: 8px 10px; border-bottom: 1px solid #f1f5f9; color: #334155; }
@@ -58,7 +61,7 @@ tr:hover td { background: #f8fafc; }
 .b.bl { background: #e0f2fe; color: #075985; } .b.pu { background: #ede9fe; color: #5b21b6; } .b.gy { background: #f1f5f9; color: #64748b; }
 .pb { height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; margin-top: 6px; }
 .pb .f { height: 100%; border-radius: 3px; }
-.pb .f.gn { background: #059669; } .pb .f.am { background: #d97706; } .pb .f.rd { background: #dc2626; } .pb .f.bl { background: #0284c7; }
+.pb .f.gn { background: #059669; } .pb .f.am { background: #d97706; } .pb .f.rd { background: #dc2626; } .pb .f.bl { background: #1a6b3c; }
 .qc { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; margin: 0 auto 8px; }
 .qc.hi { border: 4px solid #059669; color: #059669; } .qc.md { border: 4px solid #d97706; color: #d97706; }
 .pulse { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #059669; margin-right: 6px; animation: pulse 1.5s infinite; }
@@ -72,7 +75,7 @@ tr:hover td { background: #f8fafc; }
 .tl .mt { font-size: 10px; color: #64748b; margin-top: 2px; }
 .tabs { display: flex; gap: 0; margin-bottom: 14px; border-bottom: 1px solid #e2e8f0; }
 .tab { padding: 8px 16px; font-size: 11px; color: #94a3b8; cursor: pointer; border-bottom: 2px solid transparent; font-weight: 600; }
-.tab.active { color: #0284c7; border-bottom-color: #0284c7; }
+.tab.active { color: #1a6b3c; border-bottom-color: #1a6b3c; }
 .tab:hover { color: #1e293b; }
 .si { max-height: 320px; overflow-y: auto; }
 .si::-webkit-scrollbar { width: 4px; } .si::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 2px; }
@@ -80,11 +83,11 @@ tr:hover td { background: #f8fafc; }
 .pc .nm { font-weight: 700; font-size: 13px; color: #1e293b; }
 .pc .ad { font-size: 10px; color: #64748b; margin-top: 2px; }
 .pc .ps { display: flex; gap: 14px; margin-top: 8px; font-size: 11px; color: #475569; }
-.info-box { padding: 10px; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 6px; font-size: 11px; color: #0369a1; margin-top: 12px; }
+.info-box { padding: 10px; background: #f0fdf4; border: 1px solid #86efac; border-radius: 6px; font-size: 11px; color: #166534; margin-top: 12px; }
 .note { font-size: 10px; color: #64748b; border-top: 1px solid #e2e8f0; padding-top: 8px; margin-top: 10px; }
-footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; letter-spacing: 1px; border-top: 1px solid #e2e8f0; margin-top: 20px; }
+footer { text-align: center; padding: 20px 20px 16px; color: #64748b; font-size: 11px; letter-spacing: 1px; border-top: 2px solid #e2e8f0; margin-top: 20px; font-weight: 600; }
 .notif { position: relative; cursor: pointer; font-size: 18px; }
-.notif .dot { position: absolute; top: -2px; right: -4px; width: 8px; height: 8px; background: #ef4444; border-radius: 50%; }
+.notif .dot { position: absolute; top: -2px; right: -4px; width: 8px; height: 8px; background: #1a6b3c; border-radius: 50%; }
 .bar-chart { display: flex; gap: 4px; align-items: flex-end; height: 60px; }
 .bar-chart div { flex: 1; border-radius: 2px; }
 .su-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin-bottom: 10px; }
@@ -93,31 +96,33 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 .role-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; text-align: center; }
 .role-card .ri { font-size: 20px; margin-bottom: 4px; } .role-card .rn { font-size: 11px; font-weight: 700; } .role-card .rd2 { font-size: 9px; color: #64748b; margin-top: 4px; }
 /* Login modal */
-.login-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 1000; display: flex; align-items: center; justify-content: center; }
-.login-box { background: #fff; border-radius: 12px; padding: 32px; width: 340px; box-shadow: 0 8px 32px rgba(0,0,0,.15); text-align: center; }
-.login-box h2 { font-size: 18px; font-weight: 800; color: #0284c7; margin-bottom: 4px; }
+.login-overlay { position: fixed; inset: 0; background: linear-gradient(135deg, rgba(26,107,60,.85) 0%, rgba(15,60,34,.92) 100%); z-index: 1000; display: flex; align-items: center; justify-content: center; }
+.login-box { background: #fff; border-radius: 16px; padding: 36px 32px; width: 360px; box-shadow: 0 12px 48px rgba(0,0,0,.25); text-align: center; }
+.login-box .bismillah { font-size: 13px; color: #94a3b8; margin-bottom: 8px; font-family: 'Segoe UI', serif; }
+.login-box h2 { font-size: 18px; font-weight: 800; color: #1a6b3c; margin-bottom: 4px; }
 .login-box .login-sub { font-size: 11px; color: #64748b; margin-bottom: 20px; }
-.login-box input { width: 100%; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 13px; margin-bottom: 12px; color: #334155; }
-.login-box button { width: 100%; padding: 10px; background: #0284c7; color: #fff; border: none; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer; }
-.login-box button:hover { background: #0369a1; }
+.login-box input { width: 100%; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 13px; margin-bottom: 12px; color: #334155; }
+.login-box button { width: 100%; padding: 11px; background: #1a6b3c; color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; transition: background .15s; }
+.login-box button:hover { background: #145a30; }
 /* Form elements */
 .form-group { margin-bottom: 14px; }
 .form-label { display: block; font-size: 10px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
 .form-select, .form-input, .form-textarea { width: 100%; padding: 8px 10px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 12px; background: #f8fafc; color: #334155; font-family: inherit; }
 .form-textarea { resize: vertical; min-height: 100px; }
-.form-select:focus, .form-input:focus, .form-textarea:focus { outline: none; border-color: #0284c7; box-shadow: 0 0 0 2px rgba(2,132,199,.15); }
+.form-select:focus, .form-input:focus, .form-textarea:focus { outline: none; border-color: #1a6b3c; box-shadow: 0 0 0 3px rgba(26,107,60,.15); }
 .checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 .checkbox-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #475569; cursor: pointer; }
-.checkbox-item input[type="checkbox"] { accent-color: #0284c7; }
+.checkbox-item input[type="checkbox"] { accent-color: #1a6b3c; }
+#global-search:focus { outline: none; border-color: #1a6b3c !important; box-shadow: 0 0 0 3px rgba(26,107,60,.15); }
 .toggle-row { display: flex; align-items: center; gap: 10px; }
 .toggle-switch { position: relative; width: 40px; height: 22px; cursor: pointer; }
 .toggle-switch input { opacity: 0; width: 0; height: 0; }
 .toggle-slider { position: absolute; inset: 0; background: #cbd5e1; border-radius: 11px; transition: .2s; }
 .toggle-slider:before { content: ''; position: absolute; width: 16px; height: 16px; left: 3px; bottom: 3px; background: #fff; border-radius: 50%; transition: .2s; }
-.toggle-switch input:checked + .toggle-slider { background: #0284c7; }
+.toggle-switch input:checked + .toggle-slider { background: #1a6b3c; }
 .toggle-switch input:checked + .toggle-slider:before { transform: translateX(18px); }
-.btn-primary { padding: 10px 20px; background: #0284c7; color: #fff; border: none; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; letter-spacing: .5px; }
-.btn-primary:hover { background: #0369a1; }
+.btn-primary { padding: 10px 20px; background: #1a6b3c; color: #fff; border: none; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; letter-spacing: .5px; }
+.btn-primary:hover { background: #145a30; }
 .btn-primary:disabled { background: #94a3b8; cursor: not-allowed; }
 .char-count { font-size: 10px; color: #94a3b8; text-align: right; margin-top: 2px; }
 .char-count.warn { color: #dc2626; }
@@ -138,12 +143,12 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 .kanban-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,.08); }
 .kanban-card .kc-name { font-weight: 700; font-size: 12px; color: #1e293b; }
 .kanban-card .kc-meta { font-size: 10px; color: #64748b; margin-top: 3px; }
-.kanban-card .kc-ref { font-size: 10px; color: #0284c7; margin-top: 4px; }
+.kanban-card .kc-ref { font-size: 10px; color: #1a6b3c; margin-top: 4px; }
 .kanban-card .kc-notes { font-size: 10px; color: #475569; margin-top: 6px; padding-top: 6px; border-top: 1px solid #f1f5f9; }
 .kanban-card .kc-actions { display: flex; gap: 4px; margin-top: 8px; }
 .kanban-card .kc-btn { font-size: 9px; padding: 3px 8px; border-radius: 4px; border: 1px solid #e2e8f0; background: #f8fafc; color: #475569; cursor: pointer; font-weight: 600; }
-.kanban-card .kc-btn:hover { background: #e0f2fe; color: #0284c7; border-color: #bae6fd; }
-.kanban-col.drag-over { background: #e0f2fe; border-color: #0284c7; }
+.kanban-card .kc-btn:hover { background: #f0fdf4; color: #1a6b3c; border-color: #86efac; }
+.kanban-col.drag-over { background: #f0fdf4; border-color: #1a6b3c; }
 .activ-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 12px; color: #334155; border-bottom: 1px solid #f1f5f9; cursor: pointer; }
 .activ-item:last-child { border-bottom: none; }
 .activ-check { width: 20px; height: 20px; border-radius: 4px; border: 2px solid #cbd5e1; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
@@ -192,7 +197,7 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 .qa-gap-item { padding: 6px 10px; border-radius: 6px; font-size: 11px; margin-bottom: 4px; display: flex; align-items: flex-start; gap: 6px; }
 .qa-gap-item.high { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
 .qa-gap-item.medium { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
-.qa-gap-item.low { background: #f0f9ff; border: 1px solid #bae6fd; color: #0369a1; }
+.qa-gap-item.low { background: #f0f9ff; border: 1px solid #bae6fd; color: #145a30; }
 .qa-actions { display: flex; gap: 10px; margin-top: 16px; }
 .qa-actions button { flex: 1; padding: 12px; border: none; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; }
 .qa-actions .btn-accept { background: #059669; color: #fff; }
@@ -202,14 +207,14 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 .qa-confirm-bar { padding: 12px; background: #fef3c7; border: 1px solid #fde68a; border-radius: 8px; margin-top: 12px; }
 .qa-confirm-bar label { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #92400e; font-weight: 600; cursor: pointer; }
 .qa-loading { text-align: center; padding: 40px 20px; }
-.qa-loading .spinner { width: 36px; height: 36px; border: 3px solid #e2e8f0; border-top-color: #0284c7; border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 12px; }
+.qa-loading .spinner { width: 36px; height: 36px; border: 3px solid #e2e8f0; border-top-color: #1a6b3c; border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 12px; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .qa-unavailable { text-align: center; padding: 20px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; font-size: 12px; color: #92400e; }
-.qa-unavailable a { color: #0284c7; font-weight: 600; cursor: pointer; }
+.qa-unavailable a { color: #1a6b3c; font-weight: 600; cursor: pointer; }
 /* CN Hub */
 .cn-tabs { display: flex; gap: 0; margin-bottom: 16px; border-bottom: 2px solid #e2e8f0; }
 .cn-tab { padding: 10px 18px; font-size: 12px; color: #94a3b8; cursor: pointer; border-bottom: 2px solid transparent; font-weight: 700; margin-bottom: -2px; transition: color .15s; }
-.cn-tab.active { color: #0284c7; border-bottom-color: #0284c7; }
+.cn-tab.active { color: #1a6b3c; border-bottom-color: #1a6b3c; }
 .cn-tab:hover { color: #1e293b; }
 .cn-panel { display: none; } .cn-panel.active { display: block; }
 .qa-score-dot { width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: #fff; }
@@ -251,7 +256,7 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 .bottom-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid #e2e8f0; z-index: 50; padding: 4px 0; padding-bottom: env(safe-area-inset-bottom, 4px); box-shadow: 0 -2px 8px rgba(0,0,0,.06); }
 .bottom-nav-inner { display: flex; justify-content: space-around; }
 .bottom-nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 8px; cursor: pointer; font-size: 9px; color: #94a3b8; font-weight: 600; min-width: 56px; -webkit-tap-highlight-color: transparent; }
-.bottom-nav-item.active { color: #0284c7; }
+.bottom-nav-item.active { color: #1a6b3c; }
 .bottom-nav-item .bn-icon { font-size: 18px; }
 /* Compliance gauge */
 .gauge-wrap { position: relative; width: 120px; height: 120px; margin: 0 auto; }
@@ -261,7 +266,7 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 .gauge-text .gl { font-size: 9px; color: #64748b; text-transform: uppercase; letter-spacing: 1px; }
 /* Sparkline */
 .sparkline { display: flex; gap: 3px; align-items: flex-end; height: 40px; }
-.sparkline div { flex: 1; border-radius: 2px 2px 0 0; background: #0284c7; min-width: 6px; transition: height .3s; }
+.sparkline div { flex: 1; border-radius: 2px 2px 0 0; background: #1a6b3c; min-width: 6px; transition: height .3s; }
 /* Staff perf table */
 .staff-row { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: background .15s; }
 .staff-row:hover { background: #f8fafc; }
@@ -291,7 +296,8 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 /* Filter bar */
 .filter-bar { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
 .filter-btn { padding: 6px 14px; border-radius: 20px; border: 1px solid #e2e8f0; background: #fff; font-size: 11px; font-weight: 600; color: #64748b; cursor: pointer; }
-.filter-btn.active { background: #0284c7; color: #fff; border-color: #0284c7; }
+.filter-btn.active { background: #1a6b3c; color: #fff; border-color: #1a6b3c; }
+.filter-btn:hover { border-color: #1a6b3c; color: #1a6b3c; }
 /* Mobile responsive */
 @media (max-width: 768px) {
   .sidebar { transform: translateX(-100%); transition: transform .3s ease; z-index: 100; }
@@ -332,7 +338,7 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 .sw-todo-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border-bottom: 1px solid #f1f5f9; font-size: 12px; }
 .sw-todo-item:last-child { border-bottom: none; }
 .sw-todo-item .todo-type { font-weight: 700; color: #1e293b; }
-.sw-todo-item .todo-su { color: #0284c7; font-weight: 600; }
+.sw-todo-item .todo-su { color: #1a6b3c; font-weight: 600; }
 .sw-todo-item .todo-due { font-size: 10px; color: #64748b; margin-top: 2px; }
 .sw-todo-item .todo-due.overdue { color: #dc2626; font-weight: 700; }
 .sw-todo-item .todo-actions { margin-left: auto; display: flex; gap: 4px; flex-shrink: 0; }
@@ -341,18 +347,18 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 .sw-todo-item .todo-actions button.done-btn { background: #dcfce7; border-color: #86efac; color: #166534; }
 .sw-metric-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
 .sw-metric { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; text-align: center; cursor: pointer; transition: all .15s; }
-.sw-metric:hover { border-color: #0284c7; box-shadow: 0 2px 8px rgba(2,132,199,.1); }
+.sw-metric:hover { border-color: #1a6b3c; box-shadow: 0 2px 8px rgba(26,107,60,.12); }
 .sw-metric .sw-m-val { font-size: 26px; font-weight: 800; }
 .sw-metric .sw-m-lb { font-size: 9px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 4px; }
 .sw-su-list-item { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: background .1s; }
-.sw-su-list-item:hover { background: #f0f9ff; }
+.sw-su-list-item:hover { background: #f0fdf4; }
 .sw-su-list-item:last-child { border-bottom: none; }
 .sw-su-list-item .su-id { font-size: 10px; color: #94a3b8; font-weight: 600; }
 .sw-su-list-item .su-nm { font-weight: 700; font-size: 13px; color: #1e293b; }
 .sw-su-list-item .su-prop { font-size: 10px; color: #64748b; }
 .sw-su-list-item .su-flags { display: flex; gap: 4px; margin-left: auto; flex-wrap: wrap; }
 .sw-chart-bar { display: flex; align-items: flex-end; gap: 6px; height: 80px; padding-top: 10px; }
-.sw-chart-bar .sw-bar { flex: 1; border-radius: 3px 3px 0 0; background: #0284c7; min-height: 4px; position: relative; }
+.sw-chart-bar .sw-bar { flex: 1; border-radius: 3px 3px 0 0; background: #1a6b3c; min-height: 4px; position: relative; }
 .sw-chart-bar .sw-bar .sw-bar-label { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); font-size: 10px; font-weight: 700; color: #1e293b; }
 .sw-chart-bar .sw-bar-week { text-align: center; font-size: 9px; color: #94a3b8; margin-top: 4px; }
 .sw-selector { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
@@ -360,17 +366,17 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 .sw-selector .sw-role-badge { padding: 3px 10px; border-radius: 12px; font-size: 10px; font-weight: 700; }
 .sw-role-sao { background: #e0f2fe; color: #075985; }
 .sw-role-tl { background: #ede9fe; color: #5b21b6; }
-.sw-expand-panel { display: none; padding: 10px 14px; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 6px; margin-top: 6px; font-size: 11px; }
+.sw-expand-panel { display: none; padding: 10px 14px; background: #f0fdf4; border: 1px solid #86efac; border-radius: 6px; margin-top: 6px; font-size: 11px; }
 .sw-expand-panel.open { display: block; }
 /* ===== Clickable SU Names ===== */
-.su-link { color: #0284c7; cursor: pointer; font-weight: 600; text-decoration: none; border-bottom: 1px dashed #0284c7; }
-.su-link:hover { color: #0369a1; border-bottom-color: #0369a1; }
+.su-link { color: #1a6b3c; cursor: pointer; font-weight: 600; text-decoration: none; border-bottom: 1px dashed #1a6b3c; }
+.su-link:hover { color: #145a30; border-bottom-color: #145a30; }
 /* ===== Support Plans v2 ===== */
 .sp-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
 .sp-filters select { padding: 6px 10px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 11px; color: #334155; background: #fff; }
 .sp-detail { display: none; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-top: 8px; margin-bottom: 12px; }
 .sp-detail.open { display: block; }
-.sp-detail h4 { font-size: 11px; font-weight: 700; color: #0284c7; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.sp-detail h4 { font-size: 11px; font-weight: 700; color: #1a6b3c; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
 .sp-needs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px; margin-bottom: 14px; }
 .sp-need { padding: 8px 10px; border-radius: 6px; font-size: 11px; }
 .sp-need.active { background: #dcfce7; border: 1px solid #86efac; color: #166534; }
@@ -406,8 +412,8 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 .sup-actions { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
 .sup-actions button { padding: 8px 16px; border-radius: 6px; font-size: 11px; font-weight: 700; cursor: pointer; border: 1px solid #e2e8f0; background: #fff; color: #475569; transition: all .15s; }
 .sup-actions button:hover { background: #f1f5f9; }
-.sup-actions button.primary { background: #0284c7; color: #fff; border-color: #0284c7; }
-.sup-actions button.primary:hover { background: #0369a1; }
+.sup-actions button.primary { background: #1a6b3c; color: #fff; border-color: #1a6b3c; }
+.sup-actions button.primary:hover { background: #145a30; }
 .sup-actions button.danger { background: #fef2f2; color: #991b1b; border-color: #fecaca; }
 .sup-actions button.danger:hover { background: #fee2e2; }
 .sup-actions button.warn { background: #fffbeb; color: #92400e; border-color: #fde68a; }
@@ -432,8 +438,8 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 .sup-modal-body textarea { min-height:70px;resize:vertical; }
 .sup-modal-footer { padding:12px 20px;border-top:1px solid #e2e8f0;display:flex;gap:8px;justify-content:flex-end; }
 .sup-modal-footer button { padding:8px 18px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;border:none; }
-.sup-modal-footer .btn-save { background:#0284c7;color:#fff; }
-.sup-modal-footer .btn-save:hover { background:#0369a1; }
+.sup-modal-footer .btn-save { background:#1a6b3c;color:#fff; }
+.sup-modal-footer .btn-save:hover { background:#145a30; }
 .sup-modal-footer .btn-cancel { background:#f1f5f9;color:#475569;border:1px solid #e2e8f0; }
 .sup-modal-footer .btn-cancel:hover { background:#e2e8f0; }
 .sup-modal-footer .btn-danger { background:#dc2626;color:#fff; }
@@ -444,7 +450,7 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 .sup-ce-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f1f5f9; font-size: 11px; }
 .sup-ce-item:last-child { border-bottom: none; }
 .sup-qa-dot { display: inline-block; width: 22px; height: 22px; border-radius: 50%; font-size: 10px; font-weight: 800; color: #fff; text-align: center; line-height: 22px; flex-shrink: 0; }
-.sup-qa-1 { background: #dc2626; } .sup-qa-2 { background: #d97706; } .sup-qa-3 { background: #0284c7; } .sup-qa-4 { background: #059669; }
+.sup-qa-1 { background: #dc2626; } .sup-qa-2 { background: #d97706; } .sup-qa-3 { background: #1a6b3c; } .sup-qa-4 { background: #059669; }
 .sup-tab-content { display: none; } .sup-tab-content.active { display: block; }
 .sup-tab-item { padding: 8px 10px; border-bottom: 1px solid #f1f5f9; font-size: 11px; display: flex; align-items: center; gap: 10px; }
 .sup-tab-item:last-child { border-bottom: none; }
@@ -465,12 +471,12 @@ footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 10px; let
 /* Breadcrumbs */
 .breadcrumbs { display: none; align-items: center; gap: 6px; font-size: 11px; color: #94a3b8; margin-bottom: 12px; }
 .breadcrumbs.visible { display: flex; }
-.breadcrumbs a { color: #0284c7; text-decoration: none; cursor: pointer; font-weight: 600; }
+.breadcrumbs a { color: #1a6b3c; text-decoration: none; cursor: pointer; font-weight: 600; }
 .breadcrumbs a:hover { text-decoration: underline; }
 .breadcrumbs .sep { color: #cbd5e1; }
 /* Clickable stat boxes */
-.sc[data-nav] { cursor: pointer; transition: all .15s; }
-.sc[data-nav]:hover { border-color: #0284c7; box-shadow: 0 2px 8px rgba(2,132,199,.12); transform: translateY(-1px); }
+.sc[data-nav] { cursor: pointer; }
+.sc[data-nav]:hover { border-color: #1a6b3c; box-shadow: 0 4px 12px rgba(26,107,60,.12); transform: translateY(-2px); }
 /* Clickable table rows */
 table.clickable-rows tbody tr { cursor: pointer; transition: background .1s; }
 table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
@@ -480,7 +486,7 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
 .search-dropdown .sr-item { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: background .1s; }
 .search-dropdown .sr-item:hover { background: #f0f9ff; }
 .search-dropdown .sr-item:last-child { border-bottom: none; }
-.search-dropdown .sr-type { font-size: 9px; font-weight: 700; color: #0284c7; text-transform: uppercase; letter-spacing: 1px; }
+.search-dropdown .sr-type { font-size: 9px; font-weight: 700; color: #1a6b3c; text-transform: uppercase; letter-spacing: 1px; }
 .search-dropdown .sr-name { font-weight: 700; font-size: 12px; color: #1e293b; margin-top: 2px; }
 .search-dropdown .sr-detail { font-size: 10px; color: #64748b; margin-top: 1px; }
 .search-dropdown .sr-empty { padding: 20px; text-align: center; color: #94a3b8; font-size: 12px; }
@@ -493,6 +499,7 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
 <!-- Login Modal -->
 <div class="login-overlay" id="login-overlay" style="display:none">
   <div class="login-box">
+    <div class="bismillah">بسم الله</div>
     <h2>PILLAR</h2>
     <div class="login-sub">Governance Group — Staff Login</div>
     <input type="text" id="login-name" placeholder="Enter your full name" autocomplete="off">
@@ -511,7 +518,7 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
     <input type="password" id="apikey-input" placeholder="sk-ant-api03-..." autocomplete="off">
     <div id="apikey-status" style="font-size:10px;margin-bottom:10px;color:#64748b"></div>
     <div class="btn-row">
-      <button onclick="saveAPIKey()" style="background:#0284c7;color:#fff;border:none">Save Key</button>
+      <button onclick="saveAPIKey()" style="background:#1a6b3c;color:#fff;border:none">Save Key</button>
       <button onclick="removeAPIKey()" style="background:#fee2e2;color:#991b1b;border:1px solid #fecaca">Remove</button>
       <button onclick="closeAPIKeyModal()" style="background:#f1f5f9;color:#475569;border:1px solid #e2e8f0">Close</button>
     </div>
@@ -623,7 +630,7 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
   <div class="stats-row" id="dash-l1-stats">
     <div class="sc" data-nav="contact-notes" onclick="nav('contact-notes')"><div class="lb">Total Notes</div><div class="val blue" id="dash-total">0</div><div class="d">All contact notes</div></div>
     <div class="sc" data-nav="contact-notes" onclick="nav('contact-notes')"><div class="lb">Notes This Week</div><div class="val blue" id="dash-week">0</div><div class="d" id="dash-week-d"></div></div>
-    <div class="sc" data-nav="ai-qa" onclick="nav('ai-qa')"><div class="lb">Avg AI Score</div><div class="val green" id="dash-avg-score">--</div><div class="d">Out of 4.0</div></div>
+    <div class="sc" data-nav="ai-qa" onclick="nav('ai-qa')"><div class="lb">Avg AI Score</div><div class="val green" id="dash-avg-score">N/A</div><div class="d">Out of 4.0</div></div>
     <div class="sc" data-nav="service-users" onclick="nav('service-users')"><div class="lb">Service Users</div><div class="val blue">634</div><div class="d green">+12 this month</div></div>
     <div class="sc" data-nav="safe-well" onclick="nav('safe-well')"><div class="lb">No Note >7 Days</div><div class="val red" id="dash-red-sus">0</div><div class="d red">Flagged RED</div></div>
     <div class="sc" data-nav="concerns" onclick="nav('concerns')"><div class="lb">Cause for Concern</div><div class="val red" id="dash-flags">0</div><div class="d red">Flagged by AI</div></div>
@@ -635,7 +642,7 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
         <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
           <div class="gauge-wrap" id="dash-gauge">
             <svg width="120" height="120"><circle cx="60" cy="60" r="52" fill="none" stroke="#e2e8f0" stroke-width="10"/><circle id="gauge-circle" cx="60" cy="60" r="52" fill="none" stroke="#059669" stroke-width="10" stroke-dasharray="327" stroke-dashoffset="327" stroke-linecap="round" style="transition:stroke-dashoffset 1s ease"/></svg>
-            <div class="gauge-text"><div class="gv" id="dash-compliance">--</div><div class="gl">Compliance</div></div>
+            <div class="gauge-text"><div class="gv" id="dash-compliance">N/A</div><div class="gl">Compliance</div></div>
           </div>
           <div style="flex:1;min-width:140px">
             <div style="font-size:11px;color:#64748b;margin-bottom:8px">
@@ -661,7 +668,7 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
       <div class="card">
         <h3>Pillar AI Status</h3>
         <div style="text-align:center;padding:10px 0">
-          <div style="font-size:28px">&#129302;</div>
+          <div style="font-size:14px;width:32px;height:32px;border-radius:50%;background:#dcfce7;display:inline-flex;align-items:center;justify-content:center;border:2px solid #86efac;margin:0 auto"><span style="color:#1a6b3c;font-weight:800">&#x2713;</span></div>
           <div style="font-size:12px;font-weight:700;margin-top:4px" class="green"><span class="pulse"></span> Online</div>
           <div style="font-size:10px;color:#64748b;margin-top:6px">AI-Powered Quality Assurance Engine</div>
           <div style="font-size:10px;color:#64748b;margin-top:4px" id="dash-ai-processed">0 notes processed</div>
@@ -691,7 +698,7 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
     <div class="tl" onclick="nav('incidents');showToast('Viewing INC-446')"><div class="dot" style="background:#dc2626"></div><div><div class="tt">INC-446 escalated to HIGH — Licence breach at 24 Ecclesall Rd</div><div class="mt">D. Sharpe assigned. Compliance team notified. — 2 hours ago</div></div></div>
     <div class="tl" onclick="nav('support-plans');showToast('Showing overdue support plans')"><div class="dot" style="background:#d97706"></div><div><div class="tt">2 support plans OVERDUE for renewal (SU-0091, SU-0145)</div><div class="mt">Expired 28 Feb. SAOs notified. — 3 hours ago</div></div></div>
     <div class="tl" onclick="nav('policies');showToast('Viewing Abandonment Policy')"><div class="dot" style="background:#d97706"></div><div><div class="tt">Abandonment Policy v3.1 — 11% staff not acknowledged</div><div class="mt">3 staff have not opened the policy email. — 5 hours ago</div></div></div>
-    <div class="tl" onclick="nav('incidents');showToast('Viewing PIR-003')"><div class="dot" style="background:#0284c7"></div><div><div class="tt">PIR-003 update: 2 of 3 actions completed</div><div class="mt">Remaining action: update safeguarding training module. Due 15 Mar. — 6 hours ago</div></div></div>
+    <div class="tl" onclick="nav('incidents');showToast('Viewing PIR-003')"><div class="dot" style="background:#1a6b3c"></div><div><div class="tt">PIR-003 update: 2 of 3 actions completed</div><div class="mt">Remaining action: update safeguarding training module. Due 15 Mar. — 6 hours ago</div></div></div>
     <div class="tl" onclick="nav('cn-hub');showToast('Opening Contact Notes QA report')"><div class="dot" style="background:#059669"></div><div><div class="tt">Weekly QA report ready for review — Sheffield</div><div class="mt">1,247 notes, 84% compliance. 3 SAOs flagged for coaching. — yesterday</div></div></div>
     <div class="tl" onclick="nav('dashboard');showToast('Trainee: F. Hassan — onboarding in progress')"><div class="dot" style="background:#059669"></div><div><div class="tt">New trainee F. Hassan completed onboarding module 1</div><div class="mt">Progress: 40%. Mentor: P. Okonkwo. — yesterday</div></div></div>
   </div>
@@ -800,11 +807,11 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
     <div class="sc"><div class="lb">Total Notes</div><div class="val blue" id="cn-total">0</div></div>
     <div class="sc"><div class="lb">Notes Today</div><div class="val blue" id="cn-today">0</div></div>
     <div class="sc"><div class="lb">This Week</div><div class="val blue" id="cn-week">0</div></div>
-    <div class="sc"><div class="lb">Compliance Rate</div><div class="val green" id="cn-compliance">--</div></div>
+    <div class="sc"><div class="lb">Compliance Rate</div><div class="val green" id="cn-compliance">N/A</div></div>
   </div>
   <div class="card">
     <h3>Contact Notes <span class="ct" id="cn-count"></span></h3>
-    <div id="cn-list" style="font-size:12px;color:#94a3b8;text-align:center;padding:20px">No contact notes yet. <a href="#" onclick="nav('new-note');return false" style="color:#0284c7;font-weight:600">Create your first note</a></div>
+    <div id="cn-list" style="font-size:12px;color:#94a3b8;text-align:center;padding:20px">No contact notes yet. <a href="#" onclick="nav('new-note');return false" style="color:#1a6b3c;font-weight:600">Create your first note</a></div>
   </div>
 </div>
 
@@ -1416,7 +1423,7 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
       </div>
     </div>
     <!-- Expand detail panel -->
-    <div id="prop-detail" class="card" style="display:none;margin-top:14px;border-left:3px solid #0284c7">
+    <div id="prop-detail" class="card" style="display:none;margin-top:14px;border-left:3px solid #1a6b3c">
       <h3 id="prop-detail-title">Property Detail</h3>
       <div id="prop-detail-body"></div>
     </div>
@@ -1666,7 +1673,7 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
       <div class="role-card"><div class="ri">&#9823;</div><div class="rn">SAO</div><div class="rd2">Own caseload only<br>Contact notes<br>Support plans</div></div>
       <div class="role-card"><div class="ri">&#9819;</div><div class="rn">Team Leader</div><div class="rd2">Team dashboard<br>Safe & Well pickup<br>Escalation view</div></div>
       <div class="role-card"><div class="ri">&#9818;</div><div class="rn">SSM</div><div class="rd2">Department view<br>Allocation<br>Incident mgmt</div></div>
-      <div class="role-card"><div class="ri">&#9813;</div><div class="rn" style="color:#0284c7">Compliance</div><div class="rd2">Full system access<br>All dashboards<br>QA reports</div></div>
+      <div class="role-card"><div class="ri">&#9813;</div><div class="rn" style="color:#1a6b3c">Compliance</div><div class="rd2">Full system access<br>All dashboards<br>QA reports</div></div>
       <div class="role-card"><div class="ri">&#128274;</div><div class="rn">Temp Access</div><div class="rd2">GDPR compliant<br>Leave cover<br>Auto-expires</div></div>
     </div>
   </div>
@@ -1737,7 +1744,7 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
       <div style="background:#dbeafe;height:45%"></div><div style="background:#dbeafe;height:52%"></div><div style="background:#dbeafe;height:48%"></div>
       <div style="background:#dbeafe;height:61%"></div><div style="background:#dbeafe;height:58%"></div><div style="background:#dbeafe;height:72%"></div>
       <div style="background:#dbeafe;height:65%"></div><div style="background:#dbeafe;height:78%"></div><div style="background:#dbeafe;height:70%"></div>
-      <div style="background:#dbeafe;height:82%"></div><div style="background:#dbeafe;height:79%"></div><div style="background:#0284c7;height:88%"></div>
+      <div style="background:#dbeafe;height:82%"></div><div style="background:#dbeafe;height:79%"></div><div style="background:#1a6b3c;height:88%"></div>
     </div>
     <div style="display:flex;justify-content:space-between;font-size:9px;color:#94a3b8;margin-top:4px"><span>12 weeks ago</span><span>This week</span></div>
     <h3 style="margin-top:18px">Flagged for Coaching</h3>
@@ -2013,7 +2020,7 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
         <div style="flex:1;background:#dbeafe;height:67%;border-radius:3px 3px 0 0" title="Feb W2: 2.84"></div>
         <div style="flex:1;background:#dbeafe;height:70%;border-radius:3px 3px 0 0" title="Feb W3: 2.87"></div>
         <div style="flex:1;background:#dbeafe;height:69%;border-radius:3px 3px 0 0" title="Feb W4: 2.87"></div>
-        <div style="flex:1;background:#0284c7;height:73%;border-radius:3px 3px 0 0" title="Mar W1: 2.92"></div>
+        <div style="flex:1;background:#1a6b3c;height:73%;border-radius:3px 3px 0 0" title="Mar W1: 2.92"></div>
       </div>
       <div style="display:flex;justify-content:space-between;font-size:9px;color:#94a3b8;margin-top:4px"><span>Dec 2025</span><span>Jan 2026</span><span>Feb 2026</span><span>Mar</span></div>
     </div>
@@ -2083,7 +2090,7 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
           </div>
           <div style="flex:1;text-align:center">
             <div style="font-size:9px;color:#94a3b8;margin-bottom:2px">284</div>
-            <div style="height:84px;background:#0284c7;border-radius:3px 3px 0 0"></div>
+            <div style="height:84px;background:#1a6b3c;border-radius:3px 3px 0 0"></div>
             <div style="font-size:8px;color:#94a3b8;margin-top:2px;font-weight:700">W8</div>
           </div>
         </div>
@@ -2131,8 +2138,8 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
     <div class="g2">
       <div>
         <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
-          <div style="background:#e0f2fe;border:2px solid #0284c7;border-radius:10px;padding:16px 20px;flex:1">
-            <div style="font-size:9px;color:#0284c7;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px">Current Theme</div>
+          <div style="background:#e0f2fe;border:2px solid #1a6b3c;border-radius:10px;padding:16px 20px;flex:1">
+            <div style="font-size:9px;color:#1a6b3c;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px">Current Theme</div>
             <div style="font-size:18px;font-weight:800;color:#1e293b">Person-Centred Language in Contact Notes</div>
             <div style="font-size:11px;color:#475569;margin-top:6px">Focus on writing about service users with dignity, using their preferred names, and framing progress positively. Avoid deficit-based language.</div>
             <div style="font-size:10px;color:#64748b;margin-top:8px">Active since: 02 Mar 2026</div>
@@ -2325,32 +2332,32 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
       <div style="flex:1;text-align:center;padding:12px;background:#e0f2fe;border-radius:8px 0 0 8px;border:1px solid #bae6fd">
         <div style="font-size:18px">&#128203;</div>
         <div style="font-size:10px;font-weight:700;color:#075985;margin-top:4px">1. Referral In</div>
-        <div style="font-size:9px;color:#0369a1;margin-top:2px">Needs assessment on tablet</div>
+        <div style="font-size:9px;color:#145a30;margin-top:2px">Needs assessment on tablet</div>
       </div>
       <div style="flex:1;text-align:center;padding:12px;background:#e0f2fe;border:1px solid #bae6fd;border-left:none">
         <div style="font-size:18px">&#128276;</div>
         <div style="font-size:10px;font-weight:700;color:#075985;margin-top:4px">2. SSM Pinged</div>
-        <div style="font-size:9px;color:#0369a1;margin-top:2px">Auto-notification</div>
+        <div style="font-size:9px;color:#145a30;margin-top:2px">Auto-notification</div>
       </div>
       <div style="flex:1;text-align:center;padding:12px;background:#e0f2fe;border:1px solid #bae6fd;border-left:none">
         <div style="font-size:18px">&#9823;</div>
         <div style="font-size:10px;font-weight:700;color:#075985;margin-top:4px">3. Assign SAO</div>
-        <div style="font-size:9px;color:#0369a1;margin-top:2px">Based on caseload</div>
+        <div style="font-size:9px;color:#145a30;margin-top:2px">Based on caseload</div>
       </div>
       <div style="flex:1;text-align:center;padding:12px;background:#e0f2fe;border:1px solid #bae6fd;border-left:none">
         <div style="font-size:18px">&#9200;</div>
         <div style="font-size:10px;font-weight:700;color:#075985;margin-top:4px">4. 24hr Clock</div>
-        <div style="font-size:9px;color:#0369a1;margin-top:2px">First contact required</div>
+        <div style="font-size:9px;color:#145a30;margin-top:2px">First contact required</div>
       </div>
       <div style="flex:1;text-align:center;padding:12px;background:#e0f2fe;border:1px solid #bae6fd;border-left:none">
         <div style="font-size:18px">&#128196;</div>
         <div style="font-size:10px;font-weight:700;color:#075985;margin-top:4px">5. Profile Created</div>
-        <div style="font-size:9px;color:#0369a1;margin-top:2px">Auto-generated</div>
+        <div style="font-size:9px;color:#145a30;margin-top:2px">Auto-generated</div>
       </div>
       <div style="flex:1;text-align:center;padding:12px;background:#e0f2fe;border-radius:0 8px 8px 0;border:1px solid #bae6fd;border-left:none">
         <div style="font-size:18px">&#129302;</div>
         <div style="font-size:10px;font-weight:700;color:#075985;margin-top:4px">6. AI Support Plan</div>
-        <div style="font-size:9px;color:#0369a1;margin-top:2px">Generated from data</div>
+        <div style="font-size:9px;color:#145a30;margin-top:2px">Generated from data</div>
       </div>
     </div>
   </div>
@@ -2479,7 +2486,7 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
           <textarea id="qa-input" rows="6" style="width:100%;padding:10px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px;font-family:inherit;resize:vertical;color:#334155;background:#fff" placeholder="Type a contact note here or load an example..."></textarea>
         </div>
 
-        <button id="qa-run-btn" onclick="runQA()" style="width:100%;padding:10px;background:#0284c7;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:0.5px">Run AI QA Check</button>
+        <button id="qa-run-btn" onclick="runQA()" style="width:100%;padding:10px;background:#1a6b3c;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:0.5px">Run AI QA Check</button>
       </div>
     </div>
 
@@ -2489,7 +2496,7 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
 
         <div id="qa-processing" style="text-align:center;padding:30px 0;display:none">
           <div style="font-size:28px">&#129302;</div>
-          <div style="font-size:12px;color:#0284c7;font-weight:700;margin-top:8px">Processing...</div>
+          <div style="font-size:12px;color:#1a6b3c;font-weight:700;margin-top:8px">Processing...</div>
           <div style="font-size:10px;color:#64748b;margin-top:4px">Analysing against Pillar's quality standards</div>
           <div class="pb" style="margin-top:12px;height:4px"><div class="f bl" id="qa-progress" style="width:0%;transition:width 1.5s ease"></div></div>
         </div>
@@ -2532,23 +2539,23 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
         <h3>How Pillar AI Works</h3>
         <div style="font-size:11px;color:#475569;line-height:1.7">
           <div style="display:flex;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #f1f5f9">
-            <div style="width:24px;height:24px;background:#e0f2fe;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#0284c7;flex-shrink:0">1</div>
+            <div style="width:24px;height:24px;background:#e0f2fe;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#1a6b3c;flex-shrink:0">1</div>
             <div><strong>SAO writes note</strong> using structured form (not free text). Sections for contact type, observations, outcomes, next steps.</div>
           </div>
           <div style="display:flex;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #f1f5f9">
-            <div style="width:24px;height:24px;background:#e0f2fe;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#0284c7;flex-shrink:0">2</div>
+            <div style="width:24px;height:24px;background:#e0f2fe;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#1a6b3c;flex-shrink:0">2</div>
             <div><strong>AI scores quality</strong> against Pillar's standards: person-centred language, specificity, outcome recording, support plan alignment.</div>
           </div>
           <div style="display:flex;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #f1f5f9">
-            <div style="width:24px;height:24px;background:#e0f2fe;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#0284c7;flex-shrink:0">3</div>
+            <div style="width:24px;height:24px;background:#e0f2fe;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#1a6b3c;flex-shrink:0">3</div>
             <div><strong>AI reframes note</strong> to improve quality while preserving factual accuracy. Gives feedback on what was wrong.</div>
           </div>
           <div style="display:flex;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #f1f5f9">
-            <div style="width:24px;height:24px;background:#e0f2fe;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#0284c7;flex-shrink:0">4</div>
+            <div style="width:24px;height:24px;background:#e0f2fe;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#1a6b3c;flex-shrink:0">4</div>
             <div><strong>SAO verifies:</strong> "This is an accurate factual depiction." AI never overwrites without human consent.</div>
           </div>
           <div style="display:flex;gap:10px">
-            <div style="width:24px;height:24px;background:#e0f2fe;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#0284c7;flex-shrink:0">5</div>
+            <div style="width:24px;height:24px;background:#e0f2fe;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#1a6b3c;flex-shrink:0">5</div>
             <div><strong>Scores hidden from staff.</strong> Focus on quality improvement, not metric chasing. Compliance team sees scores internally.</div>
           </div>
         </div>
@@ -2678,7 +2685,7 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
         <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#ef4444;margin-right:3px"></span>ASB</span>
         <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#f59e0b;margin-right:3px"></span>Licence Breach</span>
         <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#8b5cf6;margin-right:3px"></span>Disclosure</span>
-        <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#0284c7;margin-right:3px"></span>Self-harm</span>
+        <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#1a6b3c;margin-right:3px"></span>Self-harm</span>
         <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#64748b;margin-right:3px"></span>Other</span>
       </div>
     </div>
@@ -2757,7 +2764,7 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
   <div class="stats-row" id="cn-hub-stats">
     <div class="sc"><div class="lb">Total This Week</div><div class="val blue" id="cnh-week">0</div><div class="d" id="cnh-week-d">Mon-Sun</div></div>
     <div class="sc"><div class="lb">Total This Month</div><div class="val blue" id="cnh-month">0</div><div class="d">March 2026</div></div>
-    <div class="sc"><div class="lb">Avg QA Score</div><div class="val green" id="cnh-avg-qa">--</div><div class="d">Out of 4.0</div></div>
+    <div class="sc"><div class="lb">Avg QA Score</div><div class="val green" id="cnh-avg-qa">N/A</div><div class="d">Out of 4.0</div></div>
     <div class="sc"><div class="lb">Awaiting Verification</div><div class="val amber" id="cnh-pending">0</div><div class="d amber">Team Leader review</div></div>
     <div class="sc"><div class="lb">Sent Back</div><div class="val red" id="cnh-sentback">0</div><div class="d red">Needs clarification</div></div>
   </div>
@@ -2907,7 +2914,7 @@ table.clickable-rows tbody tr:hover td { background: #f0f9ff; }
       <div class="sc"><div class="lb">Total Notes (All Time)</div><div class="val blue" id="cnh-stat-total">0</div></div>
       <div class="sc"><div class="lb">This Week</div><div class="val blue" id="cnh-stat-week">0</div></div>
       <div class="sc"><div class="lb">This Month</div><div class="val blue" id="cnh-stat-month">0</div></div>
-      <div class="sc"><div class="lb">Avg QA Score</div><div class="val green" id="cnh-stat-avg">--</div></div>
+      <div class="sc"><div class="lb">Avg QA Score</div><div class="val green" id="cnh-stat-avg">N/A</div></div>
       <div class="sc"><div class="lb">Awaiting Verification</div><div class="val amber" id="cnh-stat-pending">0</div></div>
       <div class="sc"><div class="lb">Sent Back</div><div class="val red" id="cnh-stat-back">0</div></div>
     </div>
@@ -3459,8 +3466,8 @@ const examples = {
     score: 0, label: 'AI Refused', cls: '', color: '#64748b',
     feedback: '<strong style="color:#dc2626">AI Would Rather Not.</strong> The note contains references to self-harm and suicide ideation. AI\'s safety filters prevent it from reframing this content. This is a known limitation — not a bug.<br><br><strong>This note requires manual QA review by the compliance team.</strong> The content itself appears thorough: person-centred, specific, clear safeguarding response, crisis plan referenced, MH team contacted. A compliance officer should review and score manually.',
     breakdown: [
-      ['Person-centred language', '--', 'gy'], ['Specificity & detail', '--', 'gy'], ['Outcome recording', '--', 'gy'],
-      ['Support plan alignment', '--', 'gy'], ['Next steps documented', '--', 'gy']
+      ['Person-centred language', 'N/A', 'gy'], ['Specificity & detail', 'N/A', 'gy'], ['Outcome recording', 'N/A', 'gy'],
+      ['Support plan alignment', 'N/A', 'gy'], ['Next steps documented', 'N/A', 'gy']
     ],
     reframe: null,
     refused: true
@@ -3525,7 +3532,7 @@ function runQA() {
 
     let bdHTML = '';
     match.breakdown.forEach(([name, score, cls]) => {
-      const w = score === '--' ? 0 : score;
+      const w = score === 'N/A' ? 0 : score;
       bdHTML += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><span style="width:140px;font-size:11px;color:#475569">' + name + '</span><div class="pb" style="flex:1;height:8px"><div class="f ' + cls + '" style="width:' + w + '%"></div></div><span style="width:30px;font-size:11px;font-weight:700;text-align:right;color:#475569">' + score + '</span></div>';
     });
     document.getElementById('qa-breakdown').innerHTML = bdHTML;
@@ -3601,8 +3608,8 @@ const supData = {
     eventLog:[
       {time:'02/03 10:15',text:'Key session completed by A. Ahmed',color:'#059669'},
       {time:'02/03 10:20',text:'Contact note submitted — QA Score 4',color:'#059669'},
-      {time:'27/02 14:30',text:'Phone contact logged — benefits query',color:'#0284c7'},
-      {time:'21/02 11:00',text:'Support plan review completed',color:'#0284c7'},
+      {time:'27/02 14:30',text:'Phone contact logged — benefits query',color:'#1a6b3c'},
+      {time:'21/02 11:00',text:'Support plan review completed',color:'#1a6b3c'},
       {time:'14/02 09:45',text:'Wellbeing call — no concerns',color:'#059669'},
       {time:'12/01 16:00',text:'INC-0891 raised — ASB complaint',color:'#dc2626'},
       {time:'12/01 16:30',text:'INC-0891 assigned to A. Ahmed',color:'#d97706'},
@@ -3616,7 +3623,7 @@ const supData = {
     signUp:'22/06/2025', sao:'Carol Vincent', riskLevel:'LOW', riskCls:'gn',
     statusBadge:'gn', statusText:'ACTIVE', hbStatus:'In Payment', hbCls:'green',
     nrpf: false, benefits:'UC', mh:'None disclosed',
-    bgColor:'#0284c7', initials:'SH',
+    bgColor:'#1a6b3c', initials:'SH',
     docs:[
       {name:'Personal Details',done:true},{name:'Proof of Address',done:true},{name:'Pen Portrait',done:true},
       {name:'Referral',done:true},{name:'Needs Assessment',done:true},{name:'Licence Agreement',done:true},
@@ -3640,7 +3647,7 @@ const supData = {
     eventLog:[
       {time:'04/03 11:20',text:'Phone contact logged — routine check',color:'#059669'},
       {time:'25/02 10:00',text:'Key session completed by C. Vincent',color:'#059669'},
-      {time:'18/02 14:00',text:'Benefits update call — UC confirmed',color:'#0284c7'},
+      {time:'18/02 14:00',text:'Benefits update call — UC confirmed',color:'#1a6b3c'},
       {time:'03/10 15:30',text:'INC-0612 raised — verbal altercation',color:'#dc2626'},
       {time:'05/10 10:00',text:'INC-0612 closed — resolved informally',color:'#059669'},
       {time:'22/06 09:00',text:'Service user signed up — allocated to C. Vincent',color:'#7c3aed'}
@@ -3733,12 +3740,12 @@ const supData = {
     missingData:['Move-in checklist not completed','No emergency contact recorded','Immigration solicitor details not on file'],
     eventLog:[
       {time:'06/03 10:00',text:'Key session — immigration update by A. Khan',color:'#059669'},
-      {time:'01/03 14:30',text:'ESOL class follow-up call',color:'#0284c7'},
+      {time:'01/03 14:30',text:'ESOL class follow-up call',color:'#1a6b3c'},
       {time:'22/02 11:00',text:'Welfare check — settling in well',color:'#059669'},
       {time:'15/12 09:30',text:'CFC-0312 raised — isolation risk',color:'#d97706'},
-      {time:'15/11 10:00',text:'CASE-105 opened — ESOL enrolment',color:'#0284c7'},
+      {time:'15/11 10:00',text:'CASE-105 opened — ESOL enrolment',color:'#1a6b3c'},
       {time:'01/11 09:00',text:'Service user signed up — allocated to A. Khan',color:'#7c3aed'},
-      {time:'01/11 09:15',text:'CASE-101 opened — immigration support',color:'#0284c7'}
+      {time:'01/11 09:15',text:'CASE-101 opened — immigration support',color:'#1a6b3c'}
     ]
   },
   webb: {
@@ -3797,7 +3804,7 @@ const supData = {
     signUp:'10/06/2025', sao:'J. Peters', riskLevel:'LOW', riskCls:'gn',
     statusBadge:'gn', statusText:'ACTIVE', hbStatus:'In Payment', hbCls:'green',
     nrpf: false, benefits:'UC', mh:'None disclosed',
-    bgColor:'#0284c7', initials:'AR',
+    bgColor:'#1a6b3c', initials:'AR',
     docs:[
       {name:'Personal Details',done:true},{name:'Proof of Address',done:true},{name:'Pen Portrait',done:true},
       {name:'Referral',done:true},{name:'Needs Assessment',done:true},{name:'Licence Agreement',done:true},
@@ -3825,7 +3832,7 @@ const supData = {
     missingData:['Emergency contact not verified','GP details not confirmed'],
     eventLog:[
       {time:'04/03 10:00',text:'Key session — employment review by J. Peters',color:'#059669'},
-      {time:'26/02 14:00',text:'Phone contact — UC journal query',color:'#0284c7'},
+      {time:'26/02 14:00',text:'Phone contact — UC journal query',color:'#1a6b3c'},
       {time:'19/02 11:00',text:'ESOL progress check completed',color:'#059669'},
       {time:'05/02 09:00',text:'INC-0438 raised — low engagement',color:'#dc2626'},
       {time:'07/02 11:00',text:'INC-0438 closed — resolved',color:'#059669'},
@@ -3875,7 +3882,7 @@ const supData = {
       {time:'05/03 10:30',text:'Key session — noise complaint follow-up by M. Khan',color:'#059669'},
       {time:'05/03 10:45',text:'INC-0501 raised — repeated noise complaints',color:'#dc2626'},
       {time:'02/03 14:30',text:'CFC-0101 raised — unusual visitors observed',color:'#d97706'},
-      {time:'27/02 14:00',text:'Phone contact — HB renewal reminder',color:'#0284c7'},
+      {time:'27/02 14:00',text:'Phone contact — HB renewal reminder',color:'#1a6b3c'},
       {time:'25/02 16:45',text:'INC-0444 raised — noise complaint',color:'#dc2626'},
       {time:'21/02 09:00',text:'CFC-0202 raised — escalating ASB',color:'#d97706'},
       {time:'10/07 09:00',text:'Service user signed up — allocated to M. Khan',color:'#7c3aed'}
@@ -3922,7 +3929,7 @@ const supData = {
     missingData:['Crisis plan review overdue','Emergency contact not verified','MH worker contact details missing'],
     eventLog:[
       {time:'06/03 10:00',text:'Key session — MH review by D. Sharpe',color:'#059669'},
-      {time:'01/03 14:00',text:'Crisis plan check-in call',color:'#0284c7'},
+      {time:'01/03 14:00',text:'Crisis plan check-in call',color:'#1a6b3c'},
       {time:'22/02 08:30',text:'INC-0443 raised — self-harm disclosure',color:'#dc2626'},
       {time:'22/02 09:00',text:'CFC-0310 raised — MH deterioration',color:'#dc2626'},
       {time:'22/02 09:30',text:'Crisis plan activated, MH team contacted',color:'#dc2626'},
@@ -4112,7 +4119,7 @@ const supData = {
     missingData:['Next of kin not recorded'],
     eventLog:[
       {time:'05/03 10:00',text:'Key session — employment progress by J. Peters',color:'#059669'},
-      {time:'27/02 14:00',text:'Volunteering follow-up call',color:'#0284c7'},
+      {time:'27/02 14:00',text:'Volunteering follow-up call',color:'#1a6b3c'},
       {time:'20/02 13:00',text:'INC-0442 raised — minor property damage',color:'#d97706'},
       {time:'22/02 10:00',text:'INC-0442 closed — maintenance completed',color:'#059669'},
       {time:'01/10 09:00',text:'Service user signed up — allocated to J. Peters',color:'#7c3aed'}
@@ -4168,7 +4175,7 @@ const supData = {
     signUp:'01/07/2025', sao:'A. Begum', riskLevel:'LOW', riskCls:'gn',
     statusBadge:'gn', statusText:'ACTIVE', hbStatus:'In Payment', hbCls:'green',
     nrpf: false, benefits:'UC', mh:'Anxiety, PTSD',
-    bgColor:'#0284c7', initials:'IY',
+    bgColor:'#1a6b3c', initials:'IY',
     docs:[
       {name:'Personal Details',done:true},{name:'Proof of Address',done:true},{name:'Pen Portrait',done:true},
       {name:'Referral',done:true},{name:'Needs Assessment',done:true},{name:'Licence Agreement',done:true},
@@ -4197,7 +4204,7 @@ const supData = {
     missingData:['Support plan review due','GP details not confirmed'],
     eventLog:[
       {time:'04/03 10:00',text:'Key session — GP + employment by A. Begum',color:'#059669'},
-      {time:'25/02 14:00',text:'Benefits update call — UC journal',color:'#0284c7'},
+      {time:'25/02 14:00',text:'Benefits update call — UC journal',color:'#1a6b3c'},
       {time:'25/01 13:00',text:'INC-0510 raised — substance use on premises',color:'#dc2626'},
       {time:'28/01 10:00',text:'INC-0510 closed — warning issued, referral made',color:'#059669'},
       {time:'01/07 09:00',text:'Service user signed up — allocated to A. Begum',color:'#7c3aed'}
@@ -4209,7 +4216,7 @@ const supData = {
     signUp:'15/05/2025', sao:'M. Khan', riskLevel:'LOW', riskCls:'gn',
     statusBadge:'am', statusText:'ACTIVE — SAFE & WELL', hbStatus:'In Payment', hbCls:'green',
     nrpf: false, benefits:'UC', mh:'None disclosed',
-    bgColor:'#0284c7', initials:'JC',
+    bgColor:'#1a6b3c', initials:'JC',
     docs:[
       {name:'Personal Details',done:true},{name:'Proof of Address',done:true},{name:'Pen Portrait',done:true},
       {name:'Referral',done:true},{name:'Needs Assessment',done:true},{name:'Licence Agreement',done:true},
@@ -4276,7 +4283,7 @@ const supData = {
     missingData:['No concerns — all data current'],
     eventLog:[
       {time:'06/03 10:00',text:'Key session — employment update by J. Peters',color:'#059669'},
-      {time:'28/02 14:00',text:'Job interview follow-up call',color:'#0284c7'},
+      {time:'28/02 14:00',text:'Job interview follow-up call',color:'#1a6b3c'},
       {time:'30/01 15:00',text:'INC-0509 raised — accident (carpet)',color:'#d97706'},
       {time:'01/02 10:00',text:'INC-0509 closed — carpet replaced',color:'#059669'},
       {time:'01/09 09:00',text:'Service user signed up — allocated to J. Peters',color:'#7c3aed'}
@@ -4367,7 +4374,7 @@ function loadSUProfile(key) {
   var maxC = Math.max.apply(null, s.contactWeeks);
   document.getElementById('sup-contact-chart').innerHTML = s.contactWeeks.map(function(v,i) {
     var h = maxC > 0 ? Math.round((v/maxC)*100) : 10;
-    return '<div><div class="sup-bar" style="height:'+h+'%;background:#0284c7"></div><div class="sup-bar-label">'+v+'</div></div>';
+    return '<div><div class="sup-bar" style="height:'+h+'%;background:#1a6b3c"></div><div class="sup-bar-label">'+v+'</div></div>';
   }).join('');
 
   // Contact summary
@@ -5403,7 +5410,7 @@ function renderNotesList() {
   const today = notes.filter(n => new Date(n.datetime || n.createdAt).getTime() >= todayStart).length;
   const week = notes.filter(n => new Date(n.datetime || n.createdAt).getTime() >= weekStart).length;
   const greenCount = notes.filter(n => calcCompliance(n, notes) === 'GREEN').length;
-  const compRate = total > 0 ? Math.round((greenCount / total) * 100) + '%' : '--';
+  const compRate = total > 0 ? Math.round((greenCount / total) * 100) + '%' : 'N/A';
 
   document.getElementById('cn-total').textContent = total;
   document.getElementById('cn-today').textContent = today;
@@ -5413,7 +5420,7 @@ function renderNotesList() {
 
   const list = document.getElementById('cn-list');
   if (total === 0) {
-    list.innerHTML = '<div style="text-align:center;padding:20px;color:#94a3b8;font-size:12px">No contact notes yet. <a href="#" onclick="nav(\'new-note\');return false" style="color:#0284c7;font-weight:600">Create your first note</a></div>';
+    list.innerHTML = '<div style="text-align:center;padding:20px;color:#94a3b8;font-size:12px">No contact notes yet. <a href="#" onclick="nav(\'new-note\');return false" style="color:#1a6b3c;font-weight:600">Create your first note</a></div>';
     return;
   }
   list.innerHTML = notes.map(n => {
@@ -5456,7 +5463,7 @@ function updateDashboard() {
   document.getElementById('dash-week').textContent = notes.filter(n => new Date(n.datetime || n.createdAt).getTime() >= weekStart).length;
 
   const greenCount = notes.filter(n => calcCompliance(n, notes) === 'GREEN').length;
-  document.getElementById('dash-compliance').textContent = notes.length > 0 ? Math.round((greenCount / notes.length) * 100) + '%' : '--';
+  document.getElementById('dash-compliance').textContent = notes.length > 0 ? Math.round((greenCount / notes.length) * 100) + '%' : 'N/A';
 
   // SUs with no note in >7 days / >3 days
   let red7 = 0, amber3 = 0;
@@ -5718,7 +5725,7 @@ async function analyzeNoteWithAI(noteId) {
   const overlay = document.getElementById('qa-overlay');
   const body = document.getElementById('qa-modal-body');
   overlay.style.display = 'flex';
-  body.innerHTML = '<div class="qa-loading"><div class="spinner"></div><div style="font-size:13px;font-weight:700;color:#0284c7">Analysing note...</div><div style="font-size:10px;color:#64748b;margin-top:4px">AI is reviewing against Pillar\'s quality standards</div></div>';
+  body.innerHTML = '<div class="qa-loading"><div class="spinner"></div><div style="font-size:13px;font-weight:700;color:#1a6b3c">Analysing note...</div><div style="font-size:10px;color:#64748b;margin-top:4px">AI is reviewing against Pillar\'s quality standards</div></div>';
 
   try {
     const result = await callClaudeAPI(note.content, note.suName, note.suId, note.type, note.areas);
@@ -5769,7 +5776,7 @@ function updateAIQAPage() {
     }
   });
 
-  const avgScore = analyzed.length > 0 ? (analyzed.reduce((s, n) => s + n.aiAnalysis.score, 0) / analyzed.length).toFixed(1) : '--';
+  const avgScore = analyzed.length > 0 ? (analyzed.reduce((s, n) => s + n.aiAnalysis.score, 0) / analyzed.length).toFixed(1) : 'N/A';
   const accepted = notes.filter(n => n.aiAccepted === true).length;
   const pending = notes.filter(n => n.aiAnalysis && n.aiAccepted === undefined).length;
 
@@ -6358,7 +6365,7 @@ function renderLWHistory() {
     var totalMins = weekVisits.reduce(function(acc, v) { return acc + Math.floor((new Date(v.leftAt) - new Date(v.arrivedAt)) / 60000); }, 0);
     var totalMiles = weekVisits.reduce(function(acc, v) { return acc + (v.mileage || 0); }, 0);
     sumEl.innerHTML = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">' +
-      '<div style="text-align:center;padding:12px;background:#f0f9ff;border-radius:8px"><div style="font-size:24px;font-weight:800;color:#0284c7">' + weekVisits.length + '</div><div style="font-size:10px;color:#64748b">Visits This Week</div></div>' +
+      '<div style="text-align:center;padding:12px;background:#f0f9ff;border-radius:8px"><div style="font-size:24px;font-weight:800;color:#1a6b3c">' + weekVisits.length + '</div><div style="font-size:10px;color:#64748b">Visits This Week</div></div>' +
       '<div style="text-align:center;padding:12px;background:#f0fdf4;border-radius:8px"><div style="font-size:24px;font-weight:800;color:#059669">' + Math.round(totalMins / 60) + 'h</div><div style="font-size:10px;color:#64748b">Total Hours</div></div>' +
       '<div style="text-align:center;padding:12px;background:#fffbeb;border-radius:8px"><div style="font-size:24px;font-weight:800;color:#d97706">' + (weekVisits.length > 0 ? Math.round(totalMins / weekVisits.length) : 0) + 'm</div><div style="font-size:10px;color:#64748b">Avg Duration</div></div>' +
       '<div style="text-align:center;padding:12px;background:#f8fafc;border-radius:8px"><div style="font-size:24px;font-weight:800;color:#475569">' + totalMiles.toFixed(1) + '</div><div style="font-size:10px;color:#64748b">Total Miles</div></div>' +
@@ -7160,7 +7167,7 @@ function updateDashboardFromDemo() {
   const topGaps = Object.entries(allGaps).sort((a, b) => b[1] - a[1]).slice(0, 5);
   const gapsEl = document.getElementById('dash-top-gaps');
   if (gapsEl) {
-    gapsEl.innerHTML = topGaps.map(([g, c]) => '<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9"><span>' + g + '</span><strong style="color:#0284c7">' + c + '</strong></div>').join('') || '<div style="color:#94a3b8">No gaps identified yet</div>';
+    gapsEl.innerHTML = topGaps.map(([g, c]) => '<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9"><span>' + g + '</span><strong style="color:#1a6b3c">' + c + '</strong></div>').join('') || '<div style="color:#94a3b8">No gaps identified yet</div>';
   }
 
   // Recent QA activity table
@@ -7286,7 +7293,7 @@ const swStaff = [
   {
     name: 'Arouba Khan', initials: 'AK', role: 'Support & Advice Officer', roleShort: 'SAO', roleCls: 'sw-role-sao',
     team: 'Sheffield Supported Housing', teamLeader: 'Megan Thorne', phone: '07891 221 453', email: 'arouba.khan@pgg.org.uk',
-    color: '#0284c7', active: true,
+    color: '#1a6b3c', active: true,
     suCount: 12, tempAssign: 1, missingPhone: 2, expiringPlans: 3, pendingMICL: 1, pendingPen: 0,
     contactAwaiting: 2, incompleteContact: 1, openCfC: 1, safeWell: 0,
     weeklyContacts: [8, 12, 6],
@@ -7374,7 +7381,7 @@ function renderSWDashboard() {
 
   // SU Metrics
   const suMetrics = [
-    { label: 'Active SUs', val: w.suCount, color: '#0284c7', key: 'active' },
+    { label: 'Active SUs', val: w.suCount, color: '#1a6b3c', key: 'active' },
     { label: 'Temp Assignments', val: w.tempAssign, color: w.tempAssign > 0 ? '#d97706' : '#059669', key: 'temp' },
     { label: 'Missing Phone', val: w.missingPhone, color: w.missingPhone > 0 ? '#dc2626' : '#059669', key: 'phone' },
     { label: 'Expiring Plans', val: w.expiringPlans, color: w.expiringPlans > 0 ? '#d97706' : '#059669', key: 'plans' },
@@ -7606,7 +7613,7 @@ function renderRiskDashboard() {
         (m.asb?'<div style="height:'+m.asb/total*h+'px;background:#ef4444;border-radius:2px;min-height:4px"></div>':'') +
         (m.lb?'<div style="height:'+m.lb/total*h+'px;background:#f59e0b;border-radius:2px;min-height:4px"></div>':'') +
         (m.disc?'<div style="height:'+m.disc/total*h+'px;background:#8b5cf6;border-radius:2px;min-height:4px"></div>':'') +
-        (m.sh?'<div style="height:'+m.sh/total*h+'px;background:#0284c7;border-radius:2px;min-height:4px"></div>':'') +
+        (m.sh?'<div style="height:'+m.sh/total*h+'px;background:#1a6b3c;border-radius:2px;min-height:4px"></div>':'') +
         (m.other?'<div style="height:'+m.other/total*h+'px;background:#64748b;border-radius:2px;min-height:4px"></div>':'') +
       '</div>' +
       '<div style="font-size:9px;color:#94a3b8;font-weight:600">'+m.label+'</div>' +
@@ -7870,7 +7877,7 @@ function updateCNHubStats() {
   const week = notes.filter(n => new Date(n.datetime) >= weekStart).length;
   const month = notes.filter(n => new Date(n.datetime) >= monthStart).length;
   const scored = notes.filter(n => n.qaScore);
-  const avg = scored.length > 0 ? (scored.reduce((s,n) => s + n.qaScore, 0) / scored.length).toFixed(1) : '--';
+  const avg = scored.length > 0 ? (scored.reduce((s,n) => s + n.qaScore, 0) / scored.length).toFixed(1) : 'N/A';
   const pending = notes.filter(n => !n.verified && !n.sentBack).length;
   const sentBack = notes.filter(n => n.sentBack).length;
   document.getElementById('cnh-week').textContent = week;
@@ -7980,7 +7987,7 @@ function rejectReframe(noteId) {
 function editReframe(noteId) {
   showToast('Edit mode — modify the reframed text and resubmit');
   const reframedEl = document.querySelector('#cnh-auditron-result .reframed-text');
-  if (reframedEl) { reframedEl.contentEditable = 'true'; reframedEl.style.border = '2px solid #0284c7'; reframedEl.style.padding = '10px'; reframedEl.focus(); }
+  if (reframedEl) { reframedEl.contentEditable = 'true'; reframedEl.style.border = '2px solid #1a6b3c'; reframedEl.style.padding = '10px'; reframedEl.focus(); }
 }
 
 function renderCNHubList() {
@@ -8101,7 +8108,7 @@ function renderCNHubStats() {
   const week = notes.filter(n => new Date(n.datetime) >= weekStart).length;
   const month = notes.filter(n => new Date(n.datetime) >= monthStart).length;
   const scored = notes.filter(n => n.qaScore);
-  const avg = scored.length > 0 ? (scored.reduce((s,n) => s + n.qaScore, 0) / scored.length).toFixed(1) : '--';
+  const avg = scored.length > 0 ? (scored.reduce((s,n) => s + n.qaScore, 0) / scored.length).toFixed(1) : 'N/A';
   const pending = notes.filter(n => !n.verified && !n.sentBack).length;
   const sentBack = notes.filter(n => n.sentBack).length;
 
@@ -8135,7 +8142,7 @@ function renderCNHubStats() {
     saoEntries.map(([sao,count]) =>
       '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">' +
         '<div style="width:80px;font-size:11px;font-weight:600;color:#475569">'+sao+'</div>' +
-        '<div style="flex:1;height:20px;background:#f1f5f9;border-radius:4px;overflow:hidden"><div style="height:100%;width:'+(count/maxSao*100)+'%;background:#0284c7;border-radius:4px"></div></div>' +
+        '<div style="flex:1;height:20px;background:#f1f5f9;border-radius:4px;overflow:hidden"><div style="height:100%;width:'+(count/maxSao*100)+'%;background:#1a6b3c;border-radius:4px"></div></div>' +
         '<div style="width:30px;font-size:12px;font-weight:700;color:#1e293b;text-align:right">'+count+'</div>' +
       '</div>'
     ).join('') : '<div style="font-size:11px;color:#94a3b8">No notes this week</div>';
@@ -8252,7 +8259,7 @@ function renderPropertyList(filter) {
       '<td>'+occ+'</td>' +
       '<td>'+(voidCount > 0 ? '<span class="b rd">'+voidCount+'</span>' : '0')+'</td>' +
       '<td><span class="b '+statusClass+'">'+statusText+'</span></td>' +
-      '<td style="color:#0284c7;font-size:11px">View &#10132;</td>' +
+      '<td style="color:#1a6b3c;font-size:11px">View &#10132;</td>' +
     '</tr>';
   }).join('');
 }
@@ -8317,7 +8324,7 @@ const tlData = [
     ]
   },
   {
-    name: 'Keelie Hill', initials: 'KH', role: 'Team Leader', area: 'Rotherham Supported Housing', color: '#0284c7',
+    name: 'Keelie Hill', initials: 'KH', role: 'Team Leader', area: 'Rotherham Supported Housing', color: '#1a6b3c',
     qaAvg: 2.96,
     saos: [
       { name: 'Liam Carter', activeSUs: 13, contactsWeek: 11, qa: 3.05, status: 'green' },
@@ -8375,7 +8382,7 @@ function renderTLDashboard() {
         '<div style="font-size:12px;color:#64748b;margin-top:2px">' + tl.role + ' &middot; ' + tl.area + '</div>' +
       '</div>' +
       '<div style="text-align:right">' +
-        '<div style="font-size:24px;font-weight:800;color:#0284c7">' + tl.saos.length + '</div>' +
+        '<div style="font-size:24px;font-weight:800;color:#1a6b3c">' + tl.saos.length + '</div>' +
         '<div style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:1px">SAOs</div>' +
       '</div>' +
       '<div style="text-align:right;margin-left:16px">' +
@@ -8477,7 +8484,7 @@ function renderTLDashboard() {
       (unchecked.length > 0 ? ' &middot; <span style="color:#dc2626">Missing: ' + unchecked.join(', ') + '</span>' : ' &middot; <span style="color:#059669">All done</span>') +
     '</div>' +
     tl.checkins.map(c => {
-      const moodColor = c.mood === 'Great' ? '#059669' : c.mood === 'Good' ? '#0284c7' : c.mood === 'Struggling' ? '#dc2626' : '#d97706';
+      const moodColor = c.mood === 'Great' ? '#059669' : c.mood === 'Good' ? '#1a6b3c' : c.mood === 'Struggling' ? '#dc2626' : '#d97706';
       return '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:10px;margin-bottom:6px">' +
         '<div style="display:flex;justify-content:space-between;align-items:center">' +
           '<span style="font-weight:700;font-size:12px;color:#1e293b">' + c.sao + '</span>' +
@@ -8814,7 +8821,7 @@ function renderSAOCompliance() {
     const light = s.status==='Compliant'?'#059669':s.status==='At Risk'?'#d97706':'#dc2626';
     const highlight = s.status==='Non-Compliant' ? 'style="background:#fef2f2"' : '';
     return `<tr ${highlight}>
-      <td><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${light};margin-right:6px"></span><a style="color:#0284c7;cursor:pointer;font-weight:600" onclick="nav('sw-dashboard')">${s.name}</a></td>
+      <td><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${light};margin-right:6px"></span><a style="color:#1a6b3c;cursor:pointer;font-weight:600" onclick="nav('sw-dashboard')">${s.name}</a></td>
       <td>${s.team}</td>
       <td>${s.sus}</td>
       <td>${s.contacts}</td>
@@ -8841,18 +8848,18 @@ function renderInsightsCharts() {
   const weeks = ['W1','W2','W3','W4','W5','W6','W7','W8','W9','W10','W11','W12'];
   const contactData = [312,298,345,367,389,356,402,378,410,425,398,438];
 
-  drawLineChart(cCtx, weeks, contactData, '#0284c7', 'Contact Events');
+  drawLineChart(cCtx, weeks, contactData, '#1a6b3c', 'Contact Events');
 
   // QA pie chart
   const qCtx = document.getElementById('insights-qa-chart');
-  const qaDistrib = [{label:'Score 1',val:48,color:'#dc2626'},{label:'Score 2',val:124,color:'#d97706'},{label:'Score 3',val:287,color:'#0284c7'},{label:'Score 4',val:175,color:'#059669'}];
+  const qaDistrib = [{label:'Score 1',val:48,color:'#dc2626'},{label:'Score 2',val:124,color:'#d97706'},{label:'Score 3',val:287,color:'#1a6b3c'},{label:'Score 4',val:175,color:'#059669'}];
   drawPieChart(qCtx, qaDistrib);
 
   // Incidents bar chart
   const iCtx = document.getElementById('insights-incidents-chart');
   const incTypes = ['Self-Harm','Violence','Substance','ASB','Property','Abscond','Medical','Other'];
   const incVals = [12,8,18,6,4,3,7,5];
-  drawBarChart(iCtx, incTypes, incVals, ['#dc2626','#ef4444','#f59e0b','#d97706','#0284c7','#6366f1','#059669','#94a3b8']);
+  drawBarChart(iCtx, incTypes, incVals, ['#dc2626','#ef4444','#f59e0b','#d97706','#1a6b3c','#6366f1','#059669','#94a3b8']);
 
   // Occupancy line chart
   const oCtx = document.getElementById('insights-occupancy-chart');
@@ -9036,7 +9043,7 @@ function renderInsightsDemographics() {
     `).join('');
   }
 
-  renderBreakdown('insights-demo-age', ages, '#0284c7');
+  renderBreakdown('insights-demo-age', ages, '#1a6b3c');
   renderBreakdown('insights-demo-gender', genders, '#7c3aed');
   renderBreakdown('insights-demo-area', areas, '#059669');
 }
