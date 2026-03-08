@@ -326,10 +326,14 @@ footer { text-align: center; padding: 20px 20px 16px; color: #64748b; font-size:
   .stats-row { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .checkbox-grid { grid-template-columns: 1fr; }
 
-  /* Tables: horizontal scroll */
-  .card { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  table { font-size: 11px; min-width: 500px; }
+  /* Tables: horizontal scroll with scroll hint */
+  .card { overflow-x: auto; -webkit-overflow-scrolling: touch; position: relative; }
+  .card:has(table)::after { content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 24px; background: linear-gradient(to right, transparent, rgba(255,255,255,.85)); pointer-events: none; z-index: 1; }
+  table { font-size: 11px; min-width: 600px; }
   th, td { padding: 6px 6px; white-space: nowrap; }
+  .si:has(table) { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  div[style*="overflow-x"]:has(table) { -webkit-overflow-scrolling: touch; position: relative; }
+  div[style*="overflow-x"]:has(table)::after { content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 24px; background: linear-gradient(to right, transparent, rgba(255,255,255,.85)); pointer-events: none; z-index: 1; }
 
   /* Charts: horizontal scroll */
   .bar-chart, .sw-chart-bar, .sparkline, .sup-contact-chart { overflow-x: auto; -webkit-overflow-scrolling: touch; min-width: 0; }
