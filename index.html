@@ -1087,7 +1087,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="card">
       <h3><span class="pulse"></span> Recent AI QA Activity</h3>
       <div class="si" id="dash-qa-table"></div>
-      <div class="note"><strong>AI QA:</strong> SAO must confirm "this is an accurate factual depiction" before AI reframe is accepted.</div>
+      <div class="note"><strong>AI QA:</strong> Support staff must confirm "this is an accurate factual depiction" before AI reframe is accepted.</div>
     </div>
     <div class="card">
       <h3>Recent Activity</h3>
@@ -1102,10 +1102,10 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <h3>Notifications <span class="ct">(7 unread)</span></h3>
     <div class="tl" onclick="nav('sw-dashboard');showToast('Safe & Well: SU-0334 — Day 3 escalation')"><div class="dot" style="background:#dc2626"></div><div><div class="tt">URGENT: SU-0334 Safe & Well — Day 3, no contact since 12 Feb</div><div class="mt">Auto-escalated to SSM. Immediate action required. — 1 hour ago</div></div></div>
     <div class="tl" onclick="nav('incidents');showToast('Viewing INC-446')"><div class="dot" style="background:#dc2626"></div><div><div class="tt">INC-446 escalated to HIGH — Licence breach at 24 Ecclesall Rd</div><div class="mt">D. Sharpe assigned. Compliance team notified. — 2 hours ago</div></div></div>
-    <div class="tl" onclick="nav('support-docs');showToast('Showing overdue support plans')"><div class="dot" style="background:#d97706"></div><div><div class="tt">2 support plans OVERDUE for renewal (SU-0091, SU-0145)</div><div class="mt">Expired 28 Feb. SAOs notified. — 3 hours ago</div></div></div>
+    <div class="tl" onclick="nav('support-docs');showToast('Showing overdue support plans')"><div class="dot" style="background:#d97706"></div><div><div class="tt">2 support plans OVERDUE for renewal (SU-0091, SU-0145)</div><div class="mt">Expired 28 Feb. Support staff notified. — 3 hours ago</div></div></div>
     <div class="tl" onclick="nav('policies');showToast('Viewing Abandonment Policy')"><div class="dot" style="background:#d97706"></div><div><div class="tt">Abandonment Policy v3.1 — 11% staff not acknowledged</div><div class="mt">3 staff have not opened the policy email. — 5 hours ago</div></div></div>
     <div class="tl" onclick="nav('incidents');showToast('Viewing PIR-003')"><div class="dot" style="background:#1a6b3c"></div><div><div class="tt">PIR-003 update: 2 of 3 actions completed</div><div class="mt">Remaining action: update safeguarding training module. Due 15 Mar. — 6 hours ago</div></div></div>
-    <div class="tl" onclick="nav('cn-hub');showToast('Opening Contact Notes QA report')"><div class="dot" style="background:#059669"></div><div><div class="tt">Weekly QA report ready for review — Sheffield</div><div class="mt">1,247 notes, 84% compliance. 3 SAOs flagged for coaching. — yesterday</div></div></div>
+    <div class="tl" onclick="nav('cn-hub');showToast('Opening Contact Notes QA report')"><div class="dot" style="background:#059669"></div><div><div class="tt">Weekly QA report ready for review — Sheffield</div><div class="mt">1,247 notes, 84% compliance. 3 staff flagged for coaching. — yesterday</div></div></div>
     <div class="tl" onclick="nav('dashboard');showToast('Trainee: F. Hassan — onboarding in progress')"><div class="dot" style="background:#059669"></div><div><div class="tt">New trainee F. Hassan completed onboarding module 1</div><div class="mt">Progress: 40%. Mentor: P. Okonkwo. — yesterday</div></div></div>
   </div>
 </div>
@@ -1121,7 +1121,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   <div class="card">
     <h3>Service User Register</h3>
     <div class="si">
-      <table><thead><tr><th>ID</th><th>Name</th><th>Location</th><th>SAO</th><th>Team Leader</th><th>Support Plan</th><th>Last Note</th><th>Status</th></tr></thead><tbody>
+      <table><thead><tr><th>ID</th><th>Name</th><th>Location</th><th>Support Staff</th><th>Team Leader</th><th>Support Plan</th><th>Last Note</th><th>Status</th></tr></thead><tbody>
         <tr><td>SU-0001</td><td><span class="su-link" onclick="openSUByName('A. Rahman')">A. Rahman</span></td><td>Unit 3, Abbeydale</td><td>J. Peters</td><td>T. Richardson</td><td><span class="b gn">Current</span></td><td>28 Feb</td><td><span class="b gn">Active</span></td></tr>
         <tr><td>SU-0012</td><td><span class="su-link" onclick="openSUByName('B. Kowalski')">B. Kowalski</span></td><td>17 Netherthorpe</td><td>M. Khan</td><td>L. Hussain</td><td><span class="b am">Expiring</span></td><td>27 Feb</td><td><span class="b gn">Active</span></td></tr>
         <tr><td>SU-0044</td><td><span class="su-link" onclick="openSUByName('C. Dlamini')">C. Dlamini</span></td><td>Flat 9, Burngreave</td><td>D. Sharpe</td><td>C. Barnes</td><td><span class="b gn">Current</span></td><td>27 Feb</td><td><span class="b am">Monitoring</span></td></tr>
@@ -1261,7 +1261,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
         <option value="Under Review">Under Review</option>
       </select>
       <select id="sp-filter-sao" onchange="renderSPList()">
-        <option value="">All SAOs</option>
+        <option value="">All Support Staff</option>
         <option value="A. Ahmed">A. Ahmed</option>
         <option value="C. Vincent">C. Vincent</option>
         <option value="J. Vinten">J. Vinten</option>
@@ -1281,7 +1281,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       <h3>Support Plans <span class="ct" id="sp-list-count">(8)</span></h3>
       <div class="si" style="max-height:none">
         <table>
-          <thead><tr><th>SU Name</th><th>SU ID</th><th>SAO</th><th>Plan Start</th><th>Review Due</th><th>Days Until</th><th>Status</th><th>Verified</th></tr></thead>
+          <thead><tr><th>SU Name</th><th>SU ID</th><th>Support Staff</th><th>Plan Start</th><th>Review Due</th><th>Days Until</th><th>Status</th><th>Verified</th></tr></thead>
           <tbody id="sp-list-body"></tbody>
         </table>
       </div>
@@ -1345,7 +1345,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       <h3>Support Plans <span class="ct" id="sd-sp-count">(8)</span></h3>
       <div class="si" style="max-height:none">
         <table>
-          <thead><tr><th>SU Name</th><th>SU ID</th><th>SAO</th><th>Plan Start</th><th>Review Due</th><th>Status</th><th>QA Status</th><th>Actions</th></tr></thead>
+          <thead><tr><th>SU Name</th><th>SU ID</th><th>Support Staff</th><th>Plan Start</th><th>Review Due</th><th>Status</th><th>QA Status</th><th>Actions</th></tr></thead>
           <tbody id="sd-sp-body"></tbody>
         </table>
       </div>
@@ -1412,7 +1412,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       <tr><td><span class="su-link" onclick="openSUByName('SU-0603')">SU-0603</span></td><td>24 Burngreave Rise</td><td style="color:#d97706">17 Feb</td><td>11 days</td><td><span class="b bl">Day 1</span></td><td>Initial call made</td><td>A. Begum</td><td>Pending</td></tr>
     </tbody></table>
     <div class="info-box" style="margin-top:14px">
-      <strong>Protocol:</strong> Triggered when no contact for 14 days. Day 1: phone call. Day 2: escalate to team leader, attempt visit. Day 3: SSM escalated, compliance team notified, consider welfare check with police. Auto-notifications at each stage. If SAO is off, team leader picks it up via dashboard.
+      <strong>Protocol:</strong> Triggered when no contact for 14 days. Day 1: phone call. Day 2: escalate to team leader, attempt visit. Day 3: SSM escalated, compliance team notified, consider welfare check with police. Auto-notifications at each stage. If support staff is off, team leader picks it up via dashboard.
     </div>
   </div>
 </div>
@@ -1647,8 +1647,8 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       </div>
     </div>
     <div class="card">
-      <h3>SAO Performance Ranking</h3>
-      <table><thead><tr><th>SAO</th><th>Notes</th><th>Avg Score</th><th>Trend</th></tr></thead><tbody>
+      <h3>Support Staff Performance Ranking</h3>
+      <table><thead><tr><th>Support Staff</th><th>Notes</th><th>Avg Score</th><th>Trend</th></tr></thead><tbody>
         <tr><td>T. Moore</td><td>312</td><td><span class="b gn">91%</span></td><td class="green">&#9650; +3%</td></tr>
         <tr><td>J. Peters</td><td>287</td><td><span class="b gn">88%</span></td><td class="green">&#9650; +1%</td></tr>
         <tr><td>K. Patel</td><td>245</td><td><span class="b gn">85%</span></td><td style="color:#64748b">&#9644; 0%</td></tr>
@@ -2023,7 +2023,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
             <div style="font-size:10px;color:#64748b">17 Netherthorpe Road, Room 6</div>
           </div>
         </div>
-        <div style="margin-top:10px;font-size:11px;color:#64748b">Assigned SAO: <strong style="color:#1e293b">K. Okonkwo</strong></div>
+        <div style="margin-top:10px;font-size:11px;color:#64748b">Assigned Support Staff: <strong style="color:#1e293b">K. Okonkwo</strong></div>
         <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px">
           <span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:4px 10px;background:#dcfce7;border-radius:12px;color:#166534">&#10003; Referral</span>
           <span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:4px 10px;background:#dcfce7;border-radius:12px;color:#166534">&#10003; ID Check</span>
@@ -2047,7 +2047,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
             <div style="font-size:10px;color:#64748b">8 Wellgate, Unit 2, Rotherham</div>
           </div>
         </div>
-        <div style="margin-top:10px;font-size:11px;color:#64748b">Assigned SAO: <strong style="color:#1e293b">R. Begum</strong></div>
+        <div style="margin-top:10px;font-size:11px;color:#64748b">Assigned Support Staff: <strong style="color:#1e293b">R. Begum</strong></div>
         <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px">
           <span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:4px 10px;background:#dcfce7;border-radius:12px;color:#166534">&#10003; Referral</span>
           <span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:4px 10px;background:#dcfce7;border-radius:12px;color:#166534">&#10003; ID Check</span>
@@ -2144,13 +2144,13 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   <div class="stats-row">
     <div class="sc"><div class="lb">Total Staff</div><div class="val blue">~20</div></div>
     <div class="sc"><div class="lb">Team Leaders</div><div class="val" style="color:#1e293b">4</div></div>
-    <div class="sc"><div class="lb">SAOs</div><div class="val" style="color:#1e293b">18</div></div>
+    <div class="sc"><div class="lb">Support Staff</div><div class="val" style="color:#1e293b">18</div></div>
     <div class="sc"><div class="lb">Trainees</div><div class="val purple">2</div></div>
     <div class="sc"><div class="lb">Target Caseload</div><div class="val green">8-12</div><div class="d">Reduced from 30</div></div>
   </div>
   <div class="card">
     <h3>Team Structure & Caseloads</h3>
-    <table><thead><tr><th>Team Leader</th><th>SAOs</th><th>Avg Caseload</th><th>Total SUs</th><th>Status</th></tr></thead><tbody>
+    <table><thead><tr><th>Team Leader</th><th>Support Staff</th><th>Avg Caseload</th><th>Total SUs</th><th>Status</th></tr></thead><tbody>
       <tr><td><strong>T. Richardson</strong></td><td>5</td><td><strong style="color:#059669">9.2</strong></td><td>46</td><td><span class="b gn">Healthy</span></td></tr>
       <tr><td><strong>P. Okonkwo</strong></td><td>4</td><td><strong style="color:#059669">10.5</strong></td><td>42</td><td><span class="b gn">Healthy</span></td></tr>
       <tr><td><strong>L. Hussain</strong></td><td>6</td><td><strong style="color:#d97706">12.8</strong></td><td>77</td><td><span class="b am">Stretched</span></td></tr>
@@ -2167,7 +2167,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   <div class="card">
     <h3>Role-Based Access Control</h3>
     <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
-      <div class="role-card"><div class="ri">&#9823;</div><div class="rn">SAO</div><div class="rd2">Own caseload only<br>Contact notes<br>Support plans</div></div>
+      <div class="role-card"><div class="ri">&#9823;</div><div class="rn">Support Staff</div><div class="rd2">Own caseload only<br>Contact notes<br>Support plans</div></div>
       <div class="role-card"><div class="ri">&#9819;</div><div class="rn">Team Leader</div><div class="rd2">Team dashboard<br>Safe & Well pickup<br>Escalation view</div></div>
       <div class="role-card"><div class="ri">&#9818;</div><div class="rn">SSM</div><div class="rd2">Department view<br>Allocation<br>Incident mgmt</div></div>
       <div class="role-card"><div class="ri">&#9813;</div><div class="rn" style="color:#1a6b3c">Compliance</div><div class="rd2">Full system access<br>All dashboards<br>QA reports</div></div>
@@ -2245,7 +2245,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     </div>
     <div style="display:flex;justify-content:space-between;font-size:9px;color:#94a3b8;margin-top:4px"><span>12 weeks ago</span><span>This week</span></div>
     <h3 style="margin-top:18px">Flagged for Coaching</h3>
-    <table><thead><tr><th>SAO</th><th>Notes</th><th>Avg Score</th><th>Issue</th><th>Recommended Action</th></tr></thead><tbody>
+    <table><thead><tr><th>Support Staff</th><th>Notes</th><th>Avg Score</th><th>Issue</th><th>Recommended Action</th></tr></thead><tbody>
       <tr><td>S. Williams</td><td>38</td><td><span class="b rd">58%</span></td><td>Incomplete assessments, vague language</td><td>1:1 coaching session with TL</td></tr>
       <tr><td>D. Sharpe</td><td>31</td><td><span class="b rd">52%</span></td><td>Missing outcome data, non-person-centred</td><td>Refresher training + shadow session</td></tr>
       <tr><td>M. Khan</td><td>42</td><td><span class="b am">71%</span></td><td>Declining trend, missing follow-ups</td><td>Team leader check-in</td></tr>
@@ -2268,7 +2268,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
         </ul>
         <strong>2. Support Plans</strong>
         <ul style="margin:6px 0 12px 20px;color:#475569">
-          <li>30 expiring in next 14 days — SAOs notified</li>
+          <li>30 expiring in next 14 days — Support staff notified</li>
           <li>8-week guide feature working well — 48 generated this month</li>
           <li>Action: L. Hussain's team has most overdue — priority review needed</li>
         </ul>
@@ -2340,7 +2340,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       <table>
         <thead>
           <tr>
-            <th>SAO</th>
+            <th>Support Staff</th>
             <th>Status</th>
             <th>QA'd Events</th>
             <th>Total SUs</th>
@@ -2781,12 +2781,12 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
 <div class="page" id="p-eight-week">
   <div class="card">
     <h3><span class="pulse"></span> 8-Week Guide Generator — AI-Powered Gap Analysis</h3>
-    <div class="info-box" style="margin-bottom:14px">AI reviews the last 8 weeks of QA'd contact notes against the service user's support plan. It identifies gaps in support delivery and creates a personalised guide for the SAO.</div>
+    <div class="info-box" style="margin-bottom:14px">AI reviews the last 8 weeks of QA'd contact notes against the service user's support plan. It identifies gaps in support delivery and creates a personalised guide for the support staff.</div>
   </div>
   <div class="g2">
     <div class="card">
       <h3>Example: SU-0203 — <span class="su-link" onclick="openSUByName('I. Yilmaz')">I. Yilmaz</span></h3>
-      <div style="font-size:11px;color:#475569;margin-bottom:12px">SAO: A. Begum | 8 weeks analysed: 03 Jan — 28 Feb 2026 | Notes reviewed: 14</div>
+      <div style="font-size:11px;color:#475569;margin-bottom:12px">Support Staff: A. Begum | 8 weeks analysed: 03 Jan — 28 Feb 2026 | Notes reviewed: 14</div>
       <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Support Plan Goals vs Delivery</div>
       <table><thead><tr><th>Goal</th><th>Notes Referencing</th><th>Coverage</th><th>Gap</th></tr></thead><tbody>
         <tr><td>Mental health stability</td><td>9 of 14</td><td><span class="b gn">64%</span></td><td>None</td></tr>
@@ -2797,7 +2797,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       </tbody></table>
     </div>
     <div class="card">
-      <h3>AI-Generated Guide for SAO</h3>
+      <h3>AI-Generated Guide for Support Staff</h3>
       <div style="font-size:12px;color:#334155;line-height:1.7">
         <div style="padding:10px;background:#fef2f2;border:1px solid #fecaca;border-radius:6px;margin-bottom:10px">
           <strong style="color:#dc2626">Priority 1: Social engagement (7% coverage)</strong><br>
@@ -2816,7 +2816,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
           Recent notes show less focus on financial goals. HB status is currently in payment but needs monitoring. Recommendation: schedule a budgeting review session within 2 weeks.
         </div>
       </div>
-      <div class="note">Guide generated automatically. SAO and team leader should review and incorporate into next key session. Guide does not replace professional judgement.</div>
+      <div class="note">Guide generated automatically. Support staff and team leader should review and incorporate into next key session. Guide does not replace professional judgement.</div>
     </div>
   </div>
 </div>
@@ -2838,7 +2838,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       </div>
       <div style="flex:1;text-align:center;padding:12px;background:#dcfce7;border:1px solid #86efac;border-left:none">
         <div style="font-size:18px">&#9823;</div>
-        <div style="font-size:10px;font-weight:700;color:#166534;margin-top:4px">3. Assign SAO</div>
+        <div style="font-size:10px;font-weight:700;color:#166534;margin-top:4px">3. Assign Support Staff</div>
         <div style="font-size:9px;color:#145a30;margin-top:2px">Based on caseload</div>
       </div>
       <div style="flex:1;text-align:center;padding:12px;background:#dcfce7;border:1px solid #86efac;border-left:none">
@@ -2869,8 +2869,8 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   </div>
   <div class="card">
     <h3>Temporary Reassignment (GDPR)</h3>
-    <div class="info-box">When an SAO is on leave, their caseload can be temporarily reassigned to another SAO. Access is GDPR-compliant — the covering SAO only sees the active caseload, not historical data. Access auto-expires when the original SAO returns.</div>
-    <table style="margin-top:12px"><thead><tr><th>SAO on Leave</th><th>Covering SAO</th><th>SUs Reassigned</th><th>Start</th><th>End</th><th>Status</th></tr></thead><tbody>
+    <div class="info-box">When a support staff member is on leave, their caseload can be temporarily reassigned to another support staff member. Access is GDPR-compliant — the covering staff member only sees the active caseload, not historical data. Access auto-expires when the original staff member returns.</div>
+    <table style="margin-top:12px"><thead><tr><th>Staff on Leave</th><th>Covering Staff</th><th>SUs Reassigned</th><th>Start</th><th>End</th><th>Status</th></tr></thead><tbody>
       <tr><td>R. Osei</td><td>K. Patel</td><td>8</td><td>01 Mar</td><td>08 Mar</td><td><span class="b bl">Scheduled</span></td></tr>
     </tbody></table>
   </div>
@@ -2887,7 +2887,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   <div class="card">
     <h3>Eviction Risk Assessment</h3>
     <div class="si">
-      <table><thead><tr><th>SU</th><th>Property</th><th>SAO</th><th>Risk Level</th><th>Factors</th><th>HB</th><th>Last Incident</th><th>Action</th></tr></thead><tbody>
+      <table><thead><tr><th>SU</th><th>Property</th><th>Support Staff</th><th>Risk Level</th><th>Factors</th><th>HB</th><th>Last Incident</th><th>Action</th></tr></thead><tbody>
         <tr style="background:#fef2f2"><td><span class="su-link" onclick="openSUByName('E. Abdullahi')"><strong>SU-0446</strong></span></td><td>24 Ecclesall Rd</td><td>D. Sharpe</td><td><span class="b rd">High</span></td><td>Licence breach, ASB, non-engagement</td><td><span class="b rd">Not in payment</span></td><td>INC-446 (5 days ago)</td><td>Eviction panel</td></tr>
         <tr style="background:#fef2f2"><td><span class="su-link" onclick="openSUByName('L. Barton')"><strong>SU-0334</strong></span></td><td>Flat 2, Netherthorpe</td><td>D. Sharpe</td><td><span class="b rd">High</span></td><td>Abandonment risk, no contact 16 days</td><td><span class="b am">In payment</span></td><td>Safe & Well Day 3</td><td>Welfare check</td></tr>
         <tr style="background:#fef2f2"><td><span class="su-link" onclick="openSUByName('SU-0511')"><strong>SU-0511</strong></span></td><td>Unit 5, Burngreave</td><td>J. Peters</td><td><span class="b rd">High</span></td><td>Non-engagement, missed appointments</td><td><span class="b rd">Not in payment</span></td><td>Safe & Well Day 2</td><td>Escalated to SSM</td></tr>
@@ -2913,7 +2913,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="card">
       <h3>Mental Health Specialist Caseload</h3>
       <div class="si">
-        <table><thead><tr><th>SU</th><th>SAO</th><th>Diagnosis</th><th>Crisis Plan</th><th>Last MH Note</th><th>Risk</th></tr></thead><tbody>
+        <table><thead><tr><th>SU</th><th>Support Staff</th><th>Diagnosis</th><th>Crisis Plan</th><th>Last MH Note</th><th>Risk</th></tr></thead><tbody>
           <tr><td>SU-0044</td><td>D. Sharpe</td><td>Depression, self-harm</td><td><span class="b gn">Active</span></td><td>27 Feb</td><td><span class="b rd">High</span></td></tr>
           <tr><td>SU-0203</td><td>A. Begum</td><td>Anxiety, PTSD</td><td><span class="b gn">Active</span></td><td>26 Feb</td><td><span class="b am">Medium</span></td></tr>
           <tr><td>SU-0389</td><td>A. Begum</td><td>Bipolar</td><td><span class="b gn">Active</span></td><td>27 Feb</td><td><span class="b am">Medium</span></td></tr>
@@ -2933,7 +2933,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
         <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Safeguarding referrals on time</span><strong class="green">100%</strong></div>
         <div style="display:flex;justify-content:space-between"><span>CMHT liaison documented</span><strong class="amber">85%</strong></div>
       </div>
-      <div class="note">Mental health team consistently outperforms general caseload. Specialist training and lower caseload (avg 10.5 per SAO) are key factors.</div>
+      <div class="note">Mental health team consistently outperforms general caseload. Specialist training and lower caseload (avg 10.5 per support staff) are key factors.</div>
     </div>
   </div>
 </div>
@@ -2955,7 +2955,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
         <div style="font-size:11px;color:#64748b;margin-bottom:14px">Select an example note or type your own to see how the AI QA system works.</div>
 
         <div style="margin-bottom:12px">
-          <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">SAO</div>
+          <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Support Staff</div>
           <select id="qa-sao" style="width:100%;padding:8px 10px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px;background:#f8fafc;color:#334155">
             <option>J. Peters</option><option>M. Khan</option><option>S. Williams</option><option>D. Sharpe</option><option>A. Begum</option><option>R. Osei</option>
           </select>
@@ -3020,7 +3020,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
           </div>
 
           <div id="qa-verify-section" style="display:none;padding:12px;background:#fef3c7;border:1px solid #fde68a;border-radius:6px;margin-bottom:14px">
-            <div style="font-size:11px;font-weight:700;color:#92400e;margin-bottom:8px">SAO Verification Required</div>
+            <div style="font-size:11px;font-weight:700;color:#92400e;margin-bottom:8px">Support Staff Verification Required</div>
             <div style="font-size:11px;color:#92400e;margin-bottom:10px">"Is this an accurate factual depiction of the contact?"</div>
             <div style="display:flex;gap:8px">
               <button onclick="verifyNote(true)" style="flex:1;padding:8px;background:#059669;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer">Yes — Accept Reframe</button>
@@ -3037,7 +3037,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
         <div style="font-size:11px;color:#475569;line-height:1.7">
           <div style="display:flex;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #f1f5f9">
             <div style="width:24px;height:24px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#1a6b3c;flex-shrink:0">1</div>
-            <div><strong>SAO writes note</strong> using structured form (not free text). Sections for contact type, observations, outcomes, next steps.</div>
+            <div><strong>Support staff writes note</strong> using structured form (not free text). Sections for contact type, observations, outcomes, next steps.</div>
           </div>
           <div style="display:flex;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #f1f5f9">
             <div style="width:24px;height:24px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#1a6b3c;flex-shrink:0">2</div>
@@ -3049,7 +3049,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
           </div>
           <div style="display:flex;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #f1f5f9">
             <div style="width:24px;height:24px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#1a6b3c;flex-shrink:0">4</div>
-            <div><strong>SAO verifies:</strong> "This is an accurate factual depiction." AI never overwrites without human consent.</div>
+            <div><strong>Support staff verifies:</strong> "This is an accurate factual depiction." AI never overwrites without human consent.</div>
           </div>
           <div style="display:flex;gap:10px">
             <div style="width:24px;height:24px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#1a6b3c;flex-shrink:0">5</div>
@@ -3079,7 +3079,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       <option value="1">Arouba Khan — Support & Advice Officer</option>
       <option value="2">Jack Vinten — Support & Advice Officer</option>
     </select>
-    <span id="sw-role-badge" class="sw-role-badge sw-role-sao">SAO</span>
+    <span id="sw-role-badge" class="sw-role-badge sw-role-sao">Support Staff</span>
   </div>
 
   <!-- Header -->
@@ -3335,7 +3335,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
               </div>
             </div>
             <div class="form-group">
-              <label class="form-label">SAO Opt-in to AI QA</label>
+              <label class="form-label">Support Staff Opt-in to AI QA</label>
               <div class="toggle-row">
                 <label class="toggle-switch"><input type="checkbox" id="cnh-ai-optin" checked><span class="toggle-slider"></span></label>
                 <span style="font-size:11px;color:#475569">Enable Beacon AI review after submission</span>
@@ -3366,7 +3366,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       <h3>Recent Contact Notes</h3>
       <p style="margin:0 0 10px;font-size:11px;color:#94a3b8">💡 Click on a staff name to view the full note. Click a service user name to access their profile.</p>
       <div class="cn-filter-bar">
-        <select id="cnh-filter-sao" onchange="renderCNHubList()"><option value="">All SAOs</option></select>
+        <select id="cnh-filter-sao" onchange="renderCNHubList()"><option value="">All Support Staff</option></select>
         <select id="cnh-filter-su" onchange="renderCNHubList()"><option value="">All Service Users</option></select>
         <select id="cnh-filter-qa" onchange="renderCNHubList()">
           <option value="">All QA Scores</option>
@@ -3380,7 +3380,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       </div>
       <div class="si" style="max-height:600px">
         <table>
-          <thead><tr><th>Date</th><th>SU Name</th><th>SAO</th><th>Type</th><th>Duration</th><th>QA Score</th><th>Verified</th><th>Actions</th></tr></thead>
+          <thead><tr><th>Date</th><th>SU Name</th><th>Support Staff</th><th>Type</th><th>Duration</th><th>QA Score</th><th>Verified</th><th>Actions</th></tr></thead>
           <tbody id="cnh-notes-tbody"></tbody>
         </table>
       </div>
@@ -3421,7 +3421,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
         <div id="cnh-score-dist" style="padding:10px 0"></div>
       </div>
       <div class="card">
-        <h3>Notes by SAO This Week</h3>
+        <h3>Notes by Staff This Week</h3>
         <div id="cnh-sao-breakdown" style="padding:10px 0"></div>
       </div>
     </div>
@@ -3447,7 +3447,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="g2">
       <div>
         <div class="card">
-          <h3>My Team — SAO Overview</h3>
+          <h3>My Team — Support Staff Overview</h3>
           <div id="tl-team-table"></div>
         </div>
         <div class="card">
@@ -3561,7 +3561,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
 <div class="page" id="p-sao-compliance">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px">
     <div>
-      <div style="font-size:16px;font-weight:800;color:#1e293b">SAO Compliance Overview</div>
+      <div style="font-size:16px;font-weight:800;color:#1e293b">Support Staff Compliance Overview</div>
       <div style="font-size:11px;color:#64748b;margin-top:2px">Management view of all Support & Advice Officers</div>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
@@ -3577,17 +3577,17 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
         <option value="At Risk">At Risk</option>
         <option value="Non-Compliant">Non-Compliant</option>
       </select>
-      <button onclick="showToast('SAO Compliance report exported')" style="padding:6px 14px;border-radius:6px;border:1px solid #e2e8f0;background:#fff;font-size:11px;font-weight:700;color:#475569;cursor:pointer">Export CSV</button>
+      <button onclick="showToast('Support Staff Compliance report exported')" style="padding:6px 14px;border-radius:6px;border:1px solid #e2e8f0;background:#fff;font-size:11px;font-weight:700;color:#475569;cursor:pointer">Export CSV</button>
     </div>
   </div>
   <div class="stats-row" id="sao-stats-row"></div>
   <div class="card">
-    <h3>SAO Compliance Table</h3>
+    <h3>Support Staff Compliance Table</h3>
     <div style="overflow-x:auto">
       <table id="sao-compliance-table">
         <thead>
           <tr>
-            <th>SAO Name</th>
+            <th>Staff Name</th>
             <th>Team</th>
             <th>Active SUs</th>
             <th>Contacts This Week</th>
@@ -3613,6 +3613,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="stat-card"><div class="stat-value" style="color:#1a6b3c">94%</div><div class="stat-label">Supervisions Up-to-Date</div></div>
     <div class="stat-card"><div class="stat-value" style="color:#f59e0b">3</div><div class="stat-label">Training Overdue</div></div>
     <div class="stat-card"><div class="stat-value" style="color:#ef4444">2</div><div class="stat-label">Performance Reviews Due</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:#d97706">1</div><div class="stat-label">On Performance Management</div></div>
   </div>
   <div class="card">
     <h3>Staff Overview</h3>
@@ -3622,12 +3623,12 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
           <tr><th>Staff Member</th><th>Role</th><th>Team</th><th>Caseload</th><th>QA Avg</th><th>Last Supervision</th><th>Training</th><th>Status</th></tr>
         </thead>
         <tbody>
-          <tr><td style="font-weight:700">Sarah Mitchell</td><td>SAO</td><td>Team Alpha</td><td>12</td><td>87%</td><td>28 Feb 2026</td><td><span class="b gn">Current</span></td><td><span class="b gn">Compliant</span></td></tr>
-          <tr><td style="font-weight:700">James Okonkwo</td><td>SAO</td><td>Team Alpha</td><td>14</td><td>72%</td><td>14 Feb 2026</td><td><span class="b ye">1 Overdue</span></td><td><span class="b ye">At Risk</span></td></tr>
-          <tr><td style="font-weight:700">Priya Sharma</td><td>SAO</td><td>Team Bravo</td><td>11</td><td>91%</td><td>03 Mar 2026</td><td><span class="b gn">Current</span></td><td><span class="b gn">Compliant</span></td></tr>
-          <tr><td style="font-weight:700">David Chen</td><td>SAO</td><td>Team Bravo</td><td>15</td><td>65%</td><td>10 Jan 2026</td><td><span class="b rd">2 Overdue</span></td><td><span class="b rd">Non-Compliant</span></td></tr>
+          <tr><td style="font-weight:700">Sarah Mitchell</td><td>Support Staff</td><td>Team Alpha</td><td>12</td><td>87%</td><td>28 Feb 2026</td><td><span class="b gn">Current</span></td><td><span class="b gn">Compliant</span></td></tr>
+          <tr><td style="font-weight:700">James Okonkwo</td><td>Support Staff</td><td>Team Alpha</td><td>14</td><td>72%</td><td>14 Feb 2026</td><td><span class="b ye">1 Overdue</span></td><td><span class="b ye">At Risk</span></td></tr>
+          <tr><td style="font-weight:700">Priya Sharma</td><td>Support Staff</td><td>Team Bravo</td><td>11</td><td>91%</td><td>03 Mar 2026</td><td><span class="b gn">Current</span></td><td><span class="b gn">Compliant</span></td></tr>
+          <tr><td style="font-weight:700">David Chen</td><td>Support Staff</td><td>Team Bravo</td><td>15</td><td>65%</td><td>10 Jan 2026</td><td><span class="b rd">2 Overdue</span></td><td><span class="b rd">Non-Compliant</span></td></tr>
           <tr><td style="font-weight:700">Rachel Adams</td><td>Team Leader</td><td>Team Charlie</td><td>—</td><td>—</td><td>21 Feb 2026</td><td><span class="b gn">Current</span></td><td><span class="b gn">Compliant</span></td></tr>
-          <tr><td style="font-weight:700">Tom Nguyen</td><td>SAO</td><td>Team Charlie</td><td>13</td><td>78%</td><td>25 Feb 2026</td><td><span class="b gn">Current</span></td><td><span class="b gn">Compliant</span></td></tr>
+          <tr><td style="font-weight:700">Tom Nguyen</td><td>Support Staff</td><td>Team Charlie</td><td>13</td><td>78%</td><td>25 Feb 2026</td><td><span class="b gn">Current</span></td><td><span class="b gn">Compliant</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -3683,7 +3684,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="sc"><div class="lb">Avg QA Score</div><div class="val green">3.2</div><div class="d">Out of 4.0</div></div>
     <div class="sc"><div class="lb">Incidents This Month</div><div class="val amber">23</div><div class="d red">+4 vs last month</div></div>
     <div class="sc"><div class="lb">Void Rate</div><div class="val amber">6.2%</div><div class="d">Target &lt;5%</div></div>
-    <div class="sc"><div class="lb">Staff Count</div><div class="val blue">47</div><div class="d">38 SAOs, 6 TLs, 3 Mgmt</div></div>
+    <div class="sc"><div class="lb">Staff Count</div><div class="val blue">47</div><div class="d">38 Support Staff, 6 TLs, 3 Mgmt</div></div>
   </div>
 
   <div class="g2">
@@ -3772,7 +3773,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     </div>
     <div class="si" style="max-height:none">
       <table>
-        <thead><tr><th>SU Name</th><th>SU ID</th><th>Document Type</th><th>Status</th><th>Upload Date</th><th>Expiry Date</th><th>SAO</th></tr></thead>
+        <thead><tr><th>SU Name</th><th>SU ID</th><th>Document Type</th><th>Status</th><th>Upload Date</th><th>Expiry Date</th><th>Support Staff</th></tr></thead>
         <tbody id="doc-table-body"></tbody>
       </table>
     </div>
@@ -3793,7 +3794,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
           <tr><td style="font-weight:700">Admin</td><td><span class="b gn">Full</span></td><td><span class="b gn">Full</span></td><td><span class="b gn">Full</span></td><td><span class="b gn">Full</span></td><td><span class="b gn">Full</span></td><td><span class="b gn">Full</span></td><td><span class="b gn">Full</span></td><td><span class="b gn">Full</span></td></tr>
           <tr><td style="font-weight:700">Compliance</td><td><span class="b gn">Full</span></td><td><span class="b bl">View</span></td><td><span class="b gn">Full</span></td><td><span class="b gn">Full</span></td><td><span class="b bl">View</span></td><td><span class="b gn">Full</span></td><td><span class="b bl">View</span></td><td><span class="b gy">None</span></td></tr>
           <tr><td style="font-weight:700">Team Leader</td><td><span class="b gn">Full</span></td><td><span class="b gn">Full</span></td><td><span class="b gn">Full</span></td><td><span class="b gn">Full</span></td><td><span class="b gn">Full</span></td><td><span class="b bl">View</span></td><td><span class="b bl">Team Only</span></td><td><span class="b gy">None</span></td></tr>
-          <tr><td style="font-weight:700">SAO</td><td><span class="b bl">Own</span></td><td><span class="b bl">Caseload</span></td><td><span class="b gn">Create/Edit Own</span></td><td><span class="b gn">Create/View</span></td><td><span class="b gn">Edit Own SUs</span></td><td><span class="b gn">Upload Own SUs</span></td><td><span class="b gy">None</span></td><td><span class="b gy">None</span></td></tr>
+          <tr><td style="font-weight:700">Support Staff</td><td><span class="b bl">Own</span></td><td><span class="b bl">Caseload</span></td><td><span class="b gn">Create/Edit Own</span></td><td><span class="b gn">Create/View</span></td><td><span class="b gn">Edit Own SUs</span></td><td><span class="b gn">Upload Own SUs</span></td><td><span class="b gy">None</span></td><td><span class="b gy">None</span></td></tr>
           <tr><td style="font-weight:700">Housing</td><td><span class="b bl">View</span></td><td><span class="b bl">View</span></td><td><span class="b gy">None</span></td><td><span class="b gy">None</span></td><td><span class="b gy">None</span></td><td><span class="b bl">View</span></td><td><span class="b gy">None</span></td><td><span class="b gy">None</span></td></tr>
           <tr><td style="font-weight:700">Accounts</td><td><span class="b bl">HB Only</span></td><td><span class="b gy">None</span></td><td><span class="b gy">None</span></td><td><span class="b gy">None</span></td><td><span class="b gy">None</span></td><td><span class="b bl">HB Docs</span></td><td><span class="b gy">None</span></td><td><span class="b gy">None</span></td></tr>
         </tbody>
@@ -3810,9 +3811,9 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
         <tr><td style="font-weight:600">Ari Sherazi</td><td>ari@pillargovernance.co.uk</td><td><span class="b pu">Admin</span></td><td>Management</td><td><span class="b gn">Active</span></td><td>07 Mar 2026</td></tr>
         <tr><td style="font-weight:600">T. Richardson</td><td>t.richardson@pillargovernance.co.uk</td><td><span class="b bl">Compliance</span></td><td>Sheffield</td><td><span class="b gn">Active</span></td><td>06 Mar 2026</td></tr>
         <tr><td style="font-weight:600">Megan Thorne</td><td>m.thorne@pillargovernance.co.uk</td><td><span class="b am">Team Leader</span></td><td>Sheffield Central</td><td><span class="b gn">Active</span></td><td>07 Mar 2026</td></tr>
-        <tr><td style="font-weight:600">Arouba Khan</td><td>a.khan@pillargovernance.co.uk</td><td><span class="b gn">SAO</span></td><td>Sheffield Central</td><td><span class="b gn">Active</span></td><td>07 Mar 2026</td></tr>
-        <tr><td style="font-weight:600">Jack Vinten</td><td>j.vinten@pillargovernance.co.uk</td><td><span class="b gn">SAO</span></td><td>Sheffield South</td><td><span class="b gn">Active</span></td><td>06 Mar 2026</td></tr>
-        <tr><td style="font-weight:600">L. Hussain</td><td>l.hussain@pillargovernance.co.uk</td><td><span class="b gn">SAO</span></td><td>Sheffield</td><td><span class="b gn">Active</span></td><td>05 Mar 2026</td></tr>
+        <tr><td style="font-weight:600">Arouba Khan</td><td>a.khan@pillargovernance.co.uk</td><td><span class="b gn">Support Staff</span></td><td>Sheffield Central</td><td><span class="b gn">Active</span></td><td>07 Mar 2026</td></tr>
+        <tr><td style="font-weight:600">Jack Vinten</td><td>j.vinten@pillargovernance.co.uk</td><td><span class="b gn">Support Staff</span></td><td>Sheffield South</td><td><span class="b gn">Active</span></td><td>06 Mar 2026</td></tr>
+        <tr><td style="font-weight:600">L. Hussain</td><td>l.hussain@pillargovernance.co.uk</td><td><span class="b gn">Support Staff</span></td><td>Sheffield</td><td><span class="b gn">Active</span></td><td>05 Mar 2026</td></tr>
         <tr><td style="font-weight:600">P. Okonkwo</td><td>p.okonkwo@pillargovernance.co.uk</td><td><span class="b am">Team Leader</span></td><td>Sheffield</td><td><span class="b gn">Active</span></td><td>06 Mar 2026</td></tr>
         <tr><td style="font-weight:600">S. Patel</td><td>s.patel@pillargovernance.co.uk</td><td><span class="b gy">Housing</span></td><td>Operations</td><td><span class="b gn">Active</span></td><td>04 Mar 2026</td></tr>
         <tr><td style="font-weight:600">R. Ahmed</td><td>r.ahmed@pillargovernance.co.uk</td><td><span class="b gy">Accounts</span></td><td>Finance</td><td><span class="b gn">Active</span></td><td>03 Mar 2026</td></tr>
@@ -4274,12 +4275,12 @@ function verifyNote(accepted) {
     msg.style.background = '#f0fdf4';
     msg.style.border = '1px solid #bbf7d0';
     msg.style.color = '#166534';
-    msg.textContent = 'SAO confirmed: "This is an accurate factual depiction." Reframed note saved.';
+    msg.textContent = 'Support staff confirmed: "This is an accurate factual depiction." Reframed note saved.';
   } else {
     msg.style.background = '#fef3c7';
     msg.style.border = '1px solid #fde68a';
     msg.style.color = '#92400e';
-    msg.textContent = 'SAO rejected reframe. Original note kept. Feedback sent for review.';
+    msg.textContent = 'Support staff rejected reframe. Original note kept. Feedback sent for review.';
   }
 }
 
@@ -5075,7 +5076,7 @@ function loadSUProfile(key) {
         '<div><div class="sup-ml">Date of Birth</div><div class="sup-mv">'+s.dob+'</div></div>' +
         '<div><div class="sup-ml">Sign Up Date</div><div class="sup-mv">'+s.signUp+'</div></div>' +
         '<div><div class="sup-ml">Property</div><div class="sup-mv">'+s.address+'</div></div>' +
-        '<div><div class="sup-ml">Assigned SAO</div><div class="sup-mv">'+s.sao+'</div></div>' +
+        '<div><div class="sup-ml">Assigned Support Staff</div><div class="sup-mv">'+s.sao+'</div></div>' +
         '<div><div class="sup-ml">Benefits</div><div class="sup-mv">'+s.benefits+'</div></div>' +
         '<div><div class="sup-ml">Mental Health</div><div class="sup-mv">'+s.mh+'</div></div>' +
       '</div>' +
@@ -5720,7 +5721,7 @@ function showNoNote7DaysList() {
     '<h3 style="margin:0;color:#1e293b;font-size:16px">No Contact Note >7 Days <span style="background:#fef2f2;color:#dc2626;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700;margin-left:8px">'+flagged.length+' SUs</span></h3>' +
     '<span onclick="this.closest(\'div[style*=position\\:fixed]\').remove()" style="cursor:pointer;font-size:18px;color:#94a3b8">&times;</span></div>' +
     '<div style="font-size:10px;color:#64748b;margin-bottom:12px">Compliance flag — SUs with no contact note recorded in 7+ days. This is separate from Safe & Well safeguarding procedures.</div>' +
-    '<table style="width:100%;font-size:11px"><thead><tr><th style="text-align:left;padding:6px 8px;border-bottom:2px solid #e2e8f0">SU</th><th style="text-align:left;padding:6px 8px;border-bottom:2px solid #e2e8f0">ID</th><th style="text-align:left;padding:6px 8px;border-bottom:2px solid #e2e8f0">SAO</th><th style="text-align:left;padding:6px 8px;border-bottom:2px solid #e2e8f0">Days Since</th></tr></thead><tbody>';
+    '<table style="width:100%;font-size:11px"><thead><tr><th style="text-align:left;padding:6px 8px;border-bottom:2px solid #e2e8f0">SU</th><th style="text-align:left;padding:6px 8px;border-bottom:2px solid #e2e8f0">ID</th><th style="text-align:left;padding:6px 8px;border-bottom:2px solid #e2e8f0">Support Staff</th><th style="text-align:left;padding:6px 8px;border-bottom:2px solid #e2e8f0">Days Since</th></tr></thead><tbody>';
   flagged.forEach(function(f){
     html += '<tr><td style="padding:6px 8px;border-bottom:1px solid #f1f5f9"><span class="su-link" onclick="this.closest(\'div[style*=position\\:fixed]\').remove();openSUByName(\''+f.name.replace(/'/g,"\\'")+'\')">' + f.name + '</span></td>' +
       '<td style="padding:6px 8px;border-bottom:1px solid #f1f5f9">' + f.id + '</td>' +
@@ -5739,8 +5740,8 @@ const spData = [
     planStart:'2025-09-15', reviewDue:'2026-03-15', status:'Active', verified:true, verifiedBy:'T. Richardson',
     needs:['Housing','Mental Health','Benefits','Budgeting'],
     goals:[
-      {title:'Maintain rent payments consistently', actions:'Set up standing order, weekly budget review with SAO', rag:'g'},
-      {title:'Engage with GP for anxiety/depression', actions:'Attend monthly GP appointments, SAO to accompany initially', rag:'g'},
+      {title:'Maintain rent payments consistently', actions:'Set up standing order, weekly budget review with support staff', rag:'g'},
+      {title:'Engage with GP for anxiety/depression', actions:'Attend monthly GP appointments, Support staff to accompany initially', rag:'g'},
       {title:'Build independent living skills', actions:'Attend cooking workshop, maintain property cleanliness', rag:'a'}
     ],
     reviewNotes:'Good progress on financial stability. Rent paid consistently for 3 months. GP engagement improving. Cooking skills workshop started.',
@@ -5752,7 +5753,7 @@ const spData = [
     planStart:'2025-06-22', reviewDue:'2025-12-22', status:'Overdue', verified:false, verifiedBy:'',
     needs:['Housing','Employment','Benefits'],
     goals:[
-      {title:'Secure part-time employment', actions:'Job centre attendance, CV workshop, SAO to support applications', rag:'a'},
+      {title:'Secure part-time employment', actions:'Job centre attendance, CV workshop, Support staff to support applications', rag:'a'},
       {title:'Maintain tenancy compliance', actions:'Regular property inspections, licence agreement review', rag:'g'},
       {title:'Develop English language skills', actions:'ESOL classes twice weekly', rag:'a'}
     ],
@@ -5766,9 +5767,9 @@ const spData = [
     needs:['Mental Health','Substance Misuse','Bereavement','Housing'],
     goals:[
       {title:'Maintain sobriety — cannabis/cocaine', actions:'Weekly check-ins, substance misuse worker referral, relapse prevention plan', rag:'a'},
-      {title:'Engage with bereavement counselling', actions:'Referral to CRUSE, SAO to support attendance', rag:'r'},
+      {title:'Engage with bereavement counselling', actions:'Referral to CRUSE, Support staff to support attendance', rag:'r'},
       {title:'Stabilise mental health (PTSD)', actions:'GP engagement, MH team referral, crisis plan in place', rag:'a'},
-      {title:'Maintain property and tenancy', actions:'Fortnightly property checks, SAO support with bills', rag:'g'}
+      {title:'Maintain property and tenancy', actions:'Fortnightly property checks, Support staff support with bills', rag:'g'}
     ],
     reviewNotes:'Mixed progress. Sobriety maintained mostly but one relapse in January. Bereavement counselling not yet started — referral pending. PTSD managed with GP support.',
     previousReviews:['2025-09-08','2025-06-08','2025-03-08'],
@@ -5779,7 +5780,7 @@ const spData = [
     planStart:'2025-11-01', reviewDue:'2026-05-01', status:'Active', verified:true, verifiedBy:'L. Hussain',
     needs:['Housing','Benefits','Immigration','Education','Social/Community'],
     goals:[
-      {title:'Resolve immigration status', actions:'Immigration solicitor referral, SAO to support with paperwork, Home Office correspondence', rag:'a'},
+      {title:'Resolve immigration status', actions:'Immigration solicitor referral, Support staff to support with paperwork, Home Office correspondence', rag:'a'},
       {title:'Enrol in ESOL and attend regularly', actions:'College enrolment completed, twice-weekly attendance', rag:'g'},
       {title:'Build social connections to reduce isolation', actions:'Community group referrals, neighbour introductions, women\'s group', rag:'a'},
       {title:'Access emergency food and essentials (NRPF)', actions:'Food bank referral, hardship fund application, essential items provided', rag:'g'}
@@ -5794,7 +5795,7 @@ const spData = [
     needs:['Housing','Behaviour Management','Benefits'],
     goals:[
       {title:'Address licence breach behaviour', actions:'Formal warning process, behaviour management plan, weekly check-ins', rag:'r'},
-      {title:'Maintain UC payments and rent', actions:'Budget plan, direct debit for rent, SAO support with UC journal', rag:'a'},
+      {title:'Maintain UC payments and rent', actions:'Budget plan, direct debit for rent, Support staff support with UC journal', rag:'a'},
       {title:'Reduce conflict with neighbours/staff', actions:'Anger management referral, clear boundaries, de-escalation techniques', rag:'r'}
     ],
     reviewNotes:'Review significantly overdue. 2 active licence breaches. Eviction panel review scheduled. Behaviour management plan in place but non-compliance.',
@@ -5806,9 +5807,9 @@ const spData = [
     planStart:'2025-08-25', reviewDue:'2026-02-25', status:'Under Review', verified:false, verifiedBy:'',
     needs:['Housing','Mental Health','Social/Community','Employment'],
     goals:[
-      {title:'Attend weekly drop-in for social engagement', actions:'SAO to accompany first 3 sessions, introduce to peer group', rag:'a'},
-      {title:'Register with local GP', actions:'SAO to support registration, accompany to first appointment', rag:'g'},
-      {title:'Explore volunteering opportunities', actions:'Referral to volunteer centre, SAO to support application', rag:'r'}
+      {title:'Attend weekly drop-in for social engagement', actions:'Support staff to accompany first 3 sessions, introduce to peer group', rag:'a'},
+      {title:'Register with local GP', actions:'Support staff to support registration, accompany to first appointment', rag:'g'},
+      {title:'Explore volunteering opportunities', actions:'Referral to volunteer centre, Support staff to support application', rag:'r'}
     ],
     reviewNotes:'Review submitted, awaiting TL verification. GP registration completed. Drop-in attendance inconsistent. Volunteering not yet started.',
     previousReviews:['2025-11-25','2025-08-25'],
@@ -5819,8 +5820,8 @@ const spData = [
     planStart:'2025-07-10', reviewDue:'2026-04-10', status:'Active', verified:true, verifiedBy:'L. Hussain',
     needs:['Housing','Benefits','Physical Health'],
     goals:[
-      {title:'Maintain HB payments', actions:'Quarterly HB review, SAO to support paperwork', rag:'g'},
-      {title:'Attend physiotherapy appointments', actions:'GP referral for back pain, SAO to arrange transport', rag:'g'},
+      {title:'Maintain HB payments', actions:'Quarterly HB review, Support staff to support paperwork', rag:'g'},
+      {title:'Attend physiotherapy appointments', actions:'GP referral for back pain, Support staff to arrange transport', rag:'g'},
       {title:'Address noise complaints proactively', actions:'Neighbour mediation, property check for sound insulation', rag:'a'}
     ],
     reviewNotes:'Good progress overall. HB stable. Physio started. One ASB complaint this quarter — mediation underway.',
@@ -5832,9 +5833,9 @@ const spData = [
     planStart:'2025-10-01', reviewDue:'2026-03-20', status:'Expiring', verified:true, verifiedBy:'T. Richardson',
     needs:['Housing','Mental Health','Employment','Social/Community'],
     goals:[
-      {title:'Secure employment or training placement', actions:'Job centre referral, skills assessment, SAO to support CV writing', rag:'a'},
+      {title:'Secure employment or training placement', actions:'Job centre referral, skills assessment, Support staff to support CV writing', rag:'a'},
       {title:'Engage with community mental health team', actions:'CMHT referral, medication review, crisis plan update', rag:'g'},
-      {title:'Maintain regular contact with SAO', actions:'Minimum weekly contact, respond to calls/visits', rag:'r'}
+      {title:'Maintain regular contact with support staff', actions:'Minimum weekly contact, respond to calls/visits', rag:'r'}
     ],
     reviewNotes:'Employment goal progressing — skills assessment completed. MH stable. However, 15 days without contact currently — Safe & Well triggered.',
     previousReviews:['2025-12-20','2025-10-01'],
@@ -6070,23 +6071,23 @@ function submitSPReview() {
 
 // Global search
 const searchData = [
-  {type:'Service User',id:'GB01880',name:'Craig Linney',detail:'Flat 1, 26 Moorgate St Rotherham — SAO: A. Ahmed — HIGH RISK',page:'su-profile',action:"document.getElementById('sup-select').value='linney';loadSUProfile('linney')"},
-  {type:'Service User',id:'GB02800',name:'Shadyar Husseini',detail:'37 Sharrow St Sheffield — SAO: C. Vincent',page:'su-profile',action:"document.getElementById('sup-select').value='husseini';loadSUProfile('husseini')"},
-  {type:'Service User',id:'GB02732',name:'Joshua Harworth',detail:'26A Ryton Rd North Anston — SAO: J. Vinten — MEDIUM RISK',page:'su-profile',action:"document.getElementById('sup-select').value='harworth';loadSUProfile('harworth')"},
-  {type:'Service User',id:'GB02901',name:'Amina Hassan',detail:'15 Abbeydale Rd Sheffield — SAO: A. Khan — NRPF',page:'su-profile',action:"document.getElementById('sup-select').value='hassan';loadSUProfile('hassan')"},
-  {type:'Service User',id:'GB02650',name:'Marcus Webb',detail:'180A Main Rd Sheffield — SAO: M. Thorne — 2 LA breaches',page:'su-profile',action:"document.getElementById('sup-select').value='webb';loadSUProfile('webb')"},
-{type:'Service User',id:'SU-0001',name:'A. Rahman',detail:'Unit 3, Abbeydale Road — SAO: J. Peters',page:'su-profile',action:"document.getElementById('sup-select').value='rahman';loadSUProfile('rahman')"},
-  {type:'Service User',id:'SU-0012',name:'B. Kowalski',detail:'17 Netherthorpe Road — SAO: M. Khan',page:'su-profile',action:"document.getElementById('sup-select').value='kowalski';loadSUProfile('kowalski')"},
-  {type:'Service User',id:'SU-0044',name:'C. Dlamini',detail:'Flat 9, Burngreave Rise — SAO: D. Sharpe',page:'su-profile',action:"document.getElementById('sup-select').value='dlamini';loadSUProfile('dlamini')"},
-  {type:'Service User',id:'SU-0091',name:"D. O'Brien",detail:'8 Sharrow Vale Road — SAO: J. Peters',page:'su-profile',action:"document.getElementById('sup-select').value='obrien';loadSUProfile('obrien')"},
-  {type:'Service User',id:'SU-0112',name:'E. Abdullahi',detail:'24 Ecclesall Road — SAO: S. Williams',page:'su-profile',action:"document.getElementById('sup-select').value='abdullahi';loadSUProfile('abdullahi')"},
-  {type:'Service User',id:'SU-0145',name:'F. Nowak',detail:'Unit 12, Abbeydale Road — SAO: M. Khan',page:'su-profile',action:"document.getElementById('sup-select').value='nowak';loadSUProfile('nowak')"},
-  {type:'Service User',id:'SU-0178',name:'G. Mensah',detail:'5 Sharrow Lane — SAO: J. Peters',page:'su-profile',action:"document.getElementById('sup-select').value='mensah';loadSUProfile('mensah')"},
-  {type:'Service User',id:'SU-0198',name:'H. Singh',detail:'Flat 3, Burngreave Rise — SAO: K. Patel',page:'su-profile',action:"document.getElementById('sup-select').value='singh';loadSUProfile('singh')"},
-  {type:'Service User',id:'SU-0203',name:'I. Yilmaz',detail:'24 Burngreave Rise — SAO: A. Begum',page:'su-profile',action:"document.getElementById('sup-select').value='yilmaz';loadSUProfile('yilmaz')"},
-  {type:'Service User',id:'SU-0289',name:'J. Campbell',detail:'Unit 8, Heeley — SAO: M. Khan',page:'su-profile',action:"document.getElementById('sup-select').value='campbell';loadSUProfile('campbell')"},
-  {type:'Service User',id:'SU-0291',name:'K. Adebayo',detail:'12 Burngreave Road — SAO: J. Peters',page:'su-profile',action:"document.getElementById('sup-select').value='adebayo';loadSUProfile('adebayo')"},
-  {type:'Service User',id:'SU-0334',name:'L. Barton',detail:'Flat 2, Netherthorpe — SAO: D. Sharpe — SAFE & WELL DAY 3',page:'su-profile',action:"document.getElementById('sup-select').value='barton';loadSUProfile('barton')"},
+  {type:'Service User',id:'GB01880',name:'Craig Linney',detail:'Flat 1, 26 Moorgate St Rotherham — Staff: A. Ahmed — HIGH RISK',page:'su-profile',action:"document.getElementById('sup-select').value='linney';loadSUProfile('linney')"},
+  {type:'Service User',id:'GB02800',name:'Shadyar Husseini',detail:'37 Sharrow St Sheffield — Staff: C. Vincent',page:'su-profile',action:"document.getElementById('sup-select').value='husseini';loadSUProfile('husseini')"},
+  {type:'Service User',id:'GB02732',name:'Joshua Harworth',detail:'26A Ryton Rd North Anston — Staff: J. Vinten — MEDIUM RISK',page:'su-profile',action:"document.getElementById('sup-select').value='harworth';loadSUProfile('harworth')"},
+  {type:'Service User',id:'GB02901',name:'Amina Hassan',detail:'15 Abbeydale Rd Sheffield — Staff: A. Khan — NRPF',page:'su-profile',action:"document.getElementById('sup-select').value='hassan';loadSUProfile('hassan')"},
+  {type:'Service User',id:'GB02650',name:'Marcus Webb',detail:'180A Main Rd Sheffield — Staff: M. Thorne — 2 LA breaches',page:'su-profile',action:"document.getElementById('sup-select').value='webb';loadSUProfile('webb')"},
+{type:'Service User',id:'SU-0001',name:'A. Rahman',detail:'Unit 3, Abbeydale Road — Staff: J. Peters',page:'su-profile',action:"document.getElementById('sup-select').value='rahman';loadSUProfile('rahman')"},
+  {type:'Service User',id:'SU-0012',name:'B. Kowalski',detail:'17 Netherthorpe Road — Staff: M. Khan',page:'su-profile',action:"document.getElementById('sup-select').value='kowalski';loadSUProfile('kowalski')"},
+  {type:'Service User',id:'SU-0044',name:'C. Dlamini',detail:'Flat 9, Burngreave Rise — Staff: D. Sharpe',page:'su-profile',action:"document.getElementById('sup-select').value='dlamini';loadSUProfile('dlamini')"},
+  {type:'Service User',id:'SU-0091',name:"D. O'Brien",detail:'8 Sharrow Vale Road — Staff: J. Peters',page:'su-profile',action:"document.getElementById('sup-select').value='obrien';loadSUProfile('obrien')"},
+  {type:'Service User',id:'SU-0112',name:'E. Abdullahi',detail:'24 Ecclesall Road — Staff: S. Williams',page:'su-profile',action:"document.getElementById('sup-select').value='abdullahi';loadSUProfile('abdullahi')"},
+  {type:'Service User',id:'SU-0145',name:'F. Nowak',detail:'Unit 12, Abbeydale Road — Staff: M. Khan',page:'su-profile',action:"document.getElementById('sup-select').value='nowak';loadSUProfile('nowak')"},
+  {type:'Service User',id:'SU-0178',name:'G. Mensah',detail:'5 Sharrow Lane — Staff: J. Peters',page:'su-profile',action:"document.getElementById('sup-select').value='mensah';loadSUProfile('mensah')"},
+  {type:'Service User',id:'SU-0198',name:'H. Singh',detail:'Flat 3, Burngreave Rise — Staff: K. Patel',page:'su-profile',action:"document.getElementById('sup-select').value='singh';loadSUProfile('singh')"},
+  {type:'Service User',id:'SU-0203',name:'I. Yilmaz',detail:'24 Burngreave Rise — Support Staff: A. Begum',page:'su-profile',action:"document.getElementById('sup-select').value='yilmaz';loadSUProfile('yilmaz')"},
+  {type:'Service User',id:'SU-0289',name:'J. Campbell',detail:'Unit 8, Heeley — Staff: M. Khan',page:'su-profile',action:"document.getElementById('sup-select').value='campbell';loadSUProfile('campbell')"},
+  {type:'Service User',id:'SU-0291',name:'K. Adebayo',detail:'12 Burngreave Road — Staff: J. Peters',page:'su-profile',action:"document.getElementById('sup-select').value='adebayo';loadSUProfile('adebayo')"},
+  {type:'Service User',id:'SU-0334',name:'L. Barton',detail:'Flat 2, Netherthorpe — Staff: D. Sharpe — SAFE & WELL DAY 3',page:'su-profile',action:"document.getElementById('sup-select').value='barton';loadSUProfile('barton')"},
   {type:'Service User',id:'SU-0445',name:'(Allocated to M. Khan)',detail:'Contact notes flagged',page:'contact-notes'},
   {type:'Property',id:'',name:'Unit 22, Abbeydale Road',detail:'Sheffield S7 — 4 beds — ZERO VISITS',page:'properties'},
   {type:'Property',id:'',name:'Flat 9, Burngreave Rise',detail:'Sheffield S4 — 2 beds — 42 days since visit',page:'properties'},
@@ -6752,7 +6753,7 @@ function renderQAResult(note, container) {
   const accepted = note.aiAccepted;
   let actionsHTML = '';
   if (accepted === true) {
-    actionsHTML = '<div style="padding:12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:11px;font-weight:700;color:#166534;text-align:center">SAO confirmed: "This is an accurate factual depiction." Reframed note accepted.</div>';
+    actionsHTML = '<div style="padding:12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:11px;font-weight:700;color:#166534;text-align:center">Support staff confirmed: "This is an accurate factual depiction." Reframed note accepted.</div>';
   } else if (accepted === false) {
     actionsHTML = '<div style="padding:12px;background:#fef3c7;border:1px solid #fde68a;border-radius:8px;font-size:11px;font-weight:700;color:#92400e;text-align:center">SAO kept original note. Reframe was not accepted.</div>';
   } else {
@@ -7764,9 +7765,9 @@ function loadDemoData() {
     {
       staff: 'S. Williams', suIdx: 4, type: 'Support session', score: 2, month: 1, day: 8,
       content: `Today I had the pleasure of meeting with E. Abdullahi to discuss their ongoing support needs and ensure all aspects of their wellbeing are being adequately addressed. During our comprehensive session, we covered a wide range of topics including housing stability, mental health and emotional wellbeing, financial management and budgeting, community engagement and social integration, and future goals and aspirations. E. expressed satisfaction with the current level of support being provided and indicated a desire to continue making positive progress across all areas of their support plan. We agreed to maintain regular contact and review progress at our next scheduled meeting.`,
-      gaps: ['This note appears AI-generated — SAO must confirm factual accuracy','No specific details, outcomes, or observations recorded','Vague language throughout — "comprehensive session" with no substance','No mention of what was actually discussed or agreed'],
+      gaps: ['This note appears AI-generated — Support staff must confirm factual accuracy','No specific details, outcomes, or observations recorded','Vague language throughout — "comprehensive session" with no substance','No mention of what was actually discussed or agreed'],
       flags: ['Possible AI-generated content — requires SAO verification of factual accuracy'],
-      summary: 'Note flagged as potentially AI-generated. Generic language with no specific details, outcomes, or actions. SAO must confirm this represents an actual contact.',
+      summary: 'Note flagged as potentially AI-generated. Generic language with no specific details, outcomes, or actions. Support staff must confirm this represents an actual contact.',
       reframe: null,
       followUps: ['SAO to confirm this note represents an actual contact that took place','Rewrite with specific details: what was discussed, what was observed, what actions were agreed','Include specific support plan goals referenced during session']
     },
@@ -8359,7 +8360,7 @@ function updateDashboardFromDemo() {
   // Week notes description
   const weekNotes = notes.filter(n => new Date(n.datetime).getTime() >= weekStart).length;
   const weekD = document.getElementById('dash-week-d');
-  if (weekD) weekD.textContent = weekNotes > 0 ? 'Target: 8+ per SAO' : '';
+  if (weekD) weekD.textContent = weekNotes > 0 ? 'Target: 8+ per support staff' : '';
 }
 
 function resetDemoData() {
@@ -9044,7 +9045,7 @@ function renderCNHub() {
   // Populate filter dropdowns
   const saoSel = document.getElementById('cnh-filter-sao');
   const saos = [...new Set(getCNHubNotes().map(n => n.sao))].sort();
-  saoSel.innerHTML = '<option value="">All SAOs</option>' + saos.map(s => '<option>'+s+'</option>').join('');
+  saoSel.innerHTML = '<option value="">All Support Staff</option>' + saos.map(s => '<option>'+s+'</option>').join('');
   const suSel = document.getElementById('cnh-filter-su');
   suSel.innerHTML = '<option value="">All Service Users</option>' + SERVICE_USERS.map(su => '<option value="'+su.id+'">'+su.name+'</option>').join('');
   // Prefill datetime
@@ -9568,7 +9569,7 @@ function renderTLDashboard() {
       '</div>' +
       '<div style="text-align:right">' +
         '<div style="font-size:24px;font-weight:800;color:#1a6b3c">' + tl.saos.length + '</div>' +
-        '<div style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:1px">SAOs</div>' +
+        '<div style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:1px">Support Staff</div>' +
       '</div>' +
       '<div style="text-align:right;margin-left:16px">' +
         '<div style="font-size:24px;font-weight:800;color:#059669">' + totalSUs + '</div>' +
@@ -9591,7 +9592,7 @@ function renderTLDashboard() {
   const bestQA = Math.max(...tl.saos.map(a => a.qa));
   const worstQA = Math.min(...tl.saos.map(a => a.qa));
   document.getElementById('tl-team-table').innerHTML =
-    '<table><thead><tr><th>SAO</th><th>Active SUs</th><th>Contacts/Wk</th><th>QA Avg</th><th>Status</th><th>Flag</th></tr></thead><tbody>' +
+    '<table><thead><tr><th>Support Staff</th><th>Active SUs</th><th>Contacts/Wk</th><th>QA Avg</th><th>Status</th><th>Flag</th></tr></thead><tbody>' +
     tl.saos.map(a =>
       '<tr style="cursor:pointer" onclick="nav(\'sw-dashboard\')">' +
         '<td style="font-weight:600">' + a.name + '</td>' +
@@ -9687,7 +9688,7 @@ function renderTLDashboard() {
     '<div style="border-top:1px solid #e2e8f0;padding-top:12px">' +
       '<div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Log New Check-In</div>' +
       '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end">' +
-        '<div><label class="form-label">SAO</label><select id="tl-ci-sao" class="form-select" style="width:160px">' +
+        '<div><label class="form-label">Support Staff</label><select id="tl-ci-sao" class="form-select" style="width:160px">' +
           tl.saos.map(a => '<option>' + a.name + '</option>').join('') +
         '</select></div>' +
         '<div><label class="form-label">Mood</label><select id="tl-ci-mood" class="form-select" style="width:120px"><option>Great</option><option>Good</option><option>OK</option><option>Struggling</option></select></div>' +
