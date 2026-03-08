@@ -394,6 +394,14 @@ footer { text-align: center; padding: 20px 20px 16px; color: #64748b; font-size:
 
   /* Policy meta */
   .policy-meta { flex-direction: column; gap: 10px; }
+
+  /* Admin avatar: shrink and hide name text */
+  .topbar-right .avatar { width: 32px; height: 32px; font-size: 13px; flex-shrink: 0; }
+  .topbar-right .uname, .topbar-right .urole { display: none; }
+
+  /* Hide sidebar toggle arrow/chevron on mobile */
+  .sidebar { overflow: hidden; }
+  .sidebar-links, .sidebar-footer { overflow: hidden; }
 }
 
 /* Small phones */
