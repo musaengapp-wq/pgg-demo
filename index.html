@@ -785,6 +785,63 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   .qa-actions button { width: 100%; }
 }
 
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes progressFill {
+  from { width: 0; }
+}
+.sc, .stat-card { opacity: 0; animation: fadeInUp .5s ease forwards; }
+.sc:nth-child(1), .stat-card:nth-child(1) { animation-delay: .05s; }
+.sc:nth-child(2), .stat-card:nth-child(2) { animation-delay: .1s; }
+.sc:nth-child(3), .stat-card:nth-child(3) { animation-delay: .15s; }
+.sc:nth-child(4), .stat-card:nth-child(4) { animation-delay: .2s; }
+.sc:nth-child(5), .stat-card:nth-child(5) { animation-delay: .25s; }
+.sc:nth-child(6), .stat-card:nth-child(6) { animation-delay: .3s; }
+.page { animation: fadeInUp .35s ease; }
+.pb .f { animation: progressFill 1s ease forwards; }
+
+/* ===== LOGIN TRANSITIONS ===== */
+.login-overlay { transition: opacity .5s ease; }
+.login-overlay.fade-out { opacity: 0; pointer-events: none; }
+.welcome-splash { position: fixed; inset: 0; background: linear-gradient(135deg, #1a6b3c 0%, #0f3c22 100%); z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; opacity: 0; transition: opacity .4s ease; pointer-events: none; }
+.welcome-splash.visible { opacity: 1; pointer-events: auto; }
+.welcome-splash h2 { font-size: 28px; font-weight: 800; letter-spacing: 1px; margin-bottom: 6px; }
+.welcome-splash .welcome-sub { font-size: 13px; color: rgba(255,255,255,.7); }
+
+/* ===== LIVE CLOCK ===== */
+.live-clock { font-size: 11px; color: #475569; font-weight: 600; font-variant-numeric: tabular-nums; background: #f1f5f9; border: 1px solid #e2e8f0; padding: 3px 10px; border-radius: 12px; white-space: nowrap; }
+
+/* ===== BEACON BADGE ===== */
+.beacon-ai-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; background: linear-gradient(135deg, #0f3c22, #1a6b3c); color: #86efac; font-size: 10px; font-weight: 700; letter-spacing: 1px; border-radius: 20px; box-shadow: 0 0 12px rgba(26,107,60,.35), 0 0 24px rgba(134,239,172,.15); animation: beaconGlow 2s ease-in-out infinite alternate; }
+@keyframes beaconGlow {
+  from { box-shadow: 0 0 8px rgba(26,107,60,.3), 0 0 16px rgba(134,239,172,.1); }
+  to { box-shadow: 0 0 16px rgba(26,107,60,.5), 0 0 32px rgba(134,239,172,.25); }
+}
+.beacon-ai-badge .beacon-dot { width: 6px; height: 6px; border-radius: 50%; background: #86efac; animation: pulse 1.5s infinite; }
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  body { background: #fff !important; font-size: 11px; }
+  .sidebar, .topbar, .bottom-nav, .demo-banner, .hamburger, .breadcrumbs,
+  .login-overlay, .welcome-splash, .toast, .apikey-overlay,
+  .nav-item, .sidebar-overlay, .btn-primary, .filter-bar, .filter-btn,
+  button, .notif, .search-dropdown, #global-search, .mobile-search-toggle { display: none !important; }
+  .main { margin-left: 0 !important; }
+  .page { display: none !important; }
+  .page.print-target { display: block !important; }
+  .content { padding: 0 !important; }
+  .sc, .stat-card { opacity: 1 !important; animation: none !important; break-inside: avoid; }
+  .card { break-inside: avoid; box-shadow: none !important; border: 1px solid #ccc !important; }
+  .print-header { display: block !important; text-align: center; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 2px solid #1a6b3c; }
+  .print-header h1 { font-size: 18px; color: #1a6b3c; margin-bottom: 4px; }
+  .print-header p { font-size: 11px; color: #64748b; }
+  footer { border: none !important; }
+}
+.print-header { display: none; }
+
 /* ===== SW FLOW PAGES ===== */
 .sw-flow-page { max-width: 600px; margin: 0 auto; padding: 12px; }
 .sw-flow-card { background: #fff; border-radius: 16px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 16px; }
@@ -844,9 +901,15 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="bismillah">بسم الله</div>
     <h2>PILLAR</h2>
     <div class="login-sub">Governance Group — Staff Login</div>
-    <input type="text" id="login-name" placeholder="Enter your full name" autocomplete="off">
+    <input type="text" id="login-name" placeholder="Enter your full name" autocomplete="off" onkeydown="if(event.key==='Enter')doLogin()">
     <button onclick="doLogin()">Continue</button>
   </div>
+</div>
+
+<!-- Welcome Splash -->
+<div class="welcome-splash" id="welcome-splash">
+  <h2 id="welcome-name">Welcome</h2>
+  <div class="welcome-sub">Loading your dashboard...</div>
 </div>
 
 <!-- Toast notification -->
@@ -954,6 +1017,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       <span class="hamburger" onclick="document.querySelector('.sidebar').classList.toggle('open');document.getElementById('sidebar-overlay').classList.toggle('open')">&#9776;</span>
       <h2 id="page-title">Compliance Dashboard</h2>
       <span class="loc">Sheffield</span>
+      <span class="live-clock" id="live-clock"></span>
     </div>
     <div class="topbar-right">
       <span class="mobile-search-toggle" style="display:none" onclick="var s=document.getElementById('global-search');s.classList.toggle('mobile-expanded');if(s.classList.contains('mobile-expanded')){s.focus();}">&#128269;</span>
@@ -1071,6 +1135,18 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
         <tr><td>SU-0289</td><td><span class="su-link" onclick="openSUByName('J. Campbell')">J. Campbell</span></td><td>Unit 8, Heeley</td><td>M. Khan</td><td>L. Hussain</td><td><span class="b gn">Current</span></td><td>16 Feb</td><td><span class="b am">Safe&Well</span></td></tr>
         <tr><td>SU-0291</td><td><span class="su-link" onclick="openSUByName('K. Adebayo')">K. Adebayo</span></td><td>12 Burngreave Rd</td><td>J. Peters</td><td>T. Richardson</td><td><span class="b gn">Current</span></td><td>28 Feb</td><td><span class="b gn">Active</span></td></tr>
         <tr><td>SU-0334</td><td><span class="su-link" onclick="openSUByName('L. Barton')">L. Barton</span></td><td>Flat 2, Netherthorpe</td><td>D. Sharpe</td><td>C. Barnes</td><td><span class="b gn">Current</span></td><td style="color:#dc2626">12 Feb</td><td><span class="b rd">Safe&Well D3</span></td></tr>
+        <tr><td>SU-0352</td><td><span class="su-link" onclick="openSUByName('M. Okonkwo')">M. Okonkwo</span></td><td>Unit 6, Heeley</td><td>K. Patel</td><td>P. Okonkwo</td><td><span class="b gn">Current</span></td><td>1 Mar</td><td><span class="b gn">Active</span></td></tr>
+        <tr><td>SU-0378</td><td><span class="su-link" onclick="openSUByName('N. Briggs')">N. Briggs</span></td><td>14 Attercliffe Rd</td><td>A. Begum</td><td>L. Hussain</td><td><span class="b gn">Current</span></td><td>28 Feb</td><td><span class="b gn">Active</span></td></tr>
+        <tr><td>SU-0401</td><td><span class="su-link" onclick="openSUByName('O. Hassan')">O. Hassan</span></td><td>Flat 7, Broomhall</td><td>J. Peters</td><td>T. Richardson</td><td><span class="b am">Expiring</span></td><td>27 Feb</td><td><span class="b gn">Active</span></td></tr>
+        <tr><td>SU-0423</td><td><span class="su-link" onclick="openSUByName('P. Brennan')">P. Brennan</span></td><td>Unit 1, Attercliffe</td><td>M. Khan</td><td>L. Hussain</td><td><span class="b gn">Current</span></td><td>2 Mar</td><td><span class="b gn">Active</span></td></tr>
+        <tr><td>SU-0445</td><td><span class="su-link" onclick="openSUByName('Q. Moyo')">Q. Moyo</span></td><td>22 Darnall Rd</td><td>D. Sharpe</td><td>C. Barnes</td><td><span class="b gn">Current</span></td><td>3 Mar</td><td><span class="b gn">Active</span></td></tr>
+        <tr><td>SU-0467</td><td><span class="su-link" onclick="openSUByName('R. Mahmood')">R. Mahmood</span></td><td>Flat 5, Darnall</td><td>K. Patel</td><td>P. Okonkwo</td><td><span class="b rd">Overdue</span></td><td>20 Feb</td><td><span class="b am">Monitoring</span></td></tr>
+        <tr><td>SU-0489</td><td><span class="su-link" onclick="openSUByName('S. Patel')">S. Patel</span></td><td>9 Sharrow Vale</td><td>A. Begum</td><td>L. Hussain</td><td><span class="b gn">Current</span></td><td>5 Mar</td><td><span class="b gn">Active</span></td></tr>
+        <tr><td>SU-0512</td><td><span class="su-link" onclick="openSUByName('T. Nguyen')">T. Nguyen</span></td><td>Unit 4, Burngreave</td><td>J. Peters</td><td>T. Richardson</td><td><span class="b gn">Current</span></td><td>4 Mar</td><td><span class="b gn">Active</span></td></tr>
+        <tr><td>SU-0534</td><td><span class="su-link" onclick="openSUByName('U. Clarke')">U. Clarke</span></td><td>Flat 11, Netherthorpe</td><td>M. Khan</td><td>L. Hussain</td><td><span class="b am">Expiring</span></td><td>26 Feb</td><td><span class="b gn">Active</span></td></tr>
+        <tr><td>SU-0556</td><td><span class="su-link" onclick="openSUByName('V. Ali')">V. Ali</span></td><td>16 Ecclesall Rd</td><td>D. Sharpe</td><td>C. Barnes</td><td><span class="b gn">Current</span></td><td>6 Mar</td><td><span class="b gn">Active</span></td></tr>
+        <tr><td>SU-0578</td><td><span class="su-link" onclick="openSUByName('W. Okoro')">W. Okoro</span></td><td>Unit 2, Sharrow</td><td>K. Patel</td><td>P. Okonkwo</td><td><span class="b gn">Current</span></td><td>5 Mar</td><td><span class="b gn">Active</span></td></tr>
+        <tr><td>SU-0601</td><td><span class="su-link" onclick="openSUByName('X. Kaur')">X. Kaur</span></td><td>31 Burngreave Rise</td><td>A. Begum</td><td>L. Hussain</td><td><span class="b gn">Current</span></td><td>7 Mar</td><td><span class="b gn">Active</span></td></tr>
       </tbody></table>
     </div>
   </div>
@@ -1514,10 +1590,18 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       </tbody></table>
     </div>
   </div>
+  <div style="text-align:center;margin-top:16px">
+    <span class="beacon-ai-badge"><span class="beacon-dot"></span> POWERED BY BEACON AI</span>
+  </div>
 </div>
 
 <!-- ===== COMPLIANCE DASHBOARDS ===== -->
 <div class="page" id="p-compliance-dash">
+  <div class="print-header" id="compliance-print-header">
+    <h1>PILLAR GOVERNANCE GROUP — Compliance Report</h1>
+    <p>Sheffield Region &mdash; Generated <span id="print-date"></span></p>
+  </div>
+  <div style="margin-bottom:14px"><button class="btn-primary" onclick="printComplianceReport()" style="display:inline-flex;align-items:center;gap:6px">&#128196; Download Report</button></div>
   <div class="g2">
     <div class="card">
       <h3>Sheffield Compliance</h3>
@@ -5852,12 +5936,33 @@ function doLogin() {
   const input = document.getElementById('login-name').value.trim();
   if (!input || input.length < 2) return;
   setStaffName(input);
-  checkLogin();
-  updateDashboard();
-  populateSUDropdown();
-  if (localStorage.getItem('pgg_user_role') === 'sw') {
-    nav('sw-home');
-  }
+
+  // Smooth fade out login overlay
+  var overlay = document.getElementById('login-overlay');
+  overlay.classList.add('fade-out');
+
+  // Show welcome splash
+  var splash = document.getElementById('welcome-splash');
+  document.getElementById('welcome-name').textContent = 'Welcome, ' + input;
+  setTimeout(function() {
+    overlay.style.display = 'none';
+    overlay.classList.remove('fade-out');
+    splash.classList.add('visible');
+  }, 400);
+
+  // After 1.5s, hide splash and show dashboard
+  setTimeout(function() {
+    splash.classList.remove('visible');
+    setTimeout(function() {
+      splash.style.display = 'none';
+      checkLogin();
+      updateDashboard();
+      populateSUDropdown();
+      if (localStorage.getItem('pgg_user_role') === 'sw') {
+        nav('sw-home');
+      }
+    }, 400);
+  }, 1900);
 }
 
 function doSignOut() {
@@ -7287,10 +7392,22 @@ function loadDemoData() {
     { id: 'SU-0178', name: 'G. Mensah', address: '5 Sharrow Lane, Sheffield S11' },
     { id: 'SU-0198', name: 'H. Singh', address: 'Flat 3, Burngreave Rise, Sheffield S4' },
     { id: 'SU-0203', name: 'I. Yilmaz', address: '24 Burngreave Rise, Sheffield S4' },
-    { id: 'SU-0291', name: 'K. Adebayo', address: '12 Burngreave Road, Sheffield S4' }
+    { id: 'SU-0291', name: 'K. Adebayo', address: '12 Burngreave Road, Sheffield S4' },
+    { id: 'SU-0352', name: 'M. Okonkwo', address: 'Unit 6, Heeley, Sheffield S8' },
+    { id: 'SU-0378', name: 'N. Briggs', address: '14 Attercliffe Road, Sheffield S9' },
+    { id: 'SU-0401', name: 'O. Hassan', address: 'Flat 7, Broomhall, Sheffield S3' },
+    { id: 'SU-0423', name: 'P. Brennan', address: 'Unit 1, Attercliffe, Sheffield S9' },
+    { id: 'SU-0445', name: 'Q. Moyo', address: '22 Darnall Road, Sheffield S9' },
+    { id: 'SU-0467', name: 'R. Mahmood', address: 'Flat 5, Darnall, Sheffield S9' },
+    { id: 'SU-0489', name: 'S. Patel', address: '9 Sharrow Vale Road, Sheffield S11' },
+    { id: 'SU-0512', name: 'T. Nguyen', address: 'Unit 4, Burngreave Rise, Sheffield S4' },
+    { id: 'SU-0534', name: 'U. Clarke', address: 'Flat 11, Netherthorpe Road, Sheffield S3' },
+    { id: 'SU-0556', name: 'V. Ali', address: '16 Ecclesall Road, Sheffield S11' },
+    { id: 'SU-0578', name: 'W. Okoro', address: 'Unit 2, Sharrow Lane, Sheffield S11' },
+    { id: 'SU-0601', name: 'X. Kaur', address: '31 Burngreave Rise, Sheffield S4' }
   ];
 
-  const NOTE_TYPES = ['Welfare check','Support session','Phone contact','Key session','Incident follow-up','Crisis support','Property visit'];
+  const NOTE_TYPES = ['Welfare check','Support session','Phone contact','Key session','Incident follow-up','Crisis support','Property visit','Move-in check','Medication review','Night welfare check'];
   const AREAS_ALL = ['Housing','Benefits/UC','Mental Health','Physical Health','Substance Misuse','Education/Employment','Social/Community','Budgeting','Tenancy Management','Safety/Safeguarding'];
 
   const GAP_POOL = [
@@ -7517,6 +7634,53 @@ function loadDemoData() {
     { staff: 'S. Williams', suIdx: 4, m: 1, d: 14, type: 'Welfare check' },
     { staff: 'S. Williams', suIdx: 4, m: 1, d: 26, type: 'Phone contact' },
     { staff: 'S. Williams', suIdx: 4, m: 2, d: 4, type: 'Welfare check' },
+    // Additional notes with new SUs
+    { staff: 'J. Peters', suIdx: 10, m: 0, d: 11, type: 'Move-in check' },
+    { staff: 'J. Peters', suIdx: 10, m: 0, d: 25, type: 'Welfare check' },
+    { staff: 'J. Peters', suIdx: 10, m: 1, d: 8, type: 'Key session' },
+    { staff: 'J. Peters', suIdx: 10, m: 1, d: 22, type: 'Support session' },
+    { staff: 'J. Peters', suIdx: 10, m: 2, d: 5, type: 'Phone contact' },
+    { staff: 'T. Moore', suIdx: 11, m: 0, d: 14, type: 'Move-in check' },
+    { staff: 'T. Moore', suIdx: 11, m: 0, d: 28, type: 'Support session' },
+    { staff: 'T. Moore', suIdx: 11, m: 1, d: 11, type: 'Key session' },
+    { staff: 'T. Moore', suIdx: 11, m: 2, d: 1, type: 'Welfare check' },
+    { staff: 'K. Patel', suIdx: 12, m: 0, d: 16, type: 'Key session' },
+    { staff: 'K. Patel', suIdx: 12, m: 1, d: 2, type: 'Welfare check' },
+    { staff: 'K. Patel', suIdx: 12, m: 1, d: 16, type: 'Phone contact' },
+    { staff: 'K. Patel', suIdx: 12, m: 2, d: 2, type: 'Medication review' },
+    { staff: 'A. Begum', suIdx: 13, m: 0, d: 17, type: 'Support session' },
+    { staff: 'A. Begum', suIdx: 13, m: 1, d: 1, type: 'Night welfare check' },
+    { staff: 'A. Begum', suIdx: 13, m: 1, d: 15, type: 'Key session' },
+    { staff: 'A. Begum', suIdx: 13, m: 2, d: 6, type: 'Welfare check' },
+    { staff: 'R. Osei', suIdx: 14, m: 0, d: 19, type: 'Key session' },
+    { staff: 'R. Osei', suIdx: 14, m: 1, d: 5, type: 'Support session' },
+    { staff: 'R. Osei', suIdx: 14, m: 1, d: 19, type: 'Phone contact' },
+    { staff: 'R. Osei', suIdx: 14, m: 2, d: 3, type: 'Welfare check' },
+    { staff: 'M. Khan', suIdx: 15, m: 0, d: 21, type: 'Welfare check' },
+    { staff: 'M. Khan', suIdx: 15, m: 1, d: 4, type: 'Phone contact' },
+    { staff: 'M. Khan', suIdx: 15, m: 2, d: 1, type: 'Welfare check' },
+    { staff: 'D. Sharpe', suIdx: 16, m: 0, d: 22, type: 'Key session' },
+    { staff: 'D. Sharpe', suIdx: 16, m: 1, d: 8, type: 'Welfare check' },
+    { staff: 'D. Sharpe', suIdx: 16, m: 2, d: 4, type: 'Phone contact' },
+    { staff: 'S. Williams', suIdx: 17, m: 0, d: 20, type: 'Welfare check' },
+    { staff: 'S. Williams', suIdx: 17, m: 1, d: 10, type: 'Phone contact' },
+    { staff: 'S. Williams', suIdx: 17, m: 2, d: 2, type: 'Welfare check' },
+    { staff: 'K. Patel', suIdx: 18, m: 0, d: 24, type: 'Move-in check' },
+    { staff: 'K. Patel', suIdx: 18, m: 1, d: 7, type: 'Support session' },
+    { staff: 'K. Patel', suIdx: 18, m: 1, d: 21, type: 'Key session' },
+    { staff: 'K. Patel', suIdx: 18, m: 2, d: 4, type: 'Welfare check' },
+    { staff: 'A. Begum', suIdx: 19, m: 0, d: 26, type: 'Support session' },
+    { staff: 'A. Begum', suIdx: 19, m: 1, d: 13, type: 'Key session' },
+    { staff: 'A. Begum', suIdx: 19, m: 2, d: 3, type: 'Phone contact' },
+    { staff: 'R. Osei', suIdx: 20, m: 0, d: 27, type: 'Key session' },
+    { staff: 'R. Osei', suIdx: 20, m: 1, d: 14, type: 'Support session' },
+    { staff: 'R. Osei', suIdx: 20, m: 2, d: 5, type: 'Welfare check' },
+    { staff: 'T. Moore', suIdx: 21, m: 0, d: 28, type: 'Support session' },
+    { staff: 'T. Moore', suIdx: 21, m: 1, d: 12, type: 'Key session' },
+    { staff: 'T. Moore', suIdx: 21, m: 2, d: 6, type: 'Welfare check' },
+    { staff: 'J. Peters', suIdx: 22, m: 1, d: 2, type: 'Move-in check' },
+    { staff: 'J. Peters', suIdx: 22, m: 1, d: 16, type: 'Support session' },
+    { staff: 'J. Peters', suIdx: 22, m: 2, d: 7, type: 'Welfare check' },
   ];
 
   regularNotes.forEach(rn => {
@@ -7937,11 +8101,37 @@ function resetDemoData() {
   showToast('Demo data has been reset');
 }
 
+// ===== LIVE CLOCK =====
+function updateLiveClock() {
+  var el = document.getElementById('live-clock');
+  if (el) {
+    var now = new Date();
+    el.textContent = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  }
+}
+
+// ===== PDF EXPORT =====
+function printComplianceReport() {
+  var dateEl = document.getElementById('print-date');
+  if (dateEl) dateEl.textContent = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  // Mark compliance page as print target
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('print-target'); });
+  document.getElementById('p-compliance-dash').classList.add('print-target');
+  window.print();
+  // Clean up after print
+  setTimeout(function() {
+    document.getElementById('p-compliance-dash').classList.remove('print-target');
+  }, 1000);
+}
+
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', function() {
   checkLogin();
   populateSUDropdown();
   prefillNoteForm();
+  // Start live clock
+  updateLiveClock();
+  setInterval(updateLiveClock, 1000);
   // Load demo data on first visit
   if (!localStorage.getItem('pgg_demo_loaded')) {
     loadDemoData();
