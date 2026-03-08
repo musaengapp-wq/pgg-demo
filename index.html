@@ -1559,6 +1559,45 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
         <label class="form-label">Description</label>
         <textarea class="form-textarea" id="su-inc-description" placeholder="Describe the incident in detail..." required></textarea>
       </div>
+      <div class="g2">
+        <div>
+          <div class="form-group">
+            <label class="form-label">Service User's Role in Incident</label>
+            <select class="form-select" id="su-inc-role" required>
+              <option value="">Select role...</option>
+              <option value="victim">Victim</option>
+              <option value="witness">Witness</option>
+              <option value="perpetrator">Perpetrator</option>
+              <option value="bystander">Bystander</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Emergency Services Involved?</label>
+            <div style="display:flex;gap:12px;align-items:center;padding:6px 0">
+              <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:13px"><input type="radio" name="su-inc-emergency" value="yes"> Yes</label>
+              <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:13px"><input type="radio" name="su-inc-emergency" value="no" checked> No</label>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="form-group">
+            <label class="form-label">Police Called?</label>
+            <div style="display:flex;gap:12px;align-items:center;padding:6px 0">
+              <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:13px"><input type="radio" name="su-inc-police" value="yes" onchange="document.getElementById('su-inc-police-ref-group').style.display='block'"> Yes</label>
+              <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:13px"><input type="radio" name="su-inc-police" value="no" checked onchange="document.getElementById('su-inc-police-ref-group').style.display='none'"> No</label>
+            </div>
+          </div>
+          <div class="form-group" id="su-inc-police-ref-group" style="display:none">
+            <label class="form-label">Police Incident Number</label>
+            <input class="form-input" type="text" id="su-inc-police-ref" placeholder="e.g. 2026/03/12345">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Other Witnesses Present</label>
+        <textarea class="form-textarea" id="su-inc-witnesses" placeholder="Names of witnesses including housemates..." rows="3"></textarea>
+      </div>
       <button type="submit" class="btn-primary" style="width:100%">Log Incident</button>
     </form>
   </div>
@@ -7315,6 +7354,8 @@ function saveSUIncident(e) {
   const su = SERVICE_USERS.find(function(s) { return s.id === suId; });
   const incidents = getIncidents();
   const incNum = 450 + incidents.length;
+  var policeRadio = document.querySelector('input[name="su-inc-police"]:checked');
+  var emergencyRadio = document.querySelector('input[name="su-inc-emergency"]:checked');
   incidents.unshift({
     id: 'INC-' + incNum,
     date: document.getElementById('su-inc-date').value,
@@ -7324,9 +7365,15 @@ function saveSUIncident(e) {
     level: INCIDENT_LEVELS[cat],
     description: document.getElementById('su-inc-description').value.trim(),
     ssmAnswer: document.getElementById('su-inc-ssm-answer').value,
+    role: document.getElementById('su-inc-role').value,
+    emergencyServices: emergencyRadio ? emergencyRadio.value : 'no',
+    policeCalled: policeRadio ? policeRadio.value : 'no',
+    policeRef: document.getElementById('su-inc-police-ref').value.trim(),
+    witnesses: document.getElementById('su-inc-witnesses').value.trim(),
     status: 'open',
     createdAt: new Date().toISOString(),
-    notes: []
+    notes: [],
+    managerNotes: ''
   });
   saveIncidents(incidents);
   document.getElementById('su-incident-form').reset();
@@ -7335,74 +7382,172 @@ function saveSUIncident(e) {
   return false;
 }
 
+function _buildIncidentDetailField(label, value) {
+  return '<div><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600">'+label+'</div><div style="font-size:13px;color:#1e293b;margin-top:2px">'+value+'</div></div>';
+}
+
 function showIncidentDetail(incId) {
-  // Search in both localStorage and demo data
   var inc = null;
   var incidents = getIncidents();
+  var isFromLocalStorage = false;
   inc = incidents.find(function(i) { return i.id === incId; });
-  if (!inc) {
-    // Check demo data stored on the risk dashboard render
-    if (window._riskDemoIncidents) {
-      inc = window._riskDemoIncidents.find(function(i) { return i.id === incId; });
-      if (inc) {
-        // Normalize demo format to match display
-        var modal = document.createElement('div');
-        modal.id = 'incident-detail-modal';
-        modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
-        modal.onclick = function(ev) { if (ev.target === modal) modal.remove(); };
-        var sevColors = {1:'#059669',2:'#d97706',3:'#dc2626'};
-        var sevBg = {1:'#dcfce7',2:'#fef3c7',3:'#fee2e2'};
-        var sevText = {1:'#166534',2:'#92400e',3:'#991b1b'};
-        var sevLabel = {1:'Level 1 — GREEN',2:'Level 2 — AMBER',3:'Level 3 — RED'};
-        var dateStr = inc.date instanceof Date ? inc.date.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) : inc.date;
-        modal.innerHTML = '<div style="background:#fff;border-radius:12px;max-width:600px;width:100%;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3)">' +
-          '<div style="padding:20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center">' +
-            '<div><h3 style="margin:0;font-size:16px">'+inc.id+' — '+inc.type+'</h3><div style="font-size:12px;color:#64748b;margin-top:4px">'+inc.su+' ('+inc.suId+')</div></div>' +
-            '<span style="background:'+sevBg[inc.severity]+';color:'+sevText[inc.severity]+';padding:4px 12px;border-radius:10px;font-size:11px;font-weight:700">'+sevLabel[inc.severity]+'</span>' +
-          '</div>' +
-          '<div style="padding:20px">' +
-            '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">' +
-              '<div><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600">Date</div><div style="font-size:13px;color:#1e293b;margin-top:2px">'+dateStr+'</div></div>' +
-              '<div><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600">Assigned To</div><div style="font-size:13px;color:#1e293b;margin-top:2px">'+inc.assigned+'</div></div>' +
-              '<div><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600">Status</div><div style="font-size:13px;color:#1e293b;margin-top:2px;text-transform:capitalize">'+inc.status+'</div></div>' +
-              '<div><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600">Severity</div><div style="font-size:13px;margin-top:2px;color:'+sevColors[inc.severity]+';font-weight:700">'+sevLabel[inc.severity]+'</div></div>' +
-            '</div>' +
-            '<div style="margin-bottom:16px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Description</div><div style="font-size:13px;color:#334155;line-height:1.6;background:#f8fafc;padding:12px;border-radius:8px;border:1px solid #e2e8f0">'+inc.detail+'</div></div>' +
-          '</div>' +
-          '<div style="padding:16px 20px;border-top:1px solid #e2e8f0;text-align:right"><button class="btn-primary" onclick="this.closest(\'#incident-detail-modal\').remove()" style="padding:8px 20px">Close</button></div>' +
-        '</div>';
-        document.body.appendChild(modal);
-        return;
-      }
-    }
-    showToast('Incident not found');
-    return;
+  if (inc) { isFromLocalStorage = true; }
+  if (!inc && window._riskDemoIncidents) {
+    inc = window._riskDemoIncidents.find(function(i) { return i.id === incId; });
   }
-  // Show localStorage incident detail
-  var lc = LEVEL_COLORS[inc.level] || LEVEL_COLORS[1];
+  if (!inc) { showToast('Incident not found'); return; }
+
+  // Normalize fields for demo vs localStorage incidents
+  var isDemo = !isFromLocalStorage;
+  var incLabel = isDemo ? inc.type : (inc.categoryLabel || inc.category);
+  var incSuName = isDemo ? inc.su : (inc.suName || inc.suId);
+  var incSuId = inc.suId;
+  var incStaff = isDemo ? (inc.assigned || '') : (inc.staff || '');
+  var incDesc = isDemo ? inc.detail : inc.description;
+  var sevLevel = isDemo ? inc.severity : inc.level;
+  var lc = LEVEL_COLORS[sevLevel] || LEVEL_COLORS[1];
+  var sevLabel = LEVEL_LABELS[sevLevel] || ('Level '+sevLevel);
+  var dateStr = '';
+  if (inc.date instanceof Date) { dateStr = inc.date.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}); }
+  else if (inc.date) { try { dateStr = new Date(inc.date).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}); } catch(e) { dateStr = inc.date; } }
+
+  var roleLabels = {victim:'Victim',witness:'Witness',perpetrator:'Perpetrator',bystander:'Bystander',other:'Other'};
+  var isOpen = (inc.status === 'open' || inc.status === 'monitoring' || inc.status === 'escalated');
+
   var modal = document.createElement('div');
   modal.id = 'incident-detail-modal';
   modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
   modal.onclick = function(ev) { if (ev.target === modal) modal.remove(); };
-  var dateStr = new Date(inc.date).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
-  modal.innerHTML = '<div style="background:#fff;border-radius:12px;max-width:600px;width:100%;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3)">' +
-    '<div style="padding:20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center">' +
-      '<div><h3 style="margin:0;font-size:16px">'+inc.id+' — '+(inc.categoryLabel||inc.category)+'</h3><div style="font-size:12px;color:#64748b;margin-top:4px">'+(inc.suName||inc.suId)+' ('+inc.suId+')</div></div>' +
-      '<span style="background:'+lc.bg+';color:'+lc.color+';padding:4px 12px;border-radius:10px;font-size:11px;font-weight:700">'+LEVEL_LABELS[inc.level]+'</span>' +
-    '</div>' +
-    '<div style="padding:20px">' +
-      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">' +
-        '<div><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600">Date</div><div style="font-size:13px;color:#1e293b;margin-top:2px">'+dateStr+'</div></div>' +
-        '<div><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600">Staff Involved</div><div style="font-size:13px;color:#1e293b;margin-top:2px">'+inc.staff+'</div></div>' +
-        '<div><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600">Status</div><div style="font-size:13px;color:#1e293b;margin-top:2px;text-transform:capitalize">'+inc.status+'</div></div>' +
-        '<div><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600">Severity</div><div style="font-size:13px;margin-top:2px;color:'+lc.color+';font-weight:700">'+LEVEL_LABELS[inc.level]+'</div></div>' +
-      '</div>' +
-      '<div style="margin-bottom:16px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Description</div><div style="font-size:13px;color:#334155;line-height:1.6;background:#f8fafc;padding:12px;border-radius:8px;border:1px solid #e2e8f0">'+inc.description+'</div></div>' +
-      (inc.ssmAnswer ? '<div><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">SSM Validation</div><div style="font-size:13px;color:#334155">'+inc.ssmAnswer+'</div></div>' : '') +
-    '</div>' +
-    '<div style="padding:16px 20px;border-top:1px solid #e2e8f0;text-align:right"><button class="btn-primary" onclick="this.closest(\'#incident-detail-modal\').remove()" style="padding:8px 20px">Close</button></div>' +
-  '</div>';
+
+  var html = '<div style="background:#fff;border-radius:12px;max-width:700px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3)">';
+  // Header
+  html += '<div style="padding:20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center">' +
+    '<div><h3 style="margin:0;font-size:16px">'+inc.id+' — '+incLabel+'</h3><div style="font-size:12px;color:#64748b;margin-top:4px">'+incSuName+' ('+incSuId+')</div></div>' +
+    '<span style="background:'+lc.bg+';color:'+lc.color+';padding:4px 12px;border-radius:10px;font-size:11px;font-weight:700">'+sevLabel+'</span></div>';
+
+  // Incident details (read-only)
+  html += '<div style="padding:20px"><div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:12px;letter-spacing:0.5px">Incident Details (logged by support worker)</div>';
+  html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">';
+  html += _buildIncidentDetailField('Date', dateStr);
+  html += _buildIncidentDetailField('Staff Involved', incStaff);
+  html += _buildIncidentDetailField('Status', '<span style="text-transform:capitalize">'+inc.status+'</span>');
+  html += _buildIncidentDetailField('Severity', '<span style="color:'+lc.color+';font-weight:700">'+sevLabel+'</span>');
+  if (inc.role) html += _buildIncidentDetailField('SU Role in Incident', roleLabels[inc.role] || inc.role);
+  if (inc.emergencyServices) html += _buildIncidentDetailField('Emergency Services Involved', inc.emergencyServices === 'yes' ? 'Yes' : 'No');
+  if (inc.policeCalled) html += _buildIncidentDetailField('Police Called', inc.policeCalled === 'yes' ? 'Yes' : 'No');
+  if (inc.policeCalled === 'yes' && inc.policeRef) html += _buildIncidentDetailField('Police Incident Number', inc.policeRef);
+  html += '</div>';
+  html += '<div style="margin-bottom:12px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Description</div><div style="font-size:13px;color:#334155;line-height:1.6;background:#f8fafc;padding:12px;border-radius:8px;border:1px solid #e2e8f0">'+incDesc+'</div></div>';
+  if (inc.witnesses) html += '<div style="margin-bottom:12px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Other Witnesses</div><div style="font-size:13px;color:#334155;background:#f8fafc;padding:12px;border-radius:8px;border:1px solid #e2e8f0">'+inc.witnesses+'</div></div>';
+  if (inc.ssmAnswer) html += '<div style="margin-bottom:12px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">SSM Validation</div><div style="font-size:13px;color:#334155">'+inc.ssmAnswer+'</div></div>';
+  // Show existing manager notes if any
+  if (inc.managerNotes) html += '<div style="margin-bottom:12px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Previous Manager Notes</div><div style="font-size:13px;color:#334155;background:#fffbeb;padding:12px;border-radius:8px;border:1px solid #fde68a">'+inc.managerNotes+'</div></div>';
+  // Show monitoring info if status is monitoring
+  if (inc.status === 'monitoring' && inc.monitoringInfo) {
+    var mi = inc.monitoringInfo;
+    html += '<div style="margin-top:16px;padding:16px;background:#eff6ff;border-radius:8px;border:1px solid #bfdbfe">';
+    html += '<div style="font-size:11px;font-weight:700;color:#1d4ed8;text-transform:uppercase;margin-bottom:10px">Monitoring Details</div>';
+    html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;color:#1e293b">';
+    html += '<div><strong>Reason:</strong> '+mi.reason+'</div><div><strong>Review Date:</strong> '+mi.reviewDate+'</div>';
+    html += '<div style="grid-column:1/-1"><strong>What is being monitored:</strong> '+mi.monitoring+'</div>';
+    html += '<div style="grid-column:1/-1"><strong>Next Steps:</strong> '+mi.nextSteps+'</div>';
+    html += '</div></div>';
+  }
+  // Show closure info if closed
+  if (inc.status === 'closed' && inc.closureReason) {
+    html += '<div style="margin-top:16px;padding:16px;background:#f0fdf4;border-radius:8px;border:1px solid #bbf7d0">';
+    html += '<div style="font-size:11px;font-weight:700;color:#166534;text-transform:uppercase;margin-bottom:10px">Closure Details</div>';
+    html += '<div style="font-size:13px;color:#1e293b"><strong>Reason:</strong> '+inc.closureReason+'</div>';
+    html += '</div>';
+  }
+  html += '</div>';
+
+  // Manager review section (only for open/non-closed incidents)
+  if (isOpen) {
+    html += '<div style="padding:0 20px 20px 20px;border-top:1px solid #e2e8f0;margin-top:0;padding-top:20px">';
+    html += '<div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:12px;letter-spacing:0.5px">Manager Review</div>';
+    html += '<div class="form-group"><label class="form-label">Manager Notes</label><textarea class="form-textarea" id="mgr-notes-'+inc.id+'" placeholder="Add manager notes..." rows="3">'+(inc.managerNotes||'')+'</textarea></div>';
+    html += '<div id="mgr-action-panel-'+inc.id+'" style="margin-top:12px"></div>';
+    html += '<div style="display:flex;gap:10px;margin-top:16px">';
+    html += '<button class="btn-primary" style="flex:1;background:#2563eb" onclick="showMonitoringForm(\''+inc.id+'\')">Set to Monitoring</button>';
+    html += '<button class="btn-primary" style="flex:1;background:#dc2626" onclick="showCloseIncidentForm(\''+inc.id+'\')">Close Incident</button>';
+    html += '<button style="padding:8px 20px;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc;cursor:pointer;font-size:13px;color:#64748b" onclick="this.closest(\'#incident-detail-modal\').remove()">Cancel</button>';
+    html += '</div></div>';
+  } else {
+    html += '<div style="padding:16px 20px;border-top:1px solid #e2e8f0;text-align:right"><button class="btn-primary" onclick="this.closest(\'#incident-detail-modal\').remove()" style="padding:8px 20px">Close</button></div>';
+  }
+
+  html += '</div>';
+  modal.innerHTML = html;
   document.body.appendChild(modal);
+}
+
+function showMonitoringForm(incId) {
+  var panel = document.getElementById('mgr-action-panel-' + incId);
+  if (!panel) return;
+  panel.innerHTML = '<div style="background:#eff6ff;padding:16px;border-radius:8px;border:1px solid #bfdbfe">' +
+    '<div style="font-size:12px;font-weight:700;color:#1d4ed8;margin-bottom:12px">SET TO MONITORING — All fields required</div>' +
+    '<div class="form-group"><label class="form-label">Reason for Monitoring</label><textarea class="form-textarea" id="mgr-mon-reason-'+incId+'" placeholder="Why is this being placed on monitoring?" rows="2" required></textarea></div>' +
+    '<div class="form-group"><label class="form-label">What is Being Monitored</label><textarea class="form-textarea" id="mgr-mon-what-'+incId+'" placeholder="Describe what is being monitored..." rows="2" required></textarea></div>' +
+    '<div class="form-group"><label class="form-label">Next Steps</label><textarea class="form-textarea" id="mgr-mon-next-'+incId+'" placeholder="What are the next steps?" rows="2" required></textarea></div>' +
+    '<div class="form-group"><label class="form-label">Review Date</label><input class="form-input" type="date" id="mgr-mon-review-'+incId+'" required></div>' +
+    '<div style="display:flex;gap:8px;margin-top:12px"><button class="btn-primary" style="background:#2563eb" onclick="submitMonitoring(\''+incId+'\')">Confirm Monitoring</button><button style="padding:8px 16px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;cursor:pointer;font-size:13px" onclick="this.closest(\'div[style]\').parentElement.innerHTML=\'\'">Cancel</button></div>' +
+    '</div>';
+}
+
+function showCloseIncidentForm(incId) {
+  var panel = document.getElementById('mgr-action-panel-' + incId);
+  if (!panel) return;
+  panel.innerHTML = '<div style="background:#fef2f2;padding:16px;border-radius:8px;border:1px solid #fecaca">' +
+    '<div style="font-size:12px;font-weight:700;color:#dc2626;margin-bottom:12px">CLOSE INCIDENT — Reason required</div>' +
+    '<div class="form-group"><label class="form-label">Reason for Closing</label><textarea class="form-textarea" id="mgr-close-reason-'+incId+'" placeholder="Why is this incident being closed?" rows="3" required></textarea></div>' +
+    '<div style="display:flex;gap:8px;margin-top:12px"><button class="btn-primary" style="background:#dc2626" onclick="submitCloseIncident(\''+incId+'\')">Confirm Close</button><button style="padding:8px 16px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;cursor:pointer;font-size:13px" onclick="this.closest(\'div[style]\').parentElement.innerHTML=\'\'">Cancel</button></div>' +
+    '</div>';
+}
+
+function submitMonitoring(incId) {
+  var reason = document.getElementById('mgr-mon-reason-'+incId).value.trim();
+  var what = document.getElementById('mgr-mon-what-'+incId).value.trim();
+  var next = document.getElementById('mgr-mon-next-'+incId).value.trim();
+  var review = document.getElementById('mgr-mon-review-'+incId).value;
+  if (!reason || !what || !next || !review) { showToast('All monitoring fields are required'); return; }
+  var incidents = getIncidents();
+  var inc = incidents.find(function(i) { return i.id === incId; });
+  // Also check demo incidents and promote to localStorage if needed
+  if (!inc && window._riskDemoIncidents) {
+    var demo = window._riskDemoIncidents.find(function(i) { return i.id === incId; });
+    if (demo) { inc = Object.assign({}, demo, {categoryLabel: demo.type, suName: demo.su, staff: demo.assigned, description: demo.detail, level: demo.severity, notes: demo.notes||[], managerNotes:''}); incidents.unshift(inc); }
+  }
+  if (!inc) { showToast('Incident not found'); return; }
+  inc.managerNotes = document.getElementById('mgr-notes-'+incId) ? document.getElementById('mgr-notes-'+incId).value.trim() : '';
+  inc.status = 'monitoring';
+  inc.monitoringInfo = { reason: reason, monitoring: what, nextSteps: next, reviewDate: review };
+  saveIncidents(incidents);
+  var modal = document.getElementById('incident-detail-modal');
+  if (modal) modal.remove();
+  showToast(incId + ' set to monitoring');
+  renderIncidentsDashboard();
+}
+
+function submitCloseIncident(incId) {
+  var reason = document.getElementById('mgr-close-reason-'+incId).value.trim();
+  if (!reason) { showToast('Reason for closing is required'); return; }
+  var incidents = getIncidents();
+  var inc = incidents.find(function(i) { return i.id === incId; });
+  if (!inc && window._riskDemoIncidents) {
+    var demo = window._riskDemoIncidents.find(function(i) { return i.id === incId; });
+    if (demo) { inc = Object.assign({}, demo, {categoryLabel: demo.type, suName: demo.su, staff: demo.assigned, description: demo.detail, level: demo.severity, notes: demo.notes||[], managerNotes:''}); incidents.unshift(inc); }
+  }
+  if (!inc) { showToast('Incident not found'); return; }
+  inc.managerNotes = document.getElementById('mgr-notes-'+incId) ? document.getElementById('mgr-notes-'+incId).value.trim() : '';
+  inc.status = 'closed';
+  inc.closedAt = new Date().toISOString();
+  inc.closureReason = reason;
+  saveIncidents(incidents);
+  var modal = document.getElementById('incident-detail-modal');
+  if (modal) modal.remove();
+  showToast(incId + ' closed');
+  renderIncidentsDashboard();
 }
 
 // ===== CAUSE FOR CONCERN SYSTEM =====
