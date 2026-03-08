@@ -9205,7 +9205,7 @@ function renderCNHubList() {
       '<td>'+dateStr+'</td><td>'+suLinkHtml(n.suName)+'</td><td>'+n.sao+'</td><td>'+n.type+'</td>' +
       '<td>'+n.duration+' min</td><td>'+qaDot+'</td><td style="text-align:center">'+verifiedIcon+'</td>' +
       '<td>' +
-        (!n.sentBack ? '<button class="cn-sendback-btn" onclick="event.stopPropagation();sendBackCNNote(\''+n.id+'\')">Send Back</button>' : '') +
+
       '</td></tr>' +
       '<tr id="cn-expand-'+n.id+'"><td colspan="8"><div class="cn-expand">' +
         '<div style="margin-bottom:8px"><strong>Contact Note:</strong></div>' +
@@ -9273,7 +9273,7 @@ function renderBeaconQueue() {
       (n.qaReframe && !n.qaWarning ? '<div class="beacon-reframe"><h4>AI Reframed Version</h4><div class="reframed-text">' + n.qaReframe.replace(/</g,'&lt;').replace(/\n/g,'<br>') + '</div></div>' : '') +
       '<div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">' +
         (!n.verified ? '<button class="cn-verify-btn" onclick="verifyCNNote(\''+n.id+'\');renderBeaconQueue()">&#10003; Verify</button>' : '') +
-        (!n.sentBack && !n.verified ? '<button class="cn-sendback-btn" onclick="sendBackCNNote(\''+n.id+'\');renderBeaconQueue()">Send Back for Clarification</button>' : '') +
+
         (n.qaReframe && !n.qaWarning && !n.verified ? '<button class="btn-accept-reframe" style="padding:4px 12px;font-size:10px" onclick="acceptReframe(\''+n.id+'\');renderBeaconQueue()">Accept Reframe</button>' : '') +
       '</div>' +
       '<div style="margin-top:8px;display:flex;align-items:center;gap:8px">' +
