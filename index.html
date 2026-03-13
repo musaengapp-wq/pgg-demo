@@ -1060,7 +1060,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="sc" data-nav="service-users" onclick="nav('service-users')"><div class="lb">Service Users</div><div class="val blue">634</div><div class="d green">+12 this month</div></div>
     <div class="sc" onclick="showNoNote7DaysList()" style="cursor:pointer"><div class="lb">No Note >7 Days</div><div class="val red" id="dash-red-sus">0</div><div class="d red">Compliance Flag</div></div>
     <div class="sc" data-nav="risk-dashboard" onclick="nav('risk-dashboard')" style="cursor:pointer;border-left:3px solid #dc2626"><div class="lb">Open Incidents</div><div class="val red" id="dash-open-incidents">3</div><div class="d red">Requires action</div></div>
-    <div class="sc" data-nav="concerns" onclick="nav('concerns')"><div class="lb">Cause for Concern</div><div class="val red" id="dash-flags">0</div><div class="d red">Flagged by AI</div></div>
+    <div class="sc" data-nav="concerns" onclick="nav('concerns')"><div class="lb">Welfare Concern</div><div class="val red" id="dash-flags">0</div><div class="d red">Flagged by AI</div></div>
     <div class="sc" style="cursor:pointer;border-left:3px solid #d97706" onclick="nav('safe-well')"><div class="lb">Welfare Watch</div><div class="val amber">2</div><div class="d amber">Active procedures &rarr;</div></div>
   </div>
   <div class="g23">
@@ -1603,7 +1603,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   </div>
 </div>
 
-<!-- ===== CAUSE FOR CONCERN ===== -->
+<!-- ===== WELFARE CONCERN ===== -->
 <div class="page" id="p-concerns">
   <div class="stats-row">
     <div class="sc"><div class="lb">Total Concerns</div><div class="val" style="color:#ea580c" id="cfc-total">0</div></div>
@@ -1619,11 +1619,11 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
 
   <div id="cfc-tab-list">
     <div class="card">
-      <h3>Cause for Concern — Manager Dashboard <span class="ct" id="cfc-list-count"></span></h3>
+      <h3>Welfare Concern — Manager Dashboard <span class="ct" id="cfc-list-count"></span></h3>
       <div class="si" id="cfc-list-body"></div>
     </div>
     <div class="info-box">
-      <strong>Cause for Concern:</strong> Below incident threshold, above normal. Staff can flag when "something doesn't feel right." Manager reviews and decides: resolve, monitor, or escalate to formal incident.
+      <strong>Welfare Concern:</strong> Below incident threshold, above normal. Staff can flag when "something doesn't feel right." Manager reviews and decides: resolve, monitor, or escalate to formal incident.
       <br><strong>Colour: ORANGE</strong> — between green (normal) and amber (incident level 2).
     </div>
   </div>
@@ -2832,7 +2832,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="sup-actions" id="sup-actions">
       <button class="primary" onclick="supLogContactEvent()">Log Contact Event</button>
       <button class="warn" onclick="supLogIncident()">Log Incident</button>
-      <button class="danger" onclick="supLogConcern()">Log Cause for Concern</button>
+      <button class="danger" onclick="supLogConcern()">Log Welfare Concern</button>
       <button onclick="supShowPersonalDetails()">Personal Details Form</button>
       <button class="danger" onclick="supShowLeaversForm()">Leavers Notification</button>
     </div>
@@ -3329,7 +3329,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
 
   <!-- CFC SECTION -->
   <div class="card" style="margin-bottom:18px">
-    <h3>Cause for Concern — Kanban</h3>
+    <h3>Welfare Concern — Kanban</h3>
     <div class="g3" id="risk-cfc-kanban">
       <!-- OPEN -->
       <div>
@@ -4282,7 +4282,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
 const titles = {
   'dashboard':'Compliance Dashboard','notifications':'Notifications','service-users':'All Service Users',
   'contact-notes':'Contact Notes','support-plans':'Support Plans','safe-well':'Welfare Watch Procedures',
-  'incidents':'Incident Management','concerns':'Cause for Concern','policies':'Policies & Procedures',  'ai-check':'AI Check (Live Demo)','compliance-dash':'Compliance Analysis','staff':'Staff & Caseloads',
+  'incidents':'Incident Management','concerns':'Welfare Concern','policies':'Policies & Procedures',  'ai-check':'AI Check (Live Demo)','compliance-dash':'Compliance Analysis','staff':'Staff & Caseloads',
   'properties-voids':'Properties & Voids',
   'training':'Training','housing-benefit':'Housing Benefit Tracking','eviction-risk':'Eviction Risk Assessment',
   'mental-health':'Mental Health Team','su-profile':'Service User Profile','eight-week':'8-Week Guide Generator','support-plans':'Support Plans','support-docs':'Support Documentation',
@@ -7546,7 +7546,7 @@ function submitCloseIncident(incId) {
   renderIncidentsDashboard();
 }
 
-// ===== CAUSE FOR CONCERN SYSTEM =====
+// ===== WELFARE CONCERN SYSTEM =====
 function getConcerns() { try { return JSON.parse(localStorage.getItem('pgg_concerns') || '[]'); } catch(e) { return []; } }
 function saveConcerns(c) { localStorage.setItem('pgg_concerns', JSON.stringify(c)); }
 
@@ -8249,12 +8249,12 @@ function loadDemoData() {
       reframe: 'Conducted late evening welfare check with I. Yilmaz via phone. First attempt at 21:45 — no answer. Second attempt at 22:00 — I. confirmed safe and well at property. Reported feeling tired, had been relaxing. Reminded about GP appointment scheduled for tomorrow (10:30) — I. confirmed attendance. Lone working protocol followed: team WhatsApp notification sent at 22:10 confirming all calls complete. No welfare or safeguarding concerns identified.',
       followUps: ['Confirm GP appointment attendance at next contact','Discuss broader wellbeing at next face-to-face session']
     },
-    // Cause for concern — emerging risk pattern
+    // Welfare concern — emerging risk pattern
     {
       staff: 'M. Khan', suIdx: 5, type: 'Welfare check', score: 2, month: 2, day: 3,
       content: `Visited F. Nowak at Unit 12, Abbeydale Road. F. answered the door but didn't want me to come inside. Said everything was fine but appeared agitated. Noticed a strong smell from the property. F. said he'd been cooking. Asked about benefits — said "it's being sorted." Wouldn't engage further. Left after about 5 minutes at the door.`,
       gaps: ['Could not inspect property — refused entry','Benefits status unclear — "being sorted" needs verification','No mention of mental health or substance misuse assessment','Support plan goals not discussed','Previous concerns about this SU not referenced'],
-      flags: ['CAUSE FOR CONCERN: Service user refused property access, appeared agitated, strong smell from property, evasive about benefits. Pattern of declining engagement over past 3 visits. Escalate to team leader.'],
+      flags: ['WELFARE CONCERN: Service user refused property access, appeared agitated, strong smell from property, evasive about benefits. Pattern of declining engagement over past 3 visits. Escalate to team leader.'],
       summary: 'Concerning visit — refused entry, agitated presentation, evasive responses. Emerging risk pattern.',
       reframe: null,
       followUps: ['Escalate to team leader L. Hussain immediately','Review last 3 contact notes for engagement pattern','Verify benefits/UC status independently','Attempt unannounced joint visit with team leader','Consider whether substance misuse referral is appropriate']
@@ -8754,7 +8754,7 @@ function updateDashboardFromDemo() {
     circle.style.stroke = compRate >= 80 ? '#059669' : compRate >= 60 ? '#d97706' : '#dc2626';
   }
 
-  // Flags / cause for concern
+  // Flags / welfare concern
   const flagged = notes.filter(n => n.aiAnalysis && n.aiAnalysis.flags && n.aiAnalysis.flags.length > 0);
   document.getElementById('dash-flags').textContent = flagged.length;
 
