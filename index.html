@@ -997,12 +997,12 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="nav-item" data-page="policies"><span class="icon">&#9745;</span> Policies & Procedures</div>
     <div class="nav-item" data-page="staff-performance"><span class="icon">&#9784;</span> Staff Performance</div>
     <div class="nav-item" data-page="demo-compare"><span class="icon">&#9878;</span> Live Demo</div>
-    <div class="nav-item" data-page="ai-qa"><span class="icon">&#9733;</span> AI QA Reports</div>
+
     <div class="nav-item" data-page="ai-check"><span class="icon">&#9889;</span> AI Check (Live Demo)</div>
     <div class="nav-section nav-section-toggle" onclick="toggleNavSection(this)">Analytics & Reports <span style="float:right;font-size:11px">&#9660;</span></div>
     <div class="nav-section-body">
-    <div class="nav-item" data-page="compliance-dash"><span class="icon">&#9783;</span> Compliance Dashboards</div>
-    <div class="nav-item" data-page="sao-compliance"><span class="icon">&#9745;</span> Staff Compliance</div>
+    <div class="nav-item" data-page="compliance-dash"><span class="icon">&#9783;</span> Compliance Analysis</div>
+
     <div class="nav-item" data-page="incident-analysis"><span class="icon">&#9783;</span> Incident Analysis</div>
     <div class="nav-item" data-page="insights"><span class="icon">&#128202;</span> Insights & Analytics</div>
     <div class="nav-item" data-page="reports-qa"><span class="icon">&#9783;</span> Reports & QA</div>
@@ -1056,7 +1056,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   <div class="stats-row" id="dash-l1-stats">
     <div class="sc" data-nav="contact-notes" onclick="nav('contact-notes')"><div class="lb">Total Notes</div><div class="val blue" id="dash-total">0</div><div class="d">All contact notes</div></div>
     <div class="sc" data-nav="contact-notes" onclick="nav('contact-notes')"><div class="lb">Notes This Week</div><div class="val blue" id="dash-week">0</div><div class="d" id="dash-week-d"></div></div>
-    <div class="sc" data-nav="ai-qa" onclick="nav('ai-qa')"><div class="lb">Avg AI Score</div><div class="val green" id="dash-avg-score">N/A</div><div class="d">Out of 4.0</div></div>
+    <div class="sc" data-nav="reports-qa" onclick="nav('reports-qa')"><div class="lb">Avg AI Score</div><div class="val green" id="dash-avg-score">N/A</div><div class="d">Out of 4.0</div></div>
     <div class="sc" data-nav="service-users" onclick="nav('service-users')"><div class="lb">Service Users</div><div class="val blue">634</div><div class="d green">+12 this month</div></div>
     <div class="sc" onclick="showNoNote7DaysList()" style="cursor:pointer"><div class="lb">No Note >7 Days</div><div class="val red" id="dash-red-sus">0</div><div class="d red">Compliance Flag</div></div>
     <div class="sc" data-nav="risk-dashboard" onclick="nav('risk-dashboard')" style="cursor:pointer;border-left:3px solid #dc2626"><div class="lb">Open Incidents</div><div class="val red" id="dash-open-incidents">3</div><div class="d red">Requires action</div></div>
@@ -1693,46 +1693,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   </div>
 </div>
 
-<!-- ===== AI QA REPORTS ===== -->
-<div class="page" id="p-ai-qa">
-  <div class="stats-row">
-    <div class="sc"><div class="lb">Notes This Month</div><div class="val green">15,178</div></div>
-    <div class="sc"><div class="lb">Avg Score</div><div class="val green">79.3%</div></div>
-    <div class="sc" style="cursor:pointer" onclick="showQAFilteredNotes('accepted')"><div class="lb">Reframes Accepted</div><div class="val green">11,284</div></div>
-    <div class="sc" style="cursor:pointer" onclick="showQAFilteredNotes('review')"><div class="lb">Manual Review</div><div class="val amber">2,418</div></div>
-    <div class="sc" style="cursor:pointer" onclick="showQAFilteredNotes('refused')" title="Our AI processes all care content without restrictions"><div class="lb">AI Refused</div><div class="val green">0</div><div class="d green" style="font-size:9px">AI processes all content</div></div>
-  </div>
-  <div class="g2">
-    <div class="card">
-      <h3>QA Score Distribution — This Month</h3>
-      <div style="display:flex;gap:4px;align-items:flex-end;height:120px;padding:10px 0">
-        <div style="flex:1;text-align:center"><div style="background:#dcfce7;height:90px;border-radius:3px"></div><div style="font-size:9px;color:#64748b;margin-top:4px">90-100%</div><div style="font-size:10px;font-weight:700">4,218</div></div>
-        <div style="flex:1;text-align:center"><div style="background:#dcfce7;height:110px;border-radius:3px"></div><div style="font-size:9px;color:#64748b;margin-top:4px">80-89%</div><div style="font-size:10px;font-weight:700">6,104</div></div>
-        <div style="flex:1;text-align:center"><div style="background:#fef3c7;height:50px;border-radius:3px"></div><div style="font-size:9px;color:#64748b;margin-top:4px">70-79%</div><div style="font-size:10px;font-weight:700">2,418</div></div>
-        <div style="flex:1;text-align:center"><div style="background:#fef3c7;height:25px;border-radius:3px"></div><div style="font-size:9px;color:#64748b;margin-top:4px">60-69%</div><div style="font-size:10px;font-weight:700">1,124</div></div>
-        <div style="flex:1;text-align:center"><div style="background:#fee2e2;height:15px;border-radius:3px"></div><div style="font-size:9px;color:#64748b;margin-top:4px">Below 60%</div><div style="font-size:10px;font-weight:700">1,314</div></div>
-      </div>
-    </div>
-    <div class="card">
-      <h3>Support Staff Performance Ranking</h3>
-      <table><thead><tr><th>Support Staff</th><th>Notes</th><th>Avg Score</th><th>Trend</th></tr></thead><tbody>
-        <tr><td>T. Moore</td><td>312</td><td><span class="b gn">91%</span></td><td class="green">&#9650; +3%</td></tr>
-        <tr><td>J. Peters</td><td>287</td><td><span class="b gn">88%</span></td><td class="green">&#9650; +1%</td></tr>
-        <tr><td>K. Patel</td><td>245</td><td><span class="b gn">85%</span></td><td style="color:#64748b">&#9644; 0%</td></tr>
-        <tr><td>A. Begum</td><td>268</td><td><span class="b gn">83%</span></td><td class="green">&#9650; +2%</td></tr>
-        <tr><td>R. Osei</td><td>231</td><td><span class="b am">74%</span></td><td class="red">&#9660; -2%</td></tr>
-        <tr><td>M. Khan</td><td>198</td><td><span class="b am">71%</span></td><td class="red">&#9660; -4%</td></tr>
-        <tr><td>S. Williams</td><td>176</td><td><span class="b rd">58%</span></td><td class="red">&#9660; -6%</td></tr>
-        <tr><td>D. Sharpe</td><td>154</td><td><span class="b rd">52%</span></td><td class="red">&#9660; -3%</td></tr>
-      </tbody></table>
-    </div>
-  </div>
-  <div style="text-align:center;margin-top:16px">
-    <span class="beacon-ai-badge"><span class="beacon-dot"></span> POWERED BY BEACON AI</span>
-  </div>
-</div>
-
-<!-- ===== COMPLIANCE DASHBOARDS ===== -->
+<!-- ===== COMPLIANCE ANALYSIS ===== -->
 <div class="page" id="p-compliance-dash">
   <div class="print-header" id="compliance-print-header">
     <h1>PILLAR GOVERNANCE GROUP — Compliance Report</h1>
@@ -1757,6 +1718,50 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
         <tr><td>Incident Resolution</td><td><span class="b am">78%</span></td><td class="green">&#9650;</td></tr>
         <tr><td>Training Completion</td><td><span class="b gn">88%</span></td><td class="green">&#9650;</td></tr>
       </tbody></table>
+    </div>
+  </div>
+  <hr style="margin:24px 0;border:none;border-top:1px solid #e2e8f0">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+    <div>
+      <div style="font-size:16px;font-weight:800;color:#1e293b">Support Staff Compliance Overview</div>
+      <div style="font-size:11px;color:#64748b;margin-top:2px">Management view of all Support Staff</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <select id="sao-filter-team" onchange="renderSAOCompliance()" style="padding:6px 10px;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;background:#fff;color:#334155">
+        <option value="all">All Teams</option>
+        <option value="Team Alpha">Team Alpha</option>
+        <option value="Team Bravo">Team Bravo</option>
+        <option value="Team Charlie">Team Charlie</option>
+      </select>
+      <select id="sao-filter-status" onchange="renderSAOCompliance()" style="padding:6px 10px;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;background:#fff;color:#334155">
+        <option value="all">All Statuses</option>
+        <option value="Compliant">Compliant</option>
+        <option value="At Risk">At Risk</option>
+        <option value="Non-Compliant">Non-Compliant</option>
+      </select>
+      <button onclick="showToast('Staff Compliance report exported')" style="padding:6px 14px;border-radius:6px;border:1px solid #e2e8f0;background:#fff;font-size:11px;font-weight:700;color:#475569;cursor:pointer">Export CSV</button>
+    </div>
+  </div>
+  <div class="stats-row" id="sao-stats-row"></div>
+  <div class="card">
+    <h3>Support Staff Compliance Table</h3>
+    <div style="overflow-x:auto">
+      <table id="sao-compliance-table">
+        <thead>
+          <tr>
+            <th>Staff Name</th>
+            <th>Team</th>
+            <th>Active SUs</th>
+            <th>Contacts This Week</th>
+            <th>QA Average</th>
+            <th>Overdue Tasks</th>
+            <th>SP Reviews Due</th>
+            <th>Missing Docs</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="sao-compliance-tbody"></tbody>
+      </table>
     </div>
   </div>
 </div>
@@ -2404,6 +2409,45 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
 
 <!-- ===== REPORTS & QA DASHBOARD ===== -->
 <div class="page" id="p-reports-qa">
+
+  <!-- AI QA Reports Section -->
+  <h3 style="font-size:16px;font-weight:800;color:#1e293b;margin-bottom:14px">AI QA Reports</h3>
+  <div class="stats-row">
+    <div class="sc"><div class="lb">Notes This Month</div><div class="val green">15,178</div></div>
+    <div class="sc"><div class="lb">Avg Score</div><div class="val green">79.3%</div></div>
+    <div class="sc" style="cursor:pointer" onclick="showQAFilteredNotes('accepted')"><div class="lb">Reframes Accepted</div><div class="val green">11,284</div></div>
+    <div class="sc" style="cursor:pointer" onclick="showQAFilteredNotes('review')"><div class="lb">Manual Review</div><div class="val amber">2,418</div></div>
+    <div class="sc" style="cursor:pointer" onclick="showQAFilteredNotes('refused')" title="Our AI processes all care content without restrictions"><div class="lb">AI Refused</div><div class="val green">0</div><div class="d green" style="font-size:9px">AI processes all content</div></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <h3>QA Score Distribution — This Month</h3>
+      <div style="display:flex;gap:4px;align-items:flex-end;height:120px;padding:10px 0">
+        <div style="flex:1;text-align:center"><div style="background:#dcfce7;height:90px;border-radius:3px"></div><div style="font-size:9px;color:#64748b;margin-top:4px">90-100%</div><div style="font-size:10px;font-weight:700">4,218</div></div>
+        <div style="flex:1;text-align:center"><div style="background:#dcfce7;height:110px;border-radius:3px"></div><div style="font-size:9px;color:#64748b;margin-top:4px">80-89%</div><div style="font-size:10px;font-weight:700">6,104</div></div>
+        <div style="flex:1;text-align:center"><div style="background:#fef3c7;height:50px;border-radius:3px"></div><div style="font-size:9px;color:#64748b;margin-top:4px">70-79%</div><div style="font-size:10px;font-weight:700">2,418</div></div>
+        <div style="flex:1;text-align:center"><div style="background:#fef3c7;height:25px;border-radius:3px"></div><div style="font-size:9px;color:#64748b;margin-top:4px">60-69%</div><div style="font-size:10px;font-weight:700">1,124</div></div>
+        <div style="flex:1;text-align:center"><div style="background:#fee2e2;height:15px;border-radius:3px"></div><div style="font-size:9px;color:#64748b;margin-top:4px">Below 60%</div><div style="font-size:10px;font-weight:700">1,314</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Support Staff Performance Ranking</h3>
+      <table><thead><tr><th>Support Staff</th><th>Notes</th><th>Avg Score</th><th>Trend</th></tr></thead><tbody>
+        <tr><td>T. Moore</td><td>312</td><td><span class="b gn">91%</span></td><td class="green">&#9650; +3%</td></tr>
+        <tr><td>J. Peters</td><td>287</td><td><span class="b gn">88%</span></td><td class="green">&#9650; +1%</td></tr>
+        <tr><td>K. Patel</td><td>245</td><td><span class="b gn">85%</span></td><td style="color:#64748b">&#9644; 0%</td></tr>
+        <tr><td>A. Begum</td><td>268</td><td><span class="b gn">83%</span></td><td class="green">&#9650; +2%</td></tr>
+        <tr><td>R. Osei</td><td>231</td><td><span class="b am">74%</span></td><td class="red">&#9660; -2%</td></tr>
+        <tr><td>M. Khan</td><td>198</td><td><span class="b am">71%</span></td><td class="red">&#9660; -4%</td></tr>
+        <tr><td>S. Williams</td><td>176</td><td><span class="b rd">58%</span></td><td class="red">&#9660; -6%</td></tr>
+        <tr><td>D. Sharpe</td><td>154</td><td><span class="b rd">52%</span></td><td class="red">&#9660; -3%</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:16px">
+    <span class="beacon-ai-badge"><span class="beacon-dot"></span> POWERED BY BEACON AI</span>
+  </div>
+  <hr style="margin:24px 0;border:none;border-top:1px solid #e2e8f0">
 
   <!-- WEEKLY COMPLIANCE REPORT -->
   <div class="card">
@@ -3701,53 +3745,6 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
 
 </div>
 
-<!-- ===== SAO COMPLIANCE ===== -->
-<div class="page" id="p-sao-compliance">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px">
-    <div>
-      <div style="font-size:16px;font-weight:800;color:#1e293b">Support Staff Compliance Overview</div>
-      <div style="font-size:11px;color:#64748b;margin-top:2px">Management view of all Support Staff</div>
-    </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <select id="sao-filter-team" onchange="renderSAOCompliance()" style="padding:6px 10px;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;background:#fff;color:#334155">
-        <option value="all">All Teams</option>
-        <option value="Team Alpha">Team Alpha</option>
-        <option value="Team Bravo">Team Bravo</option>
-        <option value="Team Charlie">Team Charlie</option>
-      </select>
-      <select id="sao-filter-status" onchange="renderSAOCompliance()" style="padding:6px 10px;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;background:#fff;color:#334155">
-        <option value="all">All Statuses</option>
-        <option value="Compliant">Compliant</option>
-        <option value="At Risk">At Risk</option>
-        <option value="Non-Compliant">Non-Compliant</option>
-      </select>
-      <button onclick="showToast('Staff Compliance report exported')" style="padding:6px 14px;border-radius:6px;border:1px solid #e2e8f0;background:#fff;font-size:11px;font-weight:700;color:#475569;cursor:pointer">Export CSV</button>
-    </div>
-  </div>
-  <div class="stats-row" id="sao-stats-row"></div>
-  <div class="card">
-    <h3>Support Staff Compliance Table</h3>
-    <div style="overflow-x:auto">
-      <table id="sao-compliance-table">
-        <thead>
-          <tr>
-            <th>Staff Name</th>
-            <th>Team</th>
-            <th>Active SUs</th>
-            <th>Contacts This Week</th>
-            <th>QA Average</th>
-            <th>Overdue Tasks</th>
-            <th>SP Reviews Due</th>
-            <th>Missing Docs</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody id="sao-compliance-tbody"></tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
 <!-- ===== STAFF PERFORMANCE ===== -->
 <div class="page" id="p-staff-performance">
   <div style="font-size:16px;font-weight:800;color:#1e293b;margin-bottom:4px">Staff Performance</div>
@@ -3849,10 +3846,10 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       Use the navigation to explore each module. Every screen in this demo is a working prototype of Pillar OS — the same interface your team would use day-to-day. Key areas to explore:
       <ul style="margin:8px 0 0 16px;padding:0">
         <li><a href="#" onclick="nav('contact-notes');return false" style="color:#1a6b3c;font-weight:700;text-decoration:none"><strong>Contact Notes</strong></a> — guided entry with AI quality scoring</li>
-        <li><a href="#" onclick="nav('sao-compliance');return false" style="color:#1a6b3c;font-weight:700;text-decoration:none"><strong>Staff Compliance</strong></a> — real-time staff compliance overview</li>
+        <li><a href="#" onclick="nav('compliance-dash');return false" style="color:#1a6b3c;font-weight:700;text-decoration:none"><strong>Staff Compliance</strong></a> — real-time staff compliance overview</li>
         <li><a href="#" onclick="nav('incidents');return false" style="color:#1a6b3c;font-weight:700;text-decoration:none"><strong>Incidents & Risk</strong></a> — automated risk escalation dashboard</li>
         <li><a href="#" onclick="nav('eight-week');return false" style="color:#1a6b3c;font-weight:700;text-decoration:none"><strong>8-Week Guide</strong></a> — structured onboarding workflow</li>
-        <li><a href="#" onclick="nav('ai-qa');return false" style="color:#1a6b3c;font-weight:700;text-decoration:none"><strong>AI Check</strong></a> — live AI analysis of contact notes</li>
+        <li><a href="#" onclick="nav('reports-qa');return false" style="color:#1a6b3c;font-weight:700;text-decoration:none"><strong>AI Check</strong></a> — live AI analysis of contact notes</li>
       </ul>
     </div>
   </div>
@@ -4285,8 +4282,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
 const titles = {
   'dashboard':'Compliance Dashboard','notifications':'Notifications','service-users':'All Service Users',
   'contact-notes':'Contact Notes','support-plans':'Support Plans','safe-well':'Safe & Well Procedures',
-  'incidents':'Incident Management','concerns':'Cause for Concern','policies':'Policies & Procedures','ai-qa':'AI QA Reports',
-  'ai-check':'AI Check (Live Demo)','compliance-dash':'Compliance Dashboards','staff':'Staff & Caseloads',
+  'incidents':'Incident Management','concerns':'Cause for Concern','policies':'Policies & Procedures',  'ai-check':'AI Check (Live Demo)','compliance-dash':'Compliance Analysis','staff':'Staff & Caseloads',
   'properties-voids':'Properties & Voids',
   'training':'Training','housing-benefit':'Housing Benefit Tracking','eviction-risk':'Eviction Risk Assessment',
   'mental-health':'Mental Health Team','su-profile':'Service User Profile','eight-week':'8-Week Guide Generator','support-plans':'Support Plans','support-docs':'Support Documentation',
@@ -4298,7 +4294,7 @@ const titles = {
   'reports-qa':'Reports & QA',
   'cn-hub':'Contact Notes',
   'su-journey':'SU Journey',
-  'sao-compliance':'Staff Compliance',
+
   'insights':'Insights & Analytics',
   'doc-management':'Document Management',
   'access-control':'Access Control',
@@ -4353,7 +4349,7 @@ function nav(page, opts) {
   if (page === 'contact-notes') renderNotesList();
   if (page === 'dashboard') updateDashboard();
   if (page === 'cn-hub') prefillNoteForm();
-  if (page === 'ai-qa') updateAIQAPage();
+  if (page === 'reports-qa') updateAIQAPage();
   if (page === 'incidents') { renderIncidentsDashboard(); renderIncidentsList(); }
   if (page === 'concerns') { renderConcernsDashboard(); renderConcernsList(); }
   if (page === 'lone-working') { renderVisitsDashboard(); renderVisitsList(); }
@@ -4368,7 +4364,7 @@ function nav(page, opts) {
   if (page === 'support-docs') renderSupportDocs();
   if (page === 'cn-hub') renderCNHub();
   if (page === 'su-journey') renderSUJourney();
-  if (page === 'sao-compliance') renderSAOCompliance();
+  if (page === 'compliance-dash') renderSAOCompliance();
   if (page === 'insights') renderInsights();
   if (page === 'doc-management') renderDocManagement();
   if (page === 'meetings') renderMeetings();
@@ -6573,12 +6569,12 @@ function enterAdminMode() {
         '<div class="nav-item" data-page="policies"><span class="icon">&#9745;</span> Policies & Procedures</div>' +
         '<div class="nav-item" data-page="staff-performance"><span class="icon">&#9784;</span> Staff Performance</div>' +
         '<div class="nav-item" data-page="demo-compare"><span class="icon">&#9878;</span> Live Demo</div>' +
-        '<div class="nav-item" data-page="ai-qa"><span class="icon">&#9733;</span> AI QA Reports</div>' +
+
         '<div class="nav-item" data-page="ai-check"><span class="icon">&#9889;</span> AI Check (Live Demo)</div>' +
         '<div class="nav-section nav-section-toggle" onclick="toggleNavSection(this)">Analytics & Reports <span style="float:right;font-size:11px">&#9660;</span></div>' +
         '<div class="nav-section-body">' +
-        '<div class="nav-item" data-page="compliance-dash"><span class="icon">&#9783;</span> Compliance Dashboards</div>' +
-        '<div class="nav-item" data-page="sao-compliance"><span class="icon">&#9745;</span> Staff Compliance</div>' +
+        '<div class="nav-item" data-page="compliance-dash"><span class="icon">&#9783;</span> Compliance Analysis</div>' +
+
         '<div class="nav-item" data-page="incident-analysis"><span class="icon">&#9783;</span> Incident Analysis</div>' +
         '<div class="nav-item" data-page="insights"><span class="icon">&#128202;</span> Insights & Analytics</div>' +
         '<div class="nav-item" data-page="reports-qa"><span class="icon">&#9783;</span> Reports & QA</div>' +
@@ -7126,7 +7122,7 @@ function updateAIQAPage() {
   const pending = notes.filter(n => n.aiAnalysis && n.aiAccepted === undefined).length;
 
   // Update stats row
-  const statsRow = document.querySelector('#p-ai-qa .stats-row');
+  const statsRow = document.querySelector('#p-reports-qa .stats-row');
   if (statsRow) {
     statsRow.innerHTML =
       '<div class="sc"><div class="lb">Notes Analysed</div><div class="val blue">' + analyzed.length + '</div><div class="d">From localStorage</div></div>' +
@@ -7137,7 +7133,7 @@ function updateAIQAPage() {
   }
 
   // Update score distribution
-  const g2 = document.querySelector('#p-ai-qa .g2');
+  const g2 = document.querySelector('#p-reports-qa .g2');
   if (g2) {
     const total = analyzed.length || 1;
     const maxH = 110;
@@ -10169,7 +10165,7 @@ function renderTLDashboard() {
   const redCount = tl.saos.filter(a => a.status === 'red').length;
   document.getElementById('tl-stats').innerHTML =
     '<div class="sc"><div class="lb">Team QA Average</div><div class="val ' + (tl.qaAvg >= 3 ? 'green' : tl.qaAvg >= 2.5 ? 'amber' : 'red') + '">' + tl.qaAvg.toFixed(2) + '</div><div class="d">Out of 4.00</div></div>' +
-    '<div class="sc" style="cursor:pointer" onclick="nav(\'sao-compliance\')"><div class="lb">Contacts This Week</div><div class="val blue">' + totalContacts + '</div><div class="d" style="color:#1a6b3c;text-decoration:underline">View compliance report &rarr;</div></div>' +
+    '<div class="sc" style="cursor:pointer" onclick="nav(\'compliance-dash\')"><div class="lb">Contacts This Week</div><div class="val blue">' + totalContacts + '</div><div class="d" style="color:#1a6b3c;text-decoration:underline">View compliance report &rarr;</div></div>' +
     '<div class="sc"><div class="lb">Pending Verifications</div><div class="val amber">' + tl.verifyQueue.length + '</div><div class="d">Notes awaiting sign-off</div></div>' +
     '<div class="sc"><div class="lb">Escalations</div><div class="val red">' + tl.escalations.length + '</div><div class="d">Requiring TL action</div></div>' +
     '<div class="sc"><div class="lb">Staff At Risk</div><div class="val ' + (redCount > 0 ? 'red' : 'green') + '">' + redCount + '</div><div class="d">' + (redCount > 0 ? 'Needs support' : 'All performing') + '</div></div>';
