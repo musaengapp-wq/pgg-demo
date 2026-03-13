@@ -4031,12 +4031,12 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
           <tr><th>Staff Member</th><th>Role</th><th>Team</th><th>Caseload</th><th>QA Avg</th><th>Last Supervision</th><th>Training</th><th>Status</th></tr>
         </thead>
         <tbody>
-          <tr><td style="font-weight:700">Sarah Mitchell</td><td>Support Staff</td><td>Team Alpha</td><td>12</td><td>87%</td><td>28 Feb 2026</td><td><span class="b gn">Current</span></td><td><span class="b gn">Compliant</span></td></tr>
-          <tr><td style="font-weight:700">James Okonkwo</td><td>Support Staff</td><td>Team Alpha</td><td>14</td><td>72%</td><td>14 Feb 2026</td><td><span class="b ye">1 Overdue</span></td><td><span class="b ye">At Risk</span></td></tr>
-          <tr><td style="font-weight:700">Priya Sharma</td><td>Support Staff</td><td>Team Bravo</td><td>11</td><td>91%</td><td>03 Mar 2026</td><td><span class="b gn">Current</span></td><td><span class="b gn">Compliant</span></td></tr>
-          <tr><td style="font-weight:700">David Chen</td><td>Support Staff</td><td>Team Bravo</td><td>15</td><td>65%</td><td>10 Jan 2026</td><td><span class="b rd">2 Overdue</span></td><td><span class="b rd">Non-Compliant</span></td></tr>
-          <tr><td style="font-weight:700">Rachel Adams</td><td>Team Leader</td><td>Team Charlie</td><td>—</td><td>—</td><td>21 Feb 2026</td><td><span class="b gn">Current</span></td><td><span class="b gn">Compliant</span></td></tr>
-          <tr><td style="font-weight:700">Tom Nguyen</td><td>Support Staff</td><td>Team Charlie</td><td>13</td><td>78%</td><td>25 Feb 2026</td><td><span class="b gn">Current</span></td><td><span class="b gn">Compliant</span></td></tr>
+          <tr><td style="font-weight:700"><a href="#" onclick="openStaffProfile('Sarah Mitchell','Support Staff','Team Alpha');return false" style="color:#1a6b3c;text-decoration:none;border-bottom:1px dashed #1a6b3c">Sarah Mitchell</a></td><td>Support Staff</td><td>Team Alpha</td><td>12</td><td>87%</td><td>28 Feb 2026</td><td><span class="b gn">Current</span></td><td><span class="b gn">Compliant</span></td></tr>
+          <tr><td style="font-weight:700"><a href="#" onclick="openStaffProfile('James Okonkwo','Support Staff','Team Alpha');return false" style="color:#1a6b3c;text-decoration:none;border-bottom:1px dashed #1a6b3c">James Okonkwo</a></td><td>Support Staff</td><td>Team Alpha</td><td>14</td><td>72%</td><td>14 Feb 2026</td><td><span class="b ye">1 Overdue</span></td><td><span class="b ye">At Risk</span></td></tr>
+          <tr><td style="font-weight:700"><a href="#" onclick="openStaffProfile('Priya Sharma','Support Staff','Team Bravo');return false" style="color:#1a6b3c;text-decoration:none;border-bottom:1px dashed #1a6b3c">Priya Sharma</a></td><td>Support Staff</td><td>Team Bravo</td><td>11</td><td>91%</td><td>03 Mar 2026</td><td><span class="b gn">Current</span></td><td><span class="b gn">Compliant</span></td></tr>
+          <tr><td style="font-weight:700"><a href="#" onclick="openStaffProfile('David Chen','Support Staff','Team Bravo');return false" style="color:#1a6b3c;text-decoration:none;border-bottom:1px dashed #1a6b3c">David Chen</a></td><td>Support Staff</td><td>Team Bravo</td><td>15</td><td>65%</td><td>10 Jan 2026</td><td><span class="b rd">2 Overdue</span></td><td><span class="b rd">Non-Compliant</span></td></tr>
+          <tr><td style="font-weight:700"><a href="#" onclick="openStaffProfile('Rachel Adams','Team Leader','Team Charlie');return false" style="color:#1a6b3c;text-decoration:none;border-bottom:1px dashed #1a6b3c">Rachel Adams</a></td><td>Team Leader</td><td>Team Charlie</td><td>—</td><td>—</td><td>21 Feb 2026</td><td><span class="b gn">Current</span></td><td><span class="b gn">Compliant</span></td></tr>
+          <tr><td style="font-weight:700"><a href="#" onclick="openStaffProfile('Tom Nguyen','Support Staff','Team Charlie');return false" style="color:#1a6b3c;text-decoration:none;border-bottom:1px dashed #1a6b3c">Tom Nguyen</a></td><td>Support Staff</td><td>Team Charlie</td><td>13</td><td>78%</td><td>25 Feb 2026</td><td><span class="b gn">Current</span></td><td><span class="b gn">Compliant</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -4044,40 +4044,26 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
 
   <!-- Manager Feedback Section -->
   <div class="card" style="border-left:3px solid #1a6b3c">
-    <h3>&#128274; Manager Feedback <span style="font-size:9px;color:#64748b;text-transform:none;letter-spacing:0;font-weight:400;margin-left:6px">Private — only visible to management</span></h3>
-    <div class="g2">
-      <div>
-        <div class="form-group">
-          <label class="form-label">Staff Member</label>
-          <select class="form-select" id="mgr-fb-staff">
-            <option value="">Select staff member...</option>
-            <option>Sarah Mitchell</option>
-            <option>James Okonkwo</option>
-            <option>Priya Sharma</option>
-            <option>David Chen</option>
-            <option>Rachel Adams</option>
-            <option>Tom Nguyen</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Feedback</label>
-          <textarea class="form-textarea" id="mgr-fb-text" placeholder="Enter management feedback..." style="min-height:80px"></textarea>
-        </div>
-        <button class="btn-primary" onclick="submitMgrFeedback()">Submit Feedback</button>
+    <h3>&#128274; Manager Feedback <span style="font-size:9px;color:#64748b;text-transform:none;letter-spacing:0;font-weight:400;margin-left:6px">Private — saved to individual staff profiles (GDPR compliant)</span></h3>
+    <div style="max-width:500px">
+      <div class="form-group">
+        <label class="form-label">Staff Member</label>
+        <select class="form-select" id="mgr-fb-staff">
+          <option value="">Select staff member...</option>
+          <option>Sarah Mitchell</option>
+          <option>James Okonkwo</option>
+          <option>Priya Sharma</option>
+          <option>David Chen</option>
+          <option>Rachel Adams</option>
+          <option>Tom Nguyen</option>
+        </select>
       </div>
-      <div>
-        <div style="font-size:10px;color:#64748b;margin-bottom:8px;display:flex;align-items:center;gap:6px">&#128274; <span>This feedback is private and only visible to management</span></div>
-        <div style="overflow-x:auto">
-          <table id="mgr-fb-table">
-            <thead><tr><th>Staff Name</th><th>Feedback</th><th>Date</th><th>Logged By</th></tr></thead>
-            <tbody id="mgr-fb-tbody">
-              <tr><td style="font-weight:600">David Chen</td><td>Performance improvement plan discussed. Agreed to weekly check-ins for 4 weeks. Training gaps identified in safeguarding and fire safety.</td><td>05 Mar 2026</td><td>R. Adams</td></tr>
-              <tr><td style="font-weight:600">James Okonkwo</td><td>Good progress on caseload management. QA scores improving. Continue current trajectory — review again at next supervision.</td><td>03 Mar 2026</td><td>R. Adams</td></tr>
-              <tr><td style="font-weight:600">Tom Nguyen</td><td>Excellent handling of complex SU case (L. Barton). Consider for mentoring role with newer staff.</td><td>28 Feb 2026</td><td>R. Adams</td></tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="form-group">
+        <label class="form-label">Feedback</label>
+        <textarea class="form-textarea" id="mgr-fb-text" placeholder="Enter management feedback..." style="min-height:80px"></textarea>
       </div>
+      <button class="btn-primary" onclick="submitMgrFeedback()">Submit Feedback</button>
+      <div style="font-size:10px;color:#64748b;margin-top:8px;display:flex;align-items:center;gap:6px">&#128274; <span>Feedback is saved to the staff member's individual profile and is only visible to management</span></div>
     </div>
   </div>
 </div>
@@ -11092,12 +11078,119 @@ function submitMgrFeedback() {
   var staff = document.getElementById('mgr-fb-staff').value;
   var text = document.getElementById('mgr-fb-text').value.trim();
   if (!staff || !text) { showToast('Please select a staff member and enter feedback'); return; }
-  var today = new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
-  var row = '<tr><td style="font-weight:600">' + staff + '</td><td>' + text.replace(/</g,'&lt;') + '</td><td>' + today + '</td><td>' + (getStaffName() || 'Manager') + '</td></tr>';
-  document.getElementById('mgr-fb-tbody').insertAdjacentHTML('afterbegin', row);
   document.getElementById('mgr-fb-staff').value = '';
   document.getElementById('mgr-fb-text').value = '';
-  showToast('Feedback submitted for ' + staff);
+  showToast('Feedback saved to ' + staff + ' profile');
+}
+
+var staffProfileData = {
+  'Sarah Mitchell': {
+    feedback: [
+      { date: '28 Feb 2026', from: 'R. Adams', text: 'Consistently high-quality contact notes. QA scores well above team average. Excellent engagement with service users.' },
+      { date: '14 Feb 2026', from: 'R. Adams', text: 'Took initiative on safeguarding refresher — completed ahead of schedule. Good role model for newer staff.' }
+    ],
+    docs: [
+      { name: 'One-to-one notes — 01/03/2026', icon: '📄' },
+      { name: 'Team meeting minutes — 15/02/2026', icon: '📄' }
+    ]
+  },
+  'James Okonkwo': {
+    feedback: [
+      { date: '03 Mar 2026', from: 'R. Adams', text: 'Good progress on caseload management. QA scores improving. Continue current trajectory — review again at next supervision.' },
+      { date: '18 Feb 2026', from: 'R. Adams', text: 'Discussed time management strategies. Agreed to use scheduling tool for contact notes. Follow up in 2 weeks.' }
+    ],
+    docs: [
+      { name: 'One-to-one notes — 01/03/2026', icon: '📄' },
+      { name: 'Performance improvement plan — 10/02/2026', icon: '📄' }
+    ]
+  },
+  'Priya Sharma': {
+    feedback: [
+      { date: '03 Mar 2026', from: 'R. Adams', text: 'Outstanding QA scores across all metrics. Nominated for Employee of the Month.' },
+      { date: '20 Feb 2026', from: 'R. Adams', text: 'Handled complex dual-diagnosis case with professionalism. Excellent multi-agency liaison work.' }
+    ],
+    docs: [
+      { name: 'One-to-one notes — 01/03/2026', icon: '📄' },
+      { name: 'Team meeting minutes — 15/02/2026', icon: '📄' }
+    ]
+  },
+  'David Chen': {
+    feedback: [
+      { date: '05 Mar 2026', from: 'R. Adams', text: 'Performance improvement plan discussed. Agreed to weekly check-ins for 4 weeks. Training gaps identified in safeguarding and fire safety.' },
+      { date: '20 Feb 2026', from: 'R. Adams', text: 'Caseload review — several overdue contact notes identified. Agreed action plan to clear backlog by end of month.' }
+    ],
+    docs: [
+      { name: 'Performance improvement plan — 05/03/2026', icon: '📄' },
+      { name: 'One-to-one notes — 01/03/2026', icon: '📄' }
+    ]
+  },
+  'Rachel Adams': {
+    feedback: [
+      { date: '01 Mar 2026', from: 'A. Sherazi', text: 'Strong leadership of Team Charlie. All supervisions completed on time. Good oversight of staff compliance.' },
+      { date: '15 Feb 2026', from: 'A. Sherazi', text: 'Led successful team away day. Positive feedback from all attendees. Continue developing coaching skills.' }
+    ],
+    docs: [
+      { name: 'One-to-one notes — 01/03/2026', icon: '📄' },
+      { name: 'Team meeting minutes — 15/02/2026', icon: '📄' }
+    ]
+  },
+  'Tom Nguyen': {
+    feedback: [
+      { date: '28 Feb 2026', from: 'R. Adams', text: 'Excellent handling of complex SU case (L. Barton). Consider for mentoring role with newer staff.' },
+      { date: '12 Feb 2026', from: 'R. Adams', text: 'Good engagement in team meetings. Proactive about identifying risks. Supervision attendance is consistent.' }
+    ],
+    docs: [
+      { name: 'One-to-one notes — 01/03/2026', icon: '📄' },
+      { name: 'Team meeting minutes — 15/02/2026', icon: '📄' }
+    ]
+  }
+};
+
+function openStaffProfile(name, role, team) {
+  var data = staffProfileData[name] || { feedback: [], docs: [] };
+  var fbHTML = '';
+  data.feedback.forEach(function(fb) {
+    fbHTML += '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px;margin-bottom:8px">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">' +
+      '<span style="font-size:11px;font-weight:600;color:#1e293b">' + fb.from + '</span>' +
+      '<span style="font-size:10px;color:#94a3b8">' + fb.date + '</span>' +
+      '</div>' +
+      '<div style="font-size:12px;color:#475569;line-height:1.5">' + fb.text + '</div>' +
+      '<div style="font-size:9px;color:#94a3b8;margin-top:6px;display:flex;align-items:center;gap:4px">&#128274; Restricted — management only</div>' +
+      '</div>';
+  });
+  var docHTML = '';
+  data.docs.forEach(function(doc) {
+    docHTML += '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;margin-bottom:6px">' +
+      '<div style="display:flex;align-items:center;gap:8px"><span>' + doc.icon + '</span><span style="font-size:12px;font-weight:500;color:#1e293b">' + doc.name + '</span></div>' +
+      '<div style="display:flex;gap:6px">' +
+      '<span onclick="showToast(\'Viewing document...\')" style="cursor:pointer;font-size:14px" title="View">👁️</span>' +
+      '<span onclick="showToast(\'Downloading...\')" style="cursor:pointer;font-size:14px" title="Download">⬇️</span>' +
+      '</div></div>';
+  });
+  var modal = document.getElementById('staff-profile-modal');
+  document.getElementById('staff-profile-content').innerHTML =
+    '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">' +
+      '<div>' +
+        '<div style="font-size:18px;font-weight:800;color:#1e293b">' + name + '</div>' +
+        '<div style="font-size:12px;color:#64748b;margin-top:2px">' + role + ' — ' + team + '</div>' +
+      '</div>' +
+      '<button onclick="closeStaffProfile()" style="background:none;border:none;font-size:22px;cursor:pointer;color:#94a3b8;padding:0;line-height:1" title="Close">&times;</button>' +
+    '</div>' +
+    '<div style="margin-bottom:20px">' +
+      '<h3 style="font-size:13px;font-weight:700;color:#1e293b;margin-bottom:10px">&#128274; Performance Feedback</h3>' +
+      fbHTML +
+    '</div>' +
+    '<div style="margin-bottom:16px">' +
+      '<h3 style="font-size:13px;font-weight:700;color:#1e293b;margin-bottom:10px">&#128196; Documents &amp; Meeting Notes</h3>' +
+      docHTML +
+      '<div style="margin-top:10px;padding:14px;border:2px dashed #cbd5e1;border-radius:8px;text-align:center;color:#94a3b8;font-size:11px">Drag &amp; drop files here or use the button below</div>' +
+      '<button class="btn-primary" style="margin-top:10px;width:100%" onclick="showToast(\'Coming soon\')">Upload Document</button>' +
+    '</div>';
+  modal.style.display = 'flex';
+}
+function closeStaffProfile() {
+  document.getElementById('staff-profile-modal').style.display = 'none';
 }
 
 function renderSAOCompliance() {
@@ -12543,6 +12636,15 @@ function openManagerFeedbackForm() {
   document.getElementById('sup-manager-feedback-form').style.display = 'block';
 }
 
+</script>
+<!-- Staff Profile Modal -->
+<div id="staff-profile-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;justify-content:center;align-items:center;padding:16px">
+  <div id="staff-profile-content" style="background:#fff;border-radius:12px;padding:24px;max-width:560px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3)"></div>
+</div>
+<script>
+document.getElementById('staff-profile-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeStaffProfile();
+});
 </script>
 </body>
 </html>
