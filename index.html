@@ -999,6 +999,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="nav-item" data-page="eviction-risk"><span class="icon">&#9888;</span> Eviction Risk <span class="badge">8</span></div>
     <div class="nav-item" data-page="doc-management"><span class="icon">&#128196;</span> Document Management</div>
     <div class="nav-item" data-page="policies"><span class="icon">&#9745;</span> Policies & Procedures</div>
+    <div class="nav-item" data-page="audits"><span class="icon">&#128269;</span> Audits <span class="badge warn">1</span></div>
     <div class="nav-item" data-page="staff-performance"><span class="icon">&#9784;</span> Staff Performance</div>
     <div class="nav-item" data-page="demo-compare"><span class="icon">&#9878;</span> Live Demo</div>
 
@@ -1044,6 +1045,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="topbar-right">
       <span class="mobile-search-toggle" style="display:none" onclick="var s=document.getElementById('global-search');s.classList.toggle('mobile-expanded');if(s.classList.contains('mobile-expanded')){s.focus();}">&#128269;</span>
       <div style="position:relative"><input id="global-search" type="text" placeholder="Search SUs, properties, incidents..." style="padding:6px 12px;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;width:220px;background:#f8fafc;color:#334155" oninput="doLiveSearch()" onkeyup="doSearch(event)" onfocus="doLiveSearch()" onblur="setTimeout(function(){document.getElementById('search-dropdown').classList.remove('open');if(window.innerWidth<=768){document.getElementById('global-search').classList.remove('mobile-expanded')}},200)"><div class="search-dropdown" id="search-dropdown"></div></div>
+      <div class="notif" onclick="openMessagesPanel()" title="Messages" style="margin-right:4px">&#9993;<span class="dot" style="background:#dc2626"></span><span style="position:absolute;top:-4px;right:-8px;background:#dc2626;color:#fff;font-size:8px;font-weight:700;padding:1px 4px;border-radius:8px">3</span></div>
       <div class="notif" onclick="nav('notifications')">&#128276;<span class="dot"></span></div>
       <div style="text-align:right"><div class="uname">Admin</div><div class="urole">System Administrator</div></div>
       <div class="avatar">P</div>
@@ -1444,7 +1446,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   <!-- New Incident Form -->
   <div id="inc-tab-new" style="display:none">
     <div class="card">
-      <h3>Log New Incident</h3>
+      <h3 style="display:flex;justify-content:space-between;align-items:center">Log New Incident <span class="policy-info-icon" onclick="showToast('View related policy: Incident Management Procedure — Link configurable per organisation')" title="View related policy" style="cursor:pointer;font-size:16px;color:#1a6b3c">&#8505;&#65039;</span></h3>
       <form id="incident-form" onsubmit="return saveIncident(event)">
         <div class="g2">
           <div>
@@ -1496,7 +1498,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
               <div id="inc-level-display" style="padding:8px 12px;border-radius:6px;font-size:12px;font-weight:700;background:#f1f5f9;color:#64748b">Select a category above</div>
             </div>
             <div class="form-group">
-              <label class="form-label">SSM Validation</label>
+              <label class="form-label">Incident Response Check</label>
               <div id="inc-ssm-question" style="font-size:11px;color:#475569;padding:6px 0">Select a category to see the validation question</div>
               <select class="form-select" id="inc-ssm-answer" style="display:none">
                 <option value="">Answer required...</option>
@@ -1509,6 +1511,31 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
         <div class="form-group">
           <label class="form-label">Description</label>
           <textarea class="form-textarea" id="inc-description" placeholder="Describe the incident in detail..." required></textarea>
+        </div>
+        <div class="g2">
+          <div>
+            <div class="form-group">
+              <label class="form-label">Emergency Services Involved?</label>
+              <div style="display:flex;gap:12px;align-items:center;padding:6px 0">
+                <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:13px"><input type="radio" name="inc-emergency" value="yes"> Yes</label>
+                <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:13px"><input type="radio" name="inc-emergency" value="no" checked> No</label>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+              <label class="form-label">Police Incident Reference</label>
+              <input class="form-input" type="text" id="inc-police-ref" placeholder="If applicable">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Has the risk assessment been updated?</label>
+          <div style="display:flex;gap:12px;align-items:center;padding:6px 0">
+            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:13px"><input type="radio" name="inc-risk-updated" value="yes" onchange="document.getElementById('inc-risk-why').style.display='none'"> Yes</label>
+            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:13px"><input type="radio" name="inc-risk-updated" value="no" onchange="document.getElementById('inc-risk-why').style.display='block'"> No</label>
+          </div>
+          <div id="inc-risk-why" style="display:none;margin-top:8px"><textarea class="form-textarea" placeholder="If not, why?" rows="2" style="min-height:60px"></textarea></div>
         </div>
         <div style="display:flex;gap:10px"><button type="submit" class="btn-primary" style="flex:1">Log Incident</button><button type="button" style="flex:1;padding:10px;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc;cursor:pointer;font-size:12px;font-weight:600;color:#64748b" onclick="showToast('Draft saved — you can return to complete this later')">Save &amp; Close</button></div>
       </form>
@@ -1532,7 +1559,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
 <!-- ===== SU PROFILE INCIDENT FORM (form only) ===== -->
 <div class="page" id="p-su-incident-form">
   <div class="card">
-    <h3>Log Incident <span id="su-inc-form-su-label" style="font-size:12px;color:#64748b"></span></h3>
+    <h3 style="display:flex;justify-content:space-between;align-items:center">Log Incident <span id="su-inc-form-su-label" style="font-size:12px;color:#64748b"></span><span class="policy-info-icon" onclick="showToast('View related policy: Incident Management Procedure — Link configurable per organisation')" title="View related policy" style="cursor:pointer;font-size:16px;color:#1a6b3c">&#8505;&#65039;</span></h3>
     <form id="su-incident-form" onsubmit="return saveSUIncident(event)">
       <div class="g2">
         <div>
@@ -1584,7 +1611,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
             <div id="su-inc-level-display" style="padding:8px 12px;border-radius:6px;font-size:12px;font-weight:700;background:#f1f5f9;color:#64748b">Select a category above</div>
           </div>
           <div class="form-group">
-            <label class="form-label">SSM Validation</label>
+            <label class="form-label">Incident Response Check</label>
             <div id="su-inc-ssm-question" style="font-size:11px;color:#475569;padding:6px 0">Select a category to see the validation question</div>
             <select class="form-select" id="su-inc-ssm-answer" style="display:none">
               <option value="">Answer required...</option>
@@ -1621,21 +1648,22 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
         </div>
         <div>
           <div class="form-group">
-            <label class="form-label">Police Called?</label>
-            <div style="display:flex;gap:12px;align-items:center;padding:6px 0">
-              <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:13px"><input type="radio" name="su-inc-police" value="yes" onchange="document.getElementById('su-inc-police-ref-group').style.display='block'"> Yes</label>
-              <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:13px"><input type="radio" name="su-inc-police" value="no" checked onchange="document.getElementById('su-inc-police-ref-group').style.display='none'"> No</label>
-            </div>
-          </div>
-          <div class="form-group" id="su-inc-police-ref-group" style="display:none">
-            <label class="form-label">Police Incident Number</label>
-            <input class="form-input" type="text" id="su-inc-police-ref" placeholder="e.g. 2026/03/12345">
+            <label class="form-label">Police Incident Reference</label>
+            <input class="form-input" type="text" id="su-inc-police-ref" placeholder="If applicable">
           </div>
         </div>
       </div>
       <div class="form-group">
         <label class="form-label">Other Witnesses Present</label>
         <textarea class="form-textarea" id="su-inc-witnesses" placeholder="Names of witnesses including housemates..." rows="3"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Has the risk assessment been updated?</label>
+        <div style="display:flex;gap:12px;align-items:center;padding:6px 0">
+          <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:13px"><input type="radio" name="su-inc-risk-updated" value="yes" onchange="document.getElementById('su-inc-risk-why').style.display='none'"> Yes</label>
+          <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:13px"><input type="radio" name="su-inc-risk-updated" value="no" onchange="document.getElementById('su-inc-risk-why').style.display='block'"> No</label>
+        </div>
+        <div id="su-inc-risk-why" style="display:none;margin-top:8px"><textarea class="form-textarea" placeholder="If not, why?" rows="2" style="min-height:60px"></textarea></div>
       </div>
       <div style="display:flex;gap:10px"><button type="submit" class="btn-primary" style="flex:1">Log Incident</button><button type="button" style="flex:1;padding:10px;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc;cursor:pointer;font-size:12px;font-weight:600;color:#64748b" onclick="showToast('Draft saved — you can return to complete this later')">Save &amp; Close</button></div>
     </form>
@@ -1669,7 +1697,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
 
   <div id="cfc-tab-new" style="display:none">
     <div class="card">
-      <h3>Flag a Concern</h3>
+      <h3 style="display:flex;justify-content:space-between;align-items:center">Flag a Concern <span class="policy-info-icon" onclick="showToast('View related policy: Welfare Concern Procedure — Link configurable per organisation')" title="View related policy" style="cursor:pointer;font-size:16px;color:#1a6b3c">&#8505;&#65039;</span></h3>
       <div style="padding:10px 12px;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;margin-bottom:14px;font-size:11px;color:#9a3412">
         <strong>Use this form when something doesn't feel right</strong> — it may not be an incident yet, but you want to flag it for manager review.
       </div>
@@ -2941,6 +2969,123 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       <div id="sup-missing-alerts"></div>
     </div>
 
+    <!-- Support Plan -->
+    <div class="card" id="sup-support-plan-section">
+      <h3>Support Plan</h3>
+      <div id="sup-support-plan">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+          <span class="b gn" style="font-size:11px;padding:4px 12px">ACTIVE</span>
+          <button class="btn-primary" style="padding:6px 14px;font-size:11px" onclick="showToast('Print support plan — generating PDF...')">&#128424; Print Support Plan</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+          <div style="padding:10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;font-weight:600;color:#475569">&#9654; Therapeutic Support</div>
+          <div style="padding:10px;background:#f0fdf4;border:2px solid #86efac;border-radius:6px;font-size:11px;font-weight:600;color:#166534">&#9654; Health &amp; Well-being <span style="float:right;font-size:9px;color:#1a6b3c">&#9660; Expanded</span></div>
+          <div style="padding:10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;font-weight:600;color:#475569">&#9654; Independent Living</div>
+          <div style="padding:10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;font-weight:600;color:#475569">&#9654; Social Engagement</div>
+          <div style="padding:10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;font-weight:600;color:#475569">&#9654; Education / Work / Training</div>
+          <div style="padding:10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;font-weight:600;color:#475569">&#9654; Long-term Goals</div>
+        </div>
+        <!-- Expanded Health & Well-being -->
+        <div style="padding:14px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;margin-bottom:14px">
+          <div style="font-size:12px;font-weight:700;color:#166534;margin-bottom:8px">Health &amp; Well-being</div>
+          <div style="padding:10px;background:#fff;border:1px solid #e2e8f0;border-radius:6px;margin-bottom:8px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start">
+              <div style="font-size:12px;color:#334155;line-height:1.6;flex:1">"Provide emotional support and a safe space to discuss mental health concerns"</div>
+              <button style="padding:4px 10px;border:1px solid #1a6b3c;border-radius:4px;background:#f0fdf4;color:#1a6b3c;cursor:pointer;font-size:10px;font-weight:600;white-space:nowrap;margin-left:10px" onclick="showToast('Update provision — coming soon')">Update</button>
+            </div>
+            <div style="margin-top:10px;padding:10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;color:#475569;line-height:1.6">
+              <strong style="color:#1a6b3c">Review 1 (01/03/2026):</strong> Scott has progressed from 2/5 to 4/5 confidence in discussing mental health with support staff. He now initiates conversations and has attended 3 counselling sessions independently.
+            </div>
+          </div>
+        </div>
+        <!-- Previous Versions -->
+        <div style="margin-top:10px">
+          <div style="font-size:10px;color:#94a3b8;cursor:pointer;font-weight:600" onclick="showToast('Previous support plan version — V1 (Oct 2025) — view only')">&#128196; Previous Versions <span style="background:#f1f5f9;padding:2px 6px;border-radius:10px;font-size:9px;margin-left:4px;color:#64748b">1</span></div>
+          <div style="padding:8px 12px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:6px;margin-top:6px;font-size:11px;color:#94a3b8">V1 — Created 15/10/2025 — <span style="text-decoration:line-through">Superseded</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress Tracker -->
+    <div class="card" id="sup-progress-tracker-section">
+      <h3>Progress Tracker</h3>
+      <div id="sup-progress-tracker">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div>
+            <div style="font-size:11px;font-weight:700;color:#475569;margin-bottom:12px">Progress by Category</div>
+            <div style="margin-bottom:10px">
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:#475569;margin-bottom:4px"><span>Mental Health</span><span style="font-weight:700;color:#059669">2/5 &rarr; 4/5</span></div>
+              <div style="display:flex;gap:4px;align-items:center"><div style="flex:1;height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden"><div style="width:40%;height:100%;background:#94a3b8;border-radius:4px"></div></div><div style="flex:1;height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden"><div style="width:80%;height:100%;background:#059669;border-radius:4px"></div></div></div>
+              <div style="display:flex;justify-content:space-between;font-size:9px;color:#94a3b8;margin-top:2px"><span>Initial</span><span>Current</span></div>
+            </div>
+            <div style="margin-bottom:10px">
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:#475569;margin-bottom:4px"><span>Independent Living</span><span style="font-weight:700;color:#059669">3/5 &rarr; 4/5</span></div>
+              <div style="display:flex;gap:4px;align-items:center"><div style="flex:1;height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden"><div style="width:60%;height:100%;background:#94a3b8;border-radius:4px"></div></div><div style="flex:1;height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden"><div style="width:80%;height:100%;background:#059669;border-radius:4px"></div></div></div>
+              <div style="display:flex;justify-content:space-between;font-size:9px;color:#94a3b8;margin-top:2px"><span>Initial</span><span>Current</span></div>
+            </div>
+            <div style="margin-bottom:10px">
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:#475569;margin-bottom:4px"><span>Social Engagement</span><span style="font-weight:700;color:#059669">1/5 &rarr; 3/5</span></div>
+              <div style="display:flex;gap:4px;align-items:center"><div style="flex:1;height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden"><div style="width:20%;height:100%;background:#94a3b8;border-radius:4px"></div></div><div style="flex:1;height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden"><div style="width:60%;height:100%;background:#059669;border-radius:4px"></div></div></div>
+              <div style="display:flex;justify-content:space-between;font-size:9px;color:#94a3b8;margin-top:2px"><span>Initial</span><span>Current</span></div>
+            </div>
+            <div style="margin-bottom:10px">
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:#475569;margin-bottom:4px"><span>Substance Misuse</span><span style="font-weight:700;color:#059669">4/5 &rarr; 2/5</span></div>
+              <div style="display:flex;gap:4px;align-items:center"><div style="flex:1;height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden"><div style="width:80%;height:100%;background:#dc2626;border-radius:4px"></div></div><div style="flex:1;height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden"><div style="width:40%;height:100%;background:#059669;border-radius:4px"></div></div></div>
+              <div style="display:flex;justify-content:space-between;font-size:9px;color:#94a3b8;margin-top:2px"><span>Initial (impact)</span><span>Current (impact)</span></div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:700;color:#475569;margin-bottom:12px">Score Key</div>
+            <div style="font-size:10px;color:#64748b;line-height:1.8">
+              <div><strong>1/5</strong> — Significant daily impact</div>
+              <div><strong>2/5</strong> — Frequent impact, needs regular support</div>
+              <div><strong>3/5</strong> — Moderate, improving with support</div>
+              <div><strong>4/5</strong> — Mostly independent, occasional support</div>
+              <div><strong>5/5</strong> — Minimal impact, self-managing</div>
+            </div>
+            <div style="margin-top:16px;padding:12px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;font-size:11px;color:#166534;line-height:1.6">
+              <strong>Overall Progress:</strong> Positive trajectory across all areas. Substance misuse impact reduced significantly (4/5 &rarr; 2/5). Social engagement showing strong improvement.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Manager Feedback -->
+    <div class="card" id="sup-manager-feedback-section">
+      <h3 style="display:flex;justify-content:space-between;align-items:center">Manager Feedback <button class="btn-primary" style="padding:5px 12px;font-size:10px" onclick="openManagerFeedbackForm()">+ Add Feedback</button></h3>
+      <div id="sup-manager-feedback-form" style="display:none;margin-bottom:14px;padding:14px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px">
+        <div class="form-group"><label class="form-label">Feedback</label><textarea class="form-textarea" id="mgr-fb-text" placeholder="Enter manager feedback..." rows="3"></textarea></div>
+        <div class="form-group"><label class="form-label">Notify:</label><div class="checkbox-grid"><label class="checkbox-item"><input type="checkbox"> Compliance Team</label><label class="checkbox-item"><input type="checkbox"> Service Manager</label><label class="checkbox-item"><input type="checkbox"> Team Leader</label><label class="checkbox-item"><input type="checkbox"> Support Worker</label></div></div>
+        <div style="display:flex;gap:8px"><button class="btn-primary" style="padding:6px 14px;font-size:11px" onclick="showToast('Manager feedback submitted');document.getElementById('sup-manager-feedback-form').style.display='none'">Submit Feedback</button><button style="padding:6px 14px;border:1px solid #e2e8f0;border-radius:6px;background:#fff;cursor:pointer;font-size:11px;color:#64748b" onclick="document.getElementById('sup-manager-feedback-form').style.display='none'">Cancel</button></div>
+      </div>
+      <div id="sup-manager-feedback-list">
+        <div style="padding:12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;margin-bottom:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#1e293b">&#128274; James Butler (Compliance)</span><span style="font-size:10px;color:#94a3b8">08/03/2026</span></div>
+          <div style="font-size:11px;color:#475569;line-height:1.6">Service user engaging well with support plan objectives. HB issue resolved. Continue current approach. No escalation needed at this time.</div>
+          <div style="font-size:9px;color:#94a3b8;margin-top:4px">&#128274; Restricted visibility — compliance only</div>
+        </div>
+        <div style="padding:12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;margin-bottom:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#1e293b">&#128274; Rachel Adams (SM)</span><span style="font-size:10px;color:#94a3b8">01/03/2026</span></div>
+          <div style="font-size:11px;color:#475569;line-height:1.6">Consider increasing contact frequency due to recent mental health disclosure. Discuss in next team meeting.</div>
+          <div style="font-size:9px;color:#94a3b8;margin-top:4px">&#128274; Restricted visibility — SM + compliance</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Activity Log -->
+    <div class="card" id="sup-activity-log-section">
+      <h3>Activity Log</h3>
+      <div id="sup-activity-log" style="font-size:11px;color:#475569;line-height:2">
+        <div style="border-bottom:1px solid #f1f5f9;padding:4px 0"><span style="color:#94a3b8;font-weight:600;min-width:140px;display:inline-block">13/03/2026 10:15</span> — <strong>Megan Thorne</strong> — Contact note submitted</div>
+        <div style="border-bottom:1px solid #f1f5f9;padding:4px 0"><span style="color:#94a3b8;font-weight:600;min-width:140px;display:inline-block">12/03/2026 14:30</span> — <strong>Steph Richards (TL)</strong> — Edited incident form IR-2024-008 (updated police reference)</div>
+        <div style="border-bottom:1px solid #f1f5f9;padding:4px 0"><span style="color:#94a3b8;font-weight:600;min-width:140px;display:inline-block">11/03/2026 09:00</span> — <strong>System</strong> — Welfare Watch triggered (14 days no contact)</div>
+        <div style="border-bottom:1px solid #f1f5f9;padding:4px 0"><span style="color:#94a3b8;font-weight:600;min-width:140px;display:inline-block">10/03/2026 16:45</span> — <strong>Megan Thorne</strong> — Risk assessment updated</div>
+        <div style="border-bottom:1px solid #f1f5f9;padding:4px 0"><span style="color:#94a3b8;font-weight:600;min-width:140px;display:inline-block">08/03/2026 11:20</span> — <strong>James Butler (SM)</strong> — Manager feedback added <span class="b gy" style="font-size:9px">restricted: compliance only</span></div>
+        <div style="padding:4px 0"><span style="color:#94a3b8;font-weight:600;min-width:140px;display:inline-block">05/03/2026 09:30</span> — <strong>Megan Thorne</strong> — Support plan review completed</div>
+      </div>
+    </div>
+
     <!-- Event Log -->
     <div class="card">
       <h3>Event Log</h3>
@@ -3685,6 +3830,15 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       <div id="tl-meeting-form" style="margin-bottom:14px"></div>
       <div id="tl-meetings-table"></div>
     </div>
+    <!-- TL Notifications -->
+    <div class="card">
+      <h3>Notifications</h3>
+      <div id="tl-notifications">
+        <div class="tl"><div class="dot" style="background:#dc2626"></div><div style="flex:1"><div class="tt">Welfare Watch: James Morrison — no contact 14 days (your caseload)</div><div class="mt">1 hour ago</div></div></div>
+        <div class="tl"><div class="dot" style="background:#d97706"></div><div style="flex:1"><div class="tt">Megan Thorne has incomplete incident form — open 3 days</div><div class="mt">3 hours ago</div></div></div>
+        <div class="tl"><div class="dot" style="background:#ea580c"></div><div style="flex:1"><div class="tt">Support plan review due for Michael Roberts — overdue 2 days</div><div class="mt">Yesterday 14:00</div></div></div>
+      </div>
+    </div>
   </div>
 
   </div>
@@ -3715,6 +3869,64 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       </div>
     </div>
   </div>
+  <!-- SM Notifications -->
+  <div class="card">
+    <h3>Notifications</h3>
+    <div id="sm-notifications">
+      <div class="tl"><div class="dot" style="background:#dc2626"></div><div style="flex:1"><div class="tt">Incident #IR-2024-012 open for 4 days — review overdue</div><div class="mt">2 hours ago</div></div></div>
+      <div class="tl"><div class="dot" style="background:#d97706"></div><div style="flex:1"><div class="tt">Welfare Watch triggered for James Morrison</div><div class="mt">5 hours ago</div></div></div>
+      <div class="tl"><div class="dot" style="background:#ea580c"></div><div style="flex:1"><div class="tt">New Welfare Concern logged for David Thompson</div><div class="mt">Yesterday 16:30</div></div></div>
+      <div class="tl"><div class="dot" style="background:#1a6b3c"></div><div style="flex:1"><div class="tt">Risk assessment updated for Sarah Chen — QA review needed</div><div class="mt">Yesterday 11:20</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== AUDITS DASHBOARD ===== -->
+<div class="page" id="p-audits">
+  <div class="stats-row">
+    <div class="sc"><div class="lb">Open Post-Incident Audits</div><div class="val amber">2</div></div>
+    <div class="sc"><div class="lb">Open General Audits</div><div class="val blue">1</div></div>
+    <div class="sc"><div class="lb">Completed This Month</div><div class="val green">5</div></div>
+    <div class="sc"><div class="lb">Overdue</div><div class="val red">1</div></div>
+  </div>
+  <div class="tabs" id="audit-tabs">
+    <div class="tab active" onclick="switchAuditTab('post-incident')">Post-Incident Audits</div>
+    <div class="tab" onclick="switchAuditTab('general')">General Case Audits</div>
+  </div>
+  <div id="audit-tab-post-incident">
+    <div class="card">
+      <h3>Post-Incident Audits — Kanban</h3>
+      <div class="g3" id="audit-pi-kanban"></div>
+    </div>
+  </div>
+  <div id="audit-tab-general" style="display:none">
+    <div style="margin-bottom:14px">
+      <button class="btn-primary" onclick="openNewAuditForm()">+ New Audit</button>
+    </div>
+    <div id="new-audit-form-wrap" style="display:none">
+      <div class="card" style="border:2px solid #1a6b3c">
+        <h3>Create New General Audit</h3>
+        <div class="g2">
+          <div>
+            <div class="form-group"><label class="form-label">Service User</label><select class="form-select" id="audit-su"><option value="">Search/select SU...</option></select></div>
+            <div class="form-group"><label class="form-label">Full Audit?</label><div style="display:flex;gap:12px;padding:6px 0"><label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:13px"><input type="radio" name="audit-full" value="yes"> Yes</label><label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:13px"><input type="radio" name="audit-full" value="no" checked> No</label></div></div>
+          </div>
+          <div>
+            <div class="form-group"><label class="form-label">Time Period</label><div class="g2"><input class="form-input" type="date" id="audit-from"><input class="form-input" type="date" id="audit-to"></div></div>
+            <div class="form-group"><label class="form-label">Reason</label><select class="form-select" id="audit-reason"><option value="">Select reason...</option><option value="hb">External request — HB</option><option value="council">External request — Council</option><option value="standard">Standard compliance audit</option></select></div>
+          </div>
+        </div>
+        <div class="form-group"><label class="form-label">Notes</label><textarea class="form-textarea" id="audit-notes" placeholder="Additional notes..." rows="3"></textarea></div>
+        <div style="display:flex;gap:10px"><button class="btn-primary" onclick="showToast('Audit created — added to queue');document.getElementById('new-audit-form-wrap').style.display='none'">Create Audit</button><button style="padding:10px 20px;border:1px solid #e2e8f0;border-radius:6px;background:#f8fafc;cursor:pointer;font-size:12px;color:#64748b" onclick="document.getElementById('new-audit-form-wrap').style.display='none'">Cancel</button></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>General Case Audits — Kanban</h3>
+      <div class="g3" id="audit-gen-kanban"></div>
+    </div>
+  </div>
+  <!-- Audit Detail Overlay -->
+  <div id="audit-detail-overlay" style="display:none"></div>
 </div>
 
 <!-- SU Journey Page -->
@@ -4362,7 +4574,8 @@ const titles = {
   'sw-welfare-check':'Welfare Check',
   'sw-incident-report':'Report Incident',
   'sw-handover':'Shift Handover',
-  'sm-dashboard':'Service Manager Dashboard'
+  'sm-dashboard':'Service Manager Dashboard',
+  'audits':'Audits'
 };
 var navHistory = [];
 function nav(page, opts) {
@@ -4429,6 +4642,7 @@ function nav(page, opts) {
   if (page === 'sw-welfare-check') renderSWWelfareCheck();
   if (page === 'sw-incident-report') renderSWIncidentReport();
   if (page === 'sw-handover') renderSWHandover();
+  if (page === 'audits') renderAuditsDashboard();
   window.scrollTo(0,0);
 }
 document.querySelectorAll('.nav-item[data-page]').forEach(item => {
@@ -5363,6 +5577,10 @@ function loadSUProfile(key) {
         (s.nrpf ? '<span class="b rd">NRPF</span>' : '') +
         '<span class="b '+s.riskCls+'">'+s.riskLevel+' RISK</span>' +
         (s.activeGuide ? '<span class="b bl" style="background:#dcfce7;color:#1a6b3c;cursor:pointer" onclick="nav(\'eight-week\')">&#9881; Active Guide</span>' : '') +
+      '</div>' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">' +
+        '<div style="font-size:9px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px">Personal Details</div>' +
+        '<span onclick="showToast(\'Edit permissions based on your role\')" style="cursor:pointer;font-size:11px;color:#1a6b3c;font-weight:600;padding:3px 8px;border:1px solid #86efac;border-radius:4px;background:#f0fdf4" title="Edit personal details">&#9998; Edit</span>' +
       '</div>' +
       '<div class="sup-meta-grid">' +
         '<div><div class="sup-ml">Date of Birth</div><div class="sup-mv">'+s.dob+'</div></div>' +
@@ -7235,7 +7453,7 @@ const LEVEL_COLORS = { 1:{ bg:'#dcfce7',color:'#166534',border:'#059669' }, 2:{ 
 const SSM_QUESTIONS = {
   1:'Has the situation been contained and is the service user safe?',
   2:'Has the team leader been notified and is there an immediate safety concern?',
-  3:'Have emergency services been contacted if needed? Is the scene safe?'
+  3:'Are all parties involved safe? (Service users, staff, third parties) Has this incident been escalated to the SSM? Has the SSM been informed?'
 };
 const CATEGORY_LABELS = {
   'verbal-argument':'Verbal argument','minor-damage':'Minor property damage','one-off-breach':'One-off licence breach',
@@ -7405,7 +7623,6 @@ function saveSUIncident(e) {
   const su = SERVICE_USERS.find(function(s) { return s.id === suId; });
   const incidents = getIncidents();
   const incNum = 450 + incidents.length;
-  var policeRadio = document.querySelector('input[name="su-inc-police"]:checked');
   var emergencyRadio = document.querySelector('input[name="su-inc-emergency"]:checked');
   incidents.unshift({
     id: 'INC-' + incNum,
@@ -7418,7 +7635,6 @@ function saveSUIncident(e) {
     ssmAnswer: document.getElementById('su-inc-ssm-answer').value,
     role: document.getElementById('su-inc-role').value,
     emergencyServices: emergencyRadio ? emergencyRadio.value : 'no',
-    policeCalled: policeRadio ? policeRadio.value : 'no',
     policeRef: document.getElementById('su-inc-police-ref').value.trim(),
     witnesses: document.getElementById('su-inc-witnesses').value.trim(),
     status: 'open',
@@ -7485,12 +7701,11 @@ function showIncidentDetail(incId) {
   html += _buildIncidentDetailField('Severity', '<span style="color:'+lc.color+';font-weight:700">'+sevLabel+'</span>');
   if (inc.role) html += _buildIncidentDetailField('SU Role in Incident', roleLabels[inc.role] || inc.role);
   if (inc.emergencyServices) html += _buildIncidentDetailField('Emergency Services Involved', inc.emergencyServices === 'yes' ? 'Yes' : 'No');
-  if (inc.policeCalled) html += _buildIncidentDetailField('Police Called', inc.policeCalled === 'yes' ? 'Yes' : 'No');
-  if (inc.policeCalled === 'yes' && inc.policeRef) html += _buildIncidentDetailField('Police Incident Number', inc.policeRef);
+  if (inc.policeRef) html += _buildIncidentDetailField('Police Incident Reference', inc.policeRef);
   html += '</div>';
   html += '<div style="margin-bottom:12px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Description</div><div style="font-size:13px;color:#334155;line-height:1.6;background:#f8fafc;padding:12px;border-radius:8px;border:1px solid #e2e8f0">'+incDesc+'</div></div>';
   if (inc.witnesses) html += '<div style="margin-bottom:12px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Other Witnesses</div><div style="font-size:13px;color:#334155;background:#f8fafc;padding:12px;border-radius:8px;border:1px solid #e2e8f0">'+inc.witnesses+'</div></div>';
-  if (inc.ssmAnswer) html += '<div style="margin-bottom:12px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">SSM Validation</div><div style="font-size:13px;color:#334155">'+inc.ssmAnswer+'</div></div>';
+  if (inc.ssmAnswer) html += '<div style="margin-bottom:12px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Incident Response Check</div><div style="font-size:13px;color:#334155">'+inc.ssmAnswer+'</div></div>';
   // Show existing manager notes if any
   if (inc.managerNotes) html += '<div style="margin-bottom:12px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Previous Manager Notes</div><div style="font-size:13px;color:#334155;background:#fffbeb;padding:12px;border-radius:8px;border:1px solid #fde68a">'+inc.managerNotes+'</div></div>';
   // Show monitoring info if status is monitoring
@@ -9380,12 +9595,24 @@ function renderRiskDashboard() {
     const sevBg = {1:'#dcfce7',2:'#fef3c7',3:'#fee2e2'};
     const sevText = {1:'#166534',2:'#92400e',3:'#991b1b'};
     const dOpen = daysBetween(inc.date, today);
-    return '<div onclick="showIncidentDetail(\''+inc.id+'\')" style="cursor:pointer;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px;margin-bottom:8px;border-left:4px solid '+sevColors[inc.severity]+';transition:box-shadow 0.15s" onmouseover="this.style.boxShadow=\'0 2px 8px rgba(0,0,0,0.1)\'" onmouseout="this.style.boxShadow=\'none\'">' +
+    var reviewDays = 7 - dOpen;
+    var isOverdue = reviewDays < 0;
+    var countdownHtml = '';
+    if (inc.status === 'open') {
+      if (isOverdue) {
+        countdownHtml = '<div style="margin-top:6px;padding:4px 8px;background:#fee2e2;border:1px solid #fca5a5;border-radius:4px;font-size:10px;font-weight:700;color:#dc2626">OVERDUE — '+Math.abs(reviewDays)+' day'+(Math.abs(reviewDays)!==1?'s':'')+' past review date</div>';
+      } else {
+        countdownHtml = '<div style="margin-top:6px;padding:4px 8px;background:#f0fdf4;border:1px solid #86efac;border-radius:4px;font-size:10px;font-weight:600;color:#166534">Review due in: '+reviewDays+' day'+(reviewDays!==1?'s':'')+'</div>';
+      }
+    }
+    var borderStyle = (inc.status === 'open' && isOverdue) ? 'border:2px solid #dc2626;' : 'border:1px solid #e2e8f0;';
+    return '<div onclick="showIncidentDetail(\''+inc.id+'\')" style="cursor:pointer;background:'+(inc.status==='open'&&isOverdue?'#fef2f2':'#f8fafc')+';'+borderStyle+'border-radius:8px;padding:12px;margin-bottom:8px;border-left:4px solid '+sevColors[inc.severity]+';transition:box-shadow 0.15s" onmouseover="this.style.boxShadow=\'0 2px 8px rgba(0,0,0,0.1)\'" onmouseout="this.style.boxShadow=\'none\'">' +
       '<div style="display:flex;justify-content:space-between;align-items:flex-start">' +
         '<div>'+suLinkHtml(inc.su, 'font-size:12px')+'<div style="font-size:10px;color:#64748b;margin-top:2px">'+inc.id+' — '+inc.type+'</div></div>' +
         '<span style="background:'+sevBg[inc.severity]+';color:'+sevText[inc.severity]+';padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700">Level '+inc.severity+'</span>' +
       '</div>' +
       '<div style="font-size:10px;color:#475569;margin-top:6px;line-height:1.5">'+inc.detail+'</div>' +
+      countdownHtml +
       '<div style="display:flex;gap:14px;margin-top:8px;font-size:10px;color:#64748b">' +
         '<span>'+fmt(inc.date)+'</span>' +
         '<span>Assigned: <strong>'+inc.assigned+'</strong></span>' +
@@ -12130,6 +12357,192 @@ function updateSWHandoverDisplay() {
     }
   }
 }
+// ===== AUDITS DASHBOARD =====
+function switchAuditTab(tab) {
+  document.querySelectorAll('#audit-tabs .tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('#audit-tabs .tab')[tab === 'post-incident' ? 0 : 1].classList.add('active');
+  document.getElementById('audit-tab-post-incident').style.display = tab === 'post-incident' ? 'block' : 'none';
+  document.getElementById('audit-tab-general').style.display = tab === 'general' ? 'block' : 'none';
+}
+
+function openNewAuditForm() {
+  var wrap = document.getElementById('new-audit-form-wrap');
+  wrap.style.display = wrap.style.display === 'none' ? 'block' : 'none';
+  var sel = document.getElementById('audit-su');
+  if (sel && sel.options.length <= 1) {
+    sel.innerHTML = '<option value="">Search/select SU...</option>' + SERVICE_USERS.map(function(su) { return '<option value="'+su.id+'">'+su.id+' — '+su.name+'</option>'; }).join('');
+  }
+}
+
+function renderAuditsDashboard() {
+  var fmt = function(d) { return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}); };
+  var today = new Date();
+  var daysAgo = function(n) { var d = new Date(today); d.setDate(d.getDate()-n); return d; };
+
+  // Post-Incident Audit data
+  var piAudits = [
+    { id:'AUD-PI-001', su:'E. Abdullahi', suId:'SU-0112', incRef:'INC-502', triggered:daysAgo(1), officer:'T. Richardson', status:'open', notes:'Self-harm disclosure — contact notes and support plan review needed' },
+    { id:'AUD-PI-002', su:'F. Nowak', suId:'SU-0145', incRef:'INC-505', triggered:daysAgo(10), officer:'A. Sherazi', status:'in-progress', notes:'Historical abuse disclosure — safeguarding audit ongoing' },
+    { id:'AUD-PI-003', su:'H. Singh', suId:'SU-0198', incRef:'INC-507', triggered:daysAgo(20), officer:'T. Richardson', status:'completed', notes:'All documentation reviewed and compliant' },
+    { id:'AUD-PI-004', su:'B. Kowalski', suId:'SU-0012', incRef:'INC-501', triggered:daysAgo(2), officer:'A. Sherazi', status:'open', notes:'Repeated ASB — escalation pattern review' }
+  ];
+
+  function auditCard(a) {
+    var statusColors = {'open':'#dc2626','in-progress':'#d97706','completed':'#059669'};
+    var statusBg = {'open':'#fee2e2','in-progress':'#fef3c7','completed':'#dcfce7'};
+    var statusLabels = {'open':'Open','in-progress':'In Progress','completed':'Completed'};
+    return '<div onclick="showAuditDetail(\''+a.id+'\')" style="cursor:pointer;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px;margin-bottom:8px;border-left:4px solid '+statusColors[a.status]+';transition:box-shadow 0.15s" onmouseover="this.style.boxShadow=\'0 2px 8px rgba(0,0,0,0.1)\'" onmouseout="this.style.boxShadow=\'none\'">' +
+      '<div style="display:flex;justify-content:space-between;align-items:flex-start">' +
+        '<div><div style="font-weight:700;font-size:12px;color:#1e293b">'+a.su+'</div><div style="font-size:10px;color:#64748b;margin-top:2px">'+a.id+' — Ref: '+a.incRef+'</div></div>' +
+        '<span style="background:'+statusBg[a.status]+';color:'+statusColors[a.status]+';padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700">'+statusLabels[a.status]+'</span>' +
+      '</div>' +
+      '<div style="font-size:10px;color:#475569;margin-top:6px;line-height:1.5">'+a.notes+'</div>' +
+      '<div style="display:flex;gap:14px;margin-top:8px;font-size:10px;color:#64748b"><span>Triggered: '+fmt(a.triggered)+'</span><span>Officer: <strong>'+a.officer+'</strong></span></div>' +
+    '</div>';
+  }
+
+  var piOpen = piAudits.filter(function(a){return a.status==='open';});
+  var piInProgress = piAudits.filter(function(a){return a.status==='in-progress';});
+  var piCompleted = piAudits.filter(function(a){return a.status==='completed';});
+
+  document.getElementById('audit-pi-kanban').innerHTML =
+    '<div><div style="font-size:10px;font-weight:800;color:#dc2626;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:3px solid #dc2626">Open <span style="background:#fee2e2;padding:2px 8px;border-radius:10px;font-size:9px;margin-left:4px">'+piOpen.length+'</span></div>' + piOpen.map(auditCard).join('') + '</div>' +
+    '<div><div style="font-size:10px;font-weight:800;color:#d97706;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:3px solid #d97706">In Progress <span style="background:#fef3c7;padding:2px 8px;border-radius:10px;font-size:9px;margin-left:4px">'+piInProgress.length+'</span></div>' + piInProgress.map(auditCard).join('') + '</div>' +
+    '<div><div style="font-size:10px;font-weight:800;color:#059669;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:3px solid #059669">Completed <span style="background:#dcfce7;padding:2px 8px;border-radius:10px;font-size:9px;margin-left:4px">'+piCompleted.length+'</span></div>' + piCompleted.map(auditCard).join('') + '</div>';
+
+  // General Audit data
+  var genAudits = [
+    { id:'AUD-GEN-001', su:'A. Rahman', suId:'SU-0001', reason:'Standard compliance audit', period:'01 Jan — 28 Feb 2026', officer:'A. Sherazi', status:'in-progress', notes:'Quarterly scheduled audit — contact notes and support plan review' },
+    { id:'AUD-GEN-002', su:'D. O\'Brien', suId:'SU-0091', reason:'External request — Council', period:'01 Feb — 28 Feb 2026', officer:'T. Richardson', status:'open', notes:'Council requested full audit following licence breach pattern' },
+    { id:'AUD-GEN-003', su:'G. Mensah', suId:'SU-0178', reason:'Standard compliance audit', period:'01 Dec 2025 — 28 Feb 2026', officer:'A. Sherazi', status:'completed', notes:'Completed — no issues found' },
+    { id:'AUD-GEN-004', su:'I. Yilmaz', suId:'SU-0203', reason:'External request — HB', period:'01 Jan — 28 Feb 2026', officer:'T. Richardson', status:'completed', notes:'HB verification completed — all documentation in order' }
+  ];
+
+  var genOpen = genAudits.filter(function(a){return a.status==='open';});
+  var genInProgress = genAudits.filter(function(a){return a.status==='in-progress';});
+  var genCompleted = genAudits.filter(function(a){return a.status==='completed';});
+
+  function genAuditCard(a) {
+    var statusColors = {'open':'#dc2626','in-progress':'#d97706','completed':'#059669'};
+    var statusBg = {'open':'#fee2e2','in-progress':'#fef3c7','completed':'#dcfce7'};
+    var statusLabels = {'open':'Open','in-progress':'In Progress','completed':'Completed'};
+    return '<div onclick="showAuditDetail(\''+a.id+'\')" style="cursor:pointer;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px;margin-bottom:8px;border-left:4px solid '+statusColors[a.status]+';transition:box-shadow 0.15s" onmouseover="this.style.boxShadow=\'0 2px 8px rgba(0,0,0,0.1)\'" onmouseout="this.style.boxShadow=\'none\'">' +
+      '<div style="display:flex;justify-content:space-between;align-items:flex-start">' +
+        '<div><div style="font-weight:700;font-size:12px;color:#1e293b">'+a.su+'</div><div style="font-size:10px;color:#64748b;margin-top:2px">'+a.id+' — '+a.reason+'</div></div>' +
+        '<span style="background:'+statusBg[a.status]+';color:'+statusColors[a.status]+';padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700">'+statusLabels[a.status]+'</span>' +
+      '</div>' +
+      '<div style="font-size:10px;color:#475569;margin-top:6px;line-height:1.5">'+a.notes+'</div>' +
+      '<div style="display:flex;gap:14px;margin-top:8px;font-size:10px;color:#64748b"><span>Period: '+a.period+'</span><span>Officer: <strong>'+a.officer+'</strong></span></div>' +
+    '</div>';
+  }
+
+  document.getElementById('audit-gen-kanban').innerHTML =
+    '<div><div style="font-size:10px;font-weight:800;color:#dc2626;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:3px solid #dc2626">Open <span style="background:#fee2e2;padding:2px 8px;border-radius:10px;font-size:9px;margin-left:4px">'+genOpen.length+'</span></div>' + genOpen.map(genAuditCard).join('') + '</div>' +
+    '<div><div style="font-size:10px;font-weight:800;color:#d97706;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:3px solid #d97706">In Progress <span style="background:#fef3c7;padding:2px 8px;border-radius:10px;font-size:9px;margin-left:4px">'+genInProgress.length+'</span></div>' + genInProgress.map(genAuditCard).join('') + '</div>' +
+    '<div><div style="font-size:10px;font-weight:800;color:#059669;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:3px solid #059669">Completed <span style="background:#dcfce7;padding:2px 8px;border-radius:10px;font-size:9px;margin-left:4px">'+genCompleted.length+'</span></div>' + genCompleted.map(genAuditCard).join('') + '</div>';
+}
+
+function showAuditDetail(auditId) {
+  var modal = document.createElement('div');
+  modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+  modal.onclick = function(ev) { if (ev.target === modal) modal.remove(); };
+
+  var isPI = auditId.indexOf('PI') !== -1;
+  var suName = auditId === 'AUD-PI-001' ? 'E. Abdullahi' : auditId === 'AUD-PI-002' ? 'F. Nowak' : auditId === 'AUD-PI-004' ? 'B. Kowalski' : auditId === 'AUD-GEN-002' ? 'D. O\'Brien' : auditId === 'AUD-GEN-001' ? 'A. Rahman' : 'Service User';
+  var suId = auditId === 'AUD-PI-001' ? 'SU-0112' : auditId === 'AUD-PI-002' ? 'SU-0145' : auditId === 'AUD-PI-004' ? 'SU-0012' : auditId === 'AUD-GEN-002' ? 'SU-0091' : auditId === 'AUD-GEN-001' ? 'SU-0001' : 'SU-0000';
+
+  var html = '<div style="background:#fff;border-radius:12px;max-width:750px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3)">';
+  html += '<div style="padding:20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;background:#f8fafc;border-radius:12px 12px 0 0">' +
+    '<div><h3 style="margin:0;font-size:16px">Audit: '+auditId+'</h3><div style="font-size:12px;color:#64748b;margin-top:4px">'+suName+' ('+suId+')</div></div>' +
+    '<button onclick="this.closest(\'div[style*=fixed]\').remove()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#94a3b8">&times;</button></div>';
+
+  // SU basic info
+  html += '<div style="padding:20px">';
+  html += '<div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:12px;letter-spacing:0.5px">Service User Information</div>';
+  html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;padding:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;color:#334155">' +
+    '<div><strong>Name:</strong> '+suName+'</div><div><strong>ID:</strong> '+suId+'</div></div>';
+
+  // Contact notes (demo)
+  html += '<div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:8px;letter-spacing:0.5px">Contact Notes</div>';
+  html += '<div style="max-height:150px;overflow-y:auto;margin-bottom:16px">';
+  html += '<div style="padding:8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;margin-bottom:6px;font-size:11px"><div style="display:flex;justify-content:space-between"><strong>10/03/2026</strong><span style="color:#94a3b8">Megan Thorne</span></div><div style="color:#475569;margin-top:4px">Key session — discussed support plan goals and progress.</div><div style="color:#1a6b3c;font-size:10px;margin-top:2px">QA Score: 3.5/4</div></div>';
+  html += '<div style="padding:8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;margin-bottom:6px;font-size:11px"><div style="display:flex;justify-content:space-between"><strong>07/03/2026</strong><span style="color:#94a3b8">Megan Thorne</span></div><div style="color:#475569;margin-top:4px">Welfare check — SU in good spirits, property clean.</div><div style="color:#1a6b3c;font-size:10px;margin-top:2px">QA Score: 3.2/4</div></div>';
+  html += '<div style="padding:8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;font-size:11px"><div style="display:flex;justify-content:space-between"><strong>03/03/2026</strong><span style="color:#94a3b8">Megan Thorne</span></div><div style="color:#475569;margin-top:4px">Accompanied to GP appointment. SU engaged well.</div><div style="color:#1a6b3c;font-size:10px;margin-top:2px">QA Score: 3.8/4</div></div>';
+  html += '</div>';
+
+  // Support documents
+  html += '<div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:8px;letter-spacing:0.5px">Support Documents</div>';
+  html += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:16px">' +
+    '<div style="padding:8px;background:#dcfce7;border:1px solid #86efac;border-radius:6px;font-size:10px;color:#166534;text-align:center">&#9989; Risk Assessment</div>' +
+    '<div style="padding:8px;background:#dcfce7;border:1px solid #86efac;border-radius:6px;font-size:10px;color:#166534;text-align:center">&#9989; Support Plan</div>' +
+    '<div style="padding:8px;background:#fef3c7;border:1px solid #fde68a;border-radius:6px;font-size:10px;color:#92400e;text-align:center">&#9203; Pen Portrait</div></div>';
+
+  // Audit notes
+  html += '<div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:8px;letter-spacing:0.5px">Audit Notes / Observations</div>';
+  html += '<textarea class="form-textarea" placeholder="Enter audit notes and observations..." rows="4" style="margin-bottom:16px"></textarea>';
+
+  // Action buttons
+  html += '<div style="display:flex;gap:8px;flex-wrap:wrap">' +
+    '<button class="btn-primary" style="background:#d97706" onclick="showToast(\'Audit marked as required\');this.closest(\'div[style*=fixed]\').remove()">Audit Required</button>' +
+    '<button class="btn-primary" style="background:#059669" onclick="showToast(\'Audit not required — noted\');this.closest(\'div[style*=fixed]\').remove()">Audit Not Required (with reason)</button>' +
+    '<button class="btn-primary" style="background:#dc2626" onclick="showToast(\'Audit closed — approval note required\');this.closest(\'div[style*=fixed]\').remove()">Close Audit</button>' +
+    '<button style="padding:8px 16px;border:1px solid #e2e8f0;border-radius:6px;background:#f8fafc;cursor:pointer;font-size:12px;color:#64748b" onclick="this.closest(\'div[style*=fixed]\').remove()">Cancel</button></div>';
+
+  html += '</div></div>';
+  modal.innerHTML = html;
+  document.body.appendChild(modal);
+}
+
+// ===== INTERNAL MESSAGING =====
+function openMessagesPanel() {
+  var existing = document.getElementById('messages-panel-overlay');
+  if (existing) { existing.remove(); return; }
+
+  var overlay = document.createElement('div');
+  overlay.id = 'messages-panel-overlay';
+  overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.4);z-index:9999;display:flex;justify-content:flex-end';
+  overlay.onclick = function(ev) { if (ev.target === overlay) overlay.remove(); };
+
+  var html = '<div style="background:#fff;width:420px;max-width:90vw;height:100%;overflow-y:auto;box-shadow:-4px 0 20px rgba(0,0,0,0.15)">';
+  html += '<div style="padding:18px 20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;background:#f8fafc">' +
+    '<h3 style="margin:0;font-size:15px;font-weight:800;color:#1e293b">Messages <span style="background:#dc2626;color:#fff;font-size:9px;padding:2px 7px;border-radius:10px;margin-left:6px">3</span></h3>' +
+    '<button onclick="this.closest(\'#messages-panel-overlay\').remove()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#94a3b8">&times;</button></div>';
+
+  // Messages
+  html += '<div style="padding:16px">';
+  // Unread message 1
+  html += '<div style="padding:14px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;margin-bottom:10px;cursor:pointer" onclick="showToast(\'Message opened\')">' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#1e293b">&#128308; Steph Richards (SM)</span><span style="font-size:10px;color:#94a3b8">Today 09:15</span></div>' +
+    '<div style="font-size:11px;font-weight:600;color:#1a6b3c;margin-bottom:4px">Re: Suzy Parker WC</div>' +
+    '<div style="font-size:11px;color:#475569;line-height:1.6">This should be an incident form. I\'ve closed the WC. Please log an incident. <span style="color:#1a6b3c;font-weight:600">[Added to your to-do list]</span></div></div>';
+  // Unread message 2
+  html += '<div style="padding:14px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;margin-bottom:10px;cursor:pointer" onclick="showToast(\'Message opened\')">' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#1e293b">&#128308; James Butler (Compliance)</span><span style="font-size:10px;color:#94a3b8">Today 08:30</span></div>' +
+    '<div style="font-size:11px;font-weight:600;color:#1a6b3c;margin-bottom:4px">Reminder: Monthly audit reports</div>' +
+    '<div style="font-size:11px;color:#475569;line-height:1.6">Monthly audit reports due Friday. Please ensure all outstanding audits are reviewed.</div></div>';
+  // Unread message 3
+  html += '<div style="padding:14px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;margin-bottom:10px;cursor:pointer" onclick="showToast(\'Message opened\')">' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#1e293b">&#128308; Rachel Adams (SM)</span><span style="font-size:10px;color:#94a3b8">Yesterday 16:45</span></div>' +
+    '<div style="font-size:11px;font-weight:600;color:#1a6b3c;margin-bottom:4px">Team meeting rescheduled</div>' +
+    '<div style="font-size:11px;color:#475569;line-height:1.6">Wednesday team meeting moved to 14:00. Please confirm attendance.</div></div>';
+  // Read message
+  html += '<div style="padding:14px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;margin-bottom:10px;cursor:pointer;opacity:0.7" onclick="showToast(\'Message opened\')">' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#64748b">Megan Thorne (TL)</span><span style="font-size:10px;color:#94a3b8">11 Mar 14:20</span></div>' +
+    '<div style="font-size:11px;color:#64748b;margin-bottom:4px">Re: SU-0112 support plan update</div>' +
+    '<div style="font-size:11px;color:#94a3b8;line-height:1.6">Updated as discussed. Thanks.</div></div>';
+
+  html += '<button class="btn-primary" style="width:100%;margin-top:8px" onclick="showToast(\'New message — coming soon\')">+ New Message</button>';
+  html += '</div></div>';
+
+  overlay.innerHTML = html;
+  document.body.appendChild(overlay);
+}
+
+// ===== MANAGER FEEDBACK =====
+function openManagerFeedbackForm() {
+  document.getElementById('sup-manager-feedback-form').style.display = 'block';
+}
+
 </script>
 </body>
 </html>
