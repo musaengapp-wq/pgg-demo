@@ -990,7 +990,6 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="nav-item" data-page="notifications"><span class="icon">&#9679;</span> Notifications <span class="badge">7</span></div>
     <div class="nav-section">Service Users</div>
     <div class="nav-item" data-page="service-users"><span class="icon">&#9823;</span> All Service Users <span class="badge info">634</span></div>
-    <div class="nav-item" data-page="cn-hub"><span class="icon">&#128221;</span> Contact Notes <span class="badge info">79.6k</span></div>
     <div class="nav-item" data-page="eight-week"><span class="icon">&#9881;</span> 8-Week Guide</div>
     <div class="nav-item" data-page="allocation"><span class="icon">&#10132;</span> New Referral / Allocation</div>
     <div class="nav-section">Compliance</div>
@@ -1000,6 +999,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="nav-item" data-page="doc-management"><span class="icon">&#128196;</span> Document Management</div>
     <div class="nav-item" data-page="policies"><span class="icon">&#9745;</span> Policies & Procedures</div>
     <div class="nav-item" data-page="audits"><span class="icon">&#128269;</span> Audits <span class="badge warn">1</span></div>
+    <div class="nav-item" data-page="cn-hub"><span class="icon">&#128221;</span> Contact Notes <span class="badge info">79.6k</span></div>
     <div class="nav-item" data-page="staff-performance"><span class="icon">&#9784;</span> Staff Performance</div>
     <div class="nav-item" data-page="demo-compare"><span class="icon">&#9878;</span> Live Demo</div>
 
@@ -2961,6 +2961,13 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
           <div class="sup-tab-content" id="sup-tab-safewell"></div>
         </div>
       </div>
+    </div>
+
+    <!-- Contact Notes -->
+    <div class="card">
+      <h3>Contact Notes</h3>
+      <p style="margin:0 0 10px;font-size:11px;color:#94a3b8">Recent contact notes for this service user. Notes are submitted for QA review.</p>
+      <div class="si" style="max-height:300px" id="sup-cn-list"></div>
     </div>
 
     <!-- Missing Data Alerts -->
@@ -5604,6 +5611,18 @@ function loadSUProfile(key) {
     '</div>';
   }).join('');
 
+  // Contact notes for QA
+  var cnList = document.getElementById('sup-cn-list');
+  if (cnList) {
+    cnList.innerHTML = s.contactEvents.slice(0, 5).map(function(e) {
+      var qaBadge = e.qa >= 3 ? '<span class="b gn" style="font-size:9px">Verified</span>' : e.qa >= 2 ? '<span class="b am" style="font-size:9px">Reviewed</span>' : '<span class="b rd" style="font-size:9px">Flagged</span>';
+      return '<div style="padding:10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;margin-bottom:6px;font-size:11px">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center"><strong>' + e.date + '</strong>' + qaBadge + '</div>' +
+        '<div style="color:#475569;margin-top:4px">' + e.type + ' — ' + e.desc + '</div>' +
+        '<div style="color:#1a6b3c;font-size:10px;margin-top:2px">QA Score: ' + e.qa + '/4</div></div>';
+    }).join('');
+  }
+
   // Reset tabs to incidents
   document.querySelectorAll('#sup-tabs .tab').forEach(function(t,i) { t.classList.toggle('active', i===0); });
   document.querySelectorAll('#p-su-profile .sup-tab-content').forEach(function(c,i) { c.classList.toggle('active', i===0); });
@@ -5688,16 +5707,52 @@ function findServiceUserByName(name) {
 function supLogContactEvent() {
   var s = getCurrentSUProfile();
   if (!s) { showToast('No service user selected'); return; }
-  nav('cn-hub');
-  populateSUDropdown();
-  setTimeout(function() {
-    var sel = document.getElementById('note-su');
-    var su = findServiceUserByName(s.name);
-    if (su && sel) {
-      sel.value = su.id;
-    }
-    showToast('Contact note form ready for ' + s.name);
-  }, 100);
+  // Remove existing modal if any
+  var existing = document.getElementById('sup-cn-modal');
+  if (existing) { existing.remove(); return; }
+  var modal = document.createElement('div');
+  modal.id = 'sup-cn-modal';
+  modal.style.cssText = 'margin:16px 0;padding:20px;background:#f0fdf4;border:2px solid #86efac;border-radius:12px;';
+  modal.innerHTML =
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">' +
+      '<h3 style="margin:0;font-size:14px;color:#1e293b">Log Contact Note — ' + s.name + '</h3>' +
+      '<button onclick="document.getElementById(\'sup-cn-modal\').remove()" style="background:none;border:none;font-size:18px;cursor:pointer;color:#94a3b8">&times;</button>' +
+    '</div>' +
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">' +
+      '<div><label style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;display:block;margin-bottom:4px">Date</label>' +
+        '<input type="date" id="sup-cn-date" class="form-input" style="width:100%;padding:8px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px"></div>' +
+      '<div><label style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;display:block;margin-bottom:4px">Contact Type</label>' +
+        '<select id="sup-cn-type" class="form-select" style="width:100%;padding:8px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px">' +
+          '<option value="visit">Visit</option><option value="phone">Phone Call</option><option value="text">Text Message</option><option value="email">Email</option>' +
+        '</select></div>' +
+    '</div>' +
+    '<div style="margin-bottom:12px"><label style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;display:block;margin-bottom:4px">Notes</label>' +
+      '<textarea id="sup-cn-notes" rows="4" placeholder="Enter contact notes..." style="width:100%;padding:8px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px;resize:vertical;box-sizing:border-box"></textarea></div>' +
+    '<button class="btn-primary" style="width:100%;padding:10px;font-size:13px" onclick="submitSUPContactNote()">Submit Contact Note</button>';
+  // Set default date to today
+  var actionsDiv = document.getElementById('sup-actions');
+  actionsDiv.parentNode.insertBefore(modal, actionsDiv.nextSibling);
+  var now = new Date(); now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+  document.getElementById('sup-cn-date').value = now.toISOString().slice(0, 10);
+}
+
+function submitSUPContactNote() {
+  var date = document.getElementById('sup-cn-date').value;
+  var type = document.getElementById('sup-cn-type').value;
+  var notes = document.getElementById('sup-cn-notes').value;
+  if (!date || !notes.trim()) { showToast('Please fill in date and notes'); return; }
+  document.getElementById('sup-cn-modal').remove();
+  showToast('Contact note submitted for QA review');
+  // Add the note to the SU profile contact notes section
+  var cnList = document.getElementById('sup-cn-list');
+  if (cnList) {
+    var typeLabels = {visit:'Visit',phone:'Phone Call',text:'Text',email:'Email'};
+    var row = document.createElement('div');
+    row.style.cssText = 'padding:10px;background:#f0fdf4;border:1px solid #86efac;border-radius:6px;margin-bottom:6px;font-size:11px';
+    row.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center"><strong>' + date + '</strong><span class="b am" style="font-size:9px">Pending QA</span></div>' +
+      '<div style="color:#475569;margin-top:4px">' + (typeLabels[type]||type) + ' — ' + notes.substring(0,120) + (notes.length>120?'...':'') + '</div>';
+    cnList.insertBefore(row, cnList.firstChild);
+  }
 }
 
 function supLogIncident() {
@@ -6817,7 +6872,6 @@ function enterAdminMode() {
         '<div class="nav-item" data-page="notifications"><span class="icon">&#9679;</span> Notifications <span class="badge">7</span></div>' +
         '<div class="nav-section">Service Users</div>' +
         '<div class="nav-item" data-page="service-users"><span class="icon">&#9823;</span> All Service Users <span class="badge info">634</span></div>' +
-        '<div class="nav-item" data-page="cn-hub"><span class="icon">&#128221;</span> Contact Notes <span class="badge info">79.6k</span></div>' +
         '<div class="nav-item" data-page="eight-week"><span class="icon">&#9881;</span> 8-Week Guide</div>' +
         '<div class="nav-item" data-page="allocation"><span class="icon">&#10132;</span> New Referral / Allocation</div>' +
         '<div class="nav-section">Compliance</div>' +
@@ -6827,6 +6881,7 @@ function enterAdminMode() {
         '<div class="nav-item" data-page="doc-management"><span class="icon">&#128196;</span> Document Management</div>' +
         '<div class="nav-item" data-page="policies"><span class="icon">&#9745;</span> Policies & Procedures</div>' +
         '<div class="nav-item" data-page="staff-performance"><span class="icon">&#9784;</span> Staff Performance</div>' +
+        '<div class="nav-item" data-page="cn-hub"><span class="icon">&#128221;</span> Contact Notes <span class="badge info">79.6k</span></div>' +
         '<div class="nav-item" data-page="demo-compare"><span class="icon">&#9878;</span> Live Demo</div>' +
 
         '<div class="nav-item" data-page="ai-check"><span class="icon">&#9889;</span> AI Check (Live Demo)</div>' +
