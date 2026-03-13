@@ -804,6 +804,10 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
 .sc:nth-child(4), .stat-card:nth-child(4) { animation-delay: .2s; }
 .sc:nth-child(5), .stat-card:nth-child(5) { animation-delay: .25s; }
 .sc:nth-child(6), .stat-card:nth-child(6) { animation-delay: .3s; }
+.sc:nth-child(7), .stat-card:nth-child(7) { animation-delay: .35s; }
+.sc:nth-child(8), .stat-card:nth-child(8) { animation-delay: .4s; }
+.sc:nth-child(9), .stat-card:nth-child(9) { animation-delay: .45s; }
+.sc:nth-child(10), .stat-card:nth-child(10) { animation-delay: .5s; }
 .page { animation: fadeInUp .35s ease; }
 .pb .f { animation: progressFill 1s ease forwards; }
 
@@ -982,7 +986,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   <div class="sidebar-logo"><h1>PILLAR</h1><div class="sub">Governance Group</div><div class="tagline">Compliance Infrastructure-as-a-Service</div></div>
   <div class="sidebar-nav">
     <div class="nav-section">Overview</div>
-    <div class="nav-item active" data-page="dashboard"><span class="icon">&#9632;</span> Dashboard</div>
+    <div class="nav-item active" data-page="dashboard"><span class="icon">&#9632;</span> Homepage</div>
     <div class="nav-item" data-page="notifications"><span class="icon">&#9679;</span> Notifications <span class="badge">7</span></div>
     <div class="nav-section">Service Users</div>
     <div class="nav-item" data-page="service-users"><span class="icon">&#9823;</span> All Service Users <span class="badge info">634</span></div>
@@ -1033,7 +1037,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   <div class="topbar">
     <div class="topbar-left">
       <span class="hamburger" onclick="document.querySelector('.sidebar').classList.toggle('open');document.getElementById('sidebar-overlay').classList.toggle('open')">&#9776;</span>
-      <h2 id="page-title">Compliance Dashboard</h2>
+      <h2 id="page-title">Homepage</h2>
       <span class="loc">Sheffield</span>
       <span class="live-clock" id="live-clock"></span>
     </div>
@@ -1062,6 +1066,41 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="sc" data-nav="risk-dashboard" onclick="nav('risk-dashboard')" style="cursor:pointer;border-left:3px solid #dc2626"><div class="lb">Open Incidents</div><div class="val red" id="dash-open-incidents">3</div><div class="d red">Requires action</div></div>
     <div class="sc" data-nav="concerns" onclick="nav('concerns')"><div class="lb">Welfare Concern</div><div class="val red" id="dash-flags">0</div><div class="d red">Flagged by AI</div></div>
     <div class="sc" style="cursor:pointer;border-left:3px solid #d97706" onclick="nav('safe-well')"><div class="lb">Welfare Watch</div><div class="val amber">2</div><div class="d amber">Active procedures &rarr;</div></div>
+    <div class="sc" style="cursor:pointer;border-left:3px solid #7c3aed" onclick="showToast('Open General Audits — view coming soon')"><div class="lb">Open General Audits</div><div class="val" style="color:#7c3aed">2</div><div class="d" style="color:#7c3aed">Requires completion</div></div>
+    <div class="sc" style="cursor:pointer;border-left:3px solid #be185d" onclick="showToast('Open Post-Incident Audits — view coming soon')"><div class="lb">Open Post-Incident Audits</div><div class="val" style="color:#be185d">1</div><div class="d" style="color:#be185d">Requires completion</div></div>
+  </div>
+  <div class="card" style="margin-bottom:20px">
+    <h3>Notifications</h3>
+    <div style="display:flex;flex-direction:column;gap:0">
+      <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid #f1f5f9">
+        <div style="min-width:8px;min-height:8px;width:8px;height:8px;border-radius:50%;background:#dc2626;margin-top:5px"></div>
+        <div style="flex:1">
+          <div style="font-size:12px;font-weight:600;color:#1e293b">Welfare Watch triggered for James Morrison — 7 days no contact</div>
+          <div style="font-size:10px;color:#94a3b8;margin-top:2px">Today, 09:14</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid #f1f5f9">
+        <div style="min-width:8px;min-height:8px;width:8px;height:8px;border-radius:50%;background:#d97706;margin-top:5px"></div>
+        <div style="flex:1">
+          <div style="font-size:12px;font-weight:600;color:#1e293b">Post-incident audit required for Sarah Chen — Incident #IR-2024-008</div>
+          <div style="font-size:10px;color:#94a3b8;margin-top:2px">Today, 08:47</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid #f1f5f9">
+        <div style="min-width:8px;min-height:8px;width:8px;height:8px;border-radius:50%;background:#dc2626;margin-top:5px"></div>
+        <div style="flex:1">
+          <div style="font-size:12px;font-weight:600;color:#1e293b">Support plan review due for Michael Roberts — overdue by 3 days</div>
+          <div style="font-size:10px;color:#94a3b8;margin-top:2px">Yesterday, 16:32</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0">
+        <div style="min-width:8px;min-height:8px;width:8px;height:8px;border-radius:50%;background:#059669;margin-top:5px"></div>
+        <div style="flex:1">
+          <div style="font-size:12px;font-weight:600;color:#1e293b">New welfare concern logged for David Thompson by Megan Thorne</div>
+          <div style="font-size:10px;color:#94a3b8;margin-top:2px">Yesterday, 14:05</div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="g23">
     <div>
@@ -4280,7 +4319,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
 
 <script>
 const titles = {
-  'dashboard':'Compliance Dashboard','notifications':'Notifications','service-users':'All Service Users',
+  'dashboard':'Homepage','notifications':'Notifications','service-users':'All Service Users',
   'contact-notes':'Contact Notes','support-plans':'Support Plans','safe-well':'Welfare Watch Procedures',
   'incidents':'Incident Management','concerns':'Welfare Concern','policies':'Policies & Procedures',  'ai-check':'AI Check (Live Demo)','compliance-dash':'Compliance Analysis','staff':'Staff & Caseloads',
   'properties-voids':'Properties & Voids',
@@ -4319,7 +4358,7 @@ function nav(page, opts) {
   if (el) el.classList.add('active');
   const ni = document.querySelector('[data-page="'+page+'"]');
   if (ni) ni.classList.add('active');
-  document.getElementById('page-title').textContent = titles[page] || 'Dashboard';
+  document.getElementById('page-title').textContent = titles[page] || 'Homepage';
   document.querySelector('.sidebar').classList.remove('open');
   var overlay = document.getElementById('sidebar-overlay');
   if (overlay) overlay.classList.remove('open');
@@ -4327,7 +4366,7 @@ function nav(page, opts) {
   var bc = document.getElementById('breadcrumbs');
   if (page === 'su-profile' && prevId && prevId !== 'su-profile') {
     navHistory.push({page: prevId, title: titles[prevId] || prevId});
-    var crumbs = '<a onclick="nav(\'dashboard\')">Dashboard</a><span class="sep">/</span>';
+    var crumbs = '<a onclick="nav(\'dashboard\')">Homepage</a><span class="sep">/</span>';
     if (prevId !== 'dashboard') crumbs += '<a onclick="nav(\''+prevId+'\')">'+(titles[prevId]||prevId)+'</a><span class="sep">/</span>';
     crumbs += '<span style="color:#1e293b;font-weight:600">Service User Profile</span>';
     bc.innerHTML = crumbs;
@@ -6554,7 +6593,7 @@ function enterAdminMode() {
     if (sidebarNav) {
       sidebarNav.innerHTML =
         '<div class="nav-section">Overview</div>' +
-        '<div class="nav-item active" data-page="dashboard"><span class="icon">&#9632;</span> Dashboard</div>' +
+        '<div class="nav-item active" data-page="dashboard"><span class="icon">&#9632;</span> Homepage</div>' +
         '<div class="nav-item" data-page="notifications"><span class="icon">&#9679;</span> Notifications <span class="badge">7</span></div>' +
         '<div class="nav-section">Service Users</div>' +
         '<div class="nav-item" data-page="service-users"><span class="icon">&#9823;</span> All Service Users <span class="badge info">634</span></div>' +
