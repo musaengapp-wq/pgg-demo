@@ -1061,7 +1061,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="sc" onclick="showNoNote7DaysList()" style="cursor:pointer"><div class="lb">No Note >7 Days</div><div class="val red" id="dash-red-sus">0</div><div class="d red">Compliance Flag</div></div>
     <div class="sc" data-nav="risk-dashboard" onclick="nav('risk-dashboard')" style="cursor:pointer;border-left:3px solid #dc2626"><div class="lb">Open Incidents</div><div class="val red" id="dash-open-incidents">3</div><div class="d red">Requires action</div></div>
     <div class="sc" data-nav="concerns" onclick="nav('concerns')"><div class="lb">Cause for Concern</div><div class="val red" id="dash-flags">0</div><div class="d red">Flagged by AI</div></div>
-    <div class="sc" style="cursor:pointer;border-left:3px solid #d97706" onclick="nav('safe-well')"><div class="lb">Safe & Well</div><div class="val amber">2</div><div class="d amber">Active procedures &rarr;</div></div>
+    <div class="sc" style="cursor:pointer;border-left:3px solid #d97706" onclick="nav('safe-well')"><div class="lb">Welfare Watch</div><div class="val amber">2</div><div class="d amber">Active procedures &rarr;</div></div>
   </div>
   <div class="g23">
     <div>
@@ -1122,7 +1122,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
 <div class="page" id="p-notifications">
   <div class="card">
     <h3>Notifications <span class="ct">(7 unread)</span></h3>
-    <div class="tl" onclick="nav('sw-dashboard');showToast('Safe & Well: SU-0334 — Day 3 escalation')"><div class="dot" style="background:#dc2626"></div><div><div class="tt">URGENT: SU-0334 Safe & Well — Day 3, no contact since 12 Feb</div><div class="mt">Auto-escalated to SSM. Immediate action required. — 1 hour ago</div></div></div>
+    <div class="tl" onclick="nav('sw-dashboard');showToast('Welfare Watch: SU-0334 — Day 3 escalation')"><div class="dot" style="background:#dc2626"></div><div><div class="tt">URGENT: SU-0334 Welfare Watch — Day 3, no contact since 12 Feb</div><div class="mt">Auto-escalated to SSM. Immediate action required. — 1 hour ago</div></div></div>
     <div class="tl" onclick="nav('incidents');showToast('Viewing INC-446')"><div class="dot" style="background:#dc2626"></div><div><div class="tt">INC-446 escalated to HIGH — Licence breach at 24 Ecclesall Rd</div><div class="mt">D. Sharpe assigned. Compliance team notified. — 2 hours ago</div></div></div>
     <div class="tl" onclick="nav('support-docs');showToast('Showing overdue support plans')"><div class="dot" style="background:#d97706"></div><div><div class="tt">2 support plans OVERDUE for renewal (SU-0091, SU-0145)</div><div class="mt">Expired 28 Feb. Support staff notified. — 3 hours ago</div></div></div>
     <div class="tl" onclick="nav('policies');showToast('Viewing Abandonment Policy')"><div class="dot" style="background:#d97706"></div><div><div class="tt">Abandonment Policy v3.1 — 11% staff not acknowledged</div><div class="mt">3 staff have not opened the policy email. — 5 hours ago</div></div></div>
@@ -1358,7 +1358,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="sc"><div class="lb">Resolved This Month</div><div class="val green">11</div></div>
   </div>
   <div class="card">
-    <h3>Active Safe & Well Procedures</h3>
+    <h3>Active Welfare Watch Procedures</h3>
     <table><thead><tr><th>SU</th><th>Property</th><th>Last Contact</th><th>Days Since</th><th>Stage</th><th>Escalation</th><th>Owner</th><th>SSM Notified</th></tr></thead><tbody>
       <tr style="background:#fef2f2"><td><span class="su-link" onclick="openSUByName('L. Barton')"><strong>SU-0334</strong></span></td><td>Flat 2, Netherthorpe</td><td style="color:#dc2626">12 Feb</td><td style="color:#dc2626"><strong>16 days</strong></td><td><span class="b rd">Day 3</span></td><td>SSM escalated, further action</td><td>D. Sharpe</td><td>Yes</td></tr>
       <tr><td><span class="su-link" onclick="openSUByName('SU-0511')">SU-0511</span></td><td>Unit 5, Burngreave</td><td style="color:#dc2626">14 Feb</td><td style="color:#dc2626">14 days</td><td><span class="b am">Day 2</span></td><td>Call attempted, no answer</td><td>J. Peters</td><td>Yes</td></tr>
@@ -1704,7 +1704,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="sc" style="border-left:3px solid #d97706"><div class="lb">Support Plans Awaiting Activation</div><div class="val amber">4</div><div class="d amber">Requires follow-up</div></div>
     <div class="sc" style="border-left:3px solid #d97706"><div class="lb">Risk Assessments Awaiting Activation</div><div class="val amber">2</div><div class="d amber">Pending review</div></div>
     <div class="sc" style="border-left:3px solid #dc2626;cursor:pointer" onclick="nav('risk-dashboard')"><div class="lb">Open Incidents</div><div class="val red">3</div><div class="d red">Click to view &rarr;</div></div>
-    <div class="sc" style="border-left:3px solid #d97706;cursor:pointer" onclick="nav('safe-well')"><div class="lb">Active Safe & Well</div><div class="val amber">2</div><div class="d amber">Click to view &rarr;</div></div>
+    <div class="sc" style="border-left:3px solid #d97706;cursor:pointer" onclick="nav('safe-well')"><div class="lb">Active Welfare Watch</div><div class="val amber">2</div><div class="d amber">Click to view &rarr;</div></div>
   </div>
   <div class="g2">
     <div class="card">
@@ -2246,7 +2246,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <h3>Role-Based Access Control</h3>
     <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
       <div class="role-card"><div class="ri">&#9823;</div><div class="rn">Support Staff</div><div class="rd2">Own caseload only<br>Contact notes<br>Support plans</div></div>
-      <div class="role-card"><div class="ri">&#9819;</div><div class="rn">Team Leader</div><div class="rd2">Team dashboard<br>Safe & Well pickup<br>Escalation view</div></div>
+      <div class="role-card"><div class="ri">&#9819;</div><div class="rn">Team Leader</div><div class="rd2">Team dashboard<br>Welfare Watch pickup<br>Escalation view</div></div>
       <div class="role-card"><div class="ri">&#9818;</div><div class="rn">SSM</div><div class="rd2">Department view<br>Allocation<br>Incident mgmt</div></div>
       <div class="role-card"><div class="ri">&#9813;</div><div class="rn" style="color:#1a6b3c">Compliance</div><div class="rd2">Full system access<br>All dashboards<br>QA reports</div></div>
       <div class="role-card"><div class="ri">&#128274;</div><div class="rn">Temp Access</div><div class="rd2">GDPR compliant<br>Leave cover<br>Auto-expires</div></div>
@@ -2356,7 +2356,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
           <li>PIR-003 (deceased SU) — 2 of 3 actions complete, safeguarding training update pending</li>
           <li>INC-446 licence breach at Ecclesall Rd — escalated to high, D. Sharpe investigating</li>
         </ul>
-        <strong>4. Safe & Well</strong>
+        <strong>4. Welfare Watch</strong>
         <ul style="margin:6px 0 12px 20px;color:#475569">
           <li>4 active procedures. SU-0334 at Day 3 — immediate action required</li>
           <li>Discussed adding SMS notification to Day 1 process</li>
@@ -2862,14 +2862,14 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
         <div class="si" style="max-height:200px" id="sup-contact-list"></div>
       </div>
       <div>
-        <!-- Tabs: Incidents / Concerns / Alerts / Cases / Safe & Well -->
+        <!-- Tabs: Incidents / Concerns / Alerts / Cases / Welfare Watch -->
         <div class="card">
           <div class="tabs" id="sup-tabs">
             <div class="tab active" onclick="switchSUPTab('incidents',this)">Incidents</div>
             <div class="tab" onclick="switchSUPTab('concerns',this)">Concerns</div>
             <div class="tab" onclick="switchSUPTab('alerts',this)">Alerts</div>
             <div class="tab" onclick="switchSUPTab('cases',this)">Cases</div>
-            <div class="tab" onclick="switchSUPTab('safewell',this)">Safe & Well</div>
+            <div class="tab" onclick="switchSUPTab('safewell',this)">Welfare Watch</div>
           </div>
           <div class="sup-tab-content active" id="sup-tab-incidents"></div>
           <div class="sup-tab-content" id="sup-tab-concerns"></div>
@@ -3007,14 +3007,14 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="si">
       <table><thead><tr><th>SU</th><th>Property</th><th>Support Staff</th><th>Risk Level</th><th>Factors</th><th>HB</th><th>Last Incident</th><th>Action</th></tr></thead><tbody>
         <tr style="background:#fef2f2"><td><span class="su-link" onclick="openSUByName('E. Abdullahi')"><strong>SU-0446</strong></span></td><td>24 Ecclesall Rd</td><td>D. Sharpe</td><td><span class="b rd">High</span></td><td>Licence breach, ASB, non-engagement</td><td><span class="b rd">Not in payment</span></td><td>INC-446 (5 days ago)</td><td>Eviction panel</td></tr>
-        <tr style="background:#fef2f2"><td><span class="su-link" onclick="openSUByName('L. Barton')"><strong>SU-0334</strong></span></td><td>Flat 2, Netherthorpe</td><td>D. Sharpe</td><td><span class="b rd">High</span></td><td>Abandonment risk, no contact 16 days</td><td><span class="b am">In payment</span></td><td>Safe & Well Day 3</td><td>Welfare check</td></tr>
-        <tr style="background:#fef2f2"><td><span class="su-link" onclick="openSUByName('SU-0511')"><strong>SU-0511</strong></span></td><td>Unit 5, Burngreave</td><td>J. Peters</td><td><span class="b rd">High</span></td><td>Non-engagement, missed appointments</td><td><span class="b rd">Not in payment</span></td><td>Safe & Well Day 2</td><td>Escalated to SSM</td></tr>
+        <tr style="background:#fef2f2"><td><span class="su-link" onclick="openSUByName('L. Barton')"><strong>SU-0334</strong></span></td><td>Flat 2, Netherthorpe</td><td>D. Sharpe</td><td><span class="b rd">High</span></td><td>Abandonment risk, no contact 16 days</td><td><span class="b am">In payment</span></td><td>Welfare Watch Day 3</td><td>Welfare check</td></tr>
+        <tr style="background:#fef2f2"><td><span class="su-link" onclick="openSUByName('SU-0511')"><strong>SU-0511</strong></span></td><td>Unit 5, Burngreave</td><td>J. Peters</td><td><span class="b rd">High</span></td><td>Non-engagement, missed appointments</td><td><span class="b rd">Not in payment</span></td><td>Welfare Watch Day 2</td><td>Escalated to SSM</td></tr>
         <tr><td><span class="su-link" onclick="openSUByName('SU-0412')">SU-0412</span></td><td>17 Netherthorpe</td><td>R. Osei</td><td><span class="b am">Medium</span></td><td>Late rent, HB issues</td><td><span class="b rd">Not in payment</span></td><td>INC-444 (7 days ago)</td><td>HB chase</td></tr>
         <tr><td><span class="su-link" onclick="openSUByName('F. Nowak')">SU-0189</span></td><td>Unit 12, Abbeydale</td><td>M. Khan</td><td><span class="b am">Medium</span></td><td>Noise complaints, verbal warning</td><td><span class="b gn">In payment</span></td><td>INC-447 (3 days ago)</td><td>Behaviour plan</td></tr>
         <tr><td><span class="su-link" onclick="openSUByName('D. O\\'Brien')">SU-0567</span></td><td>8 Sharrow Vale</td><td>K. Patel</td><td><span class="b am">Medium</span></td><td>Inconsistent engagement</td><td><span class="b am">Pending claim</span></td><td>None recent</td><td>Key session</td></tr>
       </tbody></table>
     </div>
-    <div class="note">Risk assessed from: HB status, incident history, engagement level, Safe & Well triggers, licence compliance. High risk = eviction panel review within 7 days.</div>
+    <div class="note">Risk assessed from: HB status, incident history, engagement level, Welfare Watch triggers, licence compliance. High risk = eviction panel review within 7 days.</div>
   </div>
 </div>
 
@@ -3278,7 +3278,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="sc"><div class="lb">Open CfC</div><div class="val amber" id="risk-open-cfc">2</div><div class="d amber">Under review</div></div>
     <div class="sc"><div class="lb">Overdue CfC</div><div class="val" id="risk-overdue-cfc" style="color:#dc2626">1</div><div class="d red">Escalate</div></div>
     <div class="sc"><div class="lb">Active Abandonment</div><div class="val amber" id="risk-abandonment">1</div><div class="d">Week 2 of 4</div></div>
-    <div class="sc"><div class="lb">Active Safe & Well</div><div class="val amber" id="risk-safewell">1</div><div class="d amber">15 days no contact</div></div>
+    <div class="sc"><div class="lb">Active Welfare Watch</div><div class="val amber" id="risk-safewell">1</div><div class="d amber">15 days no contact</div></div>
   </div>
 
   <!-- INCIDENTS SECTION -->
@@ -3363,7 +3363,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
 
   <!-- SAFE & WELL SECTION -->
   <div class="card" style="margin-bottom:18px">
-    <h3>Safe & Well — Active Alerts</h3>
+    <h3>Welfare Watch — Active Alerts</h3>
     <div id="risk-safewell-list"></div>
   </div>
 
@@ -4281,7 +4281,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
 <script>
 const titles = {
   'dashboard':'Compliance Dashboard','notifications':'Notifications','service-users':'All Service Users',
-  'contact-notes':'Contact Notes','support-plans':'Support Plans','safe-well':'Safe & Well Procedures',
+  'contact-notes':'Contact Notes','support-plans':'Support Plans','safe-well':'Welfare Watch Procedures',
   'incidents':'Incident Management','concerns':'Cause for Concern','policies':'Policies & Procedures',  'ai-check':'AI Check (Live Demo)','compliance-dash':'Compliance Analysis','staff':'Staff & Caseloads',
   'properties-voids':'Properties & Voids',
   'training':'Training','housing-benefit':'Housing Benefit Tracking','eviction-risk':'Eviction Risk Assessment',
@@ -4622,7 +4622,7 @@ const supData = {
     contactEvents:[
       {date:'05/03/2026',type:'Visit',desc:'Key session — mental health review',qa:4},
       {date:'28/02/2026',type:'Phone',desc:'Wellbeing call — low mood',qa:3},
-      {date:'20/02/2026',type:'Visit',desc:'Safe & Well check',qa:4},
+      {date:'20/02/2026',type:'Visit',desc:'Welfare Watch check',qa:4},
       {date:'14/02/2026',type:'Phone',desc:'Check-in — ex-partner anniversary',qa:2},
       {date:'06/02/2026',type:'Visit',desc:'Support plan review',qa:3}
     ],
@@ -4648,7 +4648,7 @@ const supData = {
     eventLog:[
       {time:'05/03 10:30',text:'Key session — MH review by J. Vinten',color:'#059669'},
       {time:'28/02 14:15',text:'Wellbeing call — low mood reported',color:'#d97706'},
-      {time:'20/02 09:00',text:'Safe & Well check completed — resolved',color:'#059669'},
+      {time:'20/02 09:00',text:'Welfare Watch check completed — resolved',color:'#059669'},
       {time:'20/02 08:30',text:'SW-0044 triggered — missed contacts',color:'#dc2626'},
       {time:'14/02 11:00',text:'Check-in call — anniversary of ex-partner death',color:'#d97706'},
       {time:'10/01 15:00',text:'INC-0834 raised — substance use disclosure',color:'#dc2626'},
@@ -5177,7 +5177,7 @@ const supData = {
     ],
     contactWeeks:[3,4,2,1], lastSuccessful:'16/02/2026', monthlyAvg:2.5,
     contactEvents:[
-      {date:'16/02/2026',type:'Phone',desc:'Initial Safe & Well call — confirmed OK',qa:3},
+      {date:'16/02/2026',type:'Phone',desc:'Initial Welfare Watch call — confirmed OK',qa:3},
       {date:'08/02/2026',type:'Visit',desc:'Key session — tenancy review',qa:4},
       {date:'01/02/2026',type:'Phone',desc:'Welfare call',qa:3},
       {date:'25/01/2026',type:'Visit',desc:'Key session — budgeting',qa:4},
@@ -5188,7 +5188,7 @@ const supData = {
     ],
     concerns:[],
     alerts:[
-      {text:'Safe & Well Day 1 — last contact 16 Feb',cls:'am'}
+      {text:'Welfare Watch Day 1 — last contact 16 Feb',cls:'am'}
     ],
     cases:[],
     safewell:[
@@ -5197,7 +5197,7 @@ const supData = {
     missingData:['No concerns — all data current'],
     eventLog:[
       {time:'28/02 08:00',text:'SW-0067 triggered — 12 days no contact',color:'#dc2626'},
-      {time:'16/02 11:00',text:'Phone contact — initial Safe & Well call by M. Khan',color:'#059669'},
+      {time:'16/02 11:00',text:'Phone contact — initial Welfare Watch call by M. Khan',color:'#059669'},
       {time:'08/02 10:00',text:'Key session — tenancy review',color:'#059669'},
       {time:'30/01 14:00',text:'INC-0509 raised — tripped on carpet',color:'#d97706'},
       {time:'30/01 15:00',text:'INC-0509 closed — carpet replaced same day',color:'#059669'},
@@ -5267,23 +5267,23 @@ const supData = {
       {id:'CFC-0325',type:'Abandonment risk — no contact 16 days',date:'28/02/2026',status:'Open',cls:'rd'}
     ],
     alerts:[
-      {text:'URGENT: Safe & Well Day 3 — no contact since 12 Feb (16 days)',cls:'rd'},
+      {text:'URGENT: Welfare Watch Day 3 — no contact since 12 Feb (16 days)',cls:'rd'},
       {text:'HIGH RISK — abandonment risk, SSM escalated',cls:'rd'},
       {text:'Immediate welfare check required',cls:'rd'},
       {text:'Substance misuse history — relapse risk if disengaged',cls:'am'}
     ],
     cases:[
       {id:'CASE-068',type:'Substance misuse recovery support',opened:'01/04/2025',status:'Open',cls:'am'},
-      {id:'CASE-119',type:'Safe & Well — Day 3 escalation',opened:'28/02/2026',status:'Open',cls:'rd'}
+      {id:'CASE-119',type:'Welfare Watch — Day 3 escalation',opened:'28/02/2026',status:'Open',cls:'rd'}
     ],
     safewell:[
       {id:'SW-0071',triggered:'24/02/2026',reason:'No contact since 12 Feb',status:'Day 3 — SSM Escalated',cls:'rd',resolved:''}
     ],
     missingData:['No contact for 16 days','Welfare check overdue','Emergency contact attempted — no response','Substance misuse worker not contactable'],
     eventLog:[
-      {time:'28/02 08:00',text:'Safe & Well escalated to Day 3 — SSM notified',color:'#dc2626'},
+      {time:'28/02 08:00',text:'Welfare Watch escalated to Day 3 — SSM notified',color:'#dc2626'},
       {time:'28/02 08:15',text:'CFC-0325 raised — abandonment risk',color:'#dc2626'},
-      {time:'26/02 10:00',text:'Safe & Well Day 2 — call attempted, no answer',color:'#dc2626'},
+      {time:'26/02 10:00',text:'Welfare Watch Day 2 — call attempted, no answer',color:'#dc2626'},
       {time:'24/02 08:00',text:'SW-0071 triggered — no contact since 12 Feb',color:'#dc2626'},
       {time:'12/02 10:00',text:'Last successful contact — welfare check by D. Sharpe',color:'#059669'},
       {time:'05/02 14:00',text:'Phone contact — sounded low mood',color:'#d97706'},
@@ -5393,7 +5393,7 @@ function renderSUPTabContent(tab, s) {
         '</tbody></table>';
   } else if (tab === 'safewell') {
     html = s.safewell.length === 0
-      ? '<div style="padding:14px;text-align:center;color:#94a3b8;font-size:11px">No Safe & Well records</div>'
+      ? '<div style="padding:14px;text-align:center;color:#94a3b8;font-size:11px">No Welfare Watch records</div>'
       : '<table><thead><tr><th>ID</th><th>Triggered</th><th>Reason</th><th>Status</th><th>Resolved</th></tr></thead><tbody>' +
         s.safewell.map(function(w) { return '<tr><td><strong>'+w.id+'</strong></td><td>'+w.triggered+'</td><td>'+w.reason+'</td><td><span class="b '+w.cls+'">'+w.status+'</span></td><td>'+(w.resolved||'—')+'</td></tr>'; }).join('') +
         '</tbody></table>';
@@ -5941,7 +5941,7 @@ function qaReturn(docType, idx) {
   showToast('Document returned for revision');
 }
 
-// ===== No Note >7 Days List (compliance flag, separate from Safe & Well) =====
+// ===== No Note >7 Days List (compliance flag, separate from Welfare Watch) =====
 function showNoNote7DaysList() {
   var notes = JSON.parse(localStorage.getItem('pgg_notes') || '[]');
   var now = new Date();
@@ -5963,7 +5963,7 @@ function showNoNote7DaysList() {
     '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">' +
     '<h3 style="margin:0;color:#1e293b;font-size:16px">No Contact Note >7 Days <span style="background:#fef2f2;color:#dc2626;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700;margin-left:8px">'+flagged.length+' SUs</span></h3>' +
     '<span onclick="this.closest(\'div[style*=position\\:fixed]\').remove()" style="cursor:pointer;font-size:18px;color:#94a3b8">&times;</span></div>' +
-    '<div style="font-size:10px;color:#64748b;margin-bottom:12px">Compliance flag — SUs with no contact note recorded in 7+ days. This is separate from Safe & Well safeguarding procedures.</div>' +
+    '<div style="font-size:10px;color:#64748b;margin-bottom:12px">Compliance flag — SUs with no contact note recorded in 7+ days. This is separate from Welfare Watch safeguarding procedures.</div>' +
     '<table style="width:100%;font-size:11px"><thead><tr><th style="text-align:left;padding:6px 8px;border-bottom:2px solid #e2e8f0">SU</th><th style="text-align:left;padding:6px 8px;border-bottom:2px solid #e2e8f0">ID</th><th style="text-align:left;padding:6px 8px;border-bottom:2px solid #e2e8f0">Support Staff</th><th style="text-align:left;padding:6px 8px;border-bottom:2px solid #e2e8f0">Days Since</th></tr></thead><tbody>';
   flagged.forEach(function(f){
     html += '<tr><td style="padding:6px 8px;border-bottom:1px solid #f1f5f9"><span class="su-link" onclick="this.closest(\'div[style*=position\\:fixed]\').remove();openSUByName(\''+f.name.replace(/'/g,"\\'")+'\')">' + f.name + '</span></td>' +
@@ -6080,7 +6080,7 @@ const spData = [
       {title:'Engage with community mental health team', actions:'CMHT referral, medication review, crisis plan update', rag:'g'},
       {title:'Maintain regular contact with support staff', actions:'Minimum weekly contact, respond to calls/visits', rag:'r'}
     ],
-    reviewNotes:'Employment goal progressing — skills assessment completed. MH stable. However, 15 days without contact currently — Safe & Well triggered.',
+    reviewNotes:'Employment goal progressing — skills assessment completed. MH stable. However, 15 days without contact currently — Welfare Watch triggered.',
     previousReviews:['2025-12-20','2025-10-01'],
     nextReview:'2026-03-20'
   }
@@ -6339,7 +6339,7 @@ const searchData = [
   {type:'Incident',id:'INC-447',name:'Warning',detail:'Unit 12, Abbeydale — Medium — Investigating',page:'incidents'},
   {type:'Incident',id:'INC-443',name:'Open Case',detail:'Unit 8, Heeley — HIGH — Escalated',page:'incidents'},
   {type:'Policy',id:'',name:'Abandonment Policy v3.1',detail:'Review due 01 Mar — 89% acknowledged',page:'policies'},
-  {type:'Policy',id:'',name:'Safe & Well Procedure v4.0',detail:'Current — 92% acknowledged',page:'policies'},
+  {type:'Policy',id:'',name:'Welfare Watch Procedure v4.0',detail:'Current — 92% acknowledged',page:'policies'},
   {type:'Staff',id:'',name:'J. Peters',detail:'Support Staff — Team: T. Richardson — Caseload: 9.2 avg',page:'staff'},
   {type:'Staff',id:'',name:'D. Sharpe',detail:'Support Staff — Team: C. Barnes — QA: 52% (flagged)',page:'staff'},
   {type:'Staff',id:'',name:'M. Khan',detail:'Support Staff — Team: L. Hussain — QA: 71% (declining)',page:'staff'},
@@ -8502,7 +8502,7 @@ function loadDemoPolicies() {
     { name: 'Pets & Animals Policy', version: 'v1.1', activated: '15 Oct 2025', reviewDue: '15 Oct 2026', ack: 76, status: 'Low Ack' },
     { name: 'Post-Incident Review Procedure', version: 'v1.0', activated: '01 Nov 2025', reviewDue: '01 Nov 2026', ack: 84, status: 'Current' },
     { name: 'Safeguarding Adults Policy', version: 'v3.2', activated: '15 Nov 2025', reviewDue: '15 Nov 2026', ack: 98, status: 'Current' },
-    { name: 'Safe & Well Procedure', version: 'v4.0', activated: '01 Dec 2025', reviewDue: '01 Dec 2026', ack: 92, status: 'Current' },
+    { name: 'Welfare Watch Procedure', version: 'v4.0', activated: '01 Dec 2025', reviewDue: '01 Dec 2026', ack: 92, status: 'Current' },
     { name: 'Staff Supervision Policy', version: 'v2.1', activated: '15 Dec 2025', reviewDue: '15 Dec 2026', ack: 86, status: 'Current' },
     { name: 'Staff Wellbeing Policy', version: 'v1.3', activated: '01 Jan 2026', reviewDue: '01 Jan 2027', ack: 83, status: 'Current' },
     { name: 'Low Engagement Protocol', version: 'v2.0', activated: '15 Jan 2026', reviewDue: '15 Jan 2027', ack: 88, status: 'Current' },
@@ -9061,7 +9061,7 @@ function renderSWDashboard() {
     { label: 'Awaiting Verification', val: w.contactAwaiting, color: w.contactAwaiting > 0 ? '#d97706' : '#059669', key: 'verify' },
     { label: 'Incomplete Events', val: w.incompleteContact, color: w.incompleteContact > 0 ? '#dc2626' : '#059669', key: 'incomplete' },
     { label: 'Open CfC/Incidents', val: w.openCfC, color: w.openCfC > 0 ? '#dc2626' : '#059669', key: 'cfc' },
-    { label: 'Safe & Well', val: w.safeWell, color: w.safeWell > 0 ? '#dc2626' : '#059669', key: 'sw' },
+    { label: 'Welfare Watch', val: w.safeWell, color: w.safeWell > 0 ? '#dc2626' : '#059669', key: 'sw' },
   ];
   document.getElementById('sw-events-metrics').innerHTML = evMetrics.map(m =>
     '<div class="sw-metric" onclick="toggleSWExpand(\'events\',\'' + m.key + '\')">' +
@@ -9423,7 +9423,7 @@ function renderRiskDashboard() {
       '</div>' +
     '</div>';
 
-  // Safe & Well section
+  // Welfare Watch section
   document.getElementById('risk-safewell-list').innerHTML =
     '<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:16px;margin-bottom:8px">' +
       '<div style="display:flex;justify-content:space-between;align-items:flex-start">' +
@@ -9519,10 +9519,10 @@ const DEMO_CN_NOTES = [
     datetime:'2026-03-04T11:00', duration:5, location:'Property', mileage:2.8,
     areas:[],
     content:'Went to visit Elmi at 24 Ecclesall Rd. Knocked on door, no answer. Tried calling mobile — went to voicemail. Left a note through letterbox asking him to contact the office.',
-    outcomes:'Try again tomorrow. If no contact by Friday, escalate to Safe & Well.',
+    outcomes:'Try again tomorrow. If no contact by Friday, escalate to Welfare Watch.',
     qaScore:1, qaLabel:'Inadequate',
-    qaFeedback:'While this is an attempted contact and detail is naturally limited, the note should still document: time of visit, what was observed (lights on/off, sounds, post build-up, curtains), whether neighbours were spoken to, whether any safeguarding concerns exist, and when the last successful contact was. The escalation plan is appropriate but should reference the Safe & Well policy timeline.',
-    qaReframe:'Attempted property visit to Elmi at 24 Ecclesall Road. No response to door knock at 11:00. Mobile phone call went to voicemail. Contact card left through letterbox requesting Elmi contact the office. Observations: [staff to add — lights, curtains, post, neighbour contact]. Last successful contact: [staff to confirm date]. Action: repeat visit attempt scheduled for tomorrow. If no contact achieved by Friday 6 March, escalate to Safe & Well procedure in line with Day 3 protocol.',
+    qaFeedback:'While this is an attempted contact and detail is naturally limited, the note should still document: time of visit, what was observed (lights on/off, sounds, post build-up, curtains), whether neighbours were spoken to, whether any safeguarding concerns exist, and when the last successful contact was. The escalation plan is appropriate but should reference the Welfare Watch policy timeline.',
+    qaReframe:'Attempted property visit to Elmi at 24 Ecclesall Road. No response to door knock at 11:00. Mobile phone call went to voicemail. Contact card left through letterbox requesting Elmi contact the office. Observations: [staff to add — lights, curtains, post, neighbour contact]. Last successful contact: [staff to confirm date]. Action: repeat visit attempt scheduled for tomorrow. If no contact achieved by Friday 6 March, escalate to Welfare Watch procedure in line with Day 3 protocol.',
     qaWarning:false, verified:false, verifiedBy:null, sentBack:true, aiOptIn:true, createdAt:'2026-03-04T11:15:00Z'
   },
   {
@@ -9540,11 +9540,11 @@ const DEMO_CN_NOTES = [
     id:'cn-007', suId:'SU-0178', suName:'G. Mensah', sao:'J. Peters', type:'Handover Note',
     datetime:'2026-03-03T17:00', duration:15, location:'Office', mileage:0,
     areas:['Safety','Wellbeing'],
-    content:'Handover note for weekend team. George has not been seen since 20 Feb. Two attempted visits this week — no answer either time. Phone goes to voicemail. His neighbour at 5a said they heard movement yesterday but haven\'t seen him either. George\'s GP was contacted and confirmed no recent A&E attendance. Next of kin (mother) contacted — she last spoke to him on Sunday and said he sounded low but not in crisis. Safe & Well Day 10 protocol now active. Please attempt daily visits over the weekend and check with the corner shop on Sharrow Lane where George is a regular.',
+    content:'Handover note for weekend team. George has not been seen since 20 Feb. Two attempted visits this week — no answer either time. Phone goes to voicemail. His neighbour at 5a said they heard movement yesterday but haven\'t seen him either. George\'s GP was contacted and confirmed no recent A&E attendance. Next of kin (mother) contacted — she last spoke to him on Sunday and said he sounded low but not in crisis. Welfare Watch Day 10 protocol now active. Please attempt daily visits over the weekend and check with the corner shop on Sharrow Lane where George is a regular.',
     outcomes:'1. Daily visit attempts Sat/Sun\n2. Check with corner shop\n3. If no contact by Monday, escalate to Stage 3 (police welfare check)',
     qaScore:3, qaLabel:'Compliant',
     qaFeedback:'Good handover note with clear escalation information. Appropriate checks have been made (GP, NOK, neighbour). However, could include more detail about George\'s known vulnerabilities, current support plan status, and any recent changes in behaviour or circumstances that might explain the disengagement. The corner shop check shows good local knowledge.',
-    qaReframe:'Weekend handover — George Mensah, SU-0178, 5 Sharrow Lane. No contact since 20 February (Day 10 Safe & Well). Two attempted property visits this week — no response. Mobile calls going to voicemail. Neighbour (5a) reports hearing movement yesterday but no visual confirmation. GP confirms no recent A&E attendance. Next of kin (mother) spoke to George on Sunday — reported he sounded low but denied crisis. Safe & Well Day 10 protocol active. Weekend team actions: daily visit attempts Saturday and Sunday; check with corner shop on Sharrow Lane (George is a known regular). Escalation: if no contact by Monday 5 March, proceed to Stage 3 — request police welfare check.',
+    qaReframe:'Weekend handover — George Mensah, SU-0178, 5 Sharrow Lane. No contact since 20 February (Day 10 Welfare Watch). Two attempted property visits this week — no response. Mobile calls going to voicemail. Neighbour (5a) reports hearing movement yesterday but no visual confirmation. GP confirms no recent A&E attendance. Next of kin (mother) spoke to George on Sunday — reported he sounded low but denied crisis. Welfare Watch Day 10 protocol active. Weekend team actions: daily visit attempts Saturday and Sunday; check with corner shop on Sharrow Lane (George is a known regular). Escalation: if no contact by Monday 5 March, proceed to Stage 3 — request police welfare check.',
     qaWarning:false, verified:false, verifiedBy:null, sentBack:false, aiOptIn:true, createdAt:'2026-03-03T17:20:00Z'
   },
   {
@@ -10058,7 +10058,7 @@ const tlData = [
       { sao: 'Arouba Khan', su: 'H. Williams', date: '04 Mar', type: 'Visit', snippet: 'Welfare check at Flat 6. SU reported anxiety but attending GP...' },
     ],
     escalations: [
-      { type: 'Safe & Well', detail: 'N. Begum — S&W flagged by Jack Vinten, welfare visit overdue', urgency: 'rd' },
+      { type: 'Welfare Watch', detail: 'N. Begum — S&W flagged by Jack Vinten, welfare visit overdue', urgency: 'rd' },
       { type: 'Overdue Task', detail: 'Tom Ellis — 3 overdue contact notes not submitted', urgency: 'am' },
       { type: 'Overdue Task', detail: 'Priya Sharma — MICL completion 5 days overdue for D. Kamara', urgency: 'am' },
       { type: 'Incident', detail: 'K. Adebayo — noise complaint escalated, awaiting TL review', urgency: 'rd' },
@@ -10120,7 +10120,7 @@ const tlData = [
       { sao: 'Sophie Holt', su: 'M. Oduya', date: '06 Mar', type: 'Visit', snippet: 'Welfare visit. SU has started volunteering, very positive engagement...' },
     ],
     escalations: [
-      { type: 'Safe & Well', detail: 'A. Grigoryan — missed 2 scheduled contacts, welfare check arranged', urgency: 'am' },
+      { type: 'Welfare Watch', detail: 'A. Grigoryan — missed 2 scheduled contacts, welfare check arranged', urgency: 'am' },
     ],
     weeklyQA: [3.01, 3.08, 3.14, 3.19],
     checkins: [
@@ -10473,7 +10473,7 @@ function renderSMDashboard() {
     '<div class="sc"><div class="lb">Total Support Staff</div><div class="val blue">12</div><div class="d">Active</div></div>' +
     '<div class="sc"><div class="lb">Service Users</div><div class="val blue">634</div><div class="d green">+12 this month</div></div>' +
     '<div class="sc" style="cursor:pointer" onclick="nav(\'risk-dashboard\')"><div class="lb">Open Incidents</div><div class="val red">3</div><div class="d red">Requires action</div></div>' +
-    '<div class="sc" style="cursor:pointer" onclick="nav(\'safe-well\')"><div class="lb">Active Safe & Well</div><div class="val amber">2</div><div class="d amber">View &rarr;</div></div>' +
+    '<div class="sc" style="cursor:pointer" onclick="nav(\'safe-well\')"><div class="lb">Active Welfare Watch</div><div class="val amber">2</div><div class="d amber">View &rarr;</div></div>' +
     '<div class="sc"><div class="lb">Compliance Rate</div><div class="val green">84%</div><div class="d green">Regional avg</div></div>';
 
   // Team overview
@@ -11211,7 +11211,7 @@ function doReassign(suIdx, docIdx) {
 /* ===== MEETINGS ===== */
 var meetingsData = [
   {type:'Compliance Review',date:'2026-03-06',attendees:'A. Sherazi, T. Richardson, P. Okonkwo, L. Hussain, C. Barnes',chair:'A. Sherazi',notes:'Reviewed Q1 compliance metrics. Sheffield at 84%. Discussed coaching plans for underperforming staff. Support plan renewals on track.',actions:'1. L. Hussain to complete overdue plans by 10 Mar\n2. D. Sharpe coaching session scheduled 12 Mar',review:'2026-03-13',outstanding:2},
-  {type:'Weekly Team',date:'2026-03-05',attendees:'M. Thorne, A. Khan, J. Vinten, R. Osei, K. Patel',chair:'M. Thorne',notes:'Team update on caseload allocations. New referral for Burngreave property discussed. Safe & Well SU-0334 escalated.',actions:'1. A. Khan to follow up SU-0334 welfare check\n2. J. Vinten to complete property visit backlog',review:'2026-03-12',outstanding:2},
+  {type:'Weekly Team',date:'2026-03-05',attendees:'M. Thorne, A. Khan, J. Vinten, R. Osei, K. Patel',chair:'M. Thorne',notes:'Team update on caseload allocations. New referral for Burngreave property discussed. Welfare Watch SU-0334 escalated.',actions:'1. A. Khan to follow up SU-0334 welfare check\n2. J. Vinten to complete property visit backlog',review:'2026-03-12',outstanding:2},
   {type:'Daily Huddle',date:'2026-03-07',attendees:'M. Thorne, A. Khan, J. Vinten',chair:'M. Thorne',notes:'Morning check-in. A. Khan visiting 3 SUs today. J. Vinten completing HB paperwork. No urgent issues.',actions:'None',review:'',outstanding:0},
   {type:'1-to-1',date:'2026-03-04',attendees:'M. Thorne, A. Khan',chair:'M. Thorne',notes:'Supervision session. Discussed A. Khan\'s caseload performance — QA scores improving. Agreed personal development goals for Q2.',actions:'1. A. Khan to complete safeguarding refresher by 20 Mar',review:'2026-04-01',outstanding:1},
   {type:'Management',date:'2026-03-03',attendees:'A. Sherazi, M. Thorne, P. Okonkwo',chair:'A. Sherazi',notes:'Monthly management review. Budget on track. Discussed new trainee onboarding progress. Property void turnaround times need improvement.',actions:'1. P. Okonkwo to draft void turnaround improvement plan\n2. A. Sherazi to review trainee assessment',review:'2026-03-17',outstanding:2},
