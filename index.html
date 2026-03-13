@@ -1329,7 +1329,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="tab active" onclick="switchSDTab('support-plans',this)">Support Plans</div>
     <div class="tab" onclick="switchSDTab('risk-assessments',this)">Risk Assessments</div>
     <div class="tab" onclick="switchSDTab('moving-in',this)">Moving In Checklists</div>
-    <div class="tab" onclick="switchSDTab('personal-traits',this)">Personal Traits</div>
+    <div class="tab" onclick="switchSDTab('personal-traits',this)" title="About Me Profile">AMP</div>
   </div>
 
   <!-- Support Plans Tab -->
@@ -1371,10 +1371,10 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     </div>
   </div>
 
-  <!-- Personal Traits Tab -->
+  <!-- AMP Tab -->
   <div id="sd-tab-personal-traits" style="display:none">
     <div class="card">
-      <h3>Personal Traits <span class="ct" id="sd-pt-count">(9)</span></h3>
+      <h3>AMP <span class="ct" id="sd-pt-count">(9)</span></h3>
       <div class="si" style="max-height:none">
         <table>
           <thead><tr><th>SU Name</th><th>SU ID</th><th>Last Updated</th><th>Verified By</th><th>QA Status</th><th>Actions</th></tr></thead>
@@ -1510,7 +1510,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
           <label class="form-label">Description</label>
           <textarea class="form-textarea" id="inc-description" placeholder="Describe the incident in detail..." required></textarea>
         </div>
-        <button type="submit" class="btn-primary" style="width:100%">Log Incident</button>
+        <div style="display:flex;gap:10px"><button type="submit" class="btn-primary" style="flex:1">Log Incident</button><button type="button" style="flex:1;padding:10px;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc;cursor:pointer;font-size:12px;font-weight:600;color:#64748b" onclick="showToast('Draft saved — you can return to complete this later')">Save &amp; Close</button></div>
       </form>
     </div>
   </div>
@@ -1637,7 +1637,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
         <label class="form-label">Other Witnesses Present</label>
         <textarea class="form-textarea" id="su-inc-witnesses" placeholder="Names of witnesses including housemates..." rows="3"></textarea>
       </div>
-      <button type="submit" class="btn-primary" style="width:100%">Log Incident</button>
+      <div style="display:flex;gap:10px"><button type="submit" class="btn-primary" style="flex:1">Log Incident</button><button type="button" style="flex:1;padding:10px;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc;cursor:pointer;font-size:12px;font-weight:600;color:#64748b" onclick="showToast('Draft saved — you can return to complete this later')">Save &amp; Close</button></div>
     </form>
   </div>
 </div>
@@ -1674,6 +1674,20 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
         <strong>Use this form when something doesn't feel right</strong> — it may not be an incident yet, but you want to flag it for manager review.
       </div>
       <form id="concern-form" onsubmit="return saveConcern(event)">
+        <div class="form-group" style="margin-bottom:14px">
+          <label class="form-label">Concern Type</label>
+          <select class="form-select" id="cfc-concern-type" required onchange="toggleSafeguardingGuidance()">
+            <option value="">Select concern type...</option>
+            <option value="general">General Concern</option>
+            <option value="safeguarding">Safeguarding Concern</option>
+          </select>
+        </div>
+        <div id="safeguarding-guidance" style="display:none;padding:14px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;margin-bottom:14px;font-size:11px;color:#991b1b;line-height:1.6">
+          <strong>Safeguarding Concern Guidance</strong><br>
+          Complete this form if you are concerned that a service user is being harmed or is at risk of harm including: physical abuse, domestic violence, sexual abuse, psychological/emotional abuse, financial abuse, modern slavery, discriminatory abuse, neglect, or self-neglect.<br><br>
+          You must follow your organisation's relevant safeguarding procedures.<br><br>
+          This form must be completed immediately or within the timeframe set by your organisation.
+        </div>
         <div class="g2">
           <div>
             <div class="form-group">
@@ -1707,7 +1721,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
             </div>
           </div>
         </div>
-        <button type="submit" class="btn-primary" style="width:100%;background:#ea580c">Flag Concern for Manager Review</button>
+        <div style="display:flex;gap:10px"><button type="submit" class="btn-primary" style="flex:1;background:#ea580c">Flag Concern for Manager Review</button><button type="button" style="flex:1;padding:10px;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc;cursor:pointer;font-size:12px;font-weight:600;color:#64748b" onclick="showToast('Draft saved — you can return to complete this later')">Save &amp; Close</button></div>
       </form>
     </div>
   </div>
@@ -2753,7 +2767,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
 
   <!-- TEAM LEADER OUTCOMES -->
   <div class="card">
-    <h3>Team Leader Outcomes</h3>
+    <h3>TL Actions Log</h3>
     <div class="g3">
       <div class="pc" style="border-left:3px solid #059669">
         <div class="nm">T. Richardson <span class="b gn" style="font-size:9px">Submitted</span></div>
@@ -2872,6 +2886,8 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       <button class="primary" onclick="supLogContactEvent()">Log Contact Event</button>
       <button class="warn" onclick="supLogIncident()">Log Incident</button>
       <button class="danger" onclick="supLogConcern()">Log Welfare Concern</button>
+      <button class="primary" onclick="showToast('Coming soon — Log Complaint')">Log Complaint</button>
+      <button class="primary" style="background:#059669" onclick="showToast('Coming soon — Log Compliment')">Log Compliment</button>
       <button onclick="supShowPersonalDetails()">Personal Details Form</button>
       <button class="danger" onclick="supShowLeaversForm()">Leavers Notification</button>
     </div>
@@ -3388,9 +3404,9 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     </div>
   </div>
 
-  <!-- CfC Trend Chart -->
+  <!-- WC Trend Chart -->
   <div class="card" style="margin-bottom:18px">
-    <h3>CfC Trend — Last 6 Months</h3>
+    <h3>WC Trend — Last 6 Months</h3>
     <div style="display:flex;gap:6px;align-items:flex-end;height:90px;padding:10px 0" id="risk-cfc-chart"></div>
   </div>
 
@@ -5952,7 +5968,7 @@ function renderSupportDocs() {
     document.getElementById('sd-mi-count').textContent = '(' + sdDocuments.movingIn.length + ')';
   }
 
-  // Personal Traits tab
+  // AMP tab
   var ptBody = document.getElementById('sd-pt-body');
   if (ptBody) {
     ptBody.innerHTML = sdDocuments.personalTraits.map(function(pt, i){
@@ -7635,6 +7651,12 @@ function saveConcern(e) {
   switchCfcTab('list');
   renderConcernsDashboard();
   return false;
+}
+
+function toggleSafeguardingGuidance() {
+  var sel = document.getElementById('cfc-concern-type');
+  var guidance = document.getElementById('safeguarding-guidance');
+  if (sel && guidance) { guidance.style.display = sel.value === 'safeguarding' ? 'block' : 'none'; }
 }
 
 function renderConcernsList() {
@@ -9335,8 +9357,9 @@ function renderRiskDashboard() {
     { id:'WC-205', su:'A. Rahman', suId:'SU-0001', concern:'Isolation — declining social contact', date:daysAgo(30), loggedBy:'J. Peters', status:'closed', monitorDays:0 }
   ];
 
-  // Store demo incidents for detail lookups
+  // Store demo incidents and concerns for detail lookups
   window._riskDemoIncidents = incidents;
+  window._riskDemoCfcs = cfcs;
 
   // Merge localStorage incidents into kanban
   var lsIncidents = getIncidents();
@@ -9411,7 +9434,7 @@ function renderRiskDashboard() {
   // CfC cards
   function cfcCard(c) {
     const dMon = c.monitorDays;
-    return '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px;margin-bottom:8px;border-left:4px solid '+(c.status==='open'?'#dc2626':c.status==='monitoring'?'#d97706':'#059669')+'">' +
+    return '<div onclick="showConcernDetail(\''+c.id+'\')" onmouseover="this.style.boxShadow=\'0 2px 8px rgba(0,0,0,0.1)\'" onmouseout="this.style.boxShadow=\'none\'" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px;margin-bottom:8px;cursor:pointer;transition:box-shadow 0.15s;border-left:4px solid '+(c.status==='open'?'#dc2626':c.status==='monitoring'?'#d97706':'#059669')+'">' +
       '<div style="display:flex;justify-content:space-between;align-items:flex-start">' +
         '<div>'+suLinkHtml(c.su, 'font-size:12px')+'<div style="font-size:10px;color:#64748b;margin-top:2px">'+c.id+' — '+c.concern+'</div></div>' +
       '</div>' +
@@ -9426,6 +9449,41 @@ function renderRiskDashboard() {
   document.getElementById('risk-cfc-open').innerHTML = cfcs.filter(c=>c.status==='open').map(cfcCard).join('');
   document.getElementById('risk-cfc-monitoring').innerHTML = cfcs.filter(c=>c.status==='monitoring').map(cfcCard).join('');
   document.getElementById('risk-cfc-closed').innerHTML = cfcs.filter(c=>c.status==='closed').map(cfcCard).join('');
+
+function showConcernDetail(wcId) {
+  var concern = null;
+  if (window._riskDemoCfcs) concern = window._riskDemoCfcs.find(function(c){ return c.id === wcId; });
+  if (!concern) { var lsConcerns = getConcerns(); concern = lsConcerns.find(function(c){ return c.id === wcId; }); }
+  if (!concern) { showToast('Concern not found'); return; }
+  var modal = document.createElement('div');
+  modal.id = 'concern-detail-modal';
+  modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+  modal.onclick = function(ev) { if (ev.target === modal) modal.remove(); };
+  var statusColors = {open:'#dc2626',monitoring:'#d97706',closed:'#059669',pending:'#ea580c',resolved:'#059669',escalated:'#dc2626'};
+  var statusBg = {open:'#fee2e2',monitoring:'#fef3c7',closed:'#dcfce7',pending:'#fff7ed',resolved:'#dcfce7',escalated:'#fee2e2'};
+  var st = concern.status || 'open';
+  var dateStr = '';
+  if (concern.date instanceof Date) { dateStr = concern.date.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}); }
+  else if (concern.createdAt) { try { dateStr = new Date(concern.createdAt).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}); } catch(e){} }
+  var html = '<div style="background:#fff;border-radius:12px;max-width:600px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3)">';
+  html += '<div style="padding:20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center">' +
+    '<div><h3 style="margin:0;font-size:16px">'+concern.id+' — Welfare Concern</h3><div style="font-size:12px;color:#64748b;margin-top:4px">'+(concern.su||concern.suName||concern.suId)+'</div></div>' +
+    '<span style="background:'+(statusBg[st]||'#f1f5f9')+';color:'+(statusColors[st]||'#475569')+';padding:4px 12px;border-radius:10px;font-size:11px;font-weight:700;text-transform:capitalize">'+st+'</span></div>';
+  html += '<div style="padding:20px">';
+  html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">';
+  html += '<div style="background:#f8fafc;padding:10px;border-radius:8px;border:1px solid #e2e8f0"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:4px">Date Logged</div><div style="font-size:13px;color:#1e293b">'+dateStr+'</div></div>';
+  html += '<div style="background:#f8fafc;padding:10px;border-radius:8px;border:1px solid #e2e8f0"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:4px">Logged By</div><div style="font-size:13px;color:#1e293b">'+(concern.loggedBy||concern.staff||'—')+'</div></div>';
+  if (concern.typeLabel || concern.type) { html += '<div style="background:#f8fafc;padding:10px;border-radius:8px;border:1px solid #e2e8f0"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:4px">Concern Type</div><div style="font-size:13px;color:#1e293b">'+(concern.typeLabel||concern.type)+'</div></div>'; }
+  if (concern.monitorDays !== undefined) { html += '<div style="background:#f8fafc;padding:10px;border-radius:8px;border:1px solid #e2e8f0"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:4px">Monitoring Days</div><div style="font-size:13px;color:#1e293b">'+concern.monitorDays+' workdays</div></div>'; }
+  html += '</div>';
+  html += '<div style="margin-bottom:12px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Concern Details</div><div style="font-size:13px;color:#334155;line-height:1.6;background:#f8fafc;padding:12px;border-radius:8px;border:1px solid #e2e8f0">'+(concern.concern||concern.description||'—')+'</div></div>';
+  if (concern.recommendedAction) { html += '<div style="margin-bottom:12px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Recommended Action</div><div style="font-size:13px;color:#334155;background:#f8fafc;padding:12px;border-radius:8px;border:1px solid #e2e8f0">'+concern.recommendedAction+'</div></div>'; }
+  html += '</div>';
+  html += '<div style="padding:16px 20px;border-top:1px solid #e2e8f0;text-align:right"><button class="btn-primary" onclick="this.closest(\'#concern-detail-modal\').remove()" style="padding:8px 20px">Close</button></div>';
+  html += '</div>';
+  modal.innerHTML = html;
+  document.body.appendChild(modal);
+}
 
   // CfC trend chart
   const cfcTrend = [{label:'Oct',v:3},{label:'Nov',v:2},{label:'Dec',v:4},{label:'Jan',v:2},{label:'Feb',v:5},{label:'Mar',v:2}];
