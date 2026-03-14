@@ -2906,8 +2906,16 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   </div>
 
   <div id="sup-profile-wrap">
-    <!-- Profile Header -->
-    <div class="sup-header" id="sup-header"></div>
+    <!-- Profile Header + Missing Data Alerts -->
+    <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap">
+      <div style="flex:1;min-width:0">
+        <div class="sup-header" id="sup-header"></div>
+      </div>
+      <div class="card" style="flex:0 0 280px;margin-bottom:0" id="sup-missing-alerts-card">
+        <h3 style="color:#dc2626">Missing Data Alerts</h3>
+        <div id="sup-missing-alerts"></div>
+      </div>
+    </div>
 
     <!-- Action Buttons -->
     <div class="sup-actions" id="sup-actions">
@@ -2920,7 +2928,20 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       <button class="danger" onclick="supShowLeaversForm()">Leavers Notification</button>
     </div>
 
-    <!-- Documents Section -->
+    <!-- Support Documentation Section -->
+    <div class="card">
+      <h3>Support Documentation</h3>
+      <div style="margin-bottom:14px">
+        <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Support Plans</div>
+        <div id="sup-support-plans-docs" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Risk Assessments</div>
+        <div id="sup-risk-assessments-docs" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+      </div>
+    </div>
+
+    <!-- Documents Section (General) -->
     <div class="card">
       <h3>Documents</h3>
       <div class="sup-doc-grid" id="sup-docs"></div>
@@ -2970,15 +2991,9 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       <div class="si" style="max-height:300px" id="sup-cn-list"></div>
     </div>
 
-    <!-- Missing Data Alerts -->
-    <div class="card">
-      <h3>Missing Data Alerts</h3>
-      <div id="sup-missing-alerts"></div>
-    </div>
-
     <!-- Support Plan -->
     <div class="card" id="sup-support-plan-section">
-      <h3>Support Plan</h3>
+      <h3>Support Needs</h3>
       <div id="sup-support-plan">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
           <span class="b gn" style="font-size:11px;padding:4px 12px">ACTIVE</span>
@@ -5585,10 +5600,22 @@ function loadSUProfile(key) {
       '</div>' +
     '</div>';
 
-  // Documents
-  document.getElementById('sup-docs').innerHTML = s.docs.map(function(d) {
-    return '<div class="sup-doc '+(d.done?'done':'pending')+'" style="cursor:pointer" onclick="showDocDetail(\''+d.name.replace(/'/g,"\\'")+'\','+d.done+',\''+s.name.replace(/'/g,"\\'")+'\')"><div class="sup-doc-icon">'+(d.done?'&#9989;':'&#9203;')+'</div>'+d.name+'</div>';
-  }).join('');
+  // Documents — split into Support Documentation and General Documents
+  var supportPlanDocs = s.docs.filter(function(d) { return d.name === 'Support Plan' || d.name === 'SP Review'; });
+  var generalDocs = s.docs.filter(function(d) { return d.name !== 'Support Plan' && d.name !== 'SP Review' && d.name !== 'Risk Assessment'; });
+  var riskDocs = s.docs.filter(function(d) { return d.name === 'Risk Assessment'; });
+  // If no risk assessment exists, show a placeholder
+  if (riskDocs.length === 0) riskDocs = [{name:'Risk Assessment',done:false}];
+  // If no support plan docs exist, show placeholder
+  if (supportPlanDocs.length === 0) supportPlanDocs = [{name:'Support Plan',done:false}];
+
+  function renderDocItem(d, suName) {
+    return '<div class="sup-doc '+(d.done?'done':'pending')+'" style="cursor:pointer" onclick="showDocDetail(\''+d.name.replace(/'/g,"\\'")+'\','+d.done+',\''+suName.replace(/'/g,"\\'")+'\')"><div class="sup-doc-icon">'+(d.done?'&#9989;':'&#9203;')+'</div>'+d.name+'</div>';
+  }
+
+  document.getElementById('sup-support-plans-docs').innerHTML = supportPlanDocs.map(function(d) { return renderDocItem(d, s.name); }).join('');
+  document.getElementById('sup-risk-assessments-docs').innerHTML = riskDocs.map(function(d) { return renderDocItem(d, s.name); }).join('');
+  document.getElementById('sup-docs').innerHTML = generalDocs.map(function(d) { return renderDocItem(d, s.name); }).join('');
 
   // Contact chart
   var maxC = Math.max.apply(null, s.contactWeeks);
