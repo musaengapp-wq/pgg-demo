@@ -2997,8 +2997,43 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
 
     <!-- Documents Section (General) -->
     <div class="card">
-      <h3>Documents</h3>
+      <h3 style="display:flex;justify-content:space-between;align-items:center">Documents <button class="btn-primary" style="padding:5px 12px;font-size:10px" onclick="showUploadDocumentForm()">+ Upload Document</button></h3>
       <div class="sup-doc-grid" id="sup-docs"></div>
+      <div id="sup-upload-doc-form" style="display:none;margin-top:14px;padding:14px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px">
+        <div style="font-size:11px;font-weight:700;color:#1e293b;margin-bottom:10px">Upload New Document</div>
+        <div class="g2" style="margin-bottom:0">
+          <div>
+            <div class="form-group">
+              <label class="form-label">Document Type</label>
+              <select class="form-select" id="sup-upload-doc-type" onchange="toggleMiscDocName()">
+                <option value="">Select type...</option>
+                <option value="Personal Details">Personal Details</option>
+                <option value="Proof of Address">Proof of Address</option>
+                <option value="Benefits Letter">Benefits Letter</option>
+                <option value="Miscellaneous">Miscellaneous</option>
+              </select>
+            </div>
+            <div class="form-group" id="sup-upload-doc-misc-wrap" style="display:none">
+              <label class="form-label">Document Name <span style="color:#dc2626">*</span></label>
+              <input class="form-input" type="text" id="sup-upload-doc-misc-name" placeholder="Enter document name...">
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+              <label class="form-label">Upload File</label>
+              <input class="form-input" type="file" id="sup-upload-doc-file" style="padding:6px">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Review Date (optional)</label>
+              <input class="form-input" type="date" id="sup-upload-doc-review">
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:10px">
+          <button class="btn-primary" style="padding:6px 14px;font-size:11px" onclick="submitUploadDocument()">Upload</button>
+          <button style="padding:6px 14px;border:1px solid #e2e8f0;border-radius:6px;background:#fff;cursor:pointer;font-size:11px;color:#64748b" onclick="document.getElementById('sup-upload-doc-form').style.display='none'">Cancel</button>
+        </div>
+      </div>
     </div>
 
     <!-- Contact Events -->
@@ -5801,12 +5836,16 @@ function supLogContactEvent() {
       '<h3 style="margin:0;font-size:14px;color:#1e293b">Log Contact Note — ' + s.name + '</h3>' +
       '<button onclick="document.getElementById(\'sup-cn-modal\').remove()" style="background:none;border:none;font-size:18px;cursor:pointer;color:#94a3b8">&times;</button>' +
     '</div>' +
-    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">' +
+    '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px">' +
       '<div><label style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;display:block;margin-bottom:4px">Date</label>' +
         '<input type="date" id="sup-cn-date" class="form-input" style="width:100%;padding:8px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px"></div>' +
       '<div><label style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;display:block;margin-bottom:4px">Contact Type</label>' +
         '<select id="sup-cn-type" class="form-select" style="width:100%;padding:8px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px">' +
           '<option value="visit">Visit</option><option value="phone">Phone Call</option><option value="text">Text Message</option><option value="email">Email</option>' +
+        '</select></div>' +
+      '<div><label style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;display:block;margin-bottom:4px">Type</label>' +
+        '<select id="sup-cn-note-type" class="form-select" style="width:100%;padding:8px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px">' +
+          '<option value="support-session">Support Session</option><option value="third-party">Third Party Contact</option><option value="handover">Handover Note</option>' +
         '</select></div>' +
     '</div>' +
     '<div style="margin-bottom:12px"><label style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;display:block;margin-bottom:4px">Notes</label>' +
@@ -6058,6 +6097,37 @@ function submitLeaversNotification() {
   closeSUPModal();
   loadSUProfile(key);
   showToast('Leavers notification submitted for ' + s.name + ' — ' + reason);
+}
+
+function showUploadDocumentForm() {
+  var form = document.getElementById('sup-upload-doc-form');
+  if (form) form.style.display = form.style.display === 'none' ? 'block' : 'none';
+}
+
+function toggleMiscDocName() {
+  var type = document.getElementById('sup-upload-doc-type').value;
+  var wrap = document.getElementById('sup-upload-doc-misc-wrap');
+  if (wrap) wrap.style.display = type === 'Miscellaneous' ? 'block' : 'none';
+}
+
+function submitUploadDocument() {
+  var type = document.getElementById('sup-upload-doc-type').value;
+  if (!type) { showToast('Please select a document type'); return; }
+  if (type === 'Miscellaneous') {
+    var miscName = document.getElementById('sup-upload-doc-misc-name').value.trim();
+    if (!miscName) { showToast('Please enter a document name for miscellaneous documents'); return; }
+    type = miscName;
+  }
+  var file = document.getElementById('sup-upload-doc-file');
+  if (!file || !file.files.length) { showToast('Please select a file to upload'); return; }
+  showToast('Document "' + type + '" uploaded successfully');
+  document.getElementById('sup-upload-doc-form').style.display = 'none';
+  // Reset form
+  document.getElementById('sup-upload-doc-type').value = '';
+  document.getElementById('sup-upload-doc-misc-wrap').style.display = 'none';
+  document.getElementById('sup-upload-doc-misc-name').value = '';
+  file.value = '';
+  document.getElementById('sup-upload-doc-review').value = '';
 }
 
 function showDocDetail(docName, done, suName) {
