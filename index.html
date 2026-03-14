@@ -1670,6 +1670,60 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
   </div>
 </div>
 
+<!-- ===== WELFARE CONCERN FORM (from SU Profile) ===== -->
+<div class="page" id="p-su-welfare-concern-form">
+  <div class="card">
+    <h3 style="display:flex;justify-content:space-between;align-items:center">Log Welfare Concern <span id="su-wc-form-su-label" style="font-size:12px;color:#64748b"></span><span class="policy-info-icon" onclick="showToast('View related policy: Welfare Concern & Safeguarding Procedure — Link configurable per organisation')" title="View related policy" style="cursor:pointer;font-size:16px;color:#1a6b3c">&#8505;&#65039;</span></h3>
+    <div id="su-wc-safeguarding-guidance" style="display:none;padding:12px 16px;background:#fef2f2;border:2px solid #fca5a5;border-radius:8px;margin-bottom:14px;font-size:11px;color:#991b1b;line-height:1.7">
+      <strong>Safeguarding Concern Guidance:</strong> Complete this form if you're concerned that a service user is being harmed or is at risk of harm from: physical abuse, domestic violence/abuse, sexual abuse, psychological/emotional abuse, financial/material abuse, modern slavery, discriminatory abuse, neglect/acts of omission, self-neglect.
+    </div>
+    <form id="su-welfare-concern-form" onsubmit="return saveSUWelfareConcern(event)">
+      <div class="g2">
+        <div>
+          <div class="form-group">
+            <label class="form-label">Service User</label>
+            <select class="form-select" id="su-wc-su" required></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Concern Type</label>
+            <select class="form-select" id="su-wc-type" required onchange="toggleSafeguardingGuidance()">
+              <option value="">Select type...</option>
+              <option value="general">General Concern</option>
+              <option value="safeguarding">Safeguarding Concern</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Details / Description of Concern</label>
+            <textarea class="form-textarea" id="su-wc-description" placeholder="Describe the concern in detail..." required style="min-height:120px"></textarea>
+          </div>
+        </div>
+        <div>
+          <div class="form-group">
+            <label class="form-label">Any Other Relevant Information</label>
+            <textarea class="form-textarea" id="su-wc-other-info" placeholder="Additional context, observations, background..." style="min-height:80px"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">SU Background / Needs</label>
+            <textarea class="form-textarea" id="su-wc-background" placeholder="Relevant background information about the service user..." style="min-height:80px"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Witnesses</label>
+            <input class="form-input" type="text" id="su-wc-witnesses" placeholder="Names of any witnesses present">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Immediate Action Taken</label>
+            <textarea class="form-textarea" id="su-wc-action" placeholder="What immediate action was taken, if any?" style="min-height:80px"></textarea>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px">
+        <button type="submit" class="btn-primary" style="flex:1">Submit Welfare Concern</button>
+        <button type="button" style="flex:1;padding:10px;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc;cursor:pointer;font-size:12px;font-weight:600;color:#64748b" onclick="showToast('Draft saved — you can return to complete this later')">Save &amp; Close</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <!-- ===== WELFARE CONCERN ===== -->
 <div class="page" id="p-concerns">
   <div class="stats-row">
@@ -4583,7 +4637,9 @@ const titles = {
   'sw-incident-report':'Report Incident',
   'sw-handover':'Shift Handover',
   'sm-dashboard':'Service Manager Dashboard',
-  'audits':'Audits'
+  'audits':'Audits',
+  'su-incident-form':'Log Incident',
+  'su-welfare-concern-form':'Log Welfare Concern'
 };
 var navHistory = [];
 function nav(page, opts) {
@@ -5806,16 +5862,52 @@ function supLogIncident() {
 function supLogConcern() {
   var s = getCurrentSUProfile();
   if (!s) { showToast('No service user selected'); return; }
-  nav('concerns');
-  switchCfcTab('new');
+  nav('su-welfare-concern-form');
   setTimeout(function() {
-    var sel = document.getElementById('cfc-su');
-    var su = findServiceUserByName(s.name);
-    if (su && sel) {
-      sel.value = su.id;
+    var sel = document.getElementById('su-wc-su');
+    if (sel) {
+      sel.innerHTML = '<option value="">Select service user...</option>' + SERVICE_USERS.map(function(su) { return '<option value="'+su.id+'">'+su.id+' — '+su.name+'</option>'; }).join('');
+      var su = findServiceUserByName(s.name);
+      if (su) sel.value = su.id;
     }
-    showToast('Concern form ready for ' + s.name);
+    var label = document.getElementById('su-wc-form-su-label');
+    if (label) label.textContent = '— ' + s.name;
+    showToast('Welfare concern form ready for ' + s.name);
   }, 100);
+}
+
+function toggleSafeguardingGuidance() {
+  var type = document.getElementById('su-wc-type').value;
+  var guidance = document.getElementById('su-wc-safeguarding-guidance');
+  if (guidance) guidance.style.display = type === 'safeguarding' ? 'block' : 'none';
+}
+
+function saveSUWelfareConcern(e) {
+  e.preventDefault();
+  var suId = document.getElementById('su-wc-su').value;
+  var su = SERVICE_USERS.find(function(s) { return s.id === suId; });
+  var concerns = getConcerns();
+  var wcNum = 100 + concerns.length;
+  concerns.unshift({
+    id: 'WC-' + wcNum,
+    suId: suId, suName: su ? su.name : suId,
+    type: document.getElementById('su-wc-type').value,
+    typeLabel: document.getElementById('su-wc-type').value === 'safeguarding' ? 'Safeguarding Concern' : 'General Concern',
+    description: document.getElementById('su-wc-description').value.trim(),
+    otherInfo: document.getElementById('su-wc-other-info').value.trim(),
+    background: document.getElementById('su-wc-background').value.trim(),
+    witnesses: document.getElementById('su-wc-witnesses').value.trim(),
+    actionTaken: document.getElementById('su-wc-action').value.trim(),
+    staff: getStaffName(),
+    status: 'pending',
+    createdAt: new Date().toISOString()
+  });
+  saveConcerns(concerns);
+  document.getElementById('su-welfare-concern-form').reset();
+  document.getElementById('su-wc-safeguarding-guidance').style.display = 'none';
+  showToast('Welfare Concern WC-' + wcNum + ' submitted for review');
+  renderConcernsDashboard();
+  return false;
 }
 
 function closeSUPModal() {
@@ -9774,10 +9866,30 @@ function showConcernDetail(wcId) {
   html += '<div style="margin-bottom:12px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Concern Details</div><div style="font-size:13px;color:#334155;line-height:1.6;background:#f8fafc;padding:12px;border-radius:8px;border:1px solid #e2e8f0">'+(concern.concern||concern.description||'—')+'</div></div>';
   if (concern.recommendedAction) { html += '<div style="margin-bottom:12px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Recommended Action</div><div style="font-size:13px;color:#334155;background:#f8fafc;padding:12px;border-radius:8px;border:1px solid #e2e8f0">'+concern.recommendedAction+'</div></div>'; }
   html += '</div>';
-  html += '<div style="padding:16px 20px;border-top:1px solid #e2e8f0;text-align:right"><button class="btn-primary" onclick="this.closest(\'#concern-detail-modal\').remove()" style="padding:8px 20px">Close</button></div>';
+  // Manager actions
+  html += '<div style="padding:16px 20px;border-top:1px solid #e2e8f0">';
+  html += '<div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:10px">Manager Actions</div>';
+  html += '<div style="margin-bottom:10px"><label style="font-size:11px;font-weight:600;color:#475569;display:block;margin-bottom:4px">Add Observation</label><textarea style="width:100%;padding:8px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px;resize:vertical;min-height:60px;font-family:inherit" placeholder="Enter observation or notes..."></textarea></div>';
+  html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">';
+  html += '<div><label style="font-size:11px;font-weight:600;color:#475569;display:block;margin-bottom:4px">Review Date</label><input type="date" style="width:100%;padding:8px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px"></div>';
+  html += '<div><label style="font-size:11px;font-weight:600;color:#475569;display:block;margin-bottom:4px">Update Status</label><select style="width:100%;padding:8px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px" id="wc-detail-status"><option value="">Select...</option><option value="monitoring">Set to Monitoring</option><option value="closed">Close Concern</option></select></div>';
+  html += '</div>';
+  html += '<div id="wc-detail-reason-wrap" style="display:none;margin-bottom:10px"><label style="font-size:11px;font-weight:600;color:#475569;display:block;margin-bottom:4px">Reason</label><textarea id="wc-detail-reason" style="width:100%;padding:8px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px;resize:vertical;min-height:60px;font-family:inherit" placeholder="Provide reason for status change..."></textarea></div>';
+  html += '<div style="display:flex;gap:8px;justify-content:flex-end">';
+  html += '<button style="padding:8px 16px;border:1px solid #e2e8f0;border-radius:6px;background:#f8fafc;cursor:pointer;font-size:12px;font-weight:600;color:#64748b" onclick="this.closest(\'#concern-detail-modal\').remove()">Cancel</button>';
+  html += '<button class="btn-primary" onclick="showToast(\'Welfare concern updated successfully\');this.closest(\'#concern-detail-modal\').remove()" style="padding:8px 20px">Save Changes</button>';
+  html += '</div></div>';
   html += '</div>';
   modal.innerHTML = html;
   document.body.appendChild(modal);
+  // Show/hide reason field based on status selection
+  setTimeout(function() {
+    var statusSel = document.getElementById('wc-detail-status');
+    if (statusSel) statusSel.onchange = function() {
+      var reasonWrap = document.getElementById('wc-detail-reason-wrap');
+      if (reasonWrap) reasonWrap.style.display = this.value ? 'block' : 'none';
+    };
+  }, 50);
 }
 
   // CfC trend chart
