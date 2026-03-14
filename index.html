@@ -999,6 +999,8 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="nav-item" data-page="doc-management"><span class="icon">&#128196;</span> Document Management</div>
     <div class="nav-item" data-page="policies"><span class="icon">&#9745;</span> Policies & Procedures</div>
     <div class="nav-item" data-page="audits"><span class="icon">&#128269;</span> Audits <span class="badge warn">1</span></div>
+    <div class="nav-item" data-page="leavers"><span class="icon">&#128682;</span> Leavers <span class="badge warn">2</span></div>
+    <div class="nav-item" data-page="regulatory-notif"><span class="icon">&#128227;</span> Regulatory Notifications</div>
     <div class="nav-item" data-page="cn-hub"><span class="icon">&#128221;</span> Contact Notes <span class="badge info">79.6k</span></div>
     <div class="nav-item" data-page="staff-performance"><span class="icon">&#9784;</span> Staff Performance</div>
     <div class="nav-item" data-page="demo-compare"><span class="icon">&#9878;</span> Live Demo</div>
@@ -1181,35 +1183,77 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
     <div class="sc" data-nav="allocation" onclick="nav('allocation')"><div class="lb">New This Month</div><div class="val green">12</div><div class="d green">+3 vs last month</div></div>
     <div class="sc" data-nav="eviction-risk" onclick="nav('eviction-risk')"><div class="lb">Eviction Risk</div><div class="val red">8</div><div class="d red">Needs review</div></div>
   </div>
-  <div class="card">
-    <h3>Service User Register</h3>
-    <div class="si">
-      <table><thead><tr><th>ID</th><th>Name</th><th>Identifier</th><th>Location</th><th>Support Staff</th><th>Team Leader</th><th>Last Note</th></tr></thead><tbody>
-        <tr><td>SU-0001</td><td><span class="su-link" onclick="openSUByName('A. Rahman')">A. Rahman</span></td><td style="font-size:10px;color:#64748b">DOB: 14/03/1988</td><td>Unit 3, Abbeydale</td><td>J. Peters</td><td>T. Richardson</td><td>28 Feb</td></tr>
-        <tr><td>SU-0012</td><td><span class="su-link" onclick="openSUByName('B. Kowalski')">B. Kowalski</span></td><td style="font-size:10px;color:#64748b">NI: AB 12 34 56 C</td><td>17 Netherthorpe</td><td>M. Khan</td><td>L. Hussain</td><td>27 Feb</td></tr>
-        <tr><td>SU-0044</td><td><span class="su-link" onclick="openSUByName('C. Dlamini')">C. Dlamini</span></td><td style="font-size:10px;color:#64748b">DOB: 22/07/1995</td><td>Flat 9, Burngreave</td><td>D. Sharpe</td><td>C. Barnes</td><td>27 Feb</td></tr>
-        <tr><td>SU-0091</td><td><span class="su-link" onclick="openSUByName('D. O\\'Brien')">D. O'Brien</span></td><td style="font-size:10px;color:#64748b">NI: CD 34 56 78 D</td><td>8 Sharrow Vale</td><td>J. Peters</td><td>T. Richardson</td><td>25 Feb</td></tr>
-        <tr><td>SU-0112</td><td><span class="su-link" onclick="openSUByName('E. Abdullahi')">E. Abdullahi</span></td><td style="font-size:10px;color:#64748b">DOB: 09/11/1992</td><td>24 Ecclesall Rd</td><td>S. Williams</td><td>P. Okonkwo</td><td>28 Feb</td></tr>
-        <tr><td>SU-0145</td><td><span class="su-link" onclick="openSUByName('F. Nowak')">F. Nowak</span></td><td style="font-size:10px;color:#64748b">NI: EF 56 78 90 E</td><td>Unit 12, Abbeydale</td><td>M. Khan</td><td>L. Hussain</td><td>26 Feb</td></tr>
-        <tr><td>SU-0178</td><td><span class="su-link" onclick="openSUByName('G. Mensah')">G. Mensah</span></td><td style="font-size:10px;color:#64748b">DOB: 30/01/1990</td><td>5 Sharrow Lane</td><td>J. Peters</td><td>T. Richardson</td><td>28 Feb</td></tr>
-        <tr><td>SU-0198</td><td><span class="su-link" onclick="openSUByName('H. Singh')">H. Singh</span></td><td style="font-size:10px;color:#64748b">NI: GH 78 90 12 F</td><td>Flat 3, Burngreave</td><td>K. Patel</td><td>P. Okonkwo</td><td>26 Feb</td></tr>
-        <tr><td>SU-0203</td><td><span class="su-link" onclick="openSUByName('I. Yilmaz')">I. Yilmaz</span></td><td style="font-size:10px;color:#64748b">DOB: 05/06/1987</td><td>24 Burngreave Rise</td><td>A. Begum</td><td>L. Hussain</td><td>27 Feb</td></tr>
-        <tr><td>SU-0289</td><td><span class="su-link" onclick="openSUByName('J. Campbell')">J. Campbell</span></td><td style="font-size:10px;color:#64748b">NI: IJ 90 12 34 G</td><td>Unit 8, Heeley</td><td>M. Khan</td><td>L. Hussain</td><td>16 Feb</td></tr>
-        <tr><td>SU-0291</td><td><span class="su-link" onclick="openSUByName('K. Adebayo')">K. Adebayo</span></td><td style="font-size:10px;color:#64748b">DOB: 18/09/1993</td><td>12 Burngreave Rd</td><td>J. Peters</td><td>T. Richardson</td><td>28 Feb</td></tr>
-        <tr><td>SU-0334</td><td><span class="su-link" onclick="openSUByName('L. Barton')">L. Barton</span></td><td style="font-size:10px;color:#64748b">NI: KL 12 34 56 H</td><td>Flat 2, Netherthorpe</td><td>D. Sharpe</td><td>C. Barnes</td><td style="color:#dc2626">12 Feb</td></tr>
-        <tr><td>SU-0352</td><td><span class="su-link" onclick="openSUByName('M. Okonkwo')">M. Okonkwo</span></td><td style="font-size:10px;color:#64748b">DOB: 27/12/1991</td><td>Unit 6, Heeley</td><td>K. Patel</td><td>P. Okonkwo</td><td>1 Mar</td></tr>
-        <tr><td>SU-0378</td><td><span class="su-link" onclick="openSUByName('N. Briggs')">N. Briggs</span></td><td style="font-size:10px;color:#64748b">NI: MN 34 56 78 I</td><td>14 Attercliffe Rd</td><td>A. Begum</td><td>L. Hussain</td><td>28 Feb</td></tr>
-        <tr><td>SU-0401</td><td><span class="su-link" onclick="openSUByName('O. Hassan')">O. Hassan</span></td><td style="font-size:10px;color:#64748b">DOB: 11/04/1989</td><td>Flat 7, Broomhall</td><td>J. Peters</td><td>T. Richardson</td><td>27 Feb</td></tr>
-        <tr><td>SU-0423</td><td><span class="su-link" onclick="openSUByName('P. Brennan')">P. Brennan</span></td><td style="font-size:10px;color:#64748b">NI: OP 56 78 90 J</td><td>Unit 1, Attercliffe</td><td>M. Khan</td><td>L. Hussain</td><td>2 Mar</td></tr>
-        <tr><td>SU-0445</td><td><span class="su-link" onclick="openSUByName('Q. Moyo')">Q. Moyo</span></td><td style="font-size:10px;color:#64748b">DOB: 03/08/1994</td><td>22 Darnall Rd</td><td>D. Sharpe</td><td>C. Barnes</td><td>3 Mar</td></tr>
-        <tr><td>SU-0467</td><td><span class="su-link" onclick="openSUByName('R. Mahmood')">R. Mahmood</span></td><td style="font-size:10px;color:#64748b">NI: QR 78 90 12 K</td><td>Flat 5, Darnall</td><td>K. Patel</td><td>P. Okonkwo</td><td>20 Feb</td></tr>
-        <tr><td>SU-0489</td><td><span class="su-link" onclick="openSUByName('S. Patel')">S. Patel</span></td><td style="font-size:10px;color:#64748b">DOB: 16/02/1996</td><td>9 Sharrow Vale</td><td>A. Begum</td><td>L. Hussain</td><td>5 Mar</td></tr>
-        <tr><td>SU-0512</td><td><span class="su-link" onclick="openSUByName('T. Nguyen')">T. Nguyen</span></td><td style="font-size:10px;color:#64748b">NI: ST 90 12 34 L</td><td>Unit 4, Burngreave</td><td>J. Peters</td><td>T. Richardson</td><td>4 Mar</td></tr>
-        <tr><td>SU-0534</td><td><span class="su-link" onclick="openSUByName('U. Clarke')">U. Clarke</span></td><td style="font-size:10px;color:#64748b">DOB: 25/10/1985</td><td>Flat 11, Netherthorpe</td><td>M. Khan</td><td>L. Hussain</td><td>26 Feb</td></tr>
-        <tr><td>SU-0556</td><td><span class="su-link" onclick="openSUByName('V. Ali')">V. Ali</span></td><td style="font-size:10px;color:#64748b">NI: UV 12 34 56 M</td><td>16 Ecclesall Rd</td><td>D. Sharpe</td><td>C. Barnes</td><td>6 Mar</td></tr>
-        <tr><td>SU-0578</td><td><span class="su-link" onclick="openSUByName('W. Okoro')">W. Okoro</span></td><td style="font-size:10px;color:#64748b">DOB: 07/05/1997</td><td>Unit 2, Sharrow</td><td>K. Patel</td><td>P. Okonkwo</td><td>5 Mar</td></tr>
-        <tr><td>SU-0601</td><td><span class="su-link" onclick="openSUByName('X. Kaur')">X. Kaur</span></td><td style="font-size:10px;color:#64748b">NI: WX 34 56 78 N</td><td>31 Burngreave Rise</td><td>A. Begum</td><td>L. Hussain</td><td>7 Mar</td></tr>
-      </tbody></table>
+
+  <!-- Current / Archived Tabs -->
+  <div class="tabs" style="margin-bottom:0">
+    <div class="tab active" id="su-tab-current" onclick="switchSUTab('current')">Current Service Users</div>
+    <div class="tab" id="su-tab-archived" onclick="switchSUTab('archived')">Archived Service Users <span style="font-size:9px;color:#94a3b8">&#128274;</span></div>
+  </div>
+
+  <!-- RBAC info bar -->
+  <div id="su-rbac-info" style="padding:8px 14px;background:#f0fdf4;border:1px solid #86efac;border-radius:0 0 8px 8px;font-size:10px;color:#166534;margin-bottom:14px;display:flex;align-items:center;gap:8px">
+    <span style="font-size:14px">&#128100;</span>
+    <span id="su-rbac-text">Viewing as <strong>Service Manager</strong> — All current service users visible</span>
+  </div>
+
+  <!-- Current SUs -->
+  <div id="su-panel-current">
+    <div class="card">
+      <h3>Service User Register — Current <span class="ct">(634 active)</span></h3>
+      <div class="si">
+        <table><thead><tr><th>ID</th><th>Name</th><th>Identifier</th><th>Location</th><th>Support Staff</th><th>Team Leader</th><th>Last Note</th></tr></thead><tbody>
+          <tr><td>SU-0001</td><td><span class="su-link" onclick="openSUByName('A. Rahman')">A. Rahman</span></td><td style="font-size:10px;color:#64748b">DOB: 14/03/1988</td><td>Unit 3, Abbeydale</td><td>J. Peters</td><td>T. Richardson</td><td>28 Feb</td></tr>
+          <tr><td>SU-0012</td><td><span class="su-link" onclick="openSUByName('B. Kowalski')">B. Kowalski</span></td><td style="font-size:10px;color:#64748b">NI: AB 12 34 56 C</td><td>17 Netherthorpe</td><td>M. Khan</td><td>L. Hussain</td><td>27 Feb</td></tr>
+          <tr><td>SU-0044</td><td><span class="su-link" onclick="openSUByName('C. Dlamini')">C. Dlamini</span></td><td style="font-size:10px;color:#64748b">DOB: 22/07/1995</td><td>Flat 9, Burngreave</td><td>D. Sharpe</td><td>C. Barnes</td><td>27 Feb</td></tr>
+          <tr><td>SU-0091</td><td><span class="su-link" onclick="openSUByName('D. O\\'Brien')">D. O'Brien</span></td><td style="font-size:10px;color:#64748b">NI: CD 34 56 78 D</td><td>8 Sharrow Vale</td><td>J. Peters</td><td>T. Richardson</td><td>25 Feb</td></tr>
+          <tr><td>SU-0112</td><td><span class="su-link" onclick="openSUByName('E. Abdullahi')">E. Abdullahi</span></td><td style="font-size:10px;color:#64748b">DOB: 09/11/1992</td><td>24 Ecclesall Rd</td><td>S. Williams</td><td>P. Okonkwo</td><td>28 Feb</td></tr>
+          <tr><td>SU-0145</td><td><span class="su-link" onclick="openSUByName('F. Nowak')">F. Nowak</span></td><td style="font-size:10px;color:#64748b">NI: EF 56 78 90 E</td><td>Unit 12, Abbeydale</td><td>M. Khan</td><td>L. Hussain</td><td>26 Feb</td></tr>
+          <tr><td>SU-0178</td><td><span class="su-link" onclick="openSUByName('G. Mensah')">G. Mensah</span></td><td style="font-size:10px;color:#64748b">DOB: 30/01/1990</td><td>5 Sharrow Lane</td><td>J. Peters</td><td>T. Richardson</td><td>28 Feb</td></tr>
+          <tr><td>SU-0198</td><td><span class="su-link" onclick="openSUByName('H. Singh')">H. Singh</span></td><td style="font-size:10px;color:#64748b">NI: GH 78 90 12 F</td><td>Flat 3, Burngreave</td><td>K. Patel</td><td>P. Okonkwo</td><td>26 Feb</td></tr>
+          <tr><td>SU-0203</td><td><span class="su-link" onclick="openSUByName('I. Yilmaz')">I. Yilmaz</span></td><td style="font-size:10px;color:#64748b">DOB: 05/06/1987</td><td>24 Burngreave Rise</td><td>A. Begum</td><td>L. Hussain</td><td>27 Feb</td></tr>
+          <tr><td>SU-0289</td><td><span class="su-link" onclick="openSUByName('J. Campbell')">J. Campbell</span></td><td style="font-size:10px;color:#64748b">NI: IJ 90 12 34 G</td><td>Unit 8, Heeley</td><td>M. Khan</td><td>L. Hussain</td><td>16 Feb</td></tr>
+          <tr><td>SU-0291</td><td><span class="su-link" onclick="openSUByName('K. Adebayo')">K. Adebayo</span></td><td style="font-size:10px;color:#64748b">DOB: 18/09/1993</td><td>12 Burngreave Rd</td><td>J. Peters</td><td>T. Richardson</td><td>28 Feb</td></tr>
+          <tr><td>SU-0334</td><td><span class="su-link" onclick="openSUByName('L. Barton')">L. Barton</span></td><td style="font-size:10px;color:#64748b">NI: KL 12 34 56 H</td><td>Flat 2, Netherthorpe</td><td>D. Sharpe</td><td>C. Barnes</td><td style="color:#dc2626">12 Feb</td></tr>
+          <tr><td>SU-0352</td><td><span class="su-link" onclick="openSUByName('M. Okonkwo')">M. Okonkwo</span></td><td style="font-size:10px;color:#64748b">DOB: 27/12/1991</td><td>Unit 6, Heeley</td><td>K. Patel</td><td>P. Okonkwo</td><td>1 Mar</td></tr>
+          <tr><td>SU-0378</td><td><span class="su-link" onclick="openSUByName('N. Briggs')">N. Briggs</span></td><td style="font-size:10px;color:#64748b">NI: MN 34 56 78 I</td><td>14 Attercliffe Rd</td><td>A. Begum</td><td>L. Hussain</td><td>28 Feb</td></tr>
+          <tr><td>SU-0401</td><td><span class="su-link" onclick="openSUByName('O. Hassan')">O. Hassan</span></td><td style="font-size:10px;color:#64748b">DOB: 11/04/1989</td><td>Flat 7, Broomhall</td><td>J. Peters</td><td>T. Richardson</td><td>27 Feb</td></tr>
+          <tr><td>SU-0423</td><td><span class="su-link" onclick="openSUByName('P. Brennan')">P. Brennan</span></td><td style="font-size:10px;color:#64748b">NI: OP 56 78 90 J</td><td>Unit 1, Attercliffe</td><td>M. Khan</td><td>L. Hussain</td><td>2 Mar</td></tr>
+          <tr><td>SU-0445</td><td><span class="su-link" onclick="openSUByName('Q. Moyo')">Q. Moyo</span></td><td style="font-size:10px;color:#64748b">DOB: 03/08/1994</td><td>22 Darnall Rd</td><td>D. Sharpe</td><td>C. Barnes</td><td>3 Mar</td></tr>
+          <tr><td>SU-0467</td><td><span class="su-link" onclick="openSUByName('R. Mahmood')">R. Mahmood</span></td><td style="font-size:10px;color:#64748b">NI: QR 78 90 12 K</td><td>Flat 5, Darnall</td><td>K. Patel</td><td>P. Okonkwo</td><td>20 Feb</td></tr>
+          <tr><td>SU-0489</td><td><span class="su-link" onclick="openSUByName('S. Patel')">S. Patel</span></td><td style="font-size:10px;color:#64748b">DOB: 16/02/1996</td><td>9 Sharrow Vale</td><td>A. Begum</td><td>L. Hussain</td><td>5 Mar</td></tr>
+          <tr><td>SU-0512</td><td><span class="su-link" onclick="openSUByName('T. Nguyen')">T. Nguyen</span></td><td style="font-size:10px;color:#64748b">NI: ST 90 12 34 L</td><td>Unit 4, Burngreave</td><td>J. Peters</td><td>T. Richardson</td><td>4 Mar</td></tr>
+          <tr><td>SU-0534</td><td><span class="su-link" onclick="openSUByName('U. Clarke')">U. Clarke</span></td><td style="font-size:10px;color:#64748b">DOB: 25/10/1985</td><td>Flat 11, Netherthorpe</td><td>M. Khan</td><td>L. Hussain</td><td>26 Feb</td></tr>
+          <tr><td>SU-0556</td><td><span class="su-link" onclick="openSUByName('V. Ali')">V. Ali</span></td><td style="font-size:10px;color:#64748b">NI: UV 12 34 56 M</td><td>16 Ecclesall Rd</td><td>D. Sharpe</td><td>C. Barnes</td><td>6 Mar</td></tr>
+          <tr><td>SU-0578</td><td><span class="su-link" onclick="openSUByName('W. Okoro')">W. Okoro</span></td><td style="font-size:10px;color:#64748b">DOB: 07/05/1997</td><td>Unit 2, Sharrow</td><td>K. Patel</td><td>P. Okonkwo</td><td>5 Mar</td></tr>
+          <tr><td>SU-0601</td><td><span class="su-link" onclick="openSUByName('X. Kaur')">X. Kaur</span></td><td style="font-size:10px;color:#64748b">NI: WX 34 56 78 N</td><td>31 Burngreave Rise</td><td>A. Begum</td><td>L. Hussain</td><td>7 Mar</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Archived SUs -->
+  <div id="su-panel-archived" style="display:none">
+    <div id="su-archived-lock" style="display:none;padding:40px 20px;text-align:center">
+      <div style="font-size:40px;margin-bottom:12px">&#128274;</div>
+      <div style="font-size:14px;font-weight:700;color:#1e293b;margin-bottom:6px">Access Restricted</div>
+      <div style="font-size:12px;color:#64748b;max-width:400px;margin:0 auto">Archived service user records are only accessible to Team Leaders, Service Managers, and Compliance staff. Contact your manager if you need access.</div>
+    </div>
+    <div id="su-archived-content">
+      <div class="card">
+        <h3>Archived Service Users — Discharged / Moved On <span class="ct">(47 records)</span></h3>
+        <div class="si">
+          <table><thead><tr><th>ID</th><th>Name</th><th>Leave Date</th><th>Reason</th><th>Destination</th><th>Support Staff</th><th>Team Leader</th></tr></thead><tbody>
+            <tr><td>SU-0023</td><td><span class="su-link" onclick="openSUByName('Z. Hussain')">Z. Hussain</span></td><td>28 Jan 2026</td><td>Planned move-on</td><td>Independent tenancy</td><td>J. Peters</td><td>T. Richardson</td></tr>
+            <tr><td>SU-0067</td><td><span class="su-link" onclick="openSUByName('Y. Okafor')">Y. Okafor</span></td><td>15 Jan 2026</td><td>Transferred to another service</td><td>Another provider</td><td>M. Khan</td><td>L. Hussain</td></tr>
+            <tr><td>SU-0089</td><td><span class="su-link" onclick="openSUByName('W. Grant')">W. Grant</span></td><td>02 Jan 2026</td><td>Eviction — licence breach</td><td>Rough sleeping</td><td>D. Sharpe</td><td>C. Barnes</td></tr>
+            <tr><td>SU-0102</td><td><span class="su-link" onclick="openSUByName('V. Begum')">V. Begum</span></td><td>18 Dec 2025</td><td>Planned move-on</td><td>Local authority housing</td><td>K. Patel</td><td>P. Okonkwo</td></tr>
+            <tr><td>SU-0155</td><td><span class="su-link" onclick="openSUByName('U. Reeves')">U. Reeves</span></td><td>01 Dec 2025</td><td>Abandoned property</td><td>Unknown</td><td>A. Begum</td><td>L. Hussain</td></tr>
+            <tr><td>SU-0187</td><td><span class="su-link" onclick="openSUByName('T. Kamara')">T. Kamara</span></td><td>14 Nov 2025</td><td>Planned move-on</td><td>Friends/family</td><td>S. Williams</td><td>T. Richardson</td></tr>
+            <tr><td>SU-0210</td><td><span class="su-link" onclick="openSUByName('S. Murphy')">S. Murphy</span></td><td>28 Oct 2025</td><td>Imprisonment</td><td>Prison/detention</td><td>J. Peters</td><td>T. Richardson</td></tr>
+            <tr><td>SU-0244</td><td><span class="su-link" onclick="openSUByName('R. Iqbal')">R. Iqbal</span></td><td>10 Oct 2025</td><td>Planned move-on</td><td>Independent tenancy</td><td>M. Khan</td><td>L. Hussain</td></tr>
+          </tbody></table>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -2979,6 +3023,7 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       <button class="primary" onclick="showToast('Coming soon — Log Complaint')">Log Complaint</button>
       <button class="primary" style="background:#059669" onclick="showToast('Coming soon — Log Compliment')">Log Compliment</button>
       <button onclick="supShowPersonalDetails()">Personal Details Form</button>
+      <button style="background:#7c3aed;color:#fff;border:none;border-radius:6px;padding:8px 14px;font-size:11px;font-weight:700;cursor:pointer" onclick="showReassignModal(document.getElementById('sup-select').options[document.getElementById('sup-select').selectedIndex].text)">&#8634; Reassign</button>
       <button class="danger" onclick="supShowLeaversForm()">Leavers Notification</button>
     </div>
 
@@ -3941,6 +3986,37 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       <div id="tl-meeting-form" style="margin-bottom:14px"></div>
       <div id="tl-meetings-table"></div>
     </div>
+    <!-- To-Do List -->
+    <div class="card">
+      <h3 style="display:flex;justify-content:space-between;align-items:center">To-Do List <button class="btn-primary" style="padding:5px 12px;font-size:10px" onclick="showAddTaskModal()">+ Add Task</button></h3>
+      <div id="tl-todo-list">
+        <div style="padding:10px;background:#fef2f2;border:1px solid #fecaca;border-radius:6px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">
+          <div><div style="font-size:12px;font-weight:600;color:#991b1b">Complete QA review for Arouba Khan's caseload</div><div style="font-size:10px;color:#64748b;margin-top:2px">Assigned by: Steph Richards (SM) — Due: 12 Mar 2026</div></div>
+          <span class="b rd">Overdue</span>
+        </div>
+        <div style="padding:10px;background:#fef2f2;border:1px solid #fecaca;border-radius:6px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">
+          <div><div style="font-size:12px;font-weight:600;color:#991b1b">Follow up on WC-201 — escalation needed?</div><div style="font-size:10px;color:#64748b;margin-top:2px">Assigned by: Steph Richards (SM) — Due: 13 Mar 2026</div></div>
+          <span class="b rd">Overdue</span>
+        </div>
+        <div style="padding:10px;background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">
+          <div><div style="font-size:12px;font-weight:600;color:#1e293b">Review incident report INC-2024-012</div><div style="font-size:10px;color:#64748b;margin-top:2px">Assigned by: System — Due: 15 Mar 2026</div></div>
+          <span class="b am">Pending</span>
+        </div>
+        <div style="padding:10px;background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">
+          <div><div style="font-size:12px;font-weight:600;color:#1e293b">Schedule team meeting for next week</div><div style="font-size:10px;color:#64748b;margin-top:2px">Assigned by: Self — Due: 16 Mar 2026</div></div>
+          <span class="b am">Pending</span>
+        </div>
+        <div style="padding:10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;opacity:0.7">
+          <div><div style="font-size:12px;font-weight:600;color:#64748b;text-decoration:line-through">Submit monthly compliance report</div><div style="font-size:10px;color:#94a3b8;margin-top:2px">Assigned by: James Butler (Compliance) — Due: 10 Mar 2026</div></div>
+          <span class="b gn">Complete</span>
+        </div>
+      </div>
+    </div>
+    <!-- Reassign (temp only for TL) -->
+    <div class="card">
+      <h3 style="display:flex;justify-content:space-between;align-items:center">Reassign Service User <button class="btn-primary" style="padding:5px 12px;font-size:10px" onclick="showReassignModal('Team Member SU')">&#8634; Reassign</button></h3>
+      <div style="font-size:11px;color:#64748b;line-height:1.6">Temporarily reassign a service user from your team to another support worker. <span style="color:#d97706;font-weight:600">Note: Team Leaders can only perform temporary reassignments.</span></div>
+    </div>
     <!-- TL Notifications -->
     <div class="card">
       <h3>Notifications</h3>
@@ -3980,6 +4056,11 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       </div>
     </div>
   </div>
+  <!-- Bulk Reassign -->
+  <div class="card">
+    <h3 style="display:flex;justify-content:space-between;align-items:center">Bulk Reassignment <button class="btn-primary" style="padding:6px 14px;font-size:10px" onclick="showBulkReassignModal()">&#8634; Bulk Reassign</button></h3>
+    <div style="font-size:11px;color:#64748b;line-height:1.6">Select multiple service users and reassign them to a different support worker. Supports both temporary and permanent reassignment.</div>
+  </div>
   <!-- SM Notifications -->
   <div class="card">
     <h3>Notifications</h3>
@@ -3989,6 +4070,38 @@ div[style*="overflow-x:auto"] { position: relative; border-radius: 8px; }
       <div class="tl"><div class="dot" style="background:#ea580c"></div><div style="flex:1"><div class="tt">New Welfare Concern logged for David Thompson</div><div class="mt">Yesterday 16:30</div></div></div>
       <div class="tl"><div class="dot" style="background:#1a6b3c"></div><div style="flex:1"><div class="tt">Risk assessment updated for Sarah Chen — QA review needed</div><div class="mt">Yesterday 11:20</div></div></div>
     </div>
+  </div>
+</div>
+
+<!-- ===== LEAVERS DASHBOARD ===== -->
+<div class="page" id="p-leavers">
+  <div class="stats-row">
+    <div class="sc"><div class="lb">Pending Approval</div><div class="val amber">2</div><div class="d amber">Awaiting sign-off</div></div>
+    <div class="sc"><div class="lb">Approved This Month</div><div class="val green">2</div><div class="d">Processed</div></div>
+    <div class="sc"><div class="lb">Archived</div><div class="val" style="color:#64748b">1</div><div class="d">Completed</div></div>
+    <div class="sc"><div class="lb">Total Leavers (YTD)</div><div class="val blue">47</div><div class="d">Since Jan 2026</div></div>
+  </div>
+  <div class="card">
+    <h3>Leavers Notifications — Compliance Sign-Off</h3>
+    <div id="leavers-dashboard-content"></div>
+  </div>
+</div>
+
+<!-- ===== REGULATORY NOTIFICATIONS ===== -->
+<div class="page" id="p-regulatory-notif">
+  <div style="margin-bottom:14px">
+    <div style="font-size:12px;color:#64748b;line-height:1.6">Auto-generated notifications for <strong>CQC</strong>, <strong>Ofsted (Reg 40)</strong>, and <strong>Local Authority</strong> reporting</div>
+  </div>
+  <div class="stats-row">
+    <div class="sc"><div class="lb">Pending Review</div><div class="val amber">2</div><div class="d amber">Awaiting approval</div></div>
+    <div class="sc"><div class="lb">Approved</div><div class="val green">0</div><div class="d">Ready to send</div></div>
+    <div class="sc"><div class="lb">Sent</div><div class="val blue">2</div><div class="d">Delivered</div></div>
+    <div class="sc"><div class="lb">Overdue</div><div class="val red">0</div><div class="d green">All on track</div></div>
+  </div>
+  <div class="card">
+    <h3>Regulatory Notifications</h3>
+    <div id="reg-notif-content"></div>
+    <div style="padding:10px;background:#f0fdf4;border:1px solid #86efac;border-radius:6px;font-size:10px;color:#166534;margin-top:14px">&#9432; Notifications are auto-generated based on incident type configuration. Review and approve before sending to regulatory bodies.</div>
   </div>
 </div>
 
@@ -4674,7 +4787,9 @@ const titles = {
   'sm-dashboard':'Service Manager Dashboard',
   'audits':'Audits',
   'su-incident-form':'Log Incident',
-  'su-welfare-concern-form':'Log Welfare Concern'
+  'su-welfare-concern-form':'Log Welfare Concern',
+  'leavers':'Leavers',
+  'regulatory-notif':'Regulatory Notifications'
 };
 var navHistory = [];
 function nav(page, opts) {
@@ -4742,6 +4857,8 @@ function nav(page, opts) {
   if (page === 'sw-incident-report') renderSWIncidentReport();
   if (page === 'sw-handover') renderSWHandover();
   if (page === 'audits') renderAuditsDashboard();
+  if (page === 'leavers') renderLeaversDashboard();
+  if (page === 'regulatory-notif') renderRegulatoryNotifications();
   window.scrollTo(0,0);
 }
 document.querySelectorAll('.nav-item[data-page]').forEach(item => {
@@ -6071,17 +6188,40 @@ function supShowLeaversForm() {
         '<option>Unknown</option>' +
       '</select></div>' +
     '</div>' +
-    '<div class="form-row full">' +
-      '<div><label>Leavers Note</label><textarea id="lv-notes" placeholder="Include any relevant details: forwarding address, outstanding issues, handover notes, items left in property..."></textarea></div>' +
+    '<div class="form-row">' +
+      '<div><label>Forwarding Address</label><input type="text" id="lv-fwd-address" placeholder="New address if known..."></div>' +
+      '<div><label>Forwarding Contact Details</label><input type="text" id="lv-fwd-contact" placeholder="Phone / email if provided..."></div>' +
     '</div>' +
     '<div class="form-row">' +
-      '<div><label>Notification Sent To</label><input type="text" id="lv-notify" placeholder="e.g. Team Leader, Housing Benefit, Referrer"></div>' +
+      '<div style="display:flex;align-items:center;gap:12px;padding:8px 0"><label style="margin:0;font-weight:700">Keys Handed In</label>' +
+        '<label class="toggle-switch"><input type="checkbox" id="lv-keys"><span class="toggle-slider"></span></label>' +
+        '<span id="lv-keys-label" style="font-size:11px;color:#64748b">No</span>' +
+      '</div>' +
       '<div><label>Completed By</label><input type="text" id="lv-staff" value="' + (getStaffName() || '') + '" readonly style="background:#f1f5f9"></div>' +
+    '</div>' +
+    '<div class="form-row full">' +
+      '<div><label>Leavers Note</label><textarea id="lv-notes" placeholder="Include any relevant details: outstanding issues, handover notes, items left in property..."></textarea>' +
+      '<div style="background:#f0fdf4;border:1px solid #86efac;border-radius:6px;padding:6px 10px;font-size:10px;color:#166534;margin-top:6px">&#9432; This note will also appear as a final contact event in the service user record</div></div>' +
+    '</div>' +
+    '<div class="form-row full">' +
+      '<div><label>Notification Sent To</label>' +
+      '<div style="display:flex;gap:16px;margin-top:4px">' +
+        '<label style="display:flex;align-items:center;gap:6px;font-size:12px;color:#475569;cursor:pointer"><input type="checkbox" checked style="accent-color:#1a6b3c"> Accounts Team</label>' +
+        '<label style="display:flex;align-items:center;gap:6px;font-size:12px;color:#475569;cursor:pointer"><input type="checkbox" checked style="accent-color:#1a6b3c"> Service Manager</label>' +
+        '<label style="display:flex;align-items:center;gap:6px;font-size:12px;color:#475569;cursor:pointer"><input type="checkbox" checked style="accent-color:#1a6b3c"> Compliance Team</label>' +
+      '</div></div>' +
     '</div>';
   var footer =
     '<button class="btn-cancel" onclick="closeSUPModal()">Cancel</button>' +
     '<button class="btn-danger" onclick="submitLeaversNotification()">Submit Leavers Notification</button>';
   openSUPModal('Leavers Notification — ' + s.name, body, footer);
+  setTimeout(function() {
+    var keysToggle = document.getElementById('lv-keys');
+    if (keysToggle) keysToggle.onchange = function() {
+      var label = document.getElementById('lv-keys-label');
+      if (label) label.textContent = this.checked ? 'Yes' : 'No';
+    };
+  }, 50);
 }
 
 function submitLeaversNotification() {
@@ -7936,6 +8076,12 @@ function showIncidentDetail(incId) {
   html += '<div style="margin-bottom:12px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Description</div><div style="font-size:13px;color:#334155;line-height:1.6;background:#f8fafc;padding:12px;border-radius:8px;border:1px solid #e2e8f0">'+incDesc+'</div></div>';
   if (inc.witnesses) html += '<div style="margin-bottom:12px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Other Witnesses</div><div style="font-size:13px;color:#334155;background:#f8fafc;padding:12px;border-radius:8px;border:1px solid #e2e8f0">'+inc.witnesses+'</div></div>';
   if (inc.ssmAnswer) html += '<div style="margin-bottom:12px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Incident Response Check</div><div style="font-size:13px;color:#334155">'+inc.ssmAnswer+'</div></div>';
+  // WC cross-reference
+  if (inc.id === 'INC-2024-011') {
+    html += '<div style="margin-bottom:12px;padding:10px 14px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;display:flex;align-items:center;gap:8px">' +
+      '<span style="font-size:14px">&#128279;</span><div><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:2px">Originated From</div>' +
+      '<a onclick="document.getElementById(\'incident-detail-modal\').remove();showConcernDetail(\'WC-201\')" style="font-size:13px;color:#1a6b3c;cursor:pointer;font-weight:700;text-decoration:underline">WC-201 — Welfare Concern</a></div></div>';
+  }
   // Show existing manager notes if any
   if (inc.managerNotes) html += '<div style="margin-bottom:12px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Previous Manager Notes</div><div style="font-size:13px;color:#334155;background:#fffbeb;padding:12px;border-radius:8px;border:1px solid #fde68a">'+inc.managerNotes+'</div></div>';
   // Show monitoring info if status is monitoring
@@ -9835,6 +9981,12 @@ function renderRiskDashboard() {
         countdownHtml = '<div style="margin-top:6px;padding:4px 8px;background:#f0fdf4;border:1px solid #86efac;border-radius:4px;font-size:10px;font-weight:600;color:#166534">Review due in: '+reviewDays+' day'+(reviewDays!==1?'s':'')+'</div>';
       }
     }
+    if (inc.status === 'closed') {
+      var visibleDays = 14 - dOpen;
+      if (visibleDays < 0) visibleDays = 0;
+      var visColor = visibleDays <= 3 ? '#dc2626' : '#64748b';
+      countdownHtml = '<div style="margin-top:6px;padding:4px 8px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:4px;font-size:10px;font-weight:600;color:'+visColor+'">&#128337; Visible for '+visibleDays+' more day'+(visibleDays!==1?'s':'')+'</div>';
+    }
     var borderStyle = (inc.status === 'open' && isOverdue) ? 'border:2px solid #dc2626;' : 'border:1px solid #e2e8f0;';
     return '<div onclick="showIncidentDetail(\''+inc.id+'\')" style="cursor:pointer;background:'+(inc.status==='open'&&isOverdue?'#fef2f2':'#f8fafc')+';'+borderStyle+'border-radius:8px;padding:12px;margin-bottom:8px;border-left:4px solid '+sevColors[inc.severity]+';transition:box-shadow 0.15s" onmouseover="this.style.boxShadow=\'0 2px 8px rgba(0,0,0,0.1)\'" onmouseout="this.style.boxShadow=\'none\'">' +
       '<div style="display:flex;justify-content:space-between;align-items:flex-start">' +
@@ -9935,6 +10087,12 @@ function showConcernDetail(wcId) {
   html += '</div>';
   html += '<div style="margin-bottom:12px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Concern Details</div><div style="font-size:13px;color:#334155;line-height:1.6;background:#f8fafc;padding:12px;border-radius:8px;border:1px solid #e2e8f0">'+(concern.concern||concern.description||'—')+'</div></div>';
   if (concern.recommendedAction) { html += '<div style="margin-bottom:12px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Recommended Action</div><div style="font-size:13px;color:#334155;background:#f8fafc;padding:12px;border-radius:8px;border:1px solid #e2e8f0">'+concern.recommendedAction+'</div></div>'; }
+  // Incident cross-reference
+  if (concern.id === 'WC-201') {
+    html += '<div style="margin-bottom:12px;padding:10px 14px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;display:flex;align-items:center;gap:8px">' +
+      '<span style="font-size:14px">&#128279;</span><div><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:2px">Related Incident</div>' +
+      '<a onclick="document.getElementById(\'concern-detail-modal\').remove();showIncidentDetail(\'INC-2024-011\')" style="font-size:13px;color:#1a6b3c;cursor:pointer;font-weight:700;text-decoration:underline">INC-2024-011 — Incident Report</a></div></div>';
+  }
   html += '</div>';
   // Manager actions
   html += '<div style="padding:16px 20px;border-top:1px solid #e2e8f0">';
@@ -12890,7 +13048,21 @@ function openMessagesPanel() {
     '<div style="font-size:11px;color:#64748b;margin-bottom:4px">Re: SU-0112 support plan update</div>' +
     '<div style="font-size:11px;color:#94a3b8;line-height:1.6">Updated as discussed. Thanks.</div></div>';
 
-  html += '<button class="btn-primary" style="width:100%;margin-top:8px" onclick="showToast(\'New message — coming soon\')">+ New Message</button>';
+  // Send Message section
+  html += '<div style="border-top:2px solid #e2e8f0;margin-top:14px;padding-top:14px">';
+  html += '<div style="font-size:11px;font-weight:700;color:#1e293b;margin-bottom:10px">&#9993; Send New Message</div>';
+  html += '<div style="margin-bottom:8px"><select style="width:100%;padding:8px 10px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px;background:#f8fafc;color:#334155">' +
+    '<option value="">To: Select recipient...</option>' +
+    '<option>Steph Richards (Service Manager)</option><option>James Butler (Compliance)</option><option>Rachel Adams (Service Manager)</option>' +
+    '<option>Megan Thorne (Team Leader)</option><option>Keelie Hill (Team Leader)</option><option>Emily Warner (Team Leader)</option>' +
+    '<option>Arouba Khan (Support Worker)</option><option>Jack Vinten (Support Worker)</option>' +
+    '<option>M. Khan (Support Worker)</option><option>D. Sharpe (Support Worker)</option>' +
+  '</select></div>';
+  html += '<div style="margin-bottom:8px"><input type="text" placeholder="Subject..." style="width:100%;padding:8px 10px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px;background:#f8fafc;color:#334155"></div>';
+  html += '<div style="margin-bottom:8px"><textarea placeholder="Type your message..." style="width:100%;padding:8px 10px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px;min-height:80px;resize:vertical;font-family:inherit;background:#f8fafc;color:#334155"></textarea></div>';
+  html += '<label style="display:flex;align-items:center;gap:6px;font-size:11px;color:#475569;cursor:pointer;margin-bottom:10px"><input type="checkbox" style="accent-color:#1a6b3c"> Add to recipient\'s To-Do list</label>';
+  html += '<button class="btn-primary" style="width:100%" onclick="showToast(\'Message sent successfully\');this.closest(\'#messages-panel-overlay\').remove()">Send Message</button>';
+  html += '</div>';
   html += '</div></div>';
 
   overlay.innerHTML = html;
@@ -12900,6 +13072,240 @@ function openMessagesPanel() {
 // ===== MANAGER FEEDBACK =====
 function openManagerFeedbackForm() {
   document.getElementById('sup-manager-feedback-form').style.display = 'block';
+}
+
+// ===== BATCH 2: CURRENT/ARCHIVED SU TAB SWITCH =====
+function switchSUTab(tab) {
+  var isSW = localStorage.getItem('pgg_user_role') === 'sw';
+  document.getElementById('su-tab-current').classList.toggle('active', tab === 'current');
+  document.getElementById('su-tab-archived').classList.toggle('active', tab === 'archived');
+  document.getElementById('su-panel-current').style.display = tab === 'current' ? 'block' : 'none';
+  document.getElementById('su-panel-archived').style.display = tab === 'archived' ? 'block' : 'none';
+  if (tab === 'archived') {
+    if (isSW) {
+      document.getElementById('su-archived-lock').style.display = 'block';
+      document.getElementById('su-archived-content').style.display = 'none';
+    } else {
+      document.getElementById('su-archived-lock').style.display = 'none';
+      document.getElementById('su-archived-content').style.display = 'block';
+    }
+    document.getElementById('su-rbac-text').innerHTML = isSW
+      ? '<strong style="color:#dc2626">Access Denied</strong> — Support Workers cannot view archived records'
+      : 'Viewing as <strong>Service Manager</strong> — All archived service users visible';
+    document.getElementById('su-rbac-info').style.background = isSW ? '#fef2f2' : '#f0fdf4';
+    document.getElementById('su-rbac-info').style.borderColor = isSW ? '#fecaca' : '#86efac';
+    document.getElementById('su-rbac-info').style.color = isSW ? '#991b1b' : '#166534';
+  } else {
+    var roleText = isSW ? 'Viewing as <strong>Support Worker</strong> — Showing your caseload only'
+      : 'Viewing as <strong>Service Manager</strong> — All current service users visible';
+    document.getElementById('su-rbac-text').innerHTML = roleText;
+    document.getElementById('su-rbac-info').style.background = '#f0fdf4';
+    document.getElementById('su-rbac-info').style.borderColor = '#86efac';
+    document.getElementById('su-rbac-info').style.color = '#166534';
+  }
+}
+
+// ===== BATCH 2: LEAVERS DASHBOARD =====
+function renderLeaversDashboard() {
+  var el = document.getElementById('leavers-dashboard-content');
+  if (!el) return;
+  var leavers = [
+    { su: 'Z. Hussain', id: 'SU-0023', leaveDate: '28 Jan 2026', reason: 'Planned move-on', submittedBy: 'J. Peters', status: 'approved' },
+    { su: 'Y. Okafor', id: 'SU-0067', leaveDate: '15 Jan 2026', reason: 'Transferred to another service', submittedBy: 'M. Khan', status: 'approved' },
+    { su: 'W. Grant', id: 'SU-0089', leaveDate: '02 Jan 2026', reason: 'Eviction — licence breach', submittedBy: 'D. Sharpe', status: 'archived' },
+    { su: 'Craig Linney', id: 'GB01880', leaveDate: '20 Mar 2026', reason: 'Planned move-on', submittedBy: 'Arouba Khan', status: 'pending' },
+    { su: 'Marcus Webb', id: 'GB02650', leaveDate: '18 Mar 2026', reason: 'Abandoned property', submittedBy: 'Jack Vinten', status: 'pending' }
+  ];
+  var statusColors = { pending: '#ea580c', approved: '#059669', archived: '#64748b' };
+  var statusBg = { pending: '#fff7ed', approved: '#dcfce7', archived: '#f1f5f9' };
+  var cols = { 'Pending Approval': leavers.filter(l => l.status === 'pending'), 'Approved': leavers.filter(l => l.status === 'approved'), 'Archived': leavers.filter(l => l.status === 'archived') };
+  var colColors = { 'Pending Approval': '#ea580c', 'Approved': '#059669', 'Archived': '#64748b' };
+  var html = '<div class="g3">';
+  Object.keys(cols).forEach(function(colName) {
+    var items = cols[colName];
+    html += '<div><div style="font-size:10px;font-weight:800;color:' + colColors[colName] + ';letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:3px solid ' + colColors[colName] + '">' + colName + ' <span style="background:' + statusBg[items[0] ? items[0].status : 'pending'] + ';padding:2px 8px;border-radius:10px;font-size:9px;margin-left:4px">' + items.length + '</span></div>';
+    items.forEach(function(l) {
+      html += '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px;margin-bottom:8px;cursor:pointer" onclick="showLeaverDetail(\'' + l.id + '\')">' +
+        '<div style="font-weight:700;font-size:12px;color:#1e293b">' + l.su + '</div>' +
+        '<div style="font-size:10px;color:#64748b;margin-top:2px">' + l.id + ' — Leave: ' + l.leaveDate + '</div>' +
+        '<div style="font-size:10px;color:#475569;margin-top:4px">Reason: ' + l.reason + '</div>' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">' +
+          '<span style="font-size:10px;color:#64748b">By: ' + l.submittedBy + '</span>' +
+          '<span style="background:' + statusBg[l.status] + ';color:' + statusColors[l.status] + ';padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700;text-transform:capitalize">' + l.status + '</span>' +
+        '</div></div>';
+    });
+    html += '</div>';
+  });
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function showLeaverDetail(suId) {
+  var modal = document.createElement('div');
+  modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+  modal.onclick = function(ev) { if (ev.target === modal) modal.remove(); };
+  modal.innerHTML = '<div style="background:#fff;border-radius:12px;max-width:600px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3)">' +
+    '<div style="padding:20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0;font-size:16px">Leavers Notification — ' + suId + '</h3><button onclick="this.closest(\'div[style*=position\\:fixed]\').remove()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#94a3b8">&times;</button></div>' +
+    '<div style="padding:20px">' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">' +
+        '<div style="background:#f8fafc;padding:10px;border-radius:8px;border:1px solid #e2e8f0"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:4px">Leave Date</div><div style="font-size:13px;color:#1e293b">20 Mar 2026</div></div>' +
+        '<div style="background:#f8fafc;padding:10px;border-radius:8px;border:1px solid #e2e8f0"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:4px">Reason</div><div style="font-size:13px;color:#1e293b">Planned move-on</div></div>' +
+        '<div style="background:#f8fafc;padding:10px;border-radius:8px;border:1px solid #e2e8f0"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:4px">Destination</div><div style="font-size:13px;color:#1e293b">Independent tenancy</div></div>' +
+        '<div style="background:#f8fafc;padding:10px;border-radius:8px;border:1px solid #e2e8f0"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:4px">Completed By</div><div style="font-size:13px;color:#1e293b">Arouba Khan</div></div>' +
+        '<div style="background:#f8fafc;padding:10px;border-radius:8px;border:1px solid #e2e8f0"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:4px">Forwarding Address</div><div style="font-size:13px;color:#1e293b">14 Glossop Rd, Sheffield S10</div></div>' +
+        '<div style="background:#f8fafc;padding:10px;border-radius:8px;border:1px solid #e2e8f0"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:4px">Keys Handed In</div><div style="font-size:13px;color:#059669;font-weight:700">Yes</div></div>' +
+      '</div>' +
+      '<div style="margin-bottom:12px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Leavers Note</div><div style="font-size:13px;color:#334155;line-height:1.6;background:#f8fafc;padding:12px;border-radius:8px;border:1px solid #e2e8f0">Service user has secured independent tenancy through local authority. All outstanding arrears cleared. Support plan goals largely met — employment stable, budgeting improved. Forwarding address confirmed. Handover completed with housing officer.</div></div>' +
+      '<div style="background:#f0fdf4;border:1px solid #86efac;border-radius:6px;padding:8px 12px;font-size:10px;color:#166534;margin-bottom:12px">&#9432; This note also appears as a final contact event in the SU record</div>' +
+      '<div style="margin-bottom:12px"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:600;margin-bottom:6px">Notifications Sent To</div><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="b gn">Accounts Team</span><span class="b gn">Service Manager</span><span class="b gn">Compliance Team</span></div></div>' +
+    '</div>' +
+    '<div style="padding:16px 20px;border-top:1px solid #e2e8f0;display:flex;gap:8px;justify-content:flex-end">' +
+      '<button style="padding:8px 16px;border:1px solid #e2e8f0;border-radius:6px;background:#f8fafc;cursor:pointer;font-size:12px;font-weight:600;color:#64748b" onclick="this.closest(\'div[style*=position\\:fixed]\').remove()">Close</button>' +
+      '<button class="btn-primary" onclick="showToast(\'Leavers notification approved\');this.closest(\'div[style*=position\\:fixed]\').remove()" style="padding:8px 20px">Approve</button>' +
+    '</div></div>';
+  document.body.appendChild(modal);
+}
+
+// ===== BATCH 2: REASSIGNMENT SYSTEM =====
+function showReassignModal(suName) {
+  var name = suName || 'this service user';
+  var modal = document.createElement('div');
+  modal.id = 'reassign-modal';
+  modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+  modal.onclick = function(ev) { if (ev.target === modal) modal.remove(); };
+  var isTL = document.querySelector('[data-page="tl-dashboard"].active') !== null;
+  var html = '<div style="background:#fff;border-radius:12px;max-width:520px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3)">';
+  html += '<div style="padding:20px;border-bottom:1px solid #e2e8f0"><h3 style="margin:0;font-size:16px">Reassign — ' + name + '</h3></div>';
+  html += '<div style="padding:20px">';
+  if (!isTL) {
+    html += '<div style="display:flex;gap:8px;margin-bottom:16px">' +
+      '<button class="btn-primary" id="reassign-temp-btn" onclick="showReassignType(\'temp\')" style="flex:1;padding:10px">Temporary</button>' +
+      '<button style="flex:1;padding:10px;border:1px solid #e2e8f0;border-radius:6px;background:#f8fafc;cursor:pointer;font-size:12px;font-weight:700;color:#475569" id="reassign-perm-btn" onclick="showReassignType(\'perm\')">Permanent</button>' +
+    '</div>';
+  } else {
+    html += '<div style="padding:8px 12px;background:#fef3c7;border:1px solid #fde68a;border-radius:6px;font-size:11px;color:#92400e;margin-bottom:14px">&#9432; Team Leaders can only perform temporary reassignments</div>';
+  }
+  // Temporary form (default)
+  html += '<div id="reassign-form-temp">' +
+    '<div class="form-group"><label class="form-label">Reassign To</label><select class="form-select"><option value="">Select support worker...</option><option>Arouba Khan</option><option>Jack Vinten</option><option>M. Khan</option><option>D. Sharpe</option><option>K. Patel</option><option>A. Begum</option><option>S. Williams</option><option>J. Peters</option></select></div>' +
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">' +
+      '<div class="form-group"><label class="form-label">Start Date</label><input class="form-input" type="date" value="' + new Date().toISOString().split('T')[0] + '"></div>' +
+      '<div class="form-group"><label class="form-label">End Date</label><input class="form-input" type="date"></div>' +
+    '</div>' +
+    '<div class="form-group"><label class="form-label">Reason</label><textarea class="form-textarea" style="min-height:60px" placeholder="Reason for temporary reassignment..."></textarea></div>' +
+  '</div>';
+  // Permanent form (hidden)
+  html += '<div id="reassign-form-perm" style="display:none">' +
+    '<div class="form-group"><label class="form-label">Reassign To</label><select class="form-select"><option value="">Select support worker...</option><option>Arouba Khan</option><option>Jack Vinten</option><option>M. Khan</option><option>D. Sharpe</option><option>K. Patel</option><option>A. Begum</option><option>S. Williams</option><option>J. Peters</option></select></div>' +
+    '<div class="form-group"><label class="form-label">Effective Date</label><input class="form-input" type="date" value="' + new Date().toISOString().split('T')[0] + '"></div>' +
+    '<div class="form-group"><label class="form-label">Reason</label><textarea class="form-textarea" style="min-height:60px" placeholder="Reason for permanent reassignment..."></textarea></div>' +
+  '</div>';
+  html += '</div>';
+  html += '<div style="padding:16px 20px;border-top:1px solid #e2e8f0;display:flex;gap:8px;justify-content:flex-end">' +
+    '<button style="padding:8px 16px;border:1px solid #e2e8f0;border-radius:6px;background:#f8fafc;cursor:pointer;font-size:12px;font-weight:600;color:#64748b" onclick="document.getElementById(\'reassign-modal\').remove()">Cancel</button>' +
+    '<button class="btn-primary" onclick="showToast(\'Reassignment submitted successfully\');document.getElementById(\'reassign-modal\').remove()" style="padding:8px 20px">Confirm Reassignment</button>' +
+  '</div></div>';
+  modal.innerHTML = html;
+  document.body.appendChild(modal);
+}
+
+function showReassignType(type) {
+  document.getElementById('reassign-form-temp').style.display = type === 'temp' ? 'block' : 'none';
+  document.getElementById('reassign-form-perm').style.display = type === 'perm' ? 'block' : 'none';
+  var tempBtn = document.getElementById('reassign-temp-btn');
+  var permBtn = document.getElementById('reassign-perm-btn');
+  if (type === 'temp') {
+    tempBtn.className = 'btn-primary'; tempBtn.style.cssText = 'flex:1;padding:10px';
+    permBtn.className = ''; permBtn.style.cssText = 'flex:1;padding:10px;border:1px solid #e2e8f0;border-radius:6px;background:#f8fafc;cursor:pointer;font-size:12px;font-weight:700;color:#475569';
+  } else {
+    permBtn.className = 'btn-primary'; permBtn.style.cssText = 'flex:1;padding:10px';
+    tempBtn.className = ''; tempBtn.style.cssText = 'flex:1;padding:10px;border:1px solid #e2e8f0;border-radius:6px;background:#f8fafc;cursor:pointer;font-size:12px;font-weight:700;color:#475569';
+  }
+}
+
+function showBulkReassignModal() {
+  var modal = document.createElement('div');
+  modal.id = 'bulk-reassign-modal';
+  modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+  modal.onclick = function(ev) { if (ev.target === modal) modal.remove(); };
+  var sus = ['A. Rahman (SU-0001)','B. Kowalski (SU-0012)','C. Dlamini (SU-0044)','E. Abdullahi (SU-0112)','F. Nowak (SU-0145)','G. Mensah (SU-0178)','H. Singh (SU-0198)','K. Adebayo (SU-0291)'];
+  var html = '<div style="background:#fff;border-radius:12px;max-width:600px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3)">';
+  html += '<div style="padding:20px;border-bottom:1px solid #e2e8f0"><h3 style="margin:0;font-size:16px">Bulk Reassign Service Users</h3></div>';
+  html += '<div style="padding:20px">';
+  html += '<div class="form-group"><label class="form-label">Select Service Users</label><div style="max-height:160px;overflow-y:auto;border:1px solid #e2e8f0;border-radius:6px;padding:8px;background:#f8fafc">';
+  sus.forEach(function(su) {
+    html += '<label style="display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;color:#334155;cursor:pointer"><input type="checkbox" style="accent-color:#1a6b3c"> ' + su + '</label>';
+  });
+  html += '</div></div>';
+  html += '<div style="display:flex;gap:8px;margin-bottom:16px">' +
+    '<button class="btn-primary" id="bulk-temp-btn" onclick="showReassignType(\'temp\')" style="flex:1;padding:8px;font-size:11px">Temporary</button>' +
+    '<button style="flex:1;padding:8px;border:1px solid #e2e8f0;border-radius:6px;background:#f8fafc;cursor:pointer;font-size:11px;font-weight:700;color:#475569" id="bulk-perm-btn" onclick="showReassignType(\'perm\')">Permanent</button></div>';
+  html += '<div id="reassign-form-temp"><div class="form-group"><label class="form-label">Reassign To</label><select class="form-select"><option value="">Select support worker...</option><option>Arouba Khan</option><option>Jack Vinten</option><option>M. Khan</option><option>D. Sharpe</option><option>K. Patel</option></select></div>' +
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="form-group"><label class="form-label">Start Date</label><input class="form-input" type="date"></div><div class="form-group"><label class="form-label">End Date</label><input class="form-input" type="date"></div></div>' +
+    '<div class="form-group"><label class="form-label">Reason</label><textarea class="form-textarea" style="min-height:50px" placeholder="Reason..."></textarea></div></div>';
+  html += '<div id="reassign-form-perm" style="display:none"><div class="form-group"><label class="form-label">Reassign To</label><select class="form-select"><option value="">Select support worker...</option><option>Arouba Khan</option><option>Jack Vinten</option><option>M. Khan</option><option>D. Sharpe</option><option>K. Patel</option></select></div>' +
+    '<div class="form-group"><label class="form-label">Effective Date</label><input class="form-input" type="date"></div>' +
+    '<div class="form-group"><label class="form-label">Reason</label><textarea class="form-textarea" style="min-height:50px" placeholder="Reason..."></textarea></div></div>';
+  html += '</div>';
+  html += '<div style="padding:16px 20px;border-top:1px solid #e2e8f0;display:flex;gap:8px;justify-content:flex-end">' +
+    '<button style="padding:8px 16px;border:1px solid #e2e8f0;border-radius:6px;background:#f8fafc;cursor:pointer;font-size:12px;font-weight:600;color:#64748b" onclick="document.getElementById(\'bulk-reassign-modal\').remove()">Cancel</button>' +
+    '<button class="btn-primary" onclick="showToast(\'Bulk reassignment submitted\');document.getElementById(\'bulk-reassign-modal\').remove()" style="padding:8px 20px">Reassign Selected</button></div></div>';
+  modal.innerHTML = html;
+  document.body.appendChild(modal);
+}
+
+// ===== BATCH 2: ADD TASK MODAL =====
+function showAddTaskModal() {
+  var modal = document.createElement('div');
+  modal.id = 'add-task-modal';
+  modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+  modal.onclick = function(ev) { if (ev.target === modal) modal.remove(); };
+  modal.innerHTML = '<div style="background:#fff;border-radius:12px;max-width:480px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3)">' +
+    '<div style="padding:20px;border-bottom:1px solid #e2e8f0"><h3 style="margin:0;font-size:16px">Add New Task</h3></div>' +
+    '<div style="padding:20px">' +
+      '<div class="form-group"><label class="form-label">Task Description</label><textarea class="form-textarea" style="min-height:60px" placeholder="Describe the task..."></textarea></div>' +
+      '<div class="form-group"><label class="form-label">Assign To</label><select class="form-select"><option value="">Select staff member...</option><option>Arouba Khan</option><option>Jack Vinten</option><option>Megan Thorne</option><option>Keelie Hill</option></select></div>' +
+      '<div class="form-group"><label class="form-label">Due Date</label><input class="form-input" type="date"></div>' +
+    '</div>' +
+    '<div style="padding:16px 20px;border-top:1px solid #e2e8f0;display:flex;gap:8px;justify-content:flex-end">' +
+      '<button style="padding:8px 16px;border:1px solid #e2e8f0;border-radius:6px;background:#f8fafc;cursor:pointer;font-size:12px;font-weight:600;color:#64748b" onclick="document.getElementById(\'add-task-modal\').remove()">Cancel</button>' +
+      '<button class="btn-primary" onclick="showToast(\'Task assigned successfully\');document.getElementById(\'add-task-modal\').remove()" style="padding:8px 20px">Assign Task</button>' +
+    '</div></div>';
+  document.body.appendChild(modal);
+}
+
+// ===== BATCH 2: REGULATORY NOTIFICATIONS =====
+function renderRegulatoryNotifications() {
+  var el = document.getElementById('reg-notif-content');
+  if (!el) return;
+  var items = [
+    { ref: 'INC-2024-011', type: 'Reg 40 — Serious Injury', body: 'CQC', deadline: '3 days', status: 'pending' },
+    { ref: 'INC-2024-009', type: 'Safeguarding — Adult', body: 'Local Authority', deadline: '1 day', status: 'pending' },
+    { ref: 'INC-2024-007', type: 'Reg 40 — Death', body: 'CQC', deadline: 'Sent', status: 'sent' },
+    { ref: 'INC-2024-005', type: 'Serious Incident', body: 'Ofsted', deadline: 'Sent', status: 'sent' }
+  ];
+  var cols = { 'Pending Review': items.filter(i => i.status === 'pending'), 'Approved': [], 'Sent': items.filter(i => i.status === 'sent') };
+  var colColors = { 'Pending Review': '#ea580c', 'Approved': '#059669', 'Sent': '#1a6b3c' };
+  var html = '<div class="g3">';
+  Object.keys(cols).forEach(function(colName) {
+    var citems = cols[colName];
+    html += '<div><div style="font-size:10px;font-weight:800;color:' + colColors[colName] + ';letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:3px solid ' + colColors[colName] + '">' + colName + ' <span style="background:#f1f5f9;padding:2px 8px;border-radius:10px;font-size:9px;margin-left:4px">' + citems.length + '</span></div>';
+    citems.forEach(function(item) {
+      html += '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px;margin-bottom:8px">' +
+        '<div style="font-weight:700;font-size:12px;color:#1e293b">' + item.ref + '</div>' +
+        '<div style="font-size:10px;color:#64748b;margin-top:2px">' + item.type + '</div>' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">' +
+          '<span style="font-size:10px;color:#475569">Body: <strong>' + item.body + '</strong></span>' +
+          '<span style="font-size:10px;color:' + (item.status === 'pending' ? '#dc2626' : '#059669') + ';font-weight:700">' + (item.status === 'pending' ? '&#9203; ' + item.deadline : '&#10003; ' + item.deadline) + '</span>' +
+        '</div>' +
+        (item.status === 'pending' ? '<button class="btn-primary" disabled style="margin-top:8px;padding:5px 14px;font-size:10px;opacity:0.5;cursor:not-allowed">Send Notification</button>' : '') +
+      '</div>';
+    });
+    if (citems.length === 0) html += '<div style="font-size:11px;color:#94a3b8;text-align:center;padding:20px">No items</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+  el.innerHTML = html;
 }
 
 </script>
