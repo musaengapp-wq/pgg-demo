@@ -1019,6 +1019,14 @@ body.high-contrast input, body.high-contrast select, body.high-contrast textarea
 
 /* Dyslexia-friendly font */
 body.dyslexia-font, body.dyslexia-font * { font-family: 'Comic Sans MS', 'OpenDyslexic', cursive, sans-serif !important; letter-spacing: 0.05em !important; word-spacing: 0.12em !important; }
+
+/* Accessibility mockup buttons (STT + TTS) */
+.a11y-btn-row { display: flex; gap: 6px; margin-top: 4px; }
+.a11y-btn { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border: 1px solid #e2e8f0; border-radius: 8px; background: #f8fafc; color: #475569; font-size: 11px; font-family: inherit; cursor: pointer; transition: background .15s, border-color .15s, box-shadow .15s; line-height: 1.4; }
+.a11y-btn:hover { background: #eef2ff; border-color: #1a1a3e; color: #1a1a3e; box-shadow: 0 1px 3px rgba(26,26,62,.10); }
+.a11y-btn .a11y-icon { font-size: 13px; }
+.a11y-toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #1a1a3e; color: #fff; padding: 10px 22px; border-radius: 10px; font-size: 12px; font-weight: 600; z-index: 99999; box-shadow: 0 4px 16px rgba(0,0,0,.18); opacity: 0; transition: opacity .3s; pointer-events: none; }
+.a11y-toast.show { opacity: 1; }
 </style>
 </head>
 <body>
@@ -14959,6 +14967,47 @@ document.addEventListener('click', function(e) {
 document.getElementById('staff-profile-modal').addEventListener('click', function(e) {
   if (e.target === this) closeStaffProfile();
 });
+</script>
+
+<!-- Accessibility Mockup Buttons (STT + TTS) -->
+<div id="a11y-toast" class="a11y-toast"></div>
+<script>
+(function(){
+  function showA11yToast(msg){
+    var t=document.getElementById('a11y-toast');
+    t.textContent=msg;t.classList.add('show');
+    clearTimeout(t._tid);
+    t._tid=setTimeout(function(){t.classList.remove('show')},2200);
+  }
+  function addA11yButtons(ta){
+    if(ta.dataset.a11y) return;
+    ta.dataset.a11y='1';
+    var row=document.createElement('div');
+    row.className='a11y-btn-row';
+
+    var mic=document.createElement('button');
+    mic.type='button';mic.className='a11y-btn';
+    mic.title='Speech-to-Text: Speak your note and it will be transcribed automatically';
+    mic.innerHTML='<span class="a11y-icon">🎤</span> Dictate';
+    mic.onclick=function(e){e.preventDefault();showA11yToast('🎤 Speech-to-Text — coming soon');};
+
+    var spk=document.createElement('button');
+    spk.type='button';spk.className='a11y-btn';
+    spk.title='Text-to-Speech: Read your note aloud before submitting to check for errors';
+    spk.innerHTML='<span class="a11y-icon">🔊</span> Read back';
+    spk.onclick=function(e){e.preventDefault();showA11yToast('🔊 Text-to-Speech — coming soon');};
+
+    row.appendChild(mic);row.appendChild(spk);
+    ta.parentNode.insertBefore(row,ta.nextSibling);
+  }
+  function scan(){
+    var all=document.querySelectorAll('textarea');
+    for(var i=0;i<all.length;i++) addA11yButtons(all[i]);
+  }
+  scan();
+  var obs=new MutationObserver(function(){scan()});
+  obs.observe(document.body,{childList:true,subtree:true});
+})();
 </script>
 </body>
 </html>
