@@ -3264,7 +3264,7 @@ body.dyslexia-font, body.dyslexia-font * { font-family: 'Comic Sans MS', 'OpenDy
       <div class="action-group">
         <button class="action-group-btn" onclick="toggleActionGroup('ag-forms')">&#128221; Forms &#9660;</button>
         <div class="action-group-menu" id="ag-forms">
-          <button onclick="supLogContactEvent()">Log Contact Activity</button>
+          <button onclick="supLogContactEvent()">Log Support Note</button>
           <button onclick="supLogIncident()" class="warn-item">Log Incident</button>
           <button onclick="supLogConcern()" class="danger-item">Log Welfare Concern</button>
           <button onclick="showToast('Coming soon — Log Complaint')">Log Complaint</button>
@@ -6417,6 +6417,8 @@ function supLogContactEvent() {
   actionsDiv.parentNode.insertBefore(modal, actionsDiv.nextSibling);
   var now = new Date(); now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
   document.getElementById('sup-cn-date').value = now.toISOString().slice(0, 10);
+  // Ensure accessibility buttons are added to the new textarea
+  if (typeof window._a11yScan === 'function') window._a11yScan();
 }
 
 function submitSUPContactNote() {
@@ -15005,6 +15007,7 @@ document.getElementById('staff-profile-modal').addEventListener('click', functio
     for(var i=0;i<all.length;i++) addA11yButtons(all[i]);
   }
   scan();
+  window._a11yScan=scan;
   var obs=new MutationObserver(function(){scan()});
   obs.observe(document.body,{childList:true,subtree:true});
 })();
