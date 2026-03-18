@@ -3910,10 +3910,15 @@ body.dyslexia-font, body.dyslexia-font * { font-family: 'Comic Sans MS', 'OpenDy
     <div>
       <!-- Check-in / Check-out -->
       <div class="card">
-        <h3 class="collapsible-header" onclick="toggleCollapsible('sw-checkin-body',this)">Check In / Check Out <span class="collapse-arrow">&#9660;</span></h3>
+        <h3 class="collapsible-header" onclick="toggleCollapsible('sw-checkin-body',this)">Check In / Check Out <span id="sw-checkin-overdue-badge" class="badge alert" style="font-size:9px;display:none">!</span> <span class="collapse-arrow">&#9660;</span></h3>
         <div id="sw-checkin-body" class="collapsible-body">
+          <!-- Active Check-In Panel (own status) -->
+          <div id="sw-active-checkin" style="margin-bottom:14px"></div>
+          <!-- Check In / Out Form -->
           <div id="sw-checkin-status"></div>
           <div id="sw-checkin-btns" style="display:flex;gap:10px;justify-content:center;margin-top:10px"></div>
+          <!-- Check-In History -->
+          <div id="sw-checkin-history" style="margin-top:14px"></div>
         </div>
       </div>
       <!-- Mileage & Expenses -->
@@ -10237,7 +10242,18 @@ const swStaff = [
       { id: 'SU-0278', name: 'C. Dlamini', prop: 'Flat 9, Meersbrook', flags: ['Plan Expiring'] },
       { id: 'SU-0291', name: 'I. Kowalski', prop: 'Unit 11, Hillsborough', flags: ['Plan Expiring'] },
     ],
-    checkedIn: null,
+    checkedIn: '08:15',
+    checkinSU: 'SU-0041 — K. Adebayo',
+    checkinLoc: 'Unit 3, Abbeydale Road',
+    checkinType: 'SW',
+    checkinNotes: 'Visiting SU at Unit 3 for support plan review, expected 1hr',
+    checkinTime: new Date(Date.now() - 55 * 60000).toISOString(),
+    checkinHistory: [
+      { type: 'SW', location: 'Flat 12, Broomhall Rise', su: 'S. Hassan', notes: 'Welfare check and note review', checkinTime: '2026-03-17T13:30:00', checkoutTime: '2026-03-17T14:45:00', duration: '1h 15m' },
+      { type: 'TL', location: 'Unit 3, Abbeydale Road', su: 'K. Adebayo', notes: 'Key session review with TL present', checkinTime: '2026-03-17T09:00:00', checkoutTime: '2026-03-17T10:15:00', duration: '1h 15m' },
+      { type: 'SW', location: 'Office', su: '', notes: 'Admin and reports', checkinTime: '2026-03-16T08:30:00', checkoutTime: '2026-03-16T16:30:00', duration: '8h 0m' },
+      { type: 'Lone Working', location: 'Flat 9, Burngreave Rise', su: 'C. Dlamini', notes: 'Evening welfare visit — lone working, no other staff on site', checkinTime: '2026-03-15T17:30:00', checkoutTime: '2026-03-15T18:45:00', duration: '1h 15m' },
+    ],
     mileage: [
       { date: '2026-03-06', from: 'Office', to: 'Abbeydale Rd', miles: 3.2, purpose: 'SU visits' },
       { date: '2026-03-05', from: 'Abbeydale Rd', to: 'Broomhall', miles: 2.1, purpose: 'Supervision meeting' },
@@ -10277,6 +10293,17 @@ const swStaff = [
       { id: 'SU-0495', name: 'M. Iqbal', prop: 'Flat 13, Woodseats', flags: [] },
     ],
     checkedIn: '09:15',
+    checkinSU: 'SU-0312 — N. Akram',
+    checkinLoc: 'Unit 2, Abbeydale',
+    checkinType: 'TL',
+    checkinNotes: 'Support plan review with N. Akram',
+    checkinTime: new Date(Date.now() - 45 * 60000).toISOString(),
+    checkinHistory: [
+      { type: 'TL', location: 'Flat 6, Broomhall', su: 'H. Williams', notes: 'Key session', checkinTime: '2026-03-17T10:00:00', checkoutTime: '2026-03-17T11:15:00', duration: '1h 15m' },
+      { type: 'Lone Working', location: 'Unit 5, Burngreave', su: 'Y. Demirci', notes: 'Evening welfare check — lone working', checkinTime: '2026-03-17T18:00:00', checkoutTime: '2026-03-17T19:30:00', duration: '1h 30m' },
+      { type: 'TL', location: 'Flat 11, Darnall', su: 'W. Zhang', notes: 'MICL review', checkinTime: '2026-03-16T14:00:00', checkoutTime: '2026-03-16T15:00:00', duration: '1h 0m' },
+      { type: 'SW', location: 'Office', su: '', notes: 'Admin day', checkinTime: '2026-03-15T08:30:00', checkoutTime: '2026-03-15T16:00:00', duration: '7h 30m' },
+    ],
     mileage: [
       { date: '2026-03-07', from: 'Home', to: 'Abbeydale Rd', miles: 5.4, purpose: 'Commute to SU visits' },
       { date: '2026-03-06', from: 'Sharrow', to: 'Burngreave', miles: 4.8, purpose: 'SU welfare check' },
@@ -10315,6 +10342,11 @@ const swStaff = [
       { id: 'SU-0661', name: 'K. Jallow', prop: 'Unit 7, Meersbrook', flags: [] },
     ],
     checkedIn: null,
+    checkinHistory: [
+      { type: 'Lone Working', location: 'Flat 15, Sharrow', su: 'A. Osei', notes: 'Evening welfare visit — lone working', checkinTime: '2026-03-17T17:30:00', checkoutTime: '2026-03-17T18:45:00', duration: '1h 15m' },
+      { type: 'TL', location: 'Unit 13, Burngreave', su: 'V. Koval', notes: 'Support plan review', checkinTime: '2026-03-17T11:00:00', checkoutTime: '2026-03-17T12:00:00', duration: '1h 0m' },
+      { type: 'TL', location: 'Flat 2, Darnall', su: 'C. Murray', notes: 'Key session', checkinTime: '2026-03-16T10:00:00', checkoutTime: '2026-03-16T11:30:00', duration: '1h 30m' },
+    ],
     mileage: [
       { date: '2026-03-06', from: 'Home', to: 'Sharrow', miles: 6.2, purpose: 'SU visits — A. Osei, V. Koval' },
       { date: '2026-03-05', from: 'Sharrow', to: 'Crookes', miles: 3.5, purpose: 'Welfare visit' },
@@ -10414,9 +10446,54 @@ function renderSWDashboard() {
     '</div>'
   ).join('');
 
-  // Check-in / Check-out — expanded Lone Working style
+  // Check-in / Check-out — expanded view (SW sees only their own)
   const ciStatus = document.getElementById('sw-checkin-status');
   const ciBtns = document.getElementById('sw-checkin-btns');
+  const swActivePanel = document.getElementById('sw-active-checkin');
+  const swHistPanel = document.getElementById('sw-checkin-history');
+  const swOverdueBadge = document.getElementById('sw-checkin-overdue-badge');
+
+  // Active Check-In Panel (own status only)
+  if (swActivePanel) {
+    if (w.checkedIn) {
+      var ciStart = w.checkinTime ? new Date(w.checkinTime) : new Date();
+      var ciElapsed = Math.floor((Date.now() - ciStart.getTime()) / 60000);
+      var ciHrs = Math.floor(ciElapsed / 60);
+      var ciMins = ciElapsed % 60;
+      var ciElapsedStr = ciHrs > 0 ? ciHrs + 'h ' + ciMins + 'm' : ciMins + 'm';
+      var ciType = w.checkinType || 'SW';
+      var ciIsOverdue = ciType === 'Lone Working' && ciElapsed > 120;
+      var ciBorderColor = ciIsOverdue ? '#dc2626' : (ciType === 'Lone Working' ? '#d97706' : '#059669');
+      var ciBgColor = ciIsOverdue ? '#fef2f2' : '#f0fdf4';
+      var ciTypeBadge = ciType === 'Lone Working' ? '<span class="b am">Lone Working</span>' : (ciType === 'SW' ? '<span class="b bl">SW (Self)</span>' : '<span class="b gn">TL Check-In</span>');
+      var apHTML = '<div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">My Active Status <span class="pulse" style="background:' + ciBorderColor + '"></span></div>';
+      apHTML += '<div style="background:' + ciBgColor + ';border:2px solid ' + ciBorderColor + ';border-radius:10px;padding:14px;position:relative">';
+      if (ciIsOverdue) apHTML += '<div style="position:absolute;top:8px;right:8px;font-size:14px" title="Overdue — lone working >2hrs without update">&#9888;&#65039;</div>';
+      apHTML += '<div style="font-weight:700;font-size:14px;color:#1e293b">' + w.name + '</div>';
+      apHTML += '<div style="margin-top:4px">' + ciTypeBadge + '</div>';
+      if (w.checkinLoc) apHTML += '<div style="font-size:12px;color:#475569;margin-top:6px">&#128205; ' + w.checkinLoc + '</div>';
+      if (w.checkinSU) apHTML += '<div style="font-size:11px;color:#64748b;margin-top:2px">Visiting: ' + w.checkinSU + '</div>';
+      if (w.checkinNotes) apHTML += '<div style="font-size:11px;color:#64748b;margin-top:4px;font-style:italic">' + w.checkinNotes + '</div>';
+      apHTML += '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">';
+      apHTML += '<div style="font-size:12px;color:#475569;font-weight:600"><span class="pulse" style="background:' + ciBorderColor + '"></span> ' + ciElapsedStr + ' elapsed</div>';
+      apHTML += '<div style="font-size:11px;color:#94a3b8">Since ' + w.checkedIn + '</div>';
+      apHTML += '</div>';
+      if (ciIsOverdue) apHTML += '<div style="margin-top:8px;padding:8px 10px;background:#fee2e2;border:1px solid #fca5a5;border-radius:6px;font-size:11px;color:#991b1b;font-weight:600">&#9888; OVERDUE — You have been lone working for ' + ciHrs + 'h ' + ciMins + 'm without an update. Please check out or update your status immediately.</div>';
+      else if (ciType === 'Lone Working' && ciElapsed > 90) apHTML += '<div style="margin-top:8px;padding:8px 10px;background:#fef3c7;border:1px solid #fcd34d;border-radius:6px;font-size:11px;color:#92400e;font-weight:600">&#9888; Approaching lone working time limit — ' + ciElapsedStr + ' elapsed. Consider checking out or updating.</div>';
+      apHTML += '</div>';
+      swActivePanel.innerHTML = apHTML;
+      // Update overdue badge
+      if (swOverdueBadge) {
+        if (ciIsOverdue) { swOverdueBadge.style.display = ''; swOverdueBadge.textContent = '!'; }
+        else { swOverdueBadge.style.display = 'none'; }
+      }
+    } else {
+      swActivePanel.innerHTML = '<div style="padding:10px;text-align:center;color:#94a3b8;font-size:11px">Not currently checked in</div>';
+      if (swOverdueBadge) swOverdueBadge.style.display = 'none';
+    }
+  }
+
+  // Check-in form
   if (w.checkedIn) {
     ciStatus.className = 'checkin-status checked-in';
     ciStatus.innerHTML = '<span style="font-size:16px">&#9989;</span> Currently checked in since <strong>' + w.checkedIn + '</strong>' +
@@ -10430,13 +10507,37 @@ function renderSWDashboard() {
     ciStatus.innerHTML = '';
     ciBtns.innerHTML =
       '<div style="width:100%">' +
+        '<div class="form-group"><label class="form-label">Check-In Type</label><select class="form-select" id="sw-ci-type"><option value="SW" selected>SW (Self)</option><option value="Lone Working">Lone Working</option></select></div>' +
         '<div class="form-group"><label class="form-label">Service User</label><select class="form-select" id="sw-ci-su"><option value="">Select service user...</option>' +
           w.serviceUsers.map(function(su) { return '<option value="' + su.id + '">' + su.id + ' — ' + su.name + '</option>'; }).join('') +
         '</select></div>' +
         '<div class="form-group"><label class="form-label">Location</label><select class="form-select" id="sw-ci-loc"><option value="">Select location...</option><option>Unit 3, Abbeydale Road</option><option>17 Netherthorpe Road</option><option>Flat 9, Burngreave Rise</option><option>8 Sharrow Vale Road</option><option>24 Ecclesall Road</option></select></div>' +
+        '<div class="form-group"><label class="form-label">Notes (optional)</label><input id="sw-ci-notes" class="form-input" type="text" placeholder="e.g. Visiting SU at Moorgate Street, expected 1hr"></div>' +
         '<div class="form-group"><label class="form-label">Estimated Duration</label><select class="form-select" id="sw-ci-duration"><option value="30">30 minutes</option><option value="60" selected>1 hour</option><option value="90">1.5 hours</option><option value="120">2 hours</option></select></div>' +
         '<button class="btn-primary" style="width:100%;background:#059669" onclick="staffCheckIn()">&#128994; Start Visit</button>' +
       '</div>';
+  }
+
+  // Check-in History (own history only)
+  if (swHistPanel) {
+    var swHistory = w.checkinHistory || [];
+    if (swHistory.length === 0) {
+      swHistPanel.innerHTML = '';
+    } else {
+      var shHTML = '<div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">My Recent Check-In / Check-Out History</div>';
+      shHTML += '<div class="si" style="max-height:220px"><table><thead><tr><th>Type</th><th>Location</th><th>Notes</th><th>In</th><th>Out</th><th>Duration</th></tr></thead><tbody>';
+      swHistory.slice(0, 10).forEach(function(h) {
+        var inDate = new Date(h.checkinTime);
+        var outDate = new Date(h.checkoutTime);
+        var inStr = (inDate.getMonth()+1).toString().padStart(2,'0') + '/' + inDate.getDate().toString().padStart(2,'0') + ' ' + inDate.getHours().toString().padStart(2,'0') + ':' + inDate.getMinutes().toString().padStart(2,'0');
+        var outStr = outDate.getHours().toString().padStart(2,'0') + ':' + outDate.getMinutes().toString().padStart(2,'0');
+        var typeBadge = h.type === 'Lone Working' ? '<span class="b am">Lone</span>' : (h.type === 'SW' ? '<span class="b bl">SW</span>' : '<span class="b gn">Visit</span>');
+        shHTML += '<tr><td>' + typeBadge + '</td><td style="font-size:11px">' + h.location + (h.su ? '<div style="font-size:10px;color:#64748b">' + h.su + '</div>' : '') + '</td><td style="font-size:10px;color:#64748b;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="' + (h.notes || '') + '">' + (h.notes || '—') + '</td><td style="font-size:10px;color:#64748b">' + inStr + '</td><td style="font-size:10px;color:#64748b">' + outStr + '</td><td style="font-weight:600">' + h.duration + '</td></tr>';
+      });
+      shHTML += '</tbody></table></div>';
+      if (swHistory.length > 0) shHTML += '<div style="font-size:10px;color:#94a3b8;margin-top:4px">Showing ' + Math.min(10, swHistory.length) + ' of ' + swHistory.length + ' entries</div>';
+      swHistPanel.innerHTML = shHTML;
+    }
   }
 
   // Mileage form
