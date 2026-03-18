@@ -4204,10 +4204,15 @@ body.dyslexia-font, body.dyslexia-font * { font-family: 'Comic Sans MS', 'OpenDy
     </div>
     <div class="g2">
       <div class="card">
-        <h3 class="collapsible-header" onclick="toggleCollapsible('tl-checkin-body',this)">Check In / Check Out <span class="collapse-arrow">&#9660;</span></h3>
+        <h3 class="collapsible-header" onclick="toggleCollapsible('tl-checkin-body',this)">Check In / Check Out <span id="tl-checkin-overdue-badge" class="badge alert" style="font-size:9px;display:none">0</span> <span class="collapse-arrow">&#9660;</span></h3>
         <div id="tl-checkin-body" class="collapsible-body">
+          <!-- Active Check-Ins Panel -->
+          <div id="tl-active-checkins" style="margin-bottom:14px"></div>
+          <!-- Check In / Out Form -->
           <div id="tl-checkin-status"></div>
           <div id="tl-checkin-btns" style="display:flex;gap:10px;justify-content:center;margin-top:10px"></div>
+          <!-- Check-In History -->
+          <div id="tl-checkin-history" style="margin-top:14px"></div>
         </div>
       </div>
       <div class="card">
@@ -11732,6 +11737,19 @@ const tlData = [
       { staff: 'Tom Ellis', issue: '3 overdue support notes (>48hrs)', responses: [{ date: '06 Mar', notes: 'Discussed with Tom. Workload issue — not avoidance.', perSU: 'Re R. Barton: Tom confirmed contact made but not logged. Re S. Khan: visit scheduled for tomorrow.', actions: 'Tom to complete all 3 notes by end of day', nextSteps: 'Check completion tomorrow AM', reviewDate: '07 Mar' }] },
       { staff: 'Priya Sharma', issue: 'Missing phone number for 2 SUs', responses: [] },
       { staff: 'Priya Sharma', issue: 'MICL completion 5 days overdue for D. Kamara', responses: [] },
+    ],
+    activeCheckins: [
+      { staff: 'Priya Sharma', type: 'TL', location: 'Unit 3, Abbeydale Road', notes: 'Key session with N. Akram', checkinTime: new Date(Date.now() - 45 * 60000).toISOString() },
+      { staff: 'Tom Bradley', type: 'Lone Working', location: 'Flat 9, Burngreave Rise', notes: 'Welfare check — SU not answering calls', checkinTime: new Date(Date.now() - 155 * 60000).toISOString() },
+      { staff: 'Tom Ellis', type: 'TL', location: '24 Ecclesall Road', notes: '', checkinTime: new Date(Date.now() - 20 * 60000).toISOString() }
+    ],
+    checkinHistory: [
+      { staff: 'Priya Sharma', type: 'TL', location: 'Flat 2, Netherthorpe', notes: 'Support plan review with L. Barton', checkinTime: '2026-03-17T09:30:00', checkoutTime: '2026-03-17T10:45:00', duration: '1h 15m' },
+      { staff: 'Tom Bradley', type: 'Lone Working', location: '5 Sharrow Lane', notes: 'Evening welfare visit', checkinTime: '2026-03-17T18:00:00', checkoutTime: '2026-03-17T19:10:00', duration: '1h 10m' },
+      { staff: 'Tom Ellis', type: 'TL', location: 'Unit 12, Abbeydale Road', notes: 'Medication check', checkinTime: '2026-03-17T11:00:00', checkoutTime: '2026-03-17T11:30:00', duration: '30m' },
+      { staff: 'Emma Lawson', type: 'SW', location: 'Office', notes: 'Admin and reports', checkinTime: '2026-03-17T08:00:00', checkoutTime: '2026-03-17T16:00:00', duration: '8h 0m' },
+      { staff: 'Priya Sharma', type: 'TL', location: '24 Burngreave Rise', notes: 'Key session with I. Yilmaz', checkinTime: '2026-03-16T14:00:00', checkoutTime: '2026-03-16T15:20:00', duration: '1h 20m' },
+      { staff: 'Tom Bradley', type: 'Lone Working', location: 'Flat 3, Burngreave Rise', notes: '', checkinTime: '2026-03-16T17:30:00', checkoutTime: '2026-03-16T18:45:00', duration: '1h 15m' }
     ]
   },
   {
@@ -11760,6 +11778,13 @@ const tlData = [
     ],
     complianceAlerts: [
       { staff: 'Dan Whiteley', issue: '2 support plans expiring this week — not yet renewed', responses: [] },
+    ],
+    activeCheckins: [
+      { staff: 'Liam Carter', type: 'TL', location: '8 Wellgate, Rotherham', notes: 'Key session with J. Okafor', checkinTime: new Date(Date.now() - 30 * 60000).toISOString() }
+    ],
+    checkinHistory: [
+      { staff: 'Fatima Noor', type: 'TL', location: '45 Masbrough St', notes: 'Support plan review', checkinTime: '2026-03-17T10:00:00', checkoutTime: '2026-03-17T11:15:00', duration: '1h 15m' },
+      { staff: 'Dan Whiteley', type: 'Lone Working', location: '8 Wellgate, Unit 3', notes: 'Evening check', checkinTime: '2026-03-17T17:00:00', checkoutTime: '2026-03-17T18:00:00', duration: '1h 0m' }
     ]
   },
   {
@@ -11787,6 +11812,13 @@ const tlData = [
     ],
     complianceAlerts: [
       { staff: 'Rashid Amin', issue: 'Missed 2 scheduled contacts for A. Grigoryan', responses: [{ date: '06 Mar', notes: 'SU was uncontactable — phone off. Rashid attempted 3 times.', perSU: 'Re A. Grigoryan: welfare check arranged for Monday via housing officer.', actions: 'Welfare visit booked Mon 10 Mar', nextSteps: 'Confirm visit completed', reviewDate: '10 Mar' }] },
+    ],
+    activeCheckins: [
+      { staff: 'Sophie Holt', type: 'TL', location: '12 Church St, Barnsley', notes: 'Welfare visit with M. Oduya', checkinTime: new Date(Date.now() - 55 * 60000).toISOString() }
+    ],
+    checkinHistory: [
+      { staff: 'Rashid Amin', type: 'TL', location: '6 Peel St, Barnsley', notes: 'Key session', checkinTime: '2026-03-17T09:00:00', checkoutTime: '2026-03-17T10:30:00', duration: '1h 30m' },
+      { staff: 'Jordan Price', type: 'Lone Working', location: '18 Market Hill', notes: 'Evening welfare check', checkinTime: '2026-03-17T18:30:00', checkoutTime: '2026-03-17T19:15:00', duration: '45m' }
     ]
   }
 ];
@@ -12017,22 +12049,102 @@ function renderTLDashboard() {
         '</tbody></table>';
   }
 
-  // TL Check In / Check Out
+  // TL Check In / Check Out — Expanded View
   var tlCIStatus = document.getElementById('tl-checkin-status');
   var tlCIBtns = document.getElementById('tl-checkin-btns');
+  var tlActivePanel = document.getElementById('tl-active-checkins');
+  var tlHistPanel = document.getElementById('tl-checkin-history');
+  var tlOverdueBadge = document.getElementById('tl-checkin-overdue-badge');
+
+  // Active Check-Ins Panel
+  if (tlActivePanel) {
+    var activeCheckins = tl.activeCheckins || [];
+    var overdueCount = 0;
+    if (activeCheckins.length === 0) {
+      tlActivePanel.innerHTML = '<div style="padding:10px;text-align:center;color:#94a3b8;font-size:11px">No active check-ins</div>';
+    } else {
+      var acHTML = '<div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Active Check-Ins <span class="pulse"></span></div>';
+      acHTML += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px">';
+      activeCheckins.forEach(function(ac, aci) {
+        var start = new Date(ac.checkinTime);
+        var elapsed = Math.floor((Date.now() - start.getTime()) / 60000);
+        var hrs = Math.floor(elapsed / 60);
+        var mins = elapsed % 60;
+        var elapsedStr = hrs > 0 ? hrs + 'h ' + mins + 'm' : mins + 'm';
+        var isOverdue = ac.type === 'Lone Working' && elapsed > 120;
+        if (isOverdue) overdueCount++;
+        var borderColor = isOverdue ? '#dc2626' : (ac.type === 'Lone Working' ? '#d97706' : '#059669');
+        var bgColor = isOverdue ? '#fef2f2' : '#f8fafc';
+        var typeBadge = ac.type === 'Lone Working' ? '<span class="b am">Lone Working</span>' : (ac.type === 'SW' ? '<span class="b bl">SW (Self)</span>' : '<span class="b gn">TL Check-In</span>');
+        acHTML += '<div style="background:' + bgColor + ';border:2px solid ' + borderColor + ';border-radius:10px;padding:12px;position:relative">';
+        if (isOverdue) acHTML += '<div style="position:absolute;top:8px;right:8px;font-size:14px" title="Overdue — lone working >2hrs without update">&#9888;&#65039;</div>';
+        acHTML += '<div style="font-weight:700;font-size:13px;color:#1e293b">' + ac.staff + '</div>';
+        acHTML += '<div style="margin-top:4px">' + typeBadge + '</div>';
+        acHTML += '<div style="font-size:11px;color:#475569;margin-top:6px">&#128205; ' + ac.location + '</div>';
+        if (ac.notes) acHTML += '<div style="font-size:10px;color:#64748b;margin-top:4px;font-style:italic">' + ac.notes + '</div>';
+        acHTML += '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">';
+        acHTML += '<div style="font-size:11px;color:#475569"><span class="pulse" style="background:' + borderColor + '"></span> ' + elapsedStr + ' elapsed</div>';
+        acHTML += '<div style="font-size:10px;color:#94a3b8">Since ' + start.getHours().toString().padStart(2,'0') + ':' + start.getMinutes().toString().padStart(2,'0') + '</div>';
+        acHTML += '</div>';
+        if (isOverdue) acHTML += '<div style="margin-top:6px;padding:6px 8px;background:#fee2e2;border:1px solid #fca5a5;border-radius:6px;font-size:10px;color:#991b1b;font-weight:600">&#9888; OVERDUE — Lone working >' + Math.floor(elapsed / 60) + 'hrs without update. Immediate check required.</div>';
+        acHTML += '</div>';
+      });
+      acHTML += '</div>';
+      tlActivePanel.innerHTML = acHTML;
+    }
+    // Update overdue badge
+    if (tlOverdueBadge) {
+      if (overdueCount > 0) {
+        tlOverdueBadge.style.display = '';
+        tlOverdueBadge.textContent = overdueCount;
+      } else {
+        tlOverdueBadge.style.display = 'none';
+      }
+    }
+  }
+
+  // Check-in form
   if (tlCIStatus && tlCIBtns) {
     if (!tl.checkedIn) {
       tlCIStatus.className = 'checkin-status not-checked-in';
       tlCIStatus.innerHTML = '<span style="font-size:16px">&#9898;</span> Not checked in';
+      var uniqueSAOs = [];
+      var saoNames = {};
+      tl.saos.forEach(function(a) { if (!saoNames[a.name]) { uniqueSAOs.push(a); saoNames[a.name] = true; } });
       tlCIBtns.innerHTML =
         '<div style="width:100%">' +
-          '<div class="form-group" style="margin-bottom:8px"><label class="form-label">Staff Member</label><select id="tl-ci-staff" class="form-select"><option value="self">' + tl.name + ' (Self)</option>' + tl.saos.map(function(a) { return '<option value="' + a.name + '">' + a.name + '</option>'; }).join('') + '</select></div>' +
+          '<div class="form-group" style="margin-bottom:8px"><label class="form-label">Check-In Type</label><select id="tl-ci-type" class="form-select"><option value="SW">SW (Self)</option><option value="TL" selected>TL (With Staff)</option><option value="Lone Working">Lone Working</option></select></div>' +
+          '<div class="form-group" style="margin-bottom:8px"><label class="form-label">Staff Member</label><select id="tl-ci-staff" class="form-select"><option value="self">' + tl.name + ' (Self)</option>' + uniqueSAOs.map(function(a) { return '<option value="' + a.name + '">' + a.name + '</option>'; }).join('') + '</select></div>' +
+          '<div class="form-group" style="margin-bottom:8px"><label class="form-label">Location</label><select id="tl-ci-location" class="form-select"><option value="">Select location...</option><option value="Office">Office</option><option>Unit 3, Abbeydale Road</option><option>17 Netherthorpe Road</option><option>Flat 9, Burngreave Rise</option><option>8 Sharrow Vale Road</option><option>24 Ecclesall Road</option><option>Unit 12, Abbeydale Road</option><option>5 Sharrow Lane</option><option>Flat 3, Burngreave Rise</option><option>24 Burngreave Rise</option><option>12 Burngreave Road</option><option>Flat 2, Netherthorpe</option></select></div>' +
+          '<div class="form-group" style="margin-bottom:8px"><label class="form-label">Notes (optional)</label><input id="tl-ci-notes" class="form-input" type="text" placeholder="e.g. Visiting SU at Moorgate Street, expected 1hr"></div>' +
           '<button class="checkin-btn in" onclick="tlStaffCheckIn()" style="width:100%">&#128994; Check In</button>' +
         '</div>';
     } else {
       tlCIStatus.className = 'checkin-status checked-in';
-      tlCIStatus.innerHTML = '<span style="font-size:16px">&#9989;</span> <strong>' + (tl.checkedInName || tl.name) + '</strong> checked in since <strong>' + tl.checkedIn + '</strong>';
+      tlCIStatus.innerHTML = '<span style="font-size:16px">&#9989;</span> <strong>' + (tl.checkedInName || tl.name) + '</strong> checked in since <strong>' + tl.checkedIn + '</strong>' + (tl.checkedInLocation ? ' — &#128205; ' + tl.checkedInLocation : '');
       tlCIBtns.innerHTML = '<button class="checkin-btn out" onclick="tlStaffCheckOut()">&#128308; Check Out</button>';
+    }
+  }
+
+  // Check-in History
+  if (tlHistPanel) {
+    var history = tl.checkinHistory || [];
+    if (history.length === 0) {
+      tlHistPanel.innerHTML = '';
+    } else {
+      var hHTML = '<div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Recent Check-In / Check-Out History</div>';
+      hHTML += '<div class="si" style="max-height:200px"><table><thead><tr><th>Staff</th><th>Type</th><th>Location</th><th>In</th><th>Out</th><th>Duration</th></tr></thead><tbody>';
+      history.slice(0, 8).forEach(function(h) {
+        var inDate = new Date(h.checkinTime);
+        var outDate = new Date(h.checkoutTime);
+        var inStr = (inDate.getMonth()+1).toString().padStart(2,'0') + '/' + inDate.getDate().toString().padStart(2,'0') + ' ' + inDate.getHours().toString().padStart(2,'0') + ':' + inDate.getMinutes().toString().padStart(2,'0');
+        var outStr = outDate.getHours().toString().padStart(2,'0') + ':' + outDate.getMinutes().toString().padStart(2,'0');
+        var typeBadge = h.type === 'Lone Working' ? '<span class="b am">Lone</span>' : (h.type === 'SW' ? '<span class="b bl">SW</span>' : '<span class="b gn">TL</span>');
+        hHTML += '<tr><td style="font-weight:600">' + h.staff + '</td><td>' + typeBadge + '</td><td style="font-size:11px">' + h.location + '</td><td style="font-size:10px;color:#64748b">' + inStr + '</td><td style="font-size:10px;color:#64748b">' + outStr + '</td><td style="font-weight:600">' + h.duration + '</td></tr>';
+      });
+      hHTML += '</tbody></table></div>';
+      if (history.length > 0) hHTML += '<div style="font-size:10px;color:#94a3b8;margin-top:4px">Showing ' + Math.min(8, history.length) + ' of ' + history.length + ' entries</div>';
+      tlHistPanel.innerHTML = hHTML;
     }
   }
 
@@ -12085,7 +12197,7 @@ function renderTLDashboard() {
   initCollapsible('tl-qa-body', true);            // Team QA Summary — collapsed
   initCollapsible('tl-escalations-body', false);  // Escalations — expanded
   initCollapsible('tl-checkins-body', true);      // Weekly Check-In Log — collapsed
-  initCollapsible('tl-checkin-body', true);       // Check In/Out — collapsed
+  initCollapsible('tl-checkin-body', false);       // Check In/Out — expanded (has active checkins)
   initCollapsible('tl-mileage-body', true);       // Mileage — collapsed
   initCollapsible('tl-compliance-body', false);   // Compliance Alerts — expanded
   initCollapsible('tl-meetings-body', true);      // Meetings — collapsed
@@ -12133,11 +12245,24 @@ function tlStaffCheckIn() {
   var tl = tlData[idx];
   var staffEl = document.getElementById('tl-ci-staff');
   var staffName = staffEl ? staffEl.value : 'self';
+  var typeEl = document.getElementById('tl-ci-type');
+  var locEl = document.getElementById('tl-ci-location');
+  var notesEl = document.getElementById('tl-ci-notes');
+  var ciType = typeEl ? typeEl.value : 'TL';
+  var ciLoc = locEl ? locEl.value : '';
+  var ciNotes = notesEl ? notesEl.value : '';
+  if (!ciLoc) { showToast('Please select a location'); return; }
+  var resolvedName = staffName === 'self' ? tl.name : staffName;
   var now = new Date();
-  tl.checkedIn = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
-  tl.checkedInName = staffName === 'self' ? tl.name : staffName;
+  var timeStr = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+  tl.checkedIn = timeStr;
+  tl.checkedInName = resolvedName;
+  tl.checkedInLocation = ciLoc;
+  // Add to active check-ins
+  if (!tl.activeCheckins) tl.activeCheckins = [];
+  tl.activeCheckins.push({ staff: resolvedName, type: ciType, location: ciLoc, notes: ciNotes, checkinTime: now.toISOString() });
   renderTLDashboard();
-  showToast((tl.checkedInName) + ' checked in at ' + tl.checkedIn);
+  showToast(resolvedName + ' checked in at ' + timeStr + ' — ' + ciLoc);
 }
 
 function tlStaffCheckOut() {
@@ -12145,8 +12270,25 @@ function tlStaffCheckOut() {
   var tl = tlData[idx];
   var time = tl.checkedIn;
   var name = tl.checkedInName || tl.name;
+  // Move most recent active check-in for this person to history
+  if (tl.activeCheckins && tl.activeCheckins.length > 0) {
+    var lastIdx = -1;
+    for (var i = tl.activeCheckins.length - 1; i >= 0; i--) {
+      if (tl.activeCheckins[i].staff === name) { lastIdx = i; break; }
+    }
+    if (lastIdx >= 0) {
+      var ac = tl.activeCheckins.splice(lastIdx, 1)[0];
+      var start = new Date(ac.checkinTime);
+      var end = new Date();
+      var durMin = Math.floor((end - start) / 60000);
+      var durStr = Math.floor(durMin / 60) > 0 ? Math.floor(durMin / 60) + 'h ' + (durMin % 60) + 'm' : durMin + 'm';
+      if (!tl.checkinHistory) tl.checkinHistory = [];
+      tl.checkinHistory.unshift({ staff: ac.staff, type: ac.type, location: ac.location, notes: ac.notes, checkinTime: ac.checkinTime, checkoutTime: end.toISOString(), duration: durStr });
+    }
+  }
   tl.checkedIn = null;
   tl.checkedInName = null;
+  tl.checkedInLocation = null;
   renderTLDashboard();
   showToast(name + ' checked out (was in since ' + time + ')');
 }
