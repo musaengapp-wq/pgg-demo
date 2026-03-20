@@ -576,12 +576,23 @@ footer { text-align: center; padding: 20px 20px 16px; color: #64748b; font-size:
 .sup-event .sup-ev-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
 .sup-event .sup-ev-time { font-size: 9px; color: #94a3b8; white-space: nowrap; min-width: 70px; }
 @media (max-width: 768px) {
-  .sup-selector select, .sup-selector input { min-width: 100%; }
+  .sup-selector { flex-direction: column; }
+  .sup-selector select, .sup-selector input { min-width: 100%; width: 100%; }
   .sup-header { flex-direction: column; }
+  .sup-header .sup-name { word-break: break-word; overflow-wrap: break-word; white-space: normal; }
+  .sup-header .sup-main { min-width: 0 !important; width: 100%; }
   .sup-header .sup-meta-grid { grid-template-columns: 1fr 1fr; }
   .sup-doc-grid { grid-template-columns: repeat(2, 1fr); }
   .sup-actions { flex-direction: column; }
   .sup-actions button { width: 100%; min-height: 44px; }
+  /* Issue 1: Profile header + Missing Data Alerts stack vertically */
+  #sup-profile-wrap > div:first-child { flex-direction: column !important; }
+  #sup-missing-alerts-card { flex: 1 1 100% !important; }
+  /* Issue 3: Contact Activity + Incidents side-by-side stack */
+  #p-su-profile .g23 { grid-template-columns: 1fr !important; }
+  /* Issue 5: Support needs grid — single column on small screens */
+  #sup-support-plan div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+  #sup-progress-tracker > div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
 }
 /* Breadcrumbs */
 .breadcrumbs { display: none; align-items: center; gap: 6px; font-size: 11px; color: #94a3b8; margin-bottom: 12px; }

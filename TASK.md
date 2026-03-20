@@ -1,25 +1,39 @@
-# TASK — Two Queued Items
+# TASK: Fix Service User Profile Mobile View
 
-Work on the file: `/tmp/pgg-demo/index.html`
+## File: `/tmp/pgg-demo/index.html`
 
-## 1. Property Auto-Fill on New Resident Checklist
+Fix the mobile responsiveness of the Service User Profile page (id="p-su-profile"). Test at 375px width.
 
-When a New Resident Checklist is opened from a Service User's profile, the property/location field should auto-populate from the SU's profile data (their assigned property). Don't make the user type it in manually.
+## Issues to Fix
 
-Look at how the New Resident Checklist is currently implemented and find where the SU's property info is stored. Auto-fill it into the checklist form.
+### 1. Profile Header + Missing Data Alerts Layout
+- Around line 3252, there's a flex container: `<div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap">`
+- The Missing Data Alerts card has `flex:0 0 280px` — this is too wide on mobile (375px screen minus padding)
+- **Fix:** Add a `@media (max-width: 768px)` rule that makes both children stack vertically (full width). Override the inline `flex:0 0 280px` on `#sup-missing-alerts-card` with `flex: 1 1 100% !important` at mobile breakpoint.
 
-## 2. Expenses Approval Visual Flow
+### 2. Profile Header Content (sup-header)
+- The header rendered by `loadSUProfile()` JS function shows avatar, name, status badges, personal details, and action buttons
+- On mobile the name gets truncated ("A. Rahu...") 
+- **Fix:** Ensure the profile header content wraps properly. Look for the JS function `loadSUProfile` and check how the header HTML is generated. The avatar + name + badges row needs to stack or wrap on mobile. Add CSS rules for `.sup-header` children to be `flex-wrap: wrap` and full width on mobile.
 
-On the Staff Expenses tab, add a visual workflow showing the approval stages:
+### 3. Contact Activity + Incidents Side-by-Side
+- There's a two-column grid/flex layout showing Contact Activity on the left and Incidents/Concerns/Alerts/Cases/Welfare Watch tabs on the right
+- On mobile these should stack vertically (full width each)
+- Look for the container that holds these two sections and add mobile stacking rules
 
-**Flow:** SW Submits → Pending TL Approval → Pending SM Sign-off → Approved / Denied / Amended
+### 4. SU Selector Row
+- The selector row with dropdown + search input should stack on mobile
+- Class is `.sup-selector` — make it flex-wrap or flex-direction: column on mobile
 
-- Show the current status with a visual indicator (like the kanban cards or a progress stepper)
-- Each stage should be visually distinct (pending = amber, approved = green, denied = red, amended = blue)
-- When TL or SM clicks on a pending expense, they should see the form as submitted with options to: Approve, Deny, or Amend
-- Amendment must show WHAT was changed
-- Add a few demo expense entries at different stages so Sar can see the flow
+### 5. Support Needs Grid
+- The support needs categories (Therapeutic Support, Health & Well-being, etc.) display in a 2-column grid
+- Make sure this works on mobile — 1 column on very small screens
 
-Keep the existing look and feel — don't change fonts, colours, or formatting style. Match what's already there.
+## Rules
+- Add all CSS fixes in the existing `@media (max-width: 768px)` block or create targeted rules
+- Use `!important` where needed to override inline styles
+- Don't change the desktop layout — only mobile
+- Test that existing functionality still works (collapsible sections, action groups, etc.)
+- Keep changes minimal and surgical — CSS only where possible
 
-Commit with message: "Add property auto-fill on New Resident Checklist + expenses approval workflow"
+## After fixing, commit with message "fix: mobile responsive SU profile layout"
