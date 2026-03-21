@@ -6268,14 +6268,31 @@ function loadSUProfile(key) {
   if (cnList) {
     var allNotes = s.contactEvents.slice(0, 5);
     var totalNotes = allNotes.length;
+    var isSWRole = localStorage.getItem('pgg_user_role') === 'sw';
     function renderNote(e, idx) {
       var qaBadge = e.qa >= 3 ? '<span class="b gn" style="font-size:9px">Verified</span>' : e.qa >= 2 ? '<span class="b am" style="font-size:9px">Reviewed</span>' : '<span class="b rd" style="font-size:9px">Flagged</span>';
+      // Demo: first note is QA'd but not yet accepted
+      var needsAcceptance = (idx === 0 && e.qa >= 3);
+      if (needsAcceptance) qaBadge = '<span class="b am" style="font-size:9px">Awaiting Acceptance</span>';
       var hidden = idx >= 3 ? ' style="display:none"' : '';
       var noteId = 'sup-note-orig-'+idx;
+      var acceptId = 'sup-note-accept-'+idx;
+      var publishedHtml = '';
+      if (needsAcceptance) {
+        publishedHtml = '<div style="margin-top:8px;padding:10px;background:#f0fdf4;border:2px solid #86efac;border-radius:6px">' +
+          '<div style="font-size:11px;font-weight:700;color:#166534;margin-bottom:6px">Beacon Published Version</div>' +
+          '<div style="font-size:11px;line-height:1.6;color:#334155;margin-bottom:6px">' + e.desc + '</div>' +
+          '<div style="font-size:10px;color:#64748b;line-height:1.5;margin-bottom:8px">Each note is scored by Beacon QA, then polished for spelling, grammar and professionalism. The Published Version preserves the original meaning — only SPAG and presentation are improved.</div>' +
+          (!isSWRole ? '<div style="font-size:11px;font-weight:700;color:#059669;margin-bottom:8px">Beacon QA Score: ' + e.qa + '.0/4.0</div>' : '') +
+          '<button id="'+acceptId+'" class="btn-accept-reframe" style="padding:8px 16px;font-size:11px;font-weight:700;border:none;border-radius:6px;cursor:pointer" onclick="event.stopPropagation();this.parentElement.innerHTML=\'<div style=padding:8px;text-align:center;color:#059669;font-weight:700;font-size:11px>&#10003; Accepted &amp; submitted</div>\';showToast(\'Published version accepted and submitted\')">Accept &amp; Submit Published Version</button>' +
+        '</div>';
+      }
+      var qaScoreHtml = needsAcceptance ? '' : '<div style="color:#1a1a3e;font-size:10px;margin-top:4px">QA Score: ' + e.qa + '/4</div>';
       return '<div class="sup-note-item" data-note-idx="'+idx+'"'+hidden+'><div style="padding:10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;margin-bottom:6px;font-size:11px;cursor:pointer" onclick="this.querySelector(\'.sup-note-detail\').style.display=this.querySelector(\'.sup-note-detail\').style.display===\'block\'?\'none\':\'block\'">' +
         '<div style="display:flex;justify-content:space-between;align-items:center"><strong>' + e.date + '</strong>' + qaBadge + '</div>' +
         '<div style="color:#475569;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + e.type + ' — ' + e.desc + '</div>' +
-        '<div class="sup-note-detail" style="display:none;color:#334155;margin-top:6px;padding-top:6px;border-top:1px solid #e2e8f0;white-space:normal">' + e.desc + '<div style="color:#1a1a3e;font-size:10px;margin-top:4px">QA Score: ' + e.qa + '/4</div>' +
+        '<div class="sup-note-detail" style="display:none;color:#334155;margin-top:6px;padding-top:6px;border-top:1px solid #e2e8f0;white-space:normal">' + e.desc + qaScoreHtml +
+        publishedHtml +
         '<div style="margin-top:8px"><a href="#" onclick="event.stopPropagation();var el=document.getElementById(\''+noteId+'\');el.style.display=el.style.display===\'none\'?\'block\':\'none\';this.textContent=el.style.display===\'none\'?\'🔒 View Original (Management Only)\':\'🔒 Hide Original\';return false" style="font-size:10px;font-weight:600;color:#7c3aed;text-decoration:none">🔒 View Original (Management Only)</a></div>' +
         '<div id="'+noteId+'" style="display:none;margin-top:6px;padding:8px;background:#fef3c7;border:1px solid #fde68a;border-radius:6px;font-size:11px;line-height:1.6"><span style="font-size:9px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:0.5px">🔒 Management Only — Original Note</span><br>' + e.desc + '</div>' +
         '</div>' +
@@ -6422,7 +6439,13 @@ function supLogContactEvent() {
     '</div>' +
     '<div style="margin-bottom:12px"><label style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;display:block;margin-bottom:4px">Notes</label>' +
       '<textarea id="sup-cn-notes" rows="4" placeholder="Enter support notes..." style="width:100%;padding:8px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px;resize:vertical;box-sizing:border-box"></textarea></div>' +
-    '<button class="btn-primary" style="width:100%;padding:10px;font-size:13px" onclick="submitSUPContactNote()">Submit Support Note</button>';
+    '<div id="sup-cn-verify-box" style="margin-bottom:12px;padding:12px;border:2px solid #e2e8f0;border-radius:8px;background:#f8fafc">' +
+      '<label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:11px;line-height:1.6;color:#334155">' +
+        '<input type="checkbox" id="sup-cn-verify-check" onchange="document.getElementById(\'sup-cn-submit-btn\').disabled=!this.checked;document.getElementById(\'sup-cn-submit-btn\').style.opacity=this.checked?\'1\':\'0.5\'" style="margin-top:3px;min-width:16px;min-height:16px;cursor:pointer">' +
+        '<span>I confirm that this is an accurate and factual record of the support activity that took place. I understand that this note will be processed by Beacon for quality assurance, and that the original version will be retained.</span>' +
+      '</label>' +
+    '</div>' +
+    '<button id="sup-cn-submit-btn" class="btn-primary" style="width:100%;padding:10px;font-size:13px;opacity:0.5" disabled onclick="submitSUPContactNote()">Submit Support Note</button>';
   // Set default date to today
   var actionsDiv = document.getElementById('sup-actions');
   actionsDiv.parentNode.insertBefore(modal, actionsDiv.nextSibling);
@@ -11633,9 +11656,6 @@ function renderBeaconQueue() {
       '</div>' +
       (n.qaReframe && !n.qaWarning ? '<div class="beacon-reframe"><h4>Beacon Published Version</h4><div class="reframed-text">' + n.qaReframe.replace(/</g,'&lt;').replace(/\n/g,'<br>') + '</div><div style="font-size:10px;color:#64748b;line-height:1.5;margin-top:8px">Each note is scored by Beacon QA, then polished for spelling, grammar and professionalism. The Beacon Published Version preserves the original meaning — only SPAG and presentation are improved.</div></div>' : '') +
       '<div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">' +
-        (!n.verified ? '<button class="cn-verify-btn" onclick="verifyCNNote(\''+n.id+'\');renderBeaconQueue()">&#10003; Verify</button>' : '') +
-
-        (n.qaReframe && !n.qaWarning && !n.verified ? '<button class="btn-accept-reframe" style="padding:4px 12px;font-size:10px" onclick="acceptReframe(\''+n.id+'\');renderBeaconQueue()">Accept</button>' : '') +
       '</div>' +
     '</div>';
   }).join('');
@@ -13780,6 +13800,26 @@ function renderSWHome() {
     '</div>';
   });
   html += '</div>';
+
+  // (d2) Notes Awaiting Acceptance
+  html += '<div class="sw-home-card" id="sw-notes-acceptance">' +
+    '<h3 style="display:flex;align-items:center;gap:8px">Notes Awaiting Acceptance <span style="background:#dc2626;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">2</span></h3>' +
+    '<p style="font-size:11px;color:#64748b;margin:0 0 12px">These notes have been processed by Beacon QA and need your review before publishing.</p>' +
+    '<div id="sw-accept-note-1" style="padding:12px;background:#f0fdf4;border:2px solid #86efac;border-radius:8px;margin-bottom:10px">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><strong style="font-size:12px;color:#1e293b">K. Adebayo — Support Session</strong><span class="b am" style="font-size:9px">Awaiting Acceptance</span></div>' +
+      '<div style="font-size:10px;color:#64748b;margin-bottom:8px">18 Mar 2026 | Visit | Duration: 45 min</div>' +
+      '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:6px;padding:10px;margin-bottom:8px;font-size:11px;line-height:1.6;color:#334155"><strong>Beacon Published Version:</strong><br>Attended a scheduled support session with K. Adebayo at Unit 3 Abbeydale. Discussed ongoing housing benefit application and reviewed recent correspondence from DWP. K. reported feeling more confident managing paperwork independently. Agreed to follow up on UC journal submission by Friday. Property maintained to a good standard — no concerns raised.</div>' +
+      '<div style="font-size:10px;color:#64748b;line-height:1.5;margin-bottom:10px">Each note is scored by Beacon QA, then polished for spelling, grammar and professionalism. The Published Version preserves the original meaning — only SPAG and presentation are improved.</div>' +
+      '<button class="btn-accept-reframe" style="padding:8px 16px;font-size:11px;font-weight:700;border:none;border-radius:6px;cursor:pointer" onclick="this.parentElement.innerHTML=\'<div style=padding:12px;text-align:center;color:#059669;font-weight:700;font-size:12px>&#10003; Accepted &amp; submitted</div>\';showToast(\'Published version accepted and submitted\')">Accept &amp; Submit Published Version</button>' +
+    '</div>' +
+    '<div id="sw-accept-note-2" style="padding:12px;background:#f0fdf4;border:2px solid #86efac;border-radius:8px;margin-bottom:10px">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><strong style="font-size:12px;color:#1e293b">S. Hassan — Key Session</strong><span class="b am" style="font-size:9px">Awaiting Acceptance</span></div>' +
+      '<div style="font-size:10px;color:#64748b;margin-bottom:8px">17 Mar 2026 | Visit | Duration: 60 min</div>' +
+      '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:6px;padding:10px;margin-bottom:8px;font-size:11px;line-height:1.6;color:#334155"><strong>Beacon Published Version:</strong><br>Conducted a key session with S. Hassan at Flat 12 Broomhall. Reviewed support plan goals and discussed mental health progress. S. has engaged well with counselling sessions and reports improved sleep. Discussed employment goals — S. expressed interest in volunteering at a local charity. Action: refer to employment support service and follow up at next session.</div>' +
+      '<div style="font-size:10px;color:#64748b;line-height:1.5;margin-bottom:10px">Each note is scored by Beacon QA, then polished for spelling, grammar and professionalism. The Published Version preserves the original meaning — only SPAG and presentation are improved.</div>' +
+      '<button class="btn-accept-reframe" style="padding:8px 16px;font-size:11px;font-weight:700;border:none;border-radius:6px;cursor:pointer" onclick="this.parentElement.innerHTML=\'<div style=padding:12px;text-align:center;color:#059669;font-weight:700;font-size:12px>&#10003; Accepted &amp; submitted</div>\';showToast(\'Published version accepted and submitted\')">Accept &amp; Submit Published Version</button>' +
+    '</div>' +
+    '</div>';
 
   // (e) My Alerts
   html += '<div class="sw-home-card"><h3>My Alerts</h3>' +
