@@ -3407,6 +3407,9 @@ body.dyslexia-font, body.dyslexia-font * { font-family: 'Comic Sans MS', 'OpenDy
       <div id="sup-notes-body" class="collapsible-body">
         <p style="margin:0 0 10px;font-size:11px;color:#94a3b8">Recent support notes for this service user. Notes are submitted for QA review.</p>
         <div class="si" style="max-height:300px" id="sup-cn-list"></div>
+        <div style="margin-top:10px;text-align:center">
+          <button onclick="openAllSupportNotes()" style="background:none;border:1px solid #1a1a3e;border-radius:6px;padding:8px 18px;font-size:11px;font-weight:700;color:#1a1a3e;cursor:pointer;width:100%;transition:background .15s,color .15s" onmouseover="this.style.background='#1a1a3e';this.style.color='#fff'" onmouseout="this.style.background='none';this.style.color='#1a1a3e'">View All Support Notes &rarr;</button>
+        </div>
       </div>
     </div>
 
@@ -5131,6 +5134,79 @@ body.dyslexia-font, body.dyslexia-font * { font-family: 'Comic Sans MS', 'OpenDy
   </div>
 </div>
 
+<!-- ===== ALL SUPPORT NOTES PAGE ===== -->
+<div class="page" id="p-su-all-notes">
+  <div class="card" style="margin-bottom:0">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px">
+      <div>
+        <button onclick="goBack()" style="background:none;border:1px solid #e2e8f0;border-radius:6px;padding:6px 14px;font-size:11px;font-weight:600;color:#475569;cursor:pointer;display:inline-flex;align-items:center;gap:4px;transition:background .15s" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='none'">&larr; Back to Profile</button>
+      </div>
+      <h3 style="margin:0;font-size:14px;letter-spacing:0;text-transform:none;color:#1e293b" id="all-notes-title">Support Notes</h3>
+      <div style="width:120px"></div>
+    </div>
+    <!-- Filters -->
+    <div class="cn-filter-bar" style="margin-bottom:14px">
+      <div class="form-group" style="margin:0;flex:1;min-width:120px">
+        <label class="form-label" style="margin-bottom:4px">From</label>
+        <input type="date" class="form-input" id="allnotes-from" onchange="filterAllNotes()" style="border-radius:6px;padding:6px 8px;font-size:11px">
+      </div>
+      <div class="form-group" style="margin:0;flex:1;min-width:120px">
+        <label class="form-label" style="margin-bottom:4px">To</label>
+        <input type="date" class="form-input" id="allnotes-to" onchange="filterAllNotes()" style="border-radius:6px;padding:6px 8px;font-size:11px">
+      </div>
+      <div class="form-group" style="margin:0;flex:2;min-width:150px">
+        <label class="form-label" style="margin-bottom:4px">Search</label>
+        <input type="text" class="form-input" id="allnotes-search" placeholder="Search by keyword..." oninput="filterAllNotes()" style="border-radius:6px;padding:6px 8px;font-size:11px">
+      </div>
+      <div class="form-group" style="margin:0;flex:1;min-width:140px">
+        <label class="form-label" style="margin-bottom:4px">Support Worker</label>
+        <select class="form-select" id="allnotes-sw" onchange="filterAllNotes()" style="border-radius:6px;padding:6px 8px;font-size:11px">
+          <option value="">All Staff</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin:0;display:flex;align-items:flex-end">
+        <button class="btn-primary" onclick="openNotesPrintPreview()" style="padding:6px 14px;font-size:11px;white-space:nowrap;margin-top:auto">&#128424; Print / Export</button>
+      </div>
+    </div>
+    <!-- Notes list -->
+    <div id="allnotes-list" style="max-height:calc(100vh - 240px);overflow-y:auto"></div>
+  </div>
+</div>
+
+<!-- ===== PRINT PREVIEW OVERLAY ===== -->
+<div id="notes-print-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;overflow-y:auto">
+  <div style="max-width:800px;margin:30px auto;background:#fff;border-radius:12px;padding:24px;position:relative">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <h3 style="margin:0;font-size:14px;color:#1e293b;text-transform:none;letter-spacing:0" id="print-preview-title">Support Notes — Print Preview</h3>
+      <div style="display:flex;gap:8px">
+        <button class="btn-primary" onclick="window.print()" style="padding:6px 14px;font-size:11px">&#128424; Print</button>
+        <button onclick="document.getElementById('notes-print-overlay').style.display='none'" style="background:none;border:1px solid #e2e8f0;border-radius:6px;padding:6px 14px;font-size:11px;font-weight:600;color:#475569;cursor:pointer">Close Preview</button>
+      </div>
+    </div>
+    <table id="print-notes-table" style="width:100%;border-collapse:collapse;font-size:11px">
+      <thead>
+        <tr style="background:#f8fafc;text-align:left">
+          <th style="padding:8px 10px;border:1px solid #e2e8f0;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#94a3b8;font-weight:700">Date</th>
+          <th style="padding:8px 10px;border:1px solid #e2e8f0;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#94a3b8;font-weight:700">Support Worker</th>
+          <th style="padding:8px 10px;border:1px solid #e2e8f0;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#94a3b8;font-weight:700">Published Support Note</th>
+        </tr>
+      </thead>
+      <tbody id="print-notes-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+@media print {
+  body > *:not(#notes-print-overlay) { display: none !important; }
+  #notes-print-overlay { position: static !important; background: none !important; display: block !important; }
+  #notes-print-overlay > div { margin: 0 !important; box-shadow: none !important; border: none !important; }
+  #notes-print-overlay button { display: none !important; }
+  #print-notes-table { page-break-inside: auto; }
+  #print-notes-table tr { page-break-inside: avoid; }
+}
+</style>
+
 <script>
 const titles = {
   'dashboard':'Homepage','notifications':'Notifications','service-users':'All Service Users',
@@ -5166,7 +5242,8 @@ const titles = {
   'su-incident-form':'Log Incident',
   'su-welfare-concern-form':'Log Welfare Concern',
   'leavers':'Leavers',
-  'regulatory-notif':'Regulatory Notifications'
+  'regulatory-notif':'Regulatory Notifications',
+  'su-all-notes':'All Support Notes'
 };
 function toggleSideNav() {
   var sb = document.querySelector('.sidebar');
@@ -6390,6 +6467,181 @@ function switchSUPTab(tab, el) {
   el.classList.add('active');
   document.querySelectorAll('#p-su-profile .sup-tab-content').forEach(function(c) { c.classList.remove('active'); });
   document.getElementById('sup-tab-'+tab).classList.add('active');
+}
+
+// ===== ALL SUPPORT NOTES PAGE =====
+var _allNotesData = [];
+var _allNotesSUName = '';
+var _allNotesSUKey = '';
+
+function openAllSupportNotes() {
+  var key = document.getElementById('sup-select').value;
+  var s = supData[key];
+  if (!s) return;
+  _allNotesSUKey = key;
+  _allNotesSUName = s.name;
+
+  // Build expanded demo notes (10-15 from different dates & workers)
+  var staffNames = ['Abdulrahman Ahmed','Carol Vincent','Tom Bradley','Priya Sharma','Emma Lawson'];
+  var demoPublished = [
+    'Key session conducted — welfare check completed. Service user engaged well and discussed current wellbeing, mood, and daily routine. Agreed actions documented.',
+    'Benefits query follow-up — spoke with SU regarding UC payment delay. Advised to contact DWP helpline and provided reference number for ongoing claim.',
+    'Support plan review — reviewed current goals and progress. SU making good progress with budgeting skills. Updated plan targets accordingly.',
+    'Wellbeing call — SU reported feeling low today. Discussed coping strategies and encouraged attendance at community group on Thursday.',
+    'Key session — budgeting workshop. Worked through monthly income and expenditure. SU now tracking spending using provided template.',
+    'Move-in checklist follow-up — verified all essential items in place. SU settled into property and reports no maintenance issues.',
+    'Phone contact regarding GP registration. SU confirmed appointment booked for next week. Reminded about medication review.',
+    'Home visit — property inspection completed. All areas in good condition. Discussed fire safety plan and tested smoke alarm.',
+    'Tenancy review session — discussed licence obligations and neighbour relations. SU understands expectations. No breaches noted.',
+    'Community integration support — accompanied SU to local job centre. CV updated and two applications submitted. Positive engagement.',
+    'Risk assessment review — updated dynamic risk factors. Current risk level unchanged. SU engaging with support plan.',
+    'Wellbeing check-in — SU in good spirits today. Attending ESOL classes regularly and making social connections.',
+    'Key session — discussed long-term housing options. SU interested in applying for council housing. Provided information pack.',
+    'Emergency contact — SU reported feeling unsafe. Arranged immediate welfare visit. Situation resolved — neighbour dispute mediated.',
+    'Shift handover note — SU had a quiet evening. Medication taken as prescribed. No concerns to escalate.'
+  ];
+  var demoOriginal = [
+    'did welfare check with su, seemed ok today talked about how hes been doing',
+    'su rang about benefits being late, told him to ring dwp gave him the number',
+    'went thru support plan goals, hes doing better with money stuff, changed the targets',
+    'called su, was feeling down, talked about ways to cope and told him about the group',
+    'did budgeting session, went through money in and out, gave him a sheet to fill in',
+    'checked the movein list, all good, su happy with the flat no problems',
+    'rang about gp, hes got appointment next wk, told him about meds review',
+    'visited flat, looked fine, went through fire safety and checked alarms',
+    'talked about tenancy stuff and neighbours, no issues, su understands the rules',
+    'went to job centre with su, sorted cv and put in 2 applications, went well',
+    'updated risk assessment, nothing changed, su still doing ok with support',
+    'check in call, su doing well, going to english classes and meeting people',
+    'talked about getting own place, su wants council flat, gave him leaflets',
+    'su called saying felt unsafe, went straight round, was a thing with neighbour sorted it out',
+    'handover: quiet night, su took meds, nothing to flag'
+  ];
+  var dates = [
+    '02/03/2026 14:30','27/02/2026 10:15','21/02/2026 11:00','14/02/2026 09:45','07/02/2026 13:30',
+    '31/01/2026 10:00','24/01/2026 15:20','17/01/2026 11:45','10/01/2026 14:00','03/01/2026 09:30',
+    '20/12/2025 10:30','13/12/2025 16:00','06/12/2025 11:15','28/11/2025 08:50','21/11/2025 22:00'
+  ];
+  var types = ['Visit','Phone','Visit','Phone','Visit','Visit','Phone','Visit','Visit','Visit','Visit','Phone','Visit','Phone','Visit'];
+  var qaScores = [4,3,4,3,3,4,3,4,4,3,3,3,4,2,3];
+
+  _allNotesData = [];
+  for (var i = 0; i < 15; i++) {
+    _allNotesData.push({
+      dateTime: dates[i],
+      worker: staffNames[i % staffNames.length],
+      type: types[i],
+      published: demoPublished[i],
+      original: demoOriginal[i],
+      qa: qaScores[i],
+      feedback: 'Beacon QA scored this note ' + qaScores[i] + '.0/4.0. ' + (qaScores[i] >= 3 ? 'Note meets quality standards. SPAG corrections applied. Professional tone maintained.' : 'Note flagged for review — lacks detail on outcomes and agreed actions.')
+    });
+  }
+
+  // Populate SW dropdown
+  var swSelect = document.getElementById('allnotes-sw');
+  swSelect.innerHTML = '<option value="">All Staff</option>';
+  var uniqueStaff = [];
+  _allNotesData.forEach(function(n) { if (uniqueStaff.indexOf(n.worker) === -1) uniqueStaff.push(n.worker); });
+  uniqueStaff.forEach(function(w) { swSelect.innerHTML += '<option value="'+w+'">'+w+'</option>'; });
+
+  // Clear filters
+  document.getElementById('allnotes-from').value = '';
+  document.getElementById('allnotes-to').value = '';
+  document.getElementById('allnotes-search').value = '';
+  swSelect.value = '';
+
+  document.getElementById('all-notes-title').textContent = 'Support Notes \u2014 ' + s.name;
+  renderAllNotes(_allNotesData);
+  nav('su-all-notes');
+}
+
+function parseNoteDate(d) {
+  // Parse dd/mm/yyyy hh:mm
+  var parts = d.split(' ');
+  var dp = parts[0].split('/');
+  return new Date(parseInt(dp[2]), parseInt(dp[1])-1, parseInt(dp[0]),
+    parts[1] ? parseInt(parts[1].split(':')[0]) : 0,
+    parts[1] ? parseInt(parts[1].split(':')[1]) : 0);
+}
+
+function filterAllNotes() {
+  var from = document.getElementById('allnotes-from').value;
+  var to = document.getElementById('allnotes-to').value;
+  var search = document.getElementById('allnotes-search').value.toLowerCase();
+  var sw = document.getElementById('allnotes-sw').value;
+
+  var filtered = _allNotesData.filter(function(n) {
+    var nd = parseNoteDate(n.dateTime);
+    if (from && nd < new Date(from)) return false;
+    if (to) { var toD = new Date(to); toD.setHours(23,59,59); if (nd > toD) return false; }
+    if (search && n.published.toLowerCase().indexOf(search) === -1 && n.worker.toLowerCase().indexOf(search) === -1) return false;
+    if (sw && n.worker !== sw) return false;
+    return true;
+  });
+  renderAllNotes(filtered);
+}
+
+function renderAllNotes(notes) {
+  var isAdmin = localStorage.getItem('pgg_user_role') !== 'sw';
+  var container = document.getElementById('allnotes-list');
+  if (notes.length === 0) {
+    container.innerHTML = '<div style="padding:40px;text-align:center;color:#94a3b8;font-size:12px">No support notes match your filters.</div>';
+    return;
+  }
+  container.innerHTML = notes.map(function(n, i) {
+    var qaBadge = n.qa >= 3 ? '<span class="b gn" style="font-size:9px;padding:2px 8px">Verified</span>' : '<span class="b rd" style="font-size:9px;padding:2px 8px">Flagged</span>';
+    var origId = 'allnote-orig-'+i;
+    var fbId = 'allnote-fb-'+i;
+    var adminBtns = isAdmin ? (
+      '<button onclick="event.stopPropagation();var el=document.getElementById(\''+origId+'\');el.style.display=el.style.display===\'none\'?\'block\':\'none\'" style="background:none;border:1px solid #e2e8f0;border-radius:4px;padding:4px 10px;font-size:10px;font-weight:600;color:#7c3aed;cursor:pointer;white-space:nowrap">\ud83d\udd12 View Original</button>' +
+      '<button onclick="event.stopPropagation();var el=document.getElementById(\''+fbId+'\');el.style.display=el.style.display===\'none\'?\'block\':\'none\'" style="background:none;border:1px solid #e2e8f0;border-radius:4px;padding:4px 10px;font-size:10px;font-weight:600;color:#1a1a3e;cursor:pointer;white-space:nowrap">View Feedback &amp; QA Score</button>'
+    ) : '';
+    return '<div style="padding:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;margin-bottom:8px">' +
+      '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">' +
+        '<div style="flex:1;min-width:200px">' +
+          '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">' +
+            '<strong style="font-size:12px;color:#1e293b">' + n.dateTime + '</strong>' +
+            qaBadge +
+          '</div>' +
+          '<div style="font-size:11px;color:#475569;margin-bottom:6px">' + n.worker + ' &middot; ' + n.type + '</div>' +
+          '<div style="font-size:11px;color:#334155;line-height:1.6">' + n.published + '</div>' +
+        '</div>' +
+        (adminBtns ? '<div style="display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap">' + adminBtns + '</div>' : '') +
+      '</div>' +
+      (isAdmin ? '<div id="'+origId+'" style="display:none;margin-top:8px;padding:10px;background:#fef3c7;border:1px solid #fde68a;border-radius:6px"><div style="font-size:9px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">\ud83d\udd12 Management Only \u2014 Original Note</div><div style="font-size:11px;line-height:1.6;color:#334155">' + n.original + '</div></div>' : '') +
+      (isAdmin ? '<div id="'+fbId+'" style="display:none;margin-top:8px;padding:10px;background:#eff6ff;border:1px solid #93c5fd;border-radius:6px"><div style="font-size:9px;font-weight:700;color:#1e40af;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">Beacon QA Feedback</div><div style="font-size:11px;line-height:1.6;color:#334155">' + n.feedback + '</div><div style="font-size:11px;font-weight:700;color:#059669;margin-top:6px">QA Score: ' + n.qa + '.0/4.0</div></div>' : '') +
+    '</div>';
+  }).join('');
+}
+
+function openNotesPrintPreview() {
+  // Get currently visible/filtered notes
+  var from = document.getElementById('allnotes-from').value;
+  var to = document.getElementById('allnotes-to').value;
+  var search = document.getElementById('allnotes-search').value.toLowerCase();
+  var sw = document.getElementById('allnotes-sw').value;
+
+  var filtered = _allNotesData.filter(function(n) {
+    var nd = parseNoteDate(n.dateTime);
+    if (from && nd < new Date(from)) return false;
+    if (to) { var toD = new Date(to); toD.setHours(23,59,59); if (nd > toD) return false; }
+    if (search && n.published.toLowerCase().indexOf(search) === -1 && n.worker.toLowerCase().indexOf(search) === -1) return false;
+    if (sw && n.worker !== sw) return false;
+    return true;
+  });
+
+  document.getElementById('print-preview-title').textContent = 'Support Notes \u2014 ' + _allNotesSUName + ' \u2014 Print Preview';
+  var tbody = document.getElementById('print-notes-tbody');
+  tbody.innerHTML = filtered.map(function(n) {
+    return '<tr>' +
+      '<td style="padding:8px 10px;border:1px solid #e2e8f0;white-space:nowrap;vertical-align:top;font-size:11px">' + n.dateTime + '</td>' +
+      '<td style="padding:8px 10px;border:1px solid #e2e8f0;white-space:nowrap;vertical-align:top;font-size:11px">' + n.worker + '</td>' +
+      '<td style="padding:8px 10px;border:1px solid #e2e8f0;font-size:11px;line-height:1.5">' + n.published + '</td>' +
+    '</tr>';
+  }).join('');
+
+  document.getElementById('notes-print-overlay').style.display = 'block';
 }
 
 // ===== SU PROFILE ACTION BUTTONS =====
